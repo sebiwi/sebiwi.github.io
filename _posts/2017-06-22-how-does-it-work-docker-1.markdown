@@ -146,7 +146,7 @@ containerd is a daemon that uses runC to manage containers. It exposes a CRUD
 container interface using gRPC, with a very simple API. This way, all the
 container lifecycle actions (like starting, stopping, pausing or destroying
 containers) are delegated by the Docker Engine to containerd which uses runC to
-execute all its container-related actions. The Engine still manages images,
+execute all its container-related actions. The Engine still manages
 volumes, networks and builds, but containers are now containerd’s territory.
 
 ![Engine components]({{ site.url }}/assets/images/how-does-it-work-docker/1/runc-containerd.png)
