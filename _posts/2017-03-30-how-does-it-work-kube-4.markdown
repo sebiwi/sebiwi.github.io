@@ -16,16 +16,18 @@ Right, code. The first step is to actually create the CoreOS virtual machines. I
 simple Vagrantfile in which I specify how many instances I want, and how much computing
 resources each one of them is going to have:
 
-    # General cluster configuration
-    $etcd_instances = 1
-    $etcd_instance_memory = 1024
-    $etcd_instance_cpus = 1
-    $kube_master_instances = 1
-    $kube_master_instance_memory = 2048
-    $kube_master_instance_cpus = 1
-    $kube_worker_instances = 2
-    $kube_worker_instance_memory = 2048
-    $kube_worker_instance_cpus = 1
+```ruby
+# General cluster configuration
+$etcd_instances = 1
+$etcd_instance_memory = 1024
+$etcd_instance_cpus = 1
+$kube_master_instances = 1
+$kube_master_instance_memory = 2048
+$kube_master_instance_cpus = 1
+$kube_worker_instances = 2
+$kube_worker_instance_memory = 2048
+$kube_worker_instance_cpus = 1
+```
 
 <figcaption class="caption"><a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/Vagrantfile#L4-L13">Amazing complexity</a></figcaption>
 
@@ -38,23 +40,25 @@ going to have less than 10 nodes. So I just number them from 10.0.0.1x1 to 10.0.
 x being 0 for the etcd nodes, 1 for the Kubernetes master nodes, and 2 for the Kubernetes
 worker nodes:
 
-    # Kubernetes Master instances configuration
-    (1..$kube_master_instances).each do |i|
-      config.vm.define vm_name = "kube-master-%02d" % i do |master|
-        # Name
-        master.vm.hostname = vm_name
+```ruby
+# Kubernetes Master instances configuration
+(1..$kube_master_instances).each do |i|
+  config.vm.define vm_name = "kube-master-%02d" % i do |master|
+    # Name
+    master.vm.hostname = vm_name
 
-        # RAM, CPU
-        master.vm.provider :virtualbox do |vb|
-          vb.gui = false
-          vb.memory = $kube_master_instance_memory
-          vb.cpus = $kube_master_instance_cpus
-        end
-
-        # IP
-        master.vm.network :private_network, ip: "10.0.0.#{i+110}"
-      end
+    # RAM, CPU
+    master.vm.provider :virtualbox do |vb|
+      vb.gui = false
+      vb.memory = $kube_master_instance_memory
+      vb.cpus = $kube_master_instance_cpus
     end
+
+    # IP
+    master.vm.network :private_network, ip: "10.0.0.#{i+110}"
+  end
+end
+```
 
 <figcaption class="caption"><a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/Vagrantfile#L47-L63">Absolute power</a></figcaption>
 
@@ -68,16 +72,20 @@ your computer. After that, you can export the SSH configuration used by Vagrant 
 `vagrant ssh-config > ssh.config`. You can then use this configuration for the Ansible
 configuration, if you include it in your ansible.cfg file:
 
-    [ssh_connection]
-    ssh_args = -F ssh.config
+```ini
+[ssh_connection]
+ssh_args = -F ssh.config
+```
 
 <figcaption class="caption"><a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/ansible.cfg#L7-L8">Like this</a></figcaption>
 
 I really like Makefiles. I use them quite often when I have write more than one long command, or many different ones that are going to take a while. I'm also kinda lazy. So I just did this:
 
-    vagrant:
-    	@vagrant up
-    	@vagrant ssh-config > ssh.config
+```
+vagrant:
+	@vagrant up
+	@vagrant ssh-config > ssh.config
+```
 
 <figcaption class="caption"><a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/Makefile#L5-L7">make: automating your life since 1977</a></figcaption>
 
@@ -93,11 +101,13 @@ configuration of your test infrastructure, and to specify the playbook that you 
 Usually, I try to test each role independently. That means that I'll have a molecule.yml
 file per role directory, and also a playbook.yml file that uses the role that I'm testing.
 
-    docker-gc/
-    ├── molecule.yml
-    ├── playbook.yml
-    ├── tasks
-    └── templates
+```
+docker-gc/
+├── molecule.yml
+├── playbook.yml
+├── tasks
+└── templates
+```
 
 <figcaption class="caption">Like this</figcaption>
 
@@ -163,31 +173,33 @@ Using these modules, we can install a lightweight Python implementation called [
 is as follows: I verify that Python is installed using the raw module, and if that is not the case,
 I install it using a more raw tasks.
 
-    - block:
-        - name: Check if Python is installed
-          raw: "{{ ansible_python_interpreter }} --version"
-          register: python_install
-          changed_when: false
+```yaml
+- block:
+    - name: Check if Python is installed
+      raw: "{{ ansible_python_interpreter }} --version"
+      register: python_install
+      changed_when: false
 
-        - name: Check if install tar file exists
-          raw: "stat /tmp/pypy-{{ pypy_version }}.tar.bz2"
-          register: pypy_tar_file
-          changed_when: false
+    - name: Check if install tar file exists
+      raw: "stat /tmp/pypy-{{ pypy_version }}.tar.bz2"
+      register: pypy_tar_file
+      changed_when: false
 
-        - name: Check if pypy directory exists
-          raw: "stat {{ pypy_dir }}"
-          register: pypy_directory
-          changed_when: false
+    - name: Check if pypy directory exists
+      raw: "stat {{ pypy_dir }}"
+      register: pypy_directory
+      changed_when: false
 
-        - name: Check if libtinfo is simlinked
-          raw: "stat {{ pypy_dir }}/lib/libtinfo.so.5"
-          register: libtinfo_symlink
-          changed_when: false
-      ignore_errors: yes
+    - name: Check if libtinfo is simlinked
+      raw: "stat {{ pypy_dir }}/lib/libtinfo.so.5"
+      register: libtinfo_symlink
+      changed_when: false
+  ignore_errors: yes
 
-    - name: Download PyPy
-      raw: wget -O /tmp/pypy-{{ pypy_version }}.tar.bz2 https://bitbucket.org/pypy/pypy/downloads/pypy-{{ pypy_version }}-linux64.tar.bz2
-      when: pypy_tar_file | failed
+- name: Download PyPy
+  raw: wget -O /tmp/pypy-{{ pypy_version }}.tar.bz2 https://bitbucket.org/pypy/pypy/downloads/pypy-{{ pypy_version }}-linux64.tar.bz2
+  when: pypy_tar_file | failed
+```
 
 <figcaption class="caption"><a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/roles/bootstrap/ansible-bootstrap/tasks/configure.yml#L1-L26">Right on</a></figcaption>
 
@@ -221,12 +233,14 @@ file and a test.yml file. The configure.yml file will do all the installation/co
 specified component, and the test.yml file (tagged with the test tag) that will test the component,
 if possible.
 
-    - name: Install and configure PyPy
-      include: configure.yml
+```yaml
+- name: Install and configure PyPy
+  include: configure.yml
 
-    - name: Test PyPy installation
-      include: test.yml
-      tags: [ test ]
+- name: Test PyPy installation
+  include: test.yml
+  tags: [ test ]
+```
 
 <figcaption class="caption"><a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/roles/bootstrap/ansible-bootstrap/tasks/main.yml#L4-L9">Smoke test all the way!</a></figcaption>
 

@@ -18,7 +18,9 @@ I’m going to talk to you about AWS Lambda and Serverless computing, or FaaS (F
 
 You can check the source code and permission related template files here:
 
-    https://github.com/sebiwi/broom
+```
+https://github.com/sebiwi/broom
+```
 
 If you want to use it, create a Cloudtrail trail, activate it on every region, create an S3 bucket
 to store the Cloudtrail logs, create a SNS topic for notifications, create a Lambda function using
@@ -104,7 +106,9 @@ From the [Cloudtrail][3] FAQs:
 
 You can create a Cloudtrail trail either using the AWS cli tool:
 
-    aws cloudtrail create-trail --name broom-cloudtrail --s3-bucket-name broomtrail-bucket --is-multi-region-trail
+```bash
+aws cloudtrail create-trail --name broom-cloudtrail --s3-bucket-name broomtrail-bucket --is-multi-region-trail
+```
 
 Or the AWS web console:
 
@@ -122,16 +126,20 @@ Remember to create a multi-region trail, since we want to be able to audit insta
 Next up, we create an SNS (Simple Notification Service) topic in order to receive notifications
 whenever instances are destroyed. Same as before, you can do it using either the CLI or the console:
 
-    aws sns create-topic --name broom-topic
+```bash
+aws sns create-topic --name broom-topic
+```
 
 Remember to note the ARN of your topic, since you will be using it for the next step:
 
-    {
-        "ResponseMetadata": {
-            "RequestId": "1469e8d7-1642-564e-b85d-a19b4b341f83"
-        },
-        "TopicArn": "arn:aws:sns:region:weird_number:topic_name"
-    }
+```json
+{
+    "ResponseMetadata": {
+        "RequestId": "1469e8d7-1642-564e-b85d-a19b4b341f83"
+    },
+    "TopicArn": "arn:aws:sns:region:weird_number:topic_name"
+}
+```
 
 ![SNS console]({{ site.url }}/assets/images/broom/sns-topic.png)
 <figcaption class="caption">Console version</figcaption>
@@ -156,7 +164,7 @@ it is, just remember to replace the SNS ARN with the one you got in the previous
            "Action": [
                "sns:Publish"
            ],
-           "Resource": arn:aws:sns:region:weird_number:topic_name
+           "Resource": "arn:aws:sns:region:weird_number:topic_name"
        }
 
 Then, you need to create a role, and attach the previously created policy to the role.
@@ -175,63 +183,77 @@ Basically, I declare the SNS topic ARN, and the codes that I’ll be using to ta
 this case, it can be the codes assigned to each person that is currently working on the team.
 I always refer to myself as ‘LOL’, for example:
 
-    # Values
-    SNS_TOPIC_ARN = 'arn:aws:sns:region:weird_number:topic_name'
-    CODES = ['LOL', 'GGG', 'BRB', 'YLO']
+```python
+# Values
+SNS_TOPIC_ARN = 'arn:aws:sns:region:weird_number:topic_name'
+CODES = ['LOL', 'GGG', 'BRB', 'YLO']
+```
 
 Then, I declare some helper functions, the first to decompress the Cloudtrail S3 log files:
 
-    def decompress(data):
-        with gzip.GzipFile(fileobj=io.BytesIO(data)) as f:
-            return f.read()
+```python
+def decompress(data):
+    with gzip.GzipFile(fileobj=io.BytesIO(data)) as f:
+        return f.read()
+```
 
 And the second one to generate a report on the destroyed instance:
 
-    def report(instance, user, region):
-        report = "User " + user + " created an instance on region " +  region + " without proper tagging. \n"
-        report += "Instance id: " + instance['instanceId'] + "\n"
-        report += "Image Id: " + instance['imageId'] + "\n"
-        report += "Instance type: " + instance['instanceType'] + "\n"
-        report += "This instance has been destroyed."
-        return report
+```python
+def report(instance, user, region):
+    report = "User " + user + " created an instance on region " +  region + " without proper tagging. \n"
+    report += "Instance id: " + instance['instanceId'] + "\n"
+    report += "Image Id: " + instance['imageId'] + "\n"
+    report += "Instance type: " + instance['instanceType'] + "\n"
+    report += "This instance has been destroyed."
+    return report
+```
 
 Then, the lambda_handler function, which is the actual function that is going to be triggered by the S3 event.
 First, I recover the bucket name and the object key:
 
-    def lambda_handler(event, context):
-        bucket = event['Records'][0]['s3']['bucket']['name']
-        key = urllib.unquote_plus(event['Records'][0]['s3']['object']['key'].encode('utf8'))
+```python
+def lambda_handler(event, context):
+    bucket = event['Records'][0]['s3']['bucket']['name']
+    key = urllib.unquote_plus(event['Records'][0]['s3']['object']['key'].encode('utf8'))
+```
 
 This might look a little bit weird. It’s only because the [event message structure][6] is kinda complex.
 Then, I recover the actual log (s3_object), decompress it, and create a JSON object with it:
 
-    s3_object = s3.get_object(Bucket=bucket, Key=key)
-    s3_object_content = s3_object['Body'].read()
-    s3_object_unzipped_content = decompress(s3_object_content)
-    json_object = json.loads(s3_object_unzipped_content)
+```python
+s3_object = s3.get_object(Bucket=bucket, Key=key)
+s3_object_content = s3_object['Body'].read()
+s3_object_unzipped_content = decompress(s3_object_content)
+json_object = json.loads(s3_object_unzipped_content)
+```
 
 A log object may contain many API calls. I’m only interested in the ones that create EC2
 instances. That means the ones with the “RunInstances” event name. If I find one of these
 events, I’ll connect to that region and recover the created instances:
 
-    for record in json_object['Records']:
-        if record['eventName'] == "RunInstances":
-            user = record['userIdentity']['userName']
-            region = record['awsRegion']
-            ec2 = boto3.resource('ec2', region_name=region)
-            for index, instance in enumerate(record['responseElements']['instancesSet']['items']):
-                instance_object = ec2.Instance(instance['instanceId'])
+```python
+for record in json_object['Records']:
+    if record['eventName'] == "RunInstances":
+        user = record['userIdentity']['userName']
+        region = record['awsRegion']
+        ec2 = boto3.resource('ec2', region_name=region)
+        for index, instance in enumerate(record['responseElements']['instancesSet']['items']):
+            instance_object = ec2.Instance(instance['instanceId'])
+```
 
 I’ll check if the tag is present in the instance, and if it exists in the list of valid
 codes that I defined previously. If it is not, I’ll destroy the instance, and publish a
 report to the SNS topic:
 
-    tags = {}
-    for tag in instance_object.tags:
-        tags[tag['Key']] = tag['Value']
-    if('Code' not in tags or tags['Code'] not in CODES):
-        instance_object.terminate()
-        sns.publish(TopicArn=SNS_TOPIC_ARN, Message=report(instance, user, region))
+```python
+tags = {}
+for tag in instance_object.tags:
+    tags[tag['Key']] = tag['Value']
+if('Code' not in tags or tags['Code'] not in CODES):
+    instance_object.terminate()
+    sns.publish(TopicArn=SNS_TOPIC_ARN, Message=report(instance, user, region))
+```
 
 That’s it! You can adapt this in order to check your instances in many different ways,
 like a different tag, or a combination of many.
