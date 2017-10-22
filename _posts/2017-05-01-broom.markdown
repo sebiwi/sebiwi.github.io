@@ -159,13 +159,15 @@ In order to do all of these things, we’ll create a policy using the template p
 comes with the project. You can find the template policy file here. You can use it almost as
 it is, just remember to replace the SNS ARN with the one you got in the previous section:
 
-       {
-           "Effect": "Allow",
-           "Action": [
-               "sns:Publish"
-           ],
-           "Resource": "arn:aws:sns:region:weird_number:topic_name"
-       }
+```json
+{
+    "Effect": "Allow",
+    "Action": [
+        "sns:Publish"
+    ],
+    "Resource": "arn:aws:sns:region:weird_number:topic_name"
+}
+```
 
 Then, you need to create a role, and attach the previously created policy to the role.
 The Lambda function will then be executed using this role, and it will have access to all the
