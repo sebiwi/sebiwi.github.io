@@ -23,9 +23,11 @@ This is episode 1, regarding the Kubernetes general architecture.**
 
 If you want to try it:
 
-     git clone https://github.com/sebiwi/kubernetes-coreos
-     cd kubernetes-coreos
-     make up
+```bash
+git clone https://github.com/sebiwi/kubernetes-coreos
+cd kubernetes-coreos
+make up
+```
 
 This will spin up 4 VMs: an etcd node, a Kubernetes Master node, and two Kubernetes Worker nodes.
 You can modify the size of the cluster by hacking on the Vagrantfile and the Ansible inventory.

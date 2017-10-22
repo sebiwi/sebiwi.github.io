@@ -53,9 +53,11 @@ namespace using a simple [uri task][1].
 After that, we gotta configure Docker on the virtual machine. Actually, the only thing we need is to
 be sure that flannel is used for networking. Basically, flanneld needs to be running when Docker starts:
 
-    [Unit]
-    Requires=flanneld.service
-    After=flanneld.service
+```
+[Unit]
+Requires=flanneld.service
+After=flanneld.service
+```
 
 <figcaption class="caption"><a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/roles/configure/kube-master/templates/etc_systemd_system_flanneld.service.d_40-ExecStartPre-symlink.conf.j2">/etc/systemd/system/docker.service.d/40-flannel.conf</a></figcaption>
 
@@ -234,39 +236,41 @@ time you do a kubectl action. Make sure it is executable, too.
 
 After that you can configure it by specifying the certificates and the Master host's URL:
 
+{% highlight yaml %}
 {% raw %}
 
-    - name: Verify if kubectl is already configured
-      command: kubectl cluster-info
-      register: cluster_info
-      failed_when: false
-      changed_when: false
+- name: Verify if kubectl is already configured
+  command: kubectl cluster-info
+  register: cluster_info
+  failed_when: false
+  changed_when: false
 
-    - name: Set default cluster
-      command: kubectl config set-cluster default-cluster --server=https://{{ master_host }} --certificate-authority=ca.pem
-      args:
-        chdir: "{{ kube_resource_dir }}/ca"
-      when: "'Kubernetes master' not in cluster_info.stdout"
+- name: Set default cluster
+  command: kubectl config set-cluster default-cluster --server=https://{{ master_host }} --certificate-authority=ca.pem
+  args:
+    chdir: "{{ kube_resource_dir }}/ca"
+  when: "'Kubernetes master' not in cluster_info.stdout"
 
-    - name: Set credentials
-      command: kubectl config set-credentials default-admin --certificate-authority=ca.pem --client-key=admin-key.pem --client-certificate=admin.pem
-      args:
-        chdir: "{{ kube_resource_dir }}/ca"
-      when: "'Kubernetes master' not in cluster_info.stdout"
+- name: Set credentials
+  command: kubectl config set-credentials default-admin --certificate-authority=ca.pem --client-key=admin-key.pem --client-certificate=admin.pem
+  args:
+    chdir: "{{ kube_resource_dir }}/ca"
+  when: "'Kubernetes master' not in cluster_info.stdout"
 
-    - name: Set context
-      command: kubectl config set-context default-system --cluster=default-cluster --user=default-admin
-      args:
-        chdir: "{{ kube_resource_dir }}/ca"
-      when: "'Kubernetes master' not in cluster_info.stdout"
+- name: Set context
+  command: kubectl config set-context default-system --cluster=default-cluster --user=default-admin
+  args:
+    chdir: "{{ kube_resource_dir }}/ca"
+  when: "'Kubernetes master' not in cluster_info.stdout"
 
-    - name: Use context
-      command: kubectl config use-context default-system
-      args:
-        chdir: "{{ kube_resource_dir }}/ca"
-      when: "'Kubernetes master' not in cluster_info.stdout"
+- name: Use context
+  command: kubectl config use-context default-system
+  args:
+    chdir: "{{ kube_resource_dir }}/ca"
+  when: "'Kubernetes master' not in cluster_info.stdout"
 
 {% endraw %}
+{% endhighlight %}
 
 <figcaption class="caption"><a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/roles/configure/kubectl/tasks/main.yml">There is no kube</a></figcaption>
 
@@ -296,8 +300,10 @@ cool tool, honestly. We'll create a Service and a Replication Controller for it 
 
 You can access the Kubernetes Dashboard by using the port forwarding functionality of kubectl:
 
-    kubectl get pods --namespace=kube-system
-    kubectl port-forward kubernetes-dashboard-v.1.4.1-ID 9090 --namespace=kube-sytem
+```bash
+kubectl get pods --namespace=kube-system
+kubectl port-forward kubernetes-dashboard-v.1.4.1-ID 9090 --namespace=kube-sytem
+```
 
 And now, your Kubernetes Dashboard should be accessible on port 9090.
 
@@ -332,7 +338,9 @@ application, with multiple components speaking to each other, on different nodes
 The guestbook application is created under the kubernetes-resources directory.
 It can be launched using kubectl:
 
-    kubectl create -f guestbook.yml
+```bash
+kubectl create -f guestbook.yml
+```
 
 We can see that the resources are properly created on the Dashboard:
 
@@ -340,8 +348,10 @@ We can see that the resources are properly created on the Dashboard:
 
 And then we can even test the application by port-forwarding to the frontend application:
 
-    kubectl get pods
-    kubectl port-forward frontend-ID 8080:80
+```bash
+kubectl get pods
+kubectl port-forward frontend-ID 8080:80
+```
 
 The application should be accessible on port 8080. You can test it by adding a message to the guestbook:
 

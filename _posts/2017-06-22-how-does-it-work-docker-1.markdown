@@ -19,9 +19,11 @@ Docker Swarm cluster on CoreOS (yeah, Container Linux), using Ansible.
 
 If you want to try it:
 
-    git clone https://github.com/sebiwi/docker-coreos.git
-    cd docker-coreos
-    make up
+```bash
+git clone https://github.com/sebiwi/docker-coreos.git
+cd docker-coreos
+make up
+```
 
 You will need Ansible 2.2+, Docker, Vagrant and Molecule
 
