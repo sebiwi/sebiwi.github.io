@@ -21,7 +21,7 @@ picture: assets/images/profile.jpg
 url: https://sebiwi.github.io
 # your url: http://USERNAME.github.io
 
-permalink: /:title/
+permalink: /:categories/:title/
 
 # To enable google analytics, supply your token below
 # analytics-google: 'UA-MYANALYTICS'
@@ -30,12 +30,12 @@ permalink: /:title/
 # analytics-piwik-url: 'piwik.my-host.com'
 # analytics-piwik-id: 1
 
-# if you don't want comments in your posts, leave categories empty
+# Disqus, if you don't want comments in your posts, leave categories empty
 disqus:
   shortname: sebiwi-github-io # enter this from your disqus account
   categories: [blog, project] # only show disqus for posts that have these categories
 
-# if you don't have any of social below, comment the line
+# Social media
 #facebook: myfacebook
 twitter: sebiwicb
 # google: mygoogle
@@ -60,38 +60,37 @@ authors:
         picture: assets/images/profile.jpg
         twitter: sebiwicb
 
-# do you want a larger site? change the option below
+# Width of the site
 # options: [normal, large] | default: normal
 # normal = 560px / large = 810px
 width: normal
 
-# if you don't need pagination, comment the *paginate* configs below
+# Pagination
 # paginate: 5
 # paginate_path: "blog/:num/"
 
-# if you don't need projects, comment the *projects* configs below
-#projects: true
-
-# if you don't need "about" or "blog", comment them out below
+# Active about, blog ,comics, and project sections
 #about: true
 blog: true
+comics: true
+#projects: true
 
-# do you want to show the "read time" of the posts?
+# Show readtime
 read-time: true
 
-# do you want to show the "tags" inside the posts?
+# Show tags
 show-tags: true
 
-# related posts inside a post?
+# Show related posts
 related: true
 
 # Display links for next and previous posts for the specified categories
-post-advance-links: [blog]
+post-advance-links: [blog, comics]
 
-# show author block at the end of a post ?
+# Show author block at the end of a post
 show-author: true
 
-# do you want some animations?
+# Animations \o/
 animation: true
 
 gems:
