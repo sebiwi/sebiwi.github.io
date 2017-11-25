@@ -315,7 +315,7 @@ like Terraform.
 Anyways, I hope you enjoyed that as much as I did!
 
 [1]: http://fission.io/
-[2]: https://sebiwi.github.io/how-does-it-work-kube-1/
+[2]: https://sebiwi.github.io/blog/how-does-it-work-kube-1/
 [3]: https://aws.amazon.com/cloudtrail/faqs/
 [4]: http://boto3.readthedocs.io/en/latest/
 [5]: https://github.com/sebiwi/broom/blob/master/broom.py

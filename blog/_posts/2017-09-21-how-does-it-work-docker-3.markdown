@@ -167,5 +167,5 @@ further, since I haven’t actually tried them myself.
 Anyways, that’s all for today. Next time, we will start coding stuff! Stick
 around, we’ll be right back!
 
-[1]: https://sebiwi.github.io/how-does-it-work-kube-2/
+[1]: https://sebiwi.github.io/blog/how-does-it-work-kube-2/
 [2]: http://www.linuxvirtualserver.org/software/ipvs.html
