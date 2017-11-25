@@ -451,5 +451,5 @@ Anyway. I had a blast, I hope you did too!
 
 
 [1]: https://www.youtube.com/watch?v=s9F5fhJQo34&t=2m
-[2]: https://sebiwi.github.io/how-does-it-work-kube-4/
+[2]: https://sebiwi.github.io/blog/how-does-it-work-kube-4/
 [3]: https://docs.docker.com/compose/bundles/#creating-a-stack-from-a-bundle

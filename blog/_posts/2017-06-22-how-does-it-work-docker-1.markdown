@@ -209,7 +209,7 @@ you about Docker (and Swarm’s) networking model.
 
 Stay tuned!
 
-[1]: https://sebiwi.github.io/how-does-it-work-kube-1/
+[1]: https://sebiwi.github.io/blog/how-does-it-work-kube-1/
 [2]: https://www.consul.io/
 [3]: https://coreos.com/etcd/
 [4]: https://zookeeper.apache.org/

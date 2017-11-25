@@ -542,5 +542,5 @@ you about that on the next article though.
 
 Stay in touch!
 
-[1]: https://sebiwi.github.io/how-does-it-work-kube-3/
-[2]: https://sebiwi.github.io/how-does-it-work-kube-4/
+[1]: https://sebiwi.github.io/blog/how-does-it-work-kube-3/
+[2]: https://sebiwi.github.io/blog/how-does-it-work-kube-4/
