@@ -8,4 +8,4 @@ category: comics
 author: sebiwi
 ---
 
-![Wizard]({{ site.url }}/assets/images/comics/2017-11-21-the-endless-struggle.jpg)
+![Vim is better than emacs.]({{ site.url }}/assets/images/comics/2017-11-21-the-endless-struggle.jpg)
