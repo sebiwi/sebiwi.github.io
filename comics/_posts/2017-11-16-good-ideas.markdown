@@ -8,4 +8,4 @@ category: comics
 author: sebiwi
 ---
 
-![Wizard]({{ site.url }}/assets/images/comics/2017-11-16-good-ideas.jpg)
+![Maybe we should delete /var. Ok.]({{ site.url }}/assets/images/comics/2017-11-16-good-ideas.jpg)
