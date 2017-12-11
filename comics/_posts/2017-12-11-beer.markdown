@@ -1,0 +1,11 @@
+---
+title:  "Beer"
+layout: post
+date:   2017-12-11 08:19:02 +0100
+tag:
+- comics
+category: comics
+author: sebiwi
+---
+
+![Do you wanna go get a beer? I'd rather suffer excruciating pain before doing so.]({{ site.url }}/assets/images/comics/2017-12-11-beer.jpg){: class="bigger-image" }
