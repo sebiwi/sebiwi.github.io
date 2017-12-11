@@ -3,7 +3,7 @@ title:  "High performance computing"
 layout: post
 date:   2017-11-27 08:19:02 +0100
 tag:
-- tips and tricks
+- comics
 category: comics
 author: sebiwi
 ---
