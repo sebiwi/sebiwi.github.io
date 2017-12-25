@@ -1,7 +1,7 @@
 ---
 title:  "Haskell goals"
 layout: post
-date:   2017-12-25 08:19:02 +0100
+date:   2017-12-25 07:19:02 +0100
 tag:
 - comics
 category: comics
