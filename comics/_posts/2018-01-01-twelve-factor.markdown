@@ -1,7 +1,7 @@
 ---
 title:  "Twelve factor"
 layout: post
-date:   2017-12-25 07:19:02 +0100
+date:   2018-01-01 07:19:02 +0100
 tag:
 - comics
 category: comics
