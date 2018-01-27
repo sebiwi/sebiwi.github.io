@@ -943,10 +943,11 @@ $  molecule test
 All steps completed successfully.
 ```
 
-N looks euphoric. He’s applying his well-earned war experience to a whole
-different situation, and it is working like a charm. There’s a slight catch
-within your proposal, but you decide that you will let him discover it by
-himself.
+### N looks euphoric.
+
+He’s applying his well-earned war experience to a whole different situation,
+and it is working like a charm. There’s a slight catch within your proposal,
+but you decide that you will let him discover it by himself.
 
 - Wow, that worked out great! What else?
 - You could have only one “yum” task and iterate over the packages that you want to install.
