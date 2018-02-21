@@ -1,0 +1,253 @@
+---
+title:  "The Wizard: Side effects"
+layout: post
+date:   2018-02-21 08:19:02 +0100
+tag:
+- infrastructure as code
+category: blog
+author: sebiwi
+---
+
+### He has questions.
+
+Nevertheless, he has not yet arrived. And you know you have answers. You
+interrupt your summoning, and sit down. You can continue in another moment.
+Everything happens for a reason. You just hope the reason is good.
+
+N appears right next to you.
+
+- Hey, what’s up?
+- I'm setting up the auto-scaling configuration of the new project. Nothing huge.
+- Cool. I need some help.
+
+He has progressed immensely since the last time you saw him. People are
+starting to ask him for help now. You can’t help but feel pride when you see
+what he has become.
+
+- Yeah sure, show me.
+- Remember that nginx role you helped me create?
+- What about it?
+- It’s flawed.
+
+Interesting. He did realize after all.
+
+- Is it, now?
+- Yes. I usually run my Ansible playbooks every night, in order to ensure that
+  all my infrastructure and services are at a certain state. At least the ones
+  in charge of server and middleware configuration.
+
+That’s good stuff, you think.
+
+- That’s good stuff.
+- It is. It works as long as my playbooks are idempotent.
+- Are your playbooks idempotent?
+- Yes, except for the ones I use for application deployment.
+- What’s your issue then?
+- My nginx role. The service stopped unexpectedly, and my role wouldn’t restart it.
+
+He realized the hard way. That is probably a good thing. It is the best way to
+learn.
+
+- Okay. Let’s take a look.
+
+You summon the enclosure you both worked on on that occasion. You need it in
+order to properly analyze the spell. You check the structure of it:
+
+```yaml
+# tasks/main.yml
+---
+
+- name: Install epel-release
+  yum:
+    name: epel-release
+    state: present
+
+- name: Install nginx
+  yum:
+    name: nginx
+    state: present
+  notify: Start nginx
+```
+
+It all comes back to you. You remember noticing the little issue with this
+proposal. It was a time bomb. But then again, he found it. It’s precisely what
+you wanted.
+
+- Well, you’re only starting your service when installing nginx.
+- Yes.
+- So if your service is stopped, and you launch your playbook again, nothing
+  will change when nginx is already installed.
+- Yes. So this whole testing thing… I don’t think it’s a good idea. I
+  refactored my code, the tests passed, and the service is not running in
+  production because of a side effect.
+
+Patience is key.
+
+- Did you test that side effect?
+- Well… no. How could I? It’s a side effect.
+- Write the code that would cause your side effect, and then see if your actual
+  code is able to handle that scenario.
+
+He considers the idea for half a second.
+
+- So I’m supposed to put code which makes my components fail inside of my role?
+  That doesn’t make any sense, does it?
+- You don’t put it inside your role. You put it alongside your code. Watch.
+
+You reflect for a second, structuring your thoughts, trying to imagine exactly
+what you need. You analyze the dimensions of the enclosure. Depth, width and
+height. It won’t suffice for what you have in mind. Once you figure it out, you
+close your eyes, and expand the enclosure in order to create a new dimension,
+invisible to the naked eye. Inside this new pocket within time and space, you
+place the side effect of the spell, just as he described it:
+
+```yaml
+# molecule/default/side_effect.yml
+---
+
+- name: Stop nginx
+  hosts: all
+  tasks:
+    - name: Stop nginx
+      service:
+        name: nginx
+        state: stopped
+```
+
+This will probably suffice, you say to yourself.
+
+- Would you say this code is capable of recreating the side effect you described earlier?
+- Yes, I would.
+- Great, let’s use it now.
+
+You concentrate as you modify the structure and logic of the enclosure in order
+to use the new dimension:
+
+```yaml
+# molecule/default/molecule.yml
+scenario:
+  name: default
+  test_sequence:
+    - destroy
+    - syntax
+    - lint
+    - create
+    - converge
+    - side_effect
+    - converge
+    - idempotence
+    - verify
+```
+
+- So we’re converging twice?
+- Yes. You need to test whether your code is able to correct the state of your
+  component after a side effect.
+- Yes, indeed.
+- Now, launch your test.
+
+N claps his hands, and as he separates them, a stream of bright red light
+appears between them:
+
+```shell
+    =================================== FAILURES ===================================
+    __________________ test_nginx_is_running[ansible://instance] ___________________
+
+    host = <testinfra.host.Host object at 0x108390290>
+
+        def test_nginx_is_running(host):
+            # Given
+            nginx = host.service('nginx')
+            # Then
+    >       assert nginx.is_running
+    E       assert False
+    E        +  where False = <service nginx>.is_running
+
+    tests/test_default.py:20: AssertionError
+```
+
+He looks stunned for a while.
+
+- So we weren’t testing the whole way, were we?
+- No, we weren’t. I mean, we were not testing for all of the edge cases we
+  could have had. You can’t possibly test for all of them. There’s way too
+  many. This was an interesting one though.
+- I see.
+- Well, you’re in red again. Go to green.
+
+N modifies the spell structure.
+
+```yaml
+# tasks/main.yml
+---
+# tasks file for nginx-tdd
+
+- name: Install epel-release
+  yum:
+    name: epel-release
+    state: present
+
+- name: Install nginx
+  yum:
+    name: nginx
+    state: present
+
+- name: Start nginx
+  service:
+    name: nginx
+    state: started
+    enabled: true
+```
+
+It looks good.
+
+- And now let me test…
+
+N does exactly the same thing he did before. Only this time, bright green light
+emanates from his palms:
+
+```shell
+    ============================= test session starts ==============================
+    platform darwin -- Python 2.7.11, pytest-3.3.2, py-1.5.2, pluggy-0.6.0
+    rootdir: /Users/sebiwi/stuff/ocac/skool-ops/craftmanship-ops/ansible-tdd/ansible-nginx-tdd/molecule/default, inifile:
+    plugins: testinfra-1.7.1
+collected 3 items
+
+    tests/test_default.py ...                                                [100%]
+
+    =========================== 3 passed in 7.78 seconds ===========================
+Verifier completed successfully.
+```
+
+N looks at you.
+
+- That was simple.
+- Was it?
+- I mean, I could have made my tests better from the beginning.
+- One bug in production is just a thing you didn’t test.
+- It seems like overkill for a simple nginx installation though.
+
+He is right. But he needs to see the bigger picture.
+
+- It probably is. But now you know that you’re really testing interesting
+  scenarios, the ones you really want. Besides, think about it. The
+  possibilities are endless.
+- What do you mean?
+- You only have a single node component here, but you can use the same
+  principle in order to test incredibly complex things.
+- Such as?
+- High availability on distributed components, leader election, node failover…
+  you name it. You can simulate a disaster on a side effect and see how your
+  code will react to it.
+
+He reflects. He’s starting to get it.
+
+- Can I help you with anything else?
+
+Your attention already shifted back to your summoning. What now?
+
+- No, I think that will do. I’ll probably go add this to my other playbooks.
+  You’re right, the possibilities are…
+
+You’re no longer there again. N looks around in confusion.
+
+- How does he do that ?
