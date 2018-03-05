@@ -1,0 +1,11 @@
+---
+title:  "Yoloprotect"
+layout: post
+date:   2018-03-05 07:19:02 +0100
+tag:
+- comics
+category: comics
+author: sebiwi
+---
+
+![It's funny that bpfilter came out when we haven't even started using nftables, right?]({{ site.url }}/assets/images/comics/2018-03-05-yoloprotect.jpg)
