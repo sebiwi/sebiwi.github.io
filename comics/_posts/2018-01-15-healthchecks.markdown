@@ -8,4 +8,4 @@ category: comics
 author: sebiwi
 ---
 
-![I haven't applied any security patches since 1993, but at least my employees can't open YouTube, right?]({{ site.url }}/assets/images/comics/2018-01-15-healthchecks.jpg)
+![If applications were sentient beings, we would annoy the fuck out of them.]({{ site.url }}/assets/images/comics/2018-01-15-healthchecks.jpg)
