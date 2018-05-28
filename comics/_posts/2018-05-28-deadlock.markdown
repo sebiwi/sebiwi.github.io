@@ -1,0 +1,11 @@
+---
+title:  "Deadlock"
+layout: post
+date:   2018-05-28 07:19:02 +0100
+tag:
+- comics
+category: comics
+author: sebiwi
+---
+
+![I happen to think that the hardest moment of the day is deciding what to get for lunch.]({{ site.url }}/assets/images/comics/2018-05-28-deadlock.jpg){: class="bigger-image" }
