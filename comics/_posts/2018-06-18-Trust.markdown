@@ -1,0 +1,11 @@
+---
+title:  "Trust"
+layout: post
+date:   2018-06-18 07:19:02 +0100
+tag:
+- comics
+category: comics
+author: sebiwi
+---
+
+![If you put some images in prodution, it's a good idea to go and see what the image actually does.]({{ site.url }}/assets/images/comics/2018-06-18-Trust.jpg){: class="bigger-image" }
