@@ -1,5 +1,5 @@
 ---
-title:  "The Wizard: Scenarios"
+title:  "Ansible Container: Chronicle of a death foretold"
 layout: post
 date:   2018-06-07 08:19:02 +0100
 tag:
@@ -7,8 +7,6 @@ tag:
 category: blog
 author: sebiwi
 ---
-
-# Ansible Container: Chronicle of a death foretold
 
 __This article was co-written by the great [Adrien Besnard][1]__
 
