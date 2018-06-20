@@ -8,7 +8,7 @@ category: blog
 author: sebiwi
 ---
 
-__This article was co-written by the great [Adrien Besnard][1]__
+__This article was co-written by the great [Adrien Besnard][1]__.
 
 Alright, here’s what’s up:
 
@@ -22,8 +22,7 @@ workflow. So different, that in our opinion, they’re not compatible.
 Wanna know why? Read on.
 
 Disclaimer! While the current status of Ansible Container is not clear, it
-seems that during the writing of this article the tool has been deprecated:
-https://github.com/ansible/ansible-container/commit/2fa778a7c8d1699672314ac0b89c53554f435cb7.
+seems that during the writing of this article the tool has [been deprecated][2].
 After the limitations we noticed, we won't say that we didn't see that
 coming...
 
@@ -552,3 +551,4 @@ scripts it embeds, you still can put all the logic in a clean separate python
 file... maybe this simple solution can also be a good start.
 
 [1]: https://blog.octo.com/author/adrien-besnard-bes/
+[2]: https://github.com/ansible/ansible-container/commit/2fa778a7c8d1699672314ac0b89c53554f435cb7.
