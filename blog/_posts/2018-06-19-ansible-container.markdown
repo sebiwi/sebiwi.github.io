@@ -551,4 +551,4 @@ scripts it embeds, you still can put all the logic in a clean separate python
 file... maybe this simple solution can also be a good start.
 
 [1]: https://blog.octo.com/author/adrien-besnard-bes/
-[2]: https://github.com/ansible/ansible-container/commit/2fa778a7c8d1699672314ac0b89c53554f435cb7.
+[2]: https://github.com/ansible/ansible-container/commit/2fa778a7c8d1699672314ac0b89c53554f435cb7
