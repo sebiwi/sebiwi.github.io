@@ -9,6 +9,6 @@ jekyll build
 pushd _site
 git add .
 git commit -m "$1"
-git push origin master
+git push origin master --force
 popd
 echo "Successfully built and pushed to GitHub."
