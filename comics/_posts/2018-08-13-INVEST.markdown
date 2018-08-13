@@ -1,0 +1,11 @@
+---
+title:  "INVEST"
+layout: post
+date:   2018-08-13 07:19:02 +0100
+tag:
+- comics
+category: comics
+author: sebiwi
+---
+
+![I really like INVEST user stories, but some people insist on keeping them rather VAGUE]({{ site.url }}/assets/images/comics/2018-08-13-INVEST.jpg){: class="bigger-image" }
