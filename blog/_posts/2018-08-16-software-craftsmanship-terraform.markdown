@@ -1,7 +1,7 @@
 ---
 title:  "Software Craftsmanship and OPS scripting: a love story"
 layout: post
-date:   2018-08-16 08:19:02 +0100
+date:   2018-08-16 07:19:02 +0100
 tag:
 - software craftsmanship
 category: blog
