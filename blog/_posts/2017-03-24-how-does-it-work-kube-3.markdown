@@ -3,7 +3,6 @@ title:  "How does it work? Kubernetes! Episode 3 - Infrastructure as code: the t
 layout: post
 date:   2017-03-24 20:19:02 +0100
 tag:
-- architecure
 - kubernetes
 - infrastructure as code
 category: blog

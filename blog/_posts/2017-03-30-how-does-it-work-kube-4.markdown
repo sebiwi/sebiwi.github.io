@@ -3,7 +3,6 @@ title:  "How does it work? Kubernetes! Episode 4 - How to Ansible your CoreOS, a
 layout: post
 date:   2017-03-30 20:19:02 +0100
 tag:
-- architecure
 - kubernetes
 - infrastructure as code
 category: blog
