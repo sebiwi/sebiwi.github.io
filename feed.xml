@@ -7,6 +7,444 @@
     
       
         <item>
+          <title>Software Craftsmanship and OPS scripting: a love story</title>
+          <description>&lt;p&gt;&lt;strong&gt;This article was co-written by the great &lt;a href=&quot;https://blog.octo.com/author/tanguy-patte-tpa/&quot;&gt;Tanguy Patte&lt;/a&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Alright, story time fellas.&lt;/p&gt;
+
+&lt;h2 id=&quot;tldr&quot;&gt;TL;DR;&lt;/h2&gt;
+
+&lt;p&gt;We’re working with Terraform, layering and workspaces. This makes the standard
+&lt;code class=&quot;highlighter-rouge&quot;&gt;terraform workspace select x&lt;/code&gt; pretty cumbersome and dangerous. We wrote a Ruby
+wrapper using Test-Driven Development. It allows us to have a tested,
+maintainable and efficient solution to the aforementioned issue.&lt;/p&gt;
+
+&lt;p&gt;You can find the actual project here: &lt;a href=&quot;https://github.com/sebiwi/terraform-wrapper&quot;&gt;https://github.com/sebiwi/terraform-wrapper&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;If you keep reading, we’re going to talk about scripting, Test-Driven
+Development, Terraform and Ruby.&lt;/p&gt;
+
+&lt;h2 id=&quot;in-depth-workspaces&quot;&gt;In depth: Workspaces&lt;/h2&gt;
+
+&lt;p&gt;If you’ve ever worked with Terraform, you will know that it’s quite a
+particular tool. (Not so) recently, they started applying the concept of
+Workspaces. This is pretty interesting, as it helps you maintain many different
+infrastructure sets using the same code.&lt;/p&gt;
+
+&lt;p&gt;Our first impression when we started using Workspaces was that the name itself
+(Workspaces) wasn’t clear enough. If you have the same feeling, please read the
+following paragraph from the Terraform documentation:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;&lt;em&gt;In the 0.9 line of Terraform releases, this concept was known as
+“environment”. It was renamed in 0.10 based on feedback about confusion
+caused by the overloading of the word “environment” both within Terraform
+itself and within organizations that use Terraform.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;So that’s that (shrug).&lt;/p&gt;
+
+&lt;p&gt;So why should we use Workspaces in real life? Let us take a look at some
+standard Terraform code. Whereas before you would have something like this:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;environments/
+├── dev
+│   ├── dev.tf
+│   ├── dev.tfvars
+│   └── variables.tf
+├── prod
+│   ├── prod.tf
+│   ├── prod.tfvars
+│   └── variables.tf
+└── uat
+    ├── uat.tf
+    ├── uat.tfvars
+    └── variables.tf
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now, you will have something like this:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;terraform/
+├── infrastructure.tf
+├── dev.tfvars
+├── prod.tfvars
+├── uat.tfvars
+└── variables.tf
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;With all the necessary &lt;code class=&quot;highlighter-rouge&quot;&gt;dev&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;uat&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;prod&lt;/code&gt; Workspaces. You will still need
+to create the Workspaces using Terraform itself, like so:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tf workspace new &amp;lt;workspace&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;You can list all your Workspaces using the &lt;code class=&quot;highlighter-rouge&quot;&gt;terraform workspace list&lt;/code&gt; command:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;tf workspace list
+    default
+    dev
+    prod
+  &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; uat
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;For each Workspace, Terraform will create a new tfstate file, adding the
+Workspace name as a suffix for the filename or the key name when using a remote
+backend. If you don’t use Workspaces, you will still be using the &lt;code class=&quot;highlighter-rouge&quot;&gt;default&lt;/code&gt;
+Workspace.&lt;/p&gt;
+
+&lt;p&gt;This is phenomenal, as it allows us to reuse most of the code written for a
+single environment, and not to repeat it for every single one of them. In other
+words, it keeps our code &lt;a href=&quot;https://en.wikipedia.org/wiki/Don%27t_repeat_yourself&quot;&gt;DRY&lt;/a&gt;. We’re handling many different environments, so
+we’re using this feature heavily.&lt;/p&gt;
+
+&lt;h2 id=&quot;layering&quot;&gt;Layering&lt;/h2&gt;
+
+&lt;p&gt;Have you ever heard about layering? It’s a Terraform code structuring pattern
+in which you create “layers”, based on logical stacks.&lt;/p&gt;
+
+&lt;p&gt;For example, if you are working on a cloud provider, your first stack will
+probably be the network stack, since most IaaS resources depend on it. Then,
+you will probably create virtual machines that will run on the network layer.
+You could call this the compute layer, for example.  At the end you will have
+many layers in your scaffold, each one containing a specific logical group of
+resources, that depends completely or partially on the previous layer. How?
+Using references to the previous layer, using &lt;a href=&quot;https://www.terraform.io/docs/configuration/data-sources.html&quot;&gt;Data Sources&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Once again, from the Terraform documentation:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;&lt;em&gt;Data sources allow data to be fetched or computed for use elsewhere in
+Terraform configuration. Use of data sources allows a Terraform configuration
+to build on information defined outside of Terraform, or defined by another
+separate Terraform configuration.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The use of layering has many advantages:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Reduced coupling: all your code will not be placed in the same directory. It
+will be separated into different logical groups. This will help you and your
+team understand the code better (as you will know that each layer corresponds
+to an isolated group of resources of your infrastructure), and it will make it
+easier for everyone to contribute to it as well. For example, adding a new
+component to your infrastructure is simple: you verify if the component you
+want to add fits into one of the existing layers, and you add it to it. If it
+doesn’t, you create a new layer. This also reduces the complexity of the
+development workflow when many people are working on the same codebase: each
+person can work on a different layer on different features without destroying
+the other person’s resources due to the fact that the code that allows their
+creation is not on their respective branches.&lt;/li&gt;
+  &lt;li&gt;Dependency on the previous layer: since each layer depends on the previous
+layer, you will be able to validate both the code of the previous layer
+(since it needs to be valid before the creation of the stack that depends on
+it) and its state (since the infrastructure state needs to be valid in order
+for it to be used as a datasource for the next layer).&lt;/li&gt;
+  &lt;li&gt;Reduced execution time: since each Terraform execution targets less code, the
+refresh time of the real state of your infrastructure using your cloud
+provider’s APIs diminishes, which means that the execution of the code is
+faster for certain steps.&lt;/li&gt;
+  &lt;li&gt;Reduced execution perimeter: each Terraform execution becomes atomic to the
+layer you’re executing it into. This creates a relatively isolated blast
+perimeter if something goes wrong.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Code-wise, we go from this:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;terraform
+├── README.md
+├── cloud_init.tpl
+├── config.tf
+├── core_storage_gitlab_registry.tf
+├── network.tf
+├── prod.tfvars
+├── resource_group.tf
+├── security.tf
+├── storage_backup.tf
+├── storage_registry.tf
+├── test.tfvars
+├── variables.tf
+├── vm_backup_rotation.tf
+├── vm_bastion.tf
+├── vm_elastic.tf
+├── vm_gitlab.tf
+├── vm_gitlab_runner.tf
+├── vm_jenkins.tf
+├── waf_internal.tf
+├── test.tfvars
+├── dev.tfvars
+└── qa.tfvars
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;To this:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;terraform
+├── 00_resource_group
+├── 01_dns
+├── 02_tooling
+├── 03_sandbox
+├── 04_prod
+├── 10_dns_record
+├── prod.tfvars
+├── qa.tfvars
+└── test.tfvars
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Each one of the numbered entries on the new directory structure represents a
+different directory, each of which might contain many different files.&lt;/p&gt;
+
+&lt;h2 id=&quot;issues&quot;&gt;Issues&lt;/h2&gt;
+
+&lt;p&gt;Layering is thus quite useful, it allows you to decouple your code and to keep
+things simple. When combining this technique with Workspaces, it allows you to
+have structured code which you can apply to many different environments. Sweet!&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Note: from now on, we will start talking about environments. An environment is
+defined by a distinct Terraform Workspace. Don’t get confused!&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Nevertheless, this does not come without a trade-off in complexity. You really
+need to pay attention to the current workspace, on each layer. We can apply
+changes or destroy resources on a layer using the wrong workspace if we are not
+paying attention. In order for this to work, you need to select the right
+workspace in each directory. There is no easy way to be sure on which
+environment you are working when you go from a directory to another one. You
+can do a &lt;code class=&quot;highlighter-rouge&quot;&gt;terraform workspace list&lt;/code&gt; each time you change your current
+directory, but this gets dull quite fast, and you will probably forget to do it
+eventually and screw things up.&lt;/p&gt;
+
+&lt;p&gt;The other issue is that in order to apply changes you need to go through every
+single layer and launch Terraform, and Terraform doesn’t know about the
+existence of the different layers: each layer acts as an isolated Terraform
+execution context. Doing this is slow. It is tedious. It can get frustrating
+quite quickly.&lt;/p&gt;
+
+&lt;h2 id=&quot;so-solutions&quot;&gt;So… Solutions&lt;/h2&gt;
+
+&lt;p&gt;The first solution we tried was to display the current workspace in our prompt.
+This was fairly easy to do, since you can find the current workspace in the
+.terraform/environment file. Using some bash foo, we managed to display it as
+so:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;terraform_env_name &lt;span class=&quot;o&quot;&gt;(){&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; -f .terraform/environment &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;then
+    &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;TERRAFORM_ENV&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;cat .terraform/environment&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;TERRAFORM_MESSAGE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;TERRAFORM_ENV&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;)&quot;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;else
+    &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;TERRAFORM_MESSAGE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;fi
+  &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -e  &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$TERRAFORM_MESSAGE&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;When you add this to your PS1 environment variable, your prompt will start
+looking somewhat like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~/terraform/00_resource_group &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;development&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;But most of the time, this is not enough. It helps you prevent some mistakes
+but it does not prevent you from screwing things up. And it does nothing about
+the cumbersome aspect of going through every single layer of the infrastructure
+and doing &lt;code class=&quot;highlighter-rouge&quot;&gt;terraform apply&lt;/code&gt; commands everywhere. You will probably just go from
+one directory to another and run your Terraform command from your bash history
+without checking the selected workspace.&lt;/p&gt;
+
+&lt;p&gt;That is the reason why we wrote a wrapper. One of the purposes of the wrapper
+is to check that we are working on the right workspace on every single layer.
+So we started from what we would have loved to have. We imagined the right tool
+and then we built it.&lt;/p&gt;
+
+&lt;p&gt;If we had an improved Terraform, called &lt;code class=&quot;highlighter-rouge&quot;&gt;tf&lt;/code&gt;, and we would want to apply
+changes on every layer, on the development workspace, we would love to have
+something like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tf development apply
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;If the workspace does not match in any single one of the layers, &lt;a href=&quot;https://github.com/sebiwi/terraform-wrapper/blob/master/terraform_wrapper.rb#L51&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;tf&lt;/code&gt; will stop
+and tell you to select the right workspace before trying to apply your changes&lt;/a&gt;.
+Needless to say, it will also provide you with a way to choose the right
+workspace on every single layer, so you won’t have to go and do it manually on
+every directory. In our minds, this would work like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tf workspace &lt;span class=&quot;k&quot;&gt;select&lt;/span&gt; &amp;lt;workspace&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;And we would also love to have a way of creating new workspaces easily. This
+should come in the form of:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tf workspace new production
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;With this somewhat flexible specification, we set our hands into coding!&lt;/p&gt;
+
+&lt;h2 id=&quot;implementation-and-test-driven-development&quot;&gt;Implementation and Test-Driven Development&lt;/h2&gt;
+
+&lt;p&gt;So how did we do it? First, we had to choose a language. After several
+discussions, we decided to go with Ruby. Why? Because I had never done an
+operations script using it. Most of the time when I have a task like this one,
+I default to Python. So it was basically a “getting out of your comfort zone”
+thing, even though I had already done Ruby on Rails development.&lt;/p&gt;
+
+&lt;p&gt;There are many other benefits of using Ruby. Handling arrays is extremely easy,
+and the test framework ecosystem is pretty evolved.&lt;/p&gt;
+
+&lt;p&gt;Since we were using an interpreted language, doing Test-Driven Development was
+almost an obligation. It allowed us to be sure of what we were building step by
+step, and to have a certain level of confidence on what we were doing.
+Therefore, we completely built the wrapper using it. It’s pretty rad, because
+you can see in our test file how we progressively added features and our whole
+thinking process.&lt;/p&gt;
+
+&lt;p&gt;We had to make some choices. The core functionality of our wrapper was the
+ability to go through a set of folders in a certain order and apply Terraform
+commands inside of each one of them. In order to do this, we had two choices:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Mock every single directory changing task, knowing beforehand that we
+actually had to run assertions on the order of the visited directories, which
+adds complexity to the mocking procedure.&lt;/li&gt;
+  &lt;li&gt;Create mock directory structures that correspond to the cases that we’re
+trying to test. With this strategy, we would no longer be doing Unit Tests,
+but rather Integration Tests (which is fine, sometimes), as we would be using
+actual directories on the filesystem.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;First, we started our code using the first strategy, since it seemed cleaner
+and stricter.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;n&quot;&gt;subject&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wrapper&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get_layers&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;before&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;allow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;wrapper&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;receive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:list_dirs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;and_return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;list_dirs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'when current directory is not a terraform dir'&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;let&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'00_network'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'01_vm'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'02_dns'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;let&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:list_dirs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'00_network/.terraform/'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'01_vm/.terraform/'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'02_dns/.terraform/'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is_expected&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eq&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'when current directory is a terraform dir'&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;let&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'.'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'00_network'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'01_vm'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'02_dns'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;let&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:list_dirs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'.terraform'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'00_network/.terraform/'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'01_vm/.terraform/'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'02_dns/.terraform/'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is_expected&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eq&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Over time, we saw that the mock structures were becoming really complex, and
+that it did not allow us to easily understand which case (or directory
+structure) we were testing. Also, we needed to be able to test the order in
+which the directories were being listed, which wasn’t that easy using the first
+method.&lt;/p&gt;
+
+&lt;p&gt;Therefore, we refactored our code and went for the second approach, and created
+different directory structures for different test scenarios. The directory
+structures can be seen in the GitHub repository itself, but they look like
+this:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;▾ terraform_tests/
+  ▾ test_flat/
+    ▸ .terraform/
+    ▸ modules/
+    ▸ terraform.tfstate.d/
+      config.tf
+      prod.tfvars
+  ▾ test_flat_no_var_file/
+    ▸ .terraform/
+    ▸ terraform.tfstate.d/
+      config.tf
+  ▾ test_layers/
+    ▸ 00_rg/
+    ▸ 01_network/
+    ▸ 02_vms/
+    ▸ modules/
+      dev.tfvars
+      prod.tfvars
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Another interesting thing we did, in order to be able to test the order in
+which the different directories were swept through, was that we mocked the
+Terraform binary itself, like so:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Terraform&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;
+
+    &lt;span class=&quot;no&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/tmp/terraform_mock_output'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'a'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;puts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Dir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;getwd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;puts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Needless to say, this mocked binary implementation was tested too. We used it
+to write the directory in which Terraform was launched and the parameters that
+were used when Terraform was called into a temporary file.  We then ran
+assertions on this file in order to test all our use cases. This solution
+allowed us to keep the code simple, and enabled easy scenario additions  by
+simply creating the required directory structure in the &lt;code class=&quot;highlighter-rouge&quot;&gt;terraform_tests&lt;/code&gt;
+directory. Maintainability for the win!&lt;/p&gt;
+
+&lt;h2 id=&quot;installation&quot;&gt;Installation&lt;/h2&gt;
+
+&lt;p&gt;Just &lt;a href=&quot;https://github.com/sebiwi/terraform-wrapper&quot;&gt;clone the project&lt;/a&gt;, and symlink the the &lt;code class=&quot;highlighter-rouge&quot;&gt;tf.rb&lt;/code&gt; file somewhere in your
+path, like so:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ln -s &amp;lt;terraform_wrapper_directory&amp;gt;/tf.rb /usr/local/bin/tf
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Remember to use the full path to your terraform-wrapper’s directory.&lt;/p&gt;
+
+&lt;h2 id=&quot;final-thoughts&quot;&gt;Final thoughts&lt;/h2&gt;
+
+&lt;p&gt;We had a lot of fun coding this thing. It allowed us to go back to classic
+development for a while, which is something we don’t have the opportunity of
+doing often enough, while working in Operations.&lt;/p&gt;
+
+&lt;p&gt;People usually say that it is impossible to bring Software Craftsmanship
+practices to Operations. This is a common misconception, and we hope that
+people that work in the same domain as us start moving in the same direction as
+we do. Code is code!&lt;/p&gt;
+
+&lt;p&gt;Most people would have written a Bash script. We’ve all done it. The thing is
+that Bash is a quirky language. It has a ton of non-usual behaviors, and it is
+rarely tested, which makes adding features to the script a really painful
+process. This is a problem for maintainability, and we created a critical tool
+for our workflow. We can’t afford to be blocked in its development. That’s why
+we choose not to do Bash anymore. We’re firm believers that we can do better,
+and that we must therefore do better. To do otherwise is to create limitations
+for ourselves.&lt;/p&gt;
+
+&lt;p&gt;I hope you had fun reading this. We sure had fun writing it!&lt;/p&gt;
+
+&lt;p&gt;See you next time!&lt;/p&gt;
+
+</description>
+          <pubDate>2018-08-16T08:19:02+02:00</pubDate>
+          <link>https://sebiwi.github.io/blog/software-craftsmanship-terraform/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/blog/software-craftsmanship-terraform/</guid>
+        </item>
+      
+    
+      
+        <item>
           <title>INVEST</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-08-13-INVEST.jpg&quot; alt=&quot;I really like INVEST user stories, but some people insist on keeping them rather VAGUE&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
