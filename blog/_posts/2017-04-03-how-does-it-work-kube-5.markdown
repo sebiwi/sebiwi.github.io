@@ -3,7 +3,6 @@ title:  "How does it work? Kubernetes! Episode 5 - Master and worker, at last!"
 layout: post
 date:   2017-04-03 20:19:02 +0100
 tag:
-- architecure
 - kubernetes
 - infrastructure as code
 category: blog

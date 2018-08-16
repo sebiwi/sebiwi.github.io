@@ -5,7 +5,6 @@ date:   2017-12-26 08:19:02 +0100
 tag:
 - docker
 - kubernetes
-- architecture
 category: blog
 author: sebiwi
 ---

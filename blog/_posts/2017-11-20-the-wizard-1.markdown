@@ -4,6 +4,7 @@ layout: post
 date:   2017-11-20 08:19:02 +0100
 tag:
 - infrastructure as code
+- software craftsmanship
 category: blog
 author: sebiwi
 ---

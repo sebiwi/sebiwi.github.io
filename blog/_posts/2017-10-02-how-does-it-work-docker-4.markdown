@@ -3,7 +3,6 @@ title:  "How does it work? Docker! Episode 4 - Control your Swarm!"
 layout: post
 date:   2017-10-02 20:19:02 +0100
 tag:
-- architecure
 - docker
 - infrastructure as code
 category: blog

@@ -3,7 +3,6 @@ title:  "How does it work? Docker! Episode 5 - Get some work(ers) done!"
 layout: post
 date:   2017-10-16 20:19:02 +0100
 tag:
-- architecure
 - docker
 - infrastructure as code
 category: blog
