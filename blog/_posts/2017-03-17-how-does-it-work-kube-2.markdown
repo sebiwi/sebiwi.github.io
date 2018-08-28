@@ -41,7 +41,7 @@ applications to be ported rather easily from virtual machines to containers, sin
 change the way they work network-wise.
 
 There are many different networking options that offer these capabilities for Kubernetes: [Contiv][1], [Flannel][2],
-[Nuage Networks][3], [OpenVSwitch][4], [OVN][5], [Project Calico][6], [Romana][7] and [Weave Net][8].
+[Nuage Networks][3], [OVN][5], [Project Calico][6], [Romana][7] and [Weave Net][8].
 For this project, we will use the combination of two of these options: Calico and Flannel, or [Canal][9].
 
 ## Show me the Canal!
@@ -81,7 +81,7 @@ cluster to all pods within the cluster. Little reminder from the Kubernetes netw
 * the IP that a container sees itself as is the same IP that others see it as
 
 For security and multi-tenancy reasons, it is coherent to restrict communication between sets of pods on the
-Kubernetes cluster. Calico supports the [v1alpha1][10] network policy  API for Kubernetes. Basically what it does
+Kubernetes cluster. Calico supports the v1alpha1 network policy  API for Kubernetes. Basically what it does
 is that it enables network isolation to limit connectivity from an optional set of sources to an optional
 set of destination TPC/UDP ports. This does not limit the access to the pods by the host itself, as it is
 necessary for Kubernetes health checks.
@@ -93,8 +93,7 @@ I chose Flannel for the SDN part because it is the standard SDN tool for CoreOS 
 shipped with the distribution, it is rather easy to configure, and the documentation is great. I chose
 Calico because I wanted to use test policy-based security management on Kubernetes, and because of its
 tight integration with Flannel. They both rely on etcd, which is rather cool since I’m running an etcd
-cluster anyways (Calico can be used [without an etcd cluster][11], using the Kubernetes API as a datastore,
-but this is still experimental).
+cluster anyways.
 
 By the way, Calico can be used as a standalone component, that will handle both the SDN and the network
 policy-based security management. Then again, Flannel has a few additional networking options, such as
@@ -110,11 +109,8 @@ Stay tuned!
 [1]: https://github.com/contiv/netplugin
 [2]: https://github.com/coreos/flannel#flannel
 [3]: http://www.nuagenetworks.net/
-[4]: https://kubernetes.io/docs/admin/ovs-networking/
 [5]: https://github.com/openvswitch/ovn-kubernetes
 [6]: http://docs.projectcalico.org/v2.0/introduction/
 [7]: http://romana.io/
 [8]: https://www.weave.works/products/weave-net/
 [9]: https://github.com/projectcalico/canal
-[10]: https://github.com/caseydavenport/kubernetes/blob/network-policy/docs/admin/network-policy.md#v1alpha1-api
-[11]: http://docs.projectcalico.org/master/getting-started/kubernetes/installation/hosted/k8s-backend/
