@@ -123,4 +123,4 @@ Stay tuned!
 [5]: https://github.com/coreos/etcd
 [6]: https://github.com/coreos/flannel
 [7]: https://www.vagrantup.com/docs/providers/
-[8]: https://molecule.readthedocs.io/en/stable-1.18/
+[8]: https://molecule.readthedocs.io/en/latest/

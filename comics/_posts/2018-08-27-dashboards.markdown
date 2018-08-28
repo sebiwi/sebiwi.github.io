@@ -1,7 +1,7 @@
 ---
 title:  "Dashboards"
 layout: post
-date:   2018-08-28 07:19:02 +0100
+date:   2018-08-27 07:19:02 +0100
 tag:
 - comics
 category: comics
