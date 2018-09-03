@@ -1,0 +1,11 @@
+---
+title:  "Generics"
+layout: post
+date:   2018-09-03 07:19:02 +0100
+tag:
+- comics
+category: comics
+author: sebiwi
+---
+
+![Everyone is talking about the necessity of generics in go 2. I wonder if they actually know what generics are used for.]({{ site.url }}/assets/images/comics/2018-09-03-generics.jpg){: class="bigger-image" }
