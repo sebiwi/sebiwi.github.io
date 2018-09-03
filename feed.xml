@@ -7,6 +7,17 @@
     
       
         <item>
+          <title>Generics</title>
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-09-03-generics.jpg&quot; alt=&quot;Everyone is talking about the necessity of generics in go 2. I wonder if they actually know what generics are used for.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+</description>
+          <pubDate>2018-09-03T08:19:02+02:00</pubDate>
+          <link>https://sebiwi.github.io/comics/generics/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/generics/</guid>
+        </item>
+      
+    
+      
+        <item>
           <title>Dashboards</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-08-28-dashboards.jpg&quot; alt=&quot;Dashboard metrics are the funniest thing. Most of the time they look like fillers though.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
@@ -6571,7 +6582,7 @@ machines automatically, configure our resources automatically, and just hope it 
 
 &lt;h2 id=&quot;test-and-conquer-molecule&quot;&gt;Test and conquer: Molecule&lt;/h2&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://molecule.readthedocs.io/en/stable-1.18/&quot;&gt;Molecule&lt;/a&gt; is a testing tool for Ansible code. It spins up ephemeral infrastructure, it test
+&lt;p&gt;&lt;a href=&quot;https://molecule.readthedocs.io/en/latest/&quot;&gt;Molecule&lt;/a&gt; is a testing tool for Ansible code. It spins up ephemeral infrastructure, it test
 your roles on the newly created infrastructure, and then it destroys the infrastructure. It
 also checks for a whole range of other things, like syntax, code quality and impotence,
 so it’s pretty well adapted for what we’re trying to do here.&lt;/p&gt;
@@ -6638,7 +6649,7 @@ applications to be ported rather easily from virtual machines to containers, sin
 change the way they work network-wise.&lt;/p&gt;
 
 &lt;p&gt;There are many different networking options that offer these capabilities for Kubernetes: &lt;a href=&quot;https://github.com/contiv/netplugin&quot;&gt;Contiv&lt;/a&gt;, &lt;a href=&quot;https://github.com/coreos/flannel#flannel&quot;&gt;Flannel&lt;/a&gt;,
-&lt;a href=&quot;http://www.nuagenetworks.net/&quot;&gt;Nuage Networks&lt;/a&gt;, &lt;a href=&quot;https://kubernetes.io/docs/admin/ovs-networking/&quot;&gt;OpenVSwitch&lt;/a&gt;, &lt;a href=&quot;https://github.com/openvswitch/ovn-kubernetes&quot;&gt;OVN&lt;/a&gt;, &lt;a href=&quot;http://docs.projectcalico.org/v2.0/introduction/&quot;&gt;Project Calico&lt;/a&gt;, &lt;a href=&quot;http://romana.io/&quot;&gt;Romana&lt;/a&gt; and &lt;a href=&quot;https://www.weave.works/products/weave-net/&quot;&gt;Weave Net&lt;/a&gt;.
+&lt;a href=&quot;http://www.nuagenetworks.net/&quot;&gt;Nuage Networks&lt;/a&gt;, &lt;a href=&quot;https://github.com/openvswitch/ovn-kubernetes&quot;&gt;OVN&lt;/a&gt;, &lt;a href=&quot;http://docs.projectcalico.org/v2.0/introduction/&quot;&gt;Project Calico&lt;/a&gt;, &lt;a href=&quot;http://romana.io/&quot;&gt;Romana&lt;/a&gt; and &lt;a href=&quot;https://www.weave.works/products/weave-net/&quot;&gt;Weave Net&lt;/a&gt;.
 For this project, we will use the combination of two of these options: Calico and Flannel, or &lt;a href=&quot;https://github.com/projectcalico/canal&quot;&gt;Canal&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2 id=&quot;show-me-the-canal&quot;&gt;Show me the Canal!&lt;/h2&gt;
@@ -6680,7 +6691,7 @@ cluster to all pods within the cluster. Little reminder from the Kubernetes netw
 &lt;/ul&gt;
 
 &lt;p&gt;For security and multi-tenancy reasons, it is coherent to restrict communication between sets of pods on the
-Kubernetes cluster. Calico supports the &lt;a href=&quot;https://github.com/caseydavenport/kubernetes/blob/network-policy/docs/admin/network-policy.md#v1alpha1-api&quot;&gt;v1alpha1&lt;/a&gt; network policy  API for Kubernetes. Basically what it does
+Kubernetes cluster. Calico supports the v1alpha1 network policy  API for Kubernetes. Basically what it does
 is that it enables network isolation to limit connectivity from an optional set of sources to an optional
 set of destination TPC/UDP ports. This does not limit the access to the pods by the host itself, as it is
 necessary for Kubernetes health checks.&lt;/p&gt;
@@ -6692,8 +6703,7 @@ policies, using selectors to select the concerned nodes.&lt;/p&gt;
 shipped with the distribution, it is rather easy to configure, and the documentation is great. I chose
 Calico because I wanted to use test policy-based security management on Kubernetes, and because of its
 tight integration with Flannel. They both rely on etcd, which is rather cool since I’m running an etcd
-cluster anyways (Calico can be used &lt;a href=&quot;http://docs.projectcalico.org/master/getting-started/kubernetes/installation/hosted/k8s-backend/&quot;&gt;without an etcd cluster&lt;/a&gt;, using the Kubernetes API as a datastore,
-but this is still experimental).&lt;/p&gt;
+cluster anyways.&lt;/p&gt;
 
 &lt;p&gt;By the way, Calico can be used as a standalone component, that will handle both the SDN and the network
 policy-based security management. Then again, Flannel has a few additional networking options, such as
@@ -6785,7 +6795,7 @@ just think of a pod as a container, since we will only have one container inside
 &lt;p&gt;A standard Kubernetes installation consists of both Master and Worker nodes:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/how-does-it-work-kube/1/kube-general-architecture.png&quot; alt=&quot;Kubernetes general architecture&quot; /&gt;&lt;/p&gt;
-&lt;figcaption class=&quot;caption&quot;&gt;&lt;a href=&quot;https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture.md&quot;&gt;Kubernetes general architecture&lt;/a&gt;, for real&lt;/figcaption&gt;
+&lt;figcaption class=&quot;caption&quot;&gt;Kubernetes general architecture, for real&lt;/figcaption&gt;
 
 &lt;h2 id=&quot;wait-where-is-the-master-node&quot;&gt;Wait, where is the Master node?&lt;/h2&gt;
 
@@ -6797,7 +6807,7 @@ separate component (more on this later).&lt;/p&gt;
 &lt;p&gt;So the Master node actually becomes everything that is inside the red square:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/how-does-it-work-kube/1/kube-master-node.png&quot; alt=&quot;Kubernetes master node&quot; /&gt;&lt;/p&gt;
-&lt;figcaption class=&quot;caption&quot;&gt;&lt;a href=&quot;https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture.md&quot;&gt;Here, see?&lt;/a&gt;&lt;/figcaption&gt;
+&lt;figcaption class=&quot;caption&quot;&gt;Here, see?&lt;/figcaption&gt;
 
 &lt;p&gt;All these components are part of the Kubernetes control pane. Keep in mind that you can have these
 on one single node, but you can also put them on many different ones. In our case we’re putting them
@@ -6823,7 +6833,7 @@ actually run the containers are the Worker nodes.&lt;/p&gt;
 inside the red square, in the diagram below.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/how-does-it-work-kube/1/kube-worker-node.png&quot; alt=&quot;Kubernetes worker node&quot; /&gt;&lt;/p&gt;
-&lt;figcaption class=&quot;caption&quot;&gt;&lt;a href=&quot;https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture.md&quot;&gt;Right here&lt;/a&gt;&lt;/figcaption&gt;
+&lt;figcaption class=&quot;caption&quot;&gt;Right here&lt;/figcaption&gt;
 
 &lt;p&gt;The kubelet is the agent on the worker node that actually starts and stops the pods, and communicates
 with the Docker engine at a host level. This means it also manages the containers, the images and the
@@ -6841,7 +6851,7 @@ is a weird name because it is not a filesystem, but a key-value store. They are 
 case you missed it in the previous diagrams, it is the black square inside the red square:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/how-does-it-work-kube/1/etcd.png&quot; alt=&quot;etcd&quot; /&gt;&lt;/p&gt;
-&lt;figcaption class=&quot;caption&quot;&gt;&lt;a href=&quot;https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture.md&quot;&gt;You never know&lt;/a&gt;&lt;/figcaption&gt;
+&lt;figcaption class=&quot;caption&quot;&gt;You never know&lt;/figcaption&gt;
 
 &lt;p&gt;All the persistent master state is stocked in etcd. Since components can actually “watch” components, they are
 able to realise that something has changed rather quickly, and then do something about it.&lt;/p&gt;
