@@ -6,6 +6,7 @@ tag:
 - comics
 category: comics
 author: sebiwi
+image: /assets/images/comics/2018-07-30-burritos.jpg
 ---
 
 ![I always hear the same explanation from people trying to explain monads. It makes you wonder if they actually understand what it means.]({{ site.url }}/assets/images/comics/2018-07-30-burritos.jpg){: class="bigger-image" }

@@ -6,6 +6,7 @@ tag:
 - comics
 category: comics
 author: sebiwi
+image: /assets/images/comics/2018-04-16-visage-pamphlet.jpg
 ---
 
 ![Isn't it weird to being asked to delete your data, then not doing it afterwards? It is a technique known as the "Oxford Investigativa".]({{ site.url }}/assets/images/comics/2018-04-16-visage-pamphlet.jpg){: class="bigger-image" }

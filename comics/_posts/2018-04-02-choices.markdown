@@ -6,6 +6,7 @@ tag:
 - comics
 category: comics
 author: sebiwi
+image: /assets/images/comics/2018-04-02-choices.jpg
 ---
 
 ![It seems crazy to look like a moron if you're not doing either golang or rust in 2018.]({{ site.url }}/assets/images/comics/2018-04-02-choices.jpg){: class="bigger-image" }
