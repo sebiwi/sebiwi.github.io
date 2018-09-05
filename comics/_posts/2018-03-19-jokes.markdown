@@ -6,6 +6,7 @@ tag:
 - comics
 category: comics
 author: sebiwi
+image: /assets/images/comics/2018-03-19-jokes.jpg
 ---
 
 ![I like explaining my jokes to people. It's funnier, somehow. They tend to get frustrated. I can't really figure out why yet.]({{ site.url }}/assets/images/comics/2018-03-19-jokes.jpg){: class="bigger-image" }

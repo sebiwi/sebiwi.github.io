@@ -7,6 +7,7 @@ tag:
 - software craftsmanship
 category: blog
 author: sebiwi
+image: /assets/images/wizard/wizard-1.jpg
 ---
 
 ## Magic has existed since the dawn of time.

@@ -6,6 +6,7 @@ tag:
 - comics
 category: comics
 author: sebiwi
+image: /assets/images/comics/2018-08-20-math.jpg
 ---
 
 ![A teacher once told me that if I'm having a hard time understanding a subject it's because I don't know enough math. It is not true.]({{ site.url }}/assets/images/comics/2018-08-20-math.jpg){: class="bigger-image" }

@@ -6,6 +6,7 @@ tag:
 - comics
 category: comics
 author: sebiwi
+image: /assets/images/comics/2018-06-18-Trust.jpg
 ---
 
 ![If you put some images in prodution, it's a good idea to go and see what the image actually does.]({{ site.url }}/assets/images/comics/2018-06-18-Trust.jpg){: class="bigger-image" }

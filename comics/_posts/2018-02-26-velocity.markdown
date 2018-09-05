@@ -6,6 +6,7 @@ tag:
 - comics
 category: comics
 author: sebiwi
+image: /assets/images/comics/2018-02-26-velocity.jpg
 ---
 
 ![I wonder if managers are going to understand eventually that velocity is not a KPI that should be use to assess teams]({{ site.url }}/assets/images/comics/2018-02-26-velocity.jpg){: class="bigger-image" }

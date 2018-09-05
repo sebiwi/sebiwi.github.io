@@ -7,6 +7,7 @@ tag:
 - software craftsmanship
 category: blog
 author: sebiwi
+image: /assets/images/wizard/wizard-1.jpg
 ---
 
 # You just don’t know how to do it.

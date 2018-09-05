@@ -6,6 +6,7 @@ tag:
 - comics
 category: comics
 author: sebiwi
+image: /assets/images/comics/2018-06-04-GDPR.jpg
 ---
 
 ![If you wanna stress an OPS person, ask him how he is going to handle GDPR.]({{ site.url }}/assets/images/comics/2018-06-04-GDPR.jpg){: class="bigger-image" }

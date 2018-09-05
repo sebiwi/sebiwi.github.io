@@ -6,6 +6,7 @@ tag:
 - comics
 category: comics
 author: sebiwi
+image: /assets/images/comics/2018-02-19-yaml.jpg
 ---
 
 ![What's with this new YAML sucks trend? Have you ever tried to read a JSON object? What about (not) goot old XML?]({{ site.url }}/assets/images/comics/2018-02-19-yaml.jpg){: class="bigger-image" }
