@@ -9,4 +9,4 @@ author: sebiwi
 image: /assets/images/comics/2017-11-27-high-performance-computing.jpg
 ---
 
-![(Computer burns) Are you compiling the linux kernel? Nah, just running intellij.]({{ site.url }}/assets/images/comics/2017-11-27-high-performance-computing.jpg){: class="bigger-image" }
+![(Computer burns) Are you compiling the linux kernel? Nah, just running intellij.]({{ site.url }}{{ page.image }}){: class="bigger-image" }

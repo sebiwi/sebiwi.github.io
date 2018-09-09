@@ -9,4 +9,4 @@ author: sebiwi
 image: /assets/images/comics/2018-09-03-generics.jpg
 ---
 
-![Everyone is talking about the necessity of generics in go 2. I wonder if they actually know what generics are used for.]({{ site.url }}/assets/images/comics/2018-09-03-generics.jpg){: class="bigger-image" }
+![Everyone is talking about the necessity of generics in go 2. I wonder if they actually know what generics are used for.]({{ site.url }}{{ page.image }}){: class="bigger-image" }

@@ -9,4 +9,4 @@ author: sebiwi
 image: /assets/images/comics/2018-03-26-go-nuts.jpg
 ---
 
-![Fun fact: The #go channel on Freenode is about the board game, not about the programming language.]({{ site.url }}/assets/images/comics/2018-03-26-go-nuts.jpg){: class="bigger-image" }
+![Fun fact: The #go channel on Freenode is about the board game, not about the programming language.]({{ site.url }}{{ page.image }}){: class="bigger-image" }

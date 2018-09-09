@@ -9,4 +9,4 @@ author: sebiwi
 image: /assets/images/comics/2018-07-23-spacious-separations.jpg
 ---
 
-![I heavily dislike `ss` output format. I guess `ss` stands for Spacious separations.]({{ site.url }}/assets/images/comics/2018-07-23-spacious-separations.jpg)
+![I heavily dislike `ss` output format. I guess `ss` stands for Spacious separations.]({{ site.url }}{{ page.image }})

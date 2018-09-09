@@ -9,4 +9,4 @@ author: sebiwi
 image: /assets/images/comics/2018-01-15-healthchecks.jpg
 ---
 
-![If applications were sentient beings, we would annoy the fuck out of them.]({{ site.url }}/assets/images/comics/2018-01-15-healthchecks.jpg)
+![If applications were sentient beings, we would annoy the fuck out of them.]({{ site.url }}{{ page.image }})
