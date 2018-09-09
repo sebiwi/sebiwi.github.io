@@ -9,4 +9,4 @@ author: sebiwi
 image: /assets/images/comics/2018-04-23-the-show-must-go-on.jpg
 ---
 
-![People will do the dumbest things in order to convince their clients that everything is going alright.]({{ site.url }}/assets/images/comics/2018-04-23-the-show-must-go-on.jpg){: class="bigger-image" }
+![People will do the dumbest things in order to convince their clients that everything is going alright.]({{ site.url }}{{ page.image }}){: class="bigger-image" }

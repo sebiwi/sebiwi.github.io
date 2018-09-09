@@ -9,4 +9,4 @@ author: sebiwi
 image: /assets/images/comics/2018-07-09-we-devsecops-now.jpg
 ---
 
-![Now that I have a DevSecOps team I only need another DevOps team to complete my organisation entity chain]({{ site.url }}/assets/images/comics/2018-07-09-we-devsecops-now.jpg){: class="bigger-image" }
+![Now that I have a DevSecOps team I only need another DevOps team to complete my organisation entity chain]({{ site.url }}{{ page.image }}){: class="bigger-image" }

@@ -9,4 +9,4 @@ author: sebiwi
 image: /assets/images/comics/2018-08-13-INVEST.jpg
 ---
 
-![I really like INVEST user stories, but some people insist on keeping them rather VAGUE]({{ site.url }}/assets/images/comics/2018-08-13-INVEST.jpg){: class="bigger-image" }
+![I really like INVEST user stories, but some people insist on keeping them rather VAGUE]({{ site.url }}{{ page.image }}){: class="bigger-image" }

@@ -9,4 +9,4 @@ author: sebiwi
 image: /assets/images/comics/2018-05-28-deadlock.jpg
 ---
 
-![I happen to think that the hardest moment of the day is deciding what to get for lunch.]({{ site.url }}/assets/images/comics/2018-05-28-deadlock.jpg){: class="bigger-image" }
+![I happen to think that the hardest moment of the day is deciding what to get for lunch.]({{ site.url }}{{ page.image }}){: class="bigger-image" }

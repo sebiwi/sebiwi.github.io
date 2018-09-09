@@ -9,4 +9,4 @@ author: sebiwi
 image: /assets/images/comics/2018-07-02-features.jpg
 ---
 
-![Programming languages are not chosen based on their features, but rather on their popularity.]({{ site.url }}/assets/images/comics/2018-07-02-features.jpg){: class="bigger-image" }
+![Programming languages are not chosen based on their features, but rather on their popularity.]({{ site.url }}{{ page.image }}){: class="bigger-image" }
