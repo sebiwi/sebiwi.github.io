@@ -7,6 +7,17 @@
     
       
         <item>
+          <title>Distributed monolith</title>
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-09-10-distributed-monolith.jpg&quot; alt=&quot;Check Conway's Law before speedboating into microservices please&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+</description>
+          <pubDate>2018-09-10T08:19:02+02:00</pubDate>
+          <link>https://sebiwi.github.io/comics/distributed-monolith/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/distributed-monolith/</guid>
+        </item>
+      
+    
+      
+        <item>
           <title>Generics</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-09-03-generics.jpg&quot; alt=&quot;Everyone is talking about the necessity of generics in go 2. I wonder if they actually know what generics are used for.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
