@@ -395,7 +395,7 @@ directory. Maintainability for the win!
 
 ## Installation
 
-Just [clone the project][2], and symlink the the `tf.rb` file somewhere in your
+Just [clone the project][2], and symlink the `tf.rb` file somewhere in your
 path, like so:
 
 ```bash
