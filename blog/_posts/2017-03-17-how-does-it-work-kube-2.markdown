@@ -18,7 +18,7 @@ default a virtual bridge called “docker0” on the host machine, and it will a
 a private network range to it.
 
 ![Docker bridge]({{ site.url }}/assets/images/how-does-it-work-kube/2/docker-bridge.png){: class="bigger-image" }
-<figcaption class="caption">Super bridge (127.17.0.1/16)</figcaption>
+<figcaption class="caption">Super bridge (172.17.0.1/16)</figcaption>
 
 For each container that is created, a virtual ethernet device is attached to this bridge,
 which is then mapped to eth0 inside the container, with an ip within the aforementioned network range.
