@@ -7,6 +7,17 @@
     
       
         <item>
+          <title>Clipboard</title>
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-11-19-clipboard.jpg&quot; alt=&quot;The Mac's clipboard is shared with the iPhone's. By default. I just sent a `kubectl get pods -n dev` to my Tinder match.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+</description>
+          <pubDate>2018-11-19T07:19:02+01:00</pubDate>
+          <link>https://sebiwi.github.io/comics/clipboard/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/clipboard/</guid>
+        </item>
+      
+    
+      
+        <item>
           <title>Stash</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-11-12-stash.jpg&quot; alt=&quot;Wouldn't it be cool if we could use git in real life?&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
