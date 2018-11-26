@@ -1,0 +1,12 @@
+---
+title:  "Scrum Man"
+layout: post
+date:   2018-11-26 07:19:02 +0100
+tag:
+- comics
+category: comics
+author: sebiwi
+image: /assets/images/comics/2018-11-26-scrum-man.jpg
+---
+
+![Sometimes I don't even understand why scrum is supposed to be agile. Micro-deadlines, velocity, no backlog modification that would endanger the sprint goal? Da fuck?]({{ site.url }}{{ page.image }}){: class="bigger-image" }
