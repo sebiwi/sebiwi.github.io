@@ -1,0 +1,12 @@
+---
+title:  "Random"
+layout: post
+date:   2018-12-10 07:19:02 +0100
+tag:
+- comics
+category: comics
+author: sebiwi
+image: /assets/images/comics/2018-12-10-random.jpg
+---
+
+![I like how project managers make accurate estimations by multiplying other estimations by 2. It's almost like multiplying two random numbers straight up.]({{ site.url }}{{ page.image }}){: class="bigger-image" }
