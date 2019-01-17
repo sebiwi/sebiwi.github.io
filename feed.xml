@@ -14,8 +14,8 @@
 has been the “Operations guy working as a part of a Development team”. This is
 a fascinating situation to find yourself in. Allow me to elaborate.&lt;/p&gt;
 
-&lt;p&gt;Historically, Operations teams have been isolated from Development teams. &lt;em&gt;Two
-separate organizational entities&lt;/em&gt;. The reasons for this were manifold:
+&lt;p&gt;Historically, Operations teams have been isolated from Development teams. &lt;strong&gt;Two
+separate organizational entities&lt;/strong&gt;. The reasons for this were manifold:
 Operations people were a scarce resource, they needed to accommodate vast
 amounts of work for numerous Development teams (server provisioning for team A,
 middleware configuration for team B, application deployment for team C), it
@@ -26,8 +26,8 @@ Development teams and Operation teams happened through ticketing systems.&lt;/p&
 &lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/soft-skills/effective-communication.jpg&quot; alt=&quot;Effective communication&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;Effective communication&lt;/figcaption&gt;
 
-&lt;p&gt;These workflows created and fueled most of the &lt;em&gt;communication issues&lt;/em&gt; within
-organizations, and by doing so, created &lt;em&gt;gargantuan bottlenecks&lt;/em&gt; on the
+&lt;p&gt;These workflows created and fueled most of the &lt;strong&gt;communication issues&lt;/strong&gt; within
+organizations, and by doing so, created &lt;strong&gt;gargantuan bottlenecks&lt;/strong&gt; on the
 development/deployment pipelines. Applications and services took months or even
 years to ship into production. This, needless to say, was frustrating for
 everyone involved in the process. It also had a huge impact on Time to Market.
@@ -36,22 +36,22 @@ No one was happy.&lt;/p&gt;
 &lt;p&gt;While these situations still occur nowadays, the incorporation of Agile
 approaches into Software Development is becoming increasingly common, and its
 impact on Operations is clearly visible from an organisational point of view.
-It is not rare, for example, to see &lt;em&gt;Feature Teams within an organization.&lt;/em&gt;
-These are &lt;em&gt;cross-functional&lt;/em&gt;, which means that they tend to incorporate many
+It is not rare, for example, to see &lt;strong&gt;Feature Teams within an organization.&lt;/strong&gt;
+These are &lt;strong&gt;cross-functional&lt;/strong&gt;, which means that they tend to incorporate many
 different profiles into their ranks. From conception, design, and
 implementation, up to deployment, product owners and designers will be working
-hand in hand with developers. This most likely means that an &lt;em&gt;OPS will also be a
-part of the team.&lt;/em&gt;&lt;/p&gt;
+hand in hand with developers. This most likely means that an &lt;strong&gt;OPS will also be a
+part of the team.&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;how-is-that-a-game-changer&quot;&gt;How is that a game changer?&lt;/h2&gt;
 
-&lt;p&gt;When working as an OPS in a Development, Feature or Product team, &lt;em&gt;most of your
-responsibilities will shift&lt;/em&gt;, whether you realize it or not. It will not be
+&lt;p&gt;When working as an OPS in a Development, Feature or Product team, &lt;strong&gt;most of your
+responsibilities will shift&lt;/strong&gt;, whether you realize it or not. It will not be
 about taking team X’s artifact and deploying it on servers A, B and C anymore.
-It is &lt;em&gt;your team now&lt;/em&gt;, and therefore, &lt;em&gt;your artifact and your servers.&lt;/em&gt; You will
+It is &lt;strong&gt;your team now&lt;/strong&gt;, and therefore, &lt;strong&gt;your artifact and your servers.&lt;/strong&gt; You will
 most likely have to deal with a lot of things you are not used to dealing with.&lt;/p&gt;
 
-&lt;p&gt;&lt;em&gt;This is a good thing. Embrace it.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;This is a good thing. Embrace it.&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;It is an opportunity. If you do things right, you will be able to:&lt;/p&gt;
 
@@ -75,15 +75,15 @@ existing processes.&lt;/li&gt;
 Tech Leading, focusing on operational aspects. In short, it’s mostly about soft
 skills (even though technical skills are still required), about the ability to
 express ideas, vulgarize subjects, solve issues, analyze and solve problems,
-and share knowledge with your team. That’s a tremendous change. &lt;em&gt;And the basic
-ingredient for all of these is kindness.&lt;/em&gt;&lt;/p&gt;
+and share knowledge with your team. That’s a tremendous change. &lt;strong&gt;And the basic
+ingredient for all of these is kindness.&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;on-technical-architecture&quot;&gt;On technical architecture&lt;/h2&gt;
 
 &lt;p&gt;When working on an organizational setup like this, there is a high chance that you
 will be the most technical person on the team. When I say technical, I mean
 with the biggest background on Linux/Windows systems, middleware, networks and
-virtualisation. &lt;em&gt;If not, that’s great news.&lt;/em&gt; It means that you will have people
+virtualisation. &lt;strong&gt;If not, that’s great news.&lt;/strong&gt; It means that you will have people
 with whom you will be able to discuss all of these subjects. Someone who will
 be able to challenge you, or remind you what’s important when you’re having
 tunnel vision. In any case, you will most likely have to propose solutions to
@@ -94,11 +94,11 @@ somewhere. That’s where your knowledge on the subject comes in. Web servers,
 application servers, reverse proxies, caching systems, databases, failover,
 high availability, disaster recovery… These are all things you will have to
 analyze. Should you use nginx or Apache? PostgreSQL or MySQL? The answer is
-always the same: &lt;em&gt;it all depends on your needs&lt;/em&gt;. Try to analyze what you need
+always the same: &lt;strong&gt;it all depends on your needs&lt;/strong&gt;. Try to analyze what you need
 before proposing a solution. Leverage your experience when doing so.&lt;/p&gt;
 
-&lt;p&gt;Be cautious: &lt;em&gt;this does not mean that you need to make all of these decisions
-all by yourself.&lt;/em&gt; There are trade-offs for every single choice you will make.
+&lt;p&gt;Be cautious: &lt;strong&gt;this does not mean that you need to make all of these decisions
+all by yourself.&lt;/strong&gt; There are trade-offs for every single choice you will make.
 These trade-offs will not only impact the functioning of the application
 itself, but also its development. This means that their opinion on the matter
 is paramount. Your role is to explain the different options to the people that
@@ -106,7 +106,7 @@ are concerned by the choice. Remember, consensus is key. Embrace challenge too.
 For good ideas, you need human interaction, healthy conflicts, argument and
 debate. When doing so, remember to be kind. Don’t impose your opinions on
 everyone else. Be constructive. And this is not specific for this section.
-There should be an acronym for this, &lt;em&gt;RTBK&lt;/em&gt;. It should be used way more often
+There should be an acronym for this, &lt;strong&gt;RTBK&lt;/strong&gt;. It should be used way more often
 than &lt;a href=&quot;https://en.wikipedia.org/wiki/RTFM&quot;&gt;RTFM&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;This also applies to Continuous Integration and Continuous Deployment. What is
@@ -129,24 +129,24 @@ doing so.&lt;/p&gt;
 &lt;p&gt;More often than not, people on your team will have questions regarding your
 field of expertise.  Discussions will be held on subjects you know in depth. A
 lot of terms will be thrown around: availability, redundancy, stress testing,
-building and deployment. Once again, &lt;em&gt;if they know everything there is to know
-about these subjects, that’s a good thing too&lt;/em&gt;. Either way, you might want to
+    building and deployment. Once again, &lt;strong&gt;if they know everything there is to know
+    about these subjects, that’s a good thing too&lt;/strong&gt;. Either way, you might want to
 step in and catalyze the discussion.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-01-29-communication.jpg&quot; alt=&quot;Individuals and interactions overs processes and tools&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;Individuals and interactions over processes and tools&lt;/figcaption&gt;
 
-&lt;p&gt;Before doing so, &lt;em&gt;remember to be kind&lt;/em&gt;. It is a key aspect in human interaction,
+&lt;p&gt;Before doing so, &lt;strong&gt;remember to be kind&lt;/strong&gt;. It is a key aspect in human interaction,
 and it will encourage participation, collaboration, and innovation.&lt;/p&gt;
 
-&lt;p&gt;First off, explain the meaning of every concept being discussed to everyone. &lt;em&gt;It
+&lt;p&gt;First off, explain the meaning of every concept being discussed to everyone. &lt;strong&gt;It
 is crucial for every single person on the team to share the same language in
-order to have effective interactions&lt;/em&gt;. When having discussions about the
+order to have effective interactions&lt;/strong&gt;. When having discussions about the
 “bastion”, one person may be talking about the web interface of a Cloud
 provider, whereas another one might be talking about a Linux server.&lt;/p&gt;
 
-&lt;p&gt;Be clear with your communication. &lt;em&gt;More specifically, work on your
-vulgarization. I can’t stress this enough&lt;/em&gt;. The ability to express complex
+&lt;p&gt;Be clear with your communication. &lt;strong&gt;More specifically, work on your
+vulgarization. I can’t stress this enough&lt;/strong&gt;. The ability to express complex
 concepts in a simple fashion is priceless. It’s one of the most valuable skills
 you can learn. They don’t necessarily need to know every single detail on the
 subject. It is not the same, saying “there was a problem with the application’s
@@ -166,32 +166,32 @@ these subjects. Individuals and interactions over processes and tools.&lt;/p&gt;
 &lt;p&gt;A large amount of people see Operations as an impenetrable affair. It
 is safe to say that it is a hard topic to grasp. This is mainly due to the huge
 amount of subjects it covers. Operations entails development, systems
-administration, networks and security, just to name a few. &lt;em&gt;This may sound
-intimidating to most newcomers.&lt;/em&gt;&lt;/p&gt;
+administration, networks and security, just to name a few. &lt;strong&gt;This may sound
+intimidating to most newcomers.&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;Nevertheless, &lt;em&gt;this does not mean that they are not interested. They are often
-just scared of the unknown&lt;/em&gt;. Once people see that you are approachable, they
+&lt;p&gt;Nevertheless, &lt;strong&gt;this does not mean that they are not interested. They are often
+just scared of the unknown&lt;/strong&gt;. Once people see that you are approachable, they
 will start asking questions. Even if they don’t, you should ask them if there
 are things that they want to learn. If things go right, you’ll get the
 opportunity to share your knowledge.&lt;/p&gt;
 
-&lt;p&gt;Before even thinking about doing so: &lt;em&gt;RTBK&lt;/em&gt;. If you don’t know what this means,
+&lt;p&gt;Before even thinking about doing so: &lt;strong&gt;RTBK&lt;/strong&gt;. If you don’t know what this means,
 you’re skipping important parts of this article. Don’t. Go back, and take the
 time to read them.&lt;/p&gt;
 
-&lt;p&gt;There are two fundamental reasons to share your knowledge. First, &lt;em&gt;mentoring
-people is one of the most interesting and rewarding things you can do.&lt;/em&gt;
-Motivated people have &lt;em&gt;tremendous potential&lt;/em&gt;, and if they are willing to learn
-and are interested in what you do, &lt;em&gt;you can catalyze their growth to a great
-extent.&lt;/em&gt; Sometimes it only takes a &lt;em&gt;little push for someone to discover a great
-deal of capabilities.&lt;/em&gt; You just need to know how to give the right push, in the
+&lt;p&gt;There are two fundamental reasons to share your knowledge. First, &lt;strong&gt;mentoring
+people is one of the most interesting and rewarding things you can do.&lt;/strong&gt;
+Motivated people have &lt;strong&gt;tremendous potential&lt;/strong&gt;, and if they are willing to learn
+and are interested in what you do, &lt;strong&gt;you can catalyze their growth to a great
+extent.&lt;/strong&gt; Sometimes it only takes a &lt;strong&gt;little push for someone to discover a great
+deal of capabilities.&lt;/strong&gt; You just need to know how to give the right push, in the
 right direction.&lt;/p&gt;
 
-&lt;p&gt;Second, it allows you to &lt;em&gt;spread the knowledge&lt;/em&gt;. If you’re the only person
+&lt;p&gt;Second, it allows you to &lt;strong&gt;spread the knowledge&lt;/strong&gt;. If you’re the only person
 working on these subjects, you will most likely become a single point of
 failure. If something happens to what you built when you are not available to
-fix it, the whole system goes down. It is reasonable to want &lt;em&gt;to share that
-responsibility with someone.&lt;/em&gt; Do not expect them to become fully autonomous, or
+fix it, the whole system goes down. It is reasonable to want &lt;strong&gt;to share that
+responsibility with someone.&lt;/strong&gt; Do not expect them to become fully autonomous, or
 a plug in replacement for you right away, they are already doing something else
 as a full-time job. Still, having enough knowledge to be able to debug common
 issues is already great.&lt;/p&gt;
@@ -228,25 +228,25 @@ wrappers using Test-Driven Development&lt;/a&gt;, how to &lt;a href=&quot;https:
 &lt;h2 id=&quot;on-improving&quot;&gt;On improving&lt;/h2&gt;
 
 &lt;p&gt;Last but not least, you should contribute to the continuous improvement of the
-team. When doing so, &lt;em&gt;remember to be kind&lt;/em&gt;. Make sure everyone on the team knows
+team. When doing so, &lt;strong&gt;remember to be kind&lt;/strong&gt;. Make sure everyone on the team knows
 how important this is. It is a must-have quality when trying to improve as a
 whole, when proposing enhancements and giving feedback. Change your
 formulations, switch from “you made a mistake” to “we made a mistake”, it will
-help you stay away from finger pointing. &lt;em&gt;Responsibilities should be collective.&lt;/em&gt;&lt;/p&gt;
+help you stay away from finger pointing. &lt;strong&gt;Responsibilities should be collective.&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;It’s hard to be specific on this topic, since areas of improvement will vary
 from team to team. I’ll give it a try though.&lt;/p&gt;
 
 &lt;p&gt;At first, most people will refer to you as the DevOps of the team. Explain them
-that &lt;em&gt;DevOps is not a role, but a culture of collaboration and communication&lt;/em&gt;. It
+that &lt;strong&gt;DevOps is not a role, but a culture of collaboration and communication&lt;/strong&gt;. It
 should be a goal you should all aim for.&lt;/p&gt;
 
-&lt;p&gt;&lt;em&gt;Fail&lt;/em&gt;, and fail fast, too. Champion innovation, testing new ideas, validating
+&lt;p&gt;&lt;strong&gt;Fail&lt;/strong&gt;, and fail fast, too. Champion innovation, testing new ideas, validating
 them, and cope with the fact that sometimes they don’t work. It’s a good thing,
 as long as you know when to seek an alternative, and you get to learn
 something.&lt;/p&gt;
 
-&lt;p&gt;&lt;em&gt;Work on quality&lt;/em&gt;. Start doing code reviews, for example, if you are not doing
+&lt;p&gt;&lt;strong&gt;Work on quality&lt;/strong&gt;. Start doing code reviews, for example, if you are not doing
 them already, and include infrastructure code as well. They are most important
 when trying to see what people are doing, to correct or improve certain
 practices, and to share the code. Have them read your code too. At first they
@@ -255,24 +255,24 @@ won’t have any remarks or contributions. This is not true. They will read it,
 and understand how it works. If they don’t, they can come over and ask for
 clarifications. No single points of failure.&lt;/p&gt;
 
-&lt;p&gt;&lt;em&gt;Measure everything&lt;/em&gt;. Preach the importance of monitoring and observability. Let
+&lt;p&gt;&lt;strong&gt;Measure everything&lt;/strong&gt;. Preach the importance of monitoring and observability. Let
 them know how to work on code instrumentation for it to be easily observable.
 Show them the benefits of having structured, clear logs, and being able to
 query the platform to have immediate answers on what is going on, at any time.
 They’ll be onboard as soon as you show them the advantages.&lt;/p&gt;
 
-&lt;p&gt;&lt;em&gt;Lead by example.&lt;/em&gt; Motivate them, code with them, show them that you can do the
+&lt;p&gt;&lt;strong&gt;Lead by example.&lt;/strong&gt; Motivate them, code with them, show them that you can do the
 same things you do in standard development when you’re doing Operations. Show
 them Clean Code, Test-Driven Development and refactoring, applied to
 infrastructure code.&lt;/p&gt;
 
-&lt;p&gt;&lt;em&gt;Learn from errors and mistakes.&lt;/em&gt; If you have a production incident, analyze the
+&lt;p&gt;&lt;strong&gt;Learn from errors and mistakes.&lt;/strong&gt; If you have a production incident, analyze the
 root cause so that you can learn from it, and prevent it in the future. Asking
 yourself five times why something happened is a great way of finding root
 causes. You will often see that what you thought was a technical issue actually
 has an organizational or design root cause.&lt;/p&gt;
 
-&lt;p&gt;&lt;em&gt;Say “I don’t know”, when you don’t know.&lt;/em&gt; You are not meant to know everything.
+&lt;p&gt;&lt;strong&gt;Say “I don’t know”, when you don’t know.&lt;/strong&gt; You are not meant to know everything.
 Not knowing is not an issue. It is impossible to know everything. It is a good
 thing to say it. Be honest. People will trust you more, and start doing it
 themselves too.&lt;/p&gt;
