@@ -7,10 +7,21 @@
     
       
         <item>
+          <title>OOM</title>
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2019-03-04-OOM.jpg&quot; alt=&quot;The OOM killer is supposed to kill processes based on an OOM score. In reality, it just kills the Java application.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+</description>
+          <pubDate>2019-03-04T07:19:02+01:00</pubDate>
+          <link>https://sebiwi.github.io/comics/OOM/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/OOM/</guid>
+        </item>
+      
+    
+      
+        <item>
           <title>Agile says</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2019-01-28-agile-says.jpg&quot; alt=&quot;It's funny to hear people say &amp;quot;Agile says&amp;quot;. It's like there are rules to follow.&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2019-01-28T03:19:02-03:00</pubDate>
+          <pubDate>2019-01-28T07:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/comics/agile-says/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/agile-says/</guid>
         </item>
@@ -21,7 +32,7 @@
           <title>Status feature</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2019-01-21-status-feature.jpg&quot; alt=&quot;Why did they add the status feature to GitHub? What is this, Facebook?&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2019-01-21T03:19:02-03:00</pubDate>
+          <pubDate>2019-01-21T07:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/comics/status-feature/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/status-feature/</guid>
         </item>
@@ -318,7 +329,7 @@ themselves too.&lt;/p&gt;
 &lt;p&gt;And most importantly, have fun. If it’s not fun, it’s probably not worth it.&lt;/p&gt;
 
 </description>
-          <pubDate>2019-01-17T03:19:02-03:00</pubDate>
+          <pubDate>2019-01-17T07:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/blog/operations-devops-soft-skills/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/blog/operations-devops-soft-skills/</guid>
         </item>
@@ -329,7 +340,7 @@ themselves too.&lt;/p&gt;
           <title>ESx</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2019-01-14-ESx.jpg&quot; alt=&quot;You can get a neat mathematical formula to calculate the real name of an ECMAScript. I double dare you to try to get the same thing with Windows.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2019-01-14T03:19:02-03:00</pubDate>
+          <pubDate>2019-01-14T07:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/comics/ESx/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/ESx/</guid>
         </item>
@@ -340,7 +351,7 @@ themselves too.&lt;/p&gt;
           <title>Reality</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2019-01-07-reality.jpg&quot; alt=&quot;There's a difference between the planning and our current progress. There must be an issue with reality. Certainly.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2019-01-07T03:19:02-03:00</pubDate>
+          <pubDate>2019-01-07T07:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/comics/reality/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/reality/</guid>
         </item>
@@ -351,7 +362,7 @@ themselves too.&lt;/p&gt;
           <title>Retrospective</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-12-31-retrospective.jpg&quot; alt=&quot;It's been a while since I started posting drawings in here. It's been fun. Maybe it's time for a little retrospective&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-12-31T03:19:02-03:00</pubDate>
+          <pubDate>2018-12-31T07:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/comics/retrospective/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/retrospective/</guid>
         </item>
@@ -362,7 +373,7 @@ themselves too.&lt;/p&gt;
           <title>You had me at EHLO</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-12-24-you-had-me-at-ehlo.jpg&quot; alt=&quot;Christmas is about giving. Does giving &amp;quot;a hard time&amp;quot; count? I'm thinkin about a nice Reply Allpocalypse, for instance.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-12-24T03:19:02-03:00</pubDate>
+          <pubDate>2018-12-24T07:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/comics/you-had-me-at-ehlo/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/you-had-me-at-ehlo/</guid>
         </item>
@@ -373,7 +384,7 @@ themselves too.&lt;/p&gt;
           <title>Creativity</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-12-17-creativity.jpg&quot; alt=&quot;Developers are the most creative being in the whole universe. It would be great to have them consider operation limits within the scope of their creation though.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-12-17T03:19:02-03:00</pubDate>
+          <pubDate>2018-12-17T07:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/comics/creativity/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/creativity/</guid>
         </item>
@@ -384,7 +395,7 @@ themselves too.&lt;/p&gt;
           <title>Random</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-12-10-random.jpg&quot; alt=&quot;I like how project managers make accurate estimations by multiplying other estimations by 2. It's almost like multiplying two random numbers straight up.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-12-10T03:19:02-03:00</pubDate>
+          <pubDate>2018-12-10T07:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/comics/random/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/random/</guid>
         </item>
@@ -395,7 +406,7 @@ themselves too.&lt;/p&gt;
           <title>Experience</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-12-03-experience.jpg&quot; alt=&quot;Experience is a dim lamp which only lights the one who wears it. This isn't my domain of expertise though.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-12-03T03:19:02-03:00</pubDate>
+          <pubDate>2018-12-03T07:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/comics/experience/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/experience/</guid>
         </item>
@@ -406,7 +417,7 @@ themselves too.&lt;/p&gt;
           <title>Scrum Man</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-11-26-scrum-man.jpg&quot; alt=&quot;Sometimes I don't even understand why scrum is supposed to be agile. Micro-deadlines, velocity, no backlog modification that would endanger the sprint goal? Da fuck?&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-11-26T03:19:02-03:00</pubDate>
+          <pubDate>2018-11-26T07:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/comics/scrum-man/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/scrum-man/</guid>
         </item>
@@ -417,7 +428,7 @@ themselves too.&lt;/p&gt;
           <title>Clipboard</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-11-19-clipboard.jpg&quot; alt=&quot;The Mac's clipboard is shared with the iPhone's. By default. I just sent a `kubectl get pods -n dev` to my Tinder match.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-11-19T03:19:02-03:00</pubDate>
+          <pubDate>2018-11-19T07:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/comics/clipboard/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/clipboard/</guid>
         </item>
@@ -428,7 +439,7 @@ themselves too.&lt;/p&gt;
           <title>Stash</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-11-12-stash.jpg&quot; alt=&quot;Wouldn't it be cool if we could use git in real life?&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-11-12T03:19:02-03:00</pubDate>
+          <pubDate>2018-11-12T07:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/comics/stash/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/stash/</guid>
         </item>
@@ -439,7 +450,7 @@ themselves too.&lt;/p&gt;
           <title>Typing</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-11-05-typing.jpg&quot; alt=&quot;I wonder how they test static language typing. Probably stress tests?&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-11-05T03:19:02-03:00</pubDate>
+          <pubDate>2018-11-05T07:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/comics/typing/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/typing/</guid>
         </item>
@@ -450,7 +461,7 @@ themselves too.&lt;/p&gt;
           <title>Monday news</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-10-29-monday-news.jpg&quot; alt=&quot;I guess nobody ever got fired for buying RedHat&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-10-29T03:19:02-03:00</pubDate>
+          <pubDate>2018-10-29T07:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/comics/monday-news/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/monday-news/</guid>
         </item>
@@ -461,7 +472,7 @@ themselves too.&lt;/p&gt;
           <title>Cyclomatic</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-10-22-cyclomatic.jpg&quot; alt=&quot;Cyclomatic compelxity should not be minimized during conversations. Life would be less funnier.&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-10-22T03:19:02-03:00</pubDate>
+          <pubDate>2018-10-22T08:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/comics/cyclomatic/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/cyclomatic/</guid>
         </item>
@@ -472,7 +483,7 @@ themselves too.&lt;/p&gt;
           <title>Bingo</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-10-15-bingo.jpg&quot; alt=&quot;We try to play bullshit bingo at each conference or presentation we go. It seems slightly nihilistic, in retrospective.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-10-15T03:19:02-03:00</pubDate>
+          <pubDate>2018-10-15T08:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/comics/bingo/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/bingo/</guid>
         </item>
@@ -483,7 +494,7 @@ themselves too.&lt;/p&gt;
           <title>Kernel</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-10-08-kernel.jpg&quot; alt=&quot;I really like Linus. I just hope he gets his shit together soon, otherwise it's gonna make the community poisonous.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-10-08T03:19:02-03:00</pubDate>
+          <pubDate>2018-10-08T08:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/comics/kernel/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/kernel/</guid>
         </item>
@@ -494,7 +505,7 @@ themselves too.&lt;/p&gt;
           <title>Synced</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-10-01-synced.jpg&quot; alt=&quot;I'm having a hard time trusting Chrome nowadays. Specially since all these offers started popping in my email.&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-10-01T03:19:02-03:00</pubDate>
+          <pubDate>2018-10-01T08:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/comics/synced/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/synced/</guid>
         </item>
@@ -505,7 +516,7 @@ themselves too.&lt;/p&gt;
           <title>Master Branch</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-09-24-master-branch.jpg&quot; alt=&quot;It's good that people are starting to notice concepts that should be reconstructed in our line of work. There is still a long road ahead though. With master-slave on the works, people are forgetting some other things. Like the master branch, for example.&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-09-24T03:19:02-03:00</pubDate>
+          <pubDate>2018-09-24T08:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/comics/master-branch/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/master-branch/</guid>
         </item>
@@ -516,7 +527,7 @@ themselves too.&lt;/p&gt;
           <title>Futility</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-09-17-futility.jpg&quot; alt=&quot;I always wondered about the actual definition of an exercice in futility. I looked it up, and a lot of things came into my mind. Like front-end tests, for example&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-09-17T03:19:02-03:00</pubDate>
+          <pubDate>2018-09-17T08:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/comics/futility/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/futility/</guid>
         </item>
@@ -527,7 +538,7 @@ themselves too.&lt;/p&gt;
           <title>Distributed monolith</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-09-10-distributed-monolith.jpg&quot; alt=&quot;Check Conway's Law before speedboating into microservices please&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-09-10T03:19:02-03:00</pubDate>
+          <pubDate>2018-09-10T08:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/comics/distributed-monolith/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/distributed-monolith/</guid>
         </item>
@@ -538,7 +549,7 @@ themselves too.&lt;/p&gt;
           <title>Generics</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-09-03-generics.jpg&quot; alt=&quot;Everyone is talking about the necessity of generics in go 2. I wonder if they actually know what generics are used for.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-09-03T03:19:02-03:00</pubDate>
+          <pubDate>2018-09-03T08:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/comics/generics/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/generics/</guid>
         </item>
@@ -549,7 +560,7 @@ themselves too.&lt;/p&gt;
           <title>Dashboards</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-08-28-dashboards.jpg&quot; alt=&quot;Dashboard metrics are the funniest thing. Most of the time they look like fillers though.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-08-27T03:19:02-03:00</pubDate>
+          <pubDate>2018-08-27T08:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/comics/dashboards/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/dashboards/</guid>
         </item>
@@ -560,7 +571,7 @@ themselves too.&lt;/p&gt;
           <title>Math</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-08-20-math.jpg&quot; alt=&quot;A teacher once told me that if I'm having a hard time understanding a subject it's because I don't know enough math. It is not true.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-08-20T03:19:02-03:00</pubDate>
+          <pubDate>2018-08-20T08:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/comics/math/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/math/</guid>
         </item>
@@ -983,7 +994,7 @@ for ourselves.&lt;/p&gt;
 &lt;p&gt;See you next time!&lt;/p&gt;
 
 </description>
-          <pubDate>2018-08-16T03:19:02-03:00</pubDate>
+          <pubDate>2018-08-16T08:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/blog/software-craftsmanship-terraform/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/blog/software-craftsmanship-terraform/</guid>
         </item>
@@ -994,7 +1005,7 @@ for ourselves.&lt;/p&gt;
           <title>INVEST</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-08-13-INVEST.jpg&quot; alt=&quot;I really like INVEST user stories, but some people insist on keeping them rather VAGUE&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-08-13T03:19:02-03:00</pubDate>
+          <pubDate>2018-08-13T08:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/comics/INVEST/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/INVEST/</guid>
         </item>
@@ -1005,7 +1016,7 @@ for ourselves.&lt;/p&gt;
           <title>Burritos</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-07-30-burritos.jpg&quot; alt=&quot;I always hear the same explanation from people trying to explain monads. It makes you wonder if they actually understand what it means.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-07-30T02:19:02-04:00</pubDate>
+          <pubDate>2018-07-30T08:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/comics/burritos/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/burritos/</guid>
         </item>
@@ -1016,7 +1027,7 @@ for ourselves.&lt;/p&gt;
           <title>Spacious separations</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-07-23-spacious-separations.jpg&quot; alt=&quot;I heavily dislike `ss` output format. I guess `ss` stands for Spacious separations.&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-07-23T02:19:02-04:00</pubDate>
+          <pubDate>2018-07-23T08:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/comics/spacious-separartions/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/spacious-separartions/</guid>
         </item>
@@ -1027,7 +1038,7 @@ for ourselves.&lt;/p&gt;
           <title>Dear Terraform</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-07-16-dear-terraform.jpg&quot; alt=&quot;I believe one of the worst moments when doing infrastructure as code is when your Terraform apply crashes and then your tfstate file is all fucked up.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-07-16T02:19:02-04:00</pubDate>
+          <pubDate>2018-07-16T08:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/comics/dear-terrafom/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/dear-terrafom/</guid>
         </item>
@@ -1038,7 +1049,7 @@ for ourselves.&lt;/p&gt;
           <title>We DevSecOps now</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-07-09-we-devsecops-now.jpg&quot; alt=&quot;Now that I have a DevSecOps team I only need another DevOps team to complete my organisation entity chain&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-07-09T02:19:02-04:00</pubDate>
+          <pubDate>2018-07-09T08:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/comics/we-devsecops-now/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/we-devsecops-now/</guid>
         </item>
@@ -1049,7 +1060,7 @@ for ourselves.&lt;/p&gt;
           <title>Features</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-07-02-features.jpg&quot; alt=&quot;Programming languages are not chosen based on their features, but rather on their popularity.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-07-02T02:19:02-04:00</pubDate>
+          <pubDate>2018-07-02T08:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/comics/features/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/features/</guid>
         </item>
@@ -1060,7 +1071,7 @@ for ourselves.&lt;/p&gt;
           <title>Summer thoughts</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-06-25-summer-thoughts.jpg&quot; alt=&quot;I aways have multiple threads in my head, thinking about the most random stuff on every single situation.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-06-25T02:19:02-04:00</pubDate>
+          <pubDate>2018-06-25T08:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/comics/summer-thoughts/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/summer-thoughts/</guid>
         </item>
@@ -1071,7 +1082,7 @@ for ourselves.&lt;/p&gt;
           <title>Trust</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-06-18-trust.jpg&quot; alt=&quot;If you put some images in prodution, it's a good idea to go and see what the image actually does.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-06-18T02:19:02-04:00</pubDate>
+          <pubDate>2018-06-18T08:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/comics/trust/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/trust/</guid>
         </item>
@@ -1082,7 +1093,7 @@ for ourselves.&lt;/p&gt;
           <title>Acquisition</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-06-11-acquisition.jpg&quot; alt=&quot;If you're excited about Microsoft's acquisition of GitHub, wait until you start seeing Mr. Clippy giving you advice in order to create merge requests.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-06-11T02:19:02-04:00</pubDate>
+          <pubDate>2018-06-11T08:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/comics/acquisition/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/acquisition/</guid>
         </item>
@@ -1636,7 +1647,7 @@ scripts it embeds, you still can put all the logic in a clean separate python
 file… maybe this simple solution can also be a good start.&lt;/p&gt;
 
 </description>
-          <pubDate>2018-06-07T03:19:02-04:00</pubDate>
+          <pubDate>2018-06-07T09:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/blog/ansible-container/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/blog/ansible-container/</guid>
         </item>
@@ -1932,7 +1943,7 @@ your head around…&lt;/p&gt;
   &lt;li&gt;Nothing.&lt;/li&gt;
 &lt;/ul&gt;
 </description>
-          <pubDate>2018-06-07T03:19:02-04:00</pubDate>
+          <pubDate>2018-06-07T09:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/blog/the-wizard-3/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/blog/the-wizard-3/</guid>
         </item>
@@ -1943,7 +1954,7 @@ your head around…&lt;/p&gt;
           <title>GDPR</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-06-04-GDPR.jpg&quot; alt=&quot;If you wanna stress an OPS person, ask him how he is going to handle GDPR.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-06-04T02:19:02-04:00</pubDate>
+          <pubDate>2018-06-04T08:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/comics/GDPR/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/GDPR/</guid>
         </item>
@@ -1954,7 +1965,7 @@ your head around…&lt;/p&gt;
           <title>Deadlock</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-05-28-deadlock.jpg&quot; alt=&quot;I happen to think that the hardest moment of the day is deciding what to get for lunch.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-05-28T02:19:02-04:00</pubDate>
+          <pubDate>2018-05-28T08:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/comics/deadlock/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/deadlock/</guid>
         </item>
@@ -1965,7 +1976,7 @@ your head around…&lt;/p&gt;
           <title>Stereotypes</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-05-21-stereotypes.jpg&quot; alt=&quot;A lot of persons told me that I should make Deb wear a dress and a ribbon. I'm not doing it.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-05-22T02:19:02-04:00</pubDate>
+          <pubDate>2018-05-22T08:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/comics/stereotypes/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/stereotypes/</guid>
         </item>
@@ -1976,7 +1987,7 @@ your head around…&lt;/p&gt;
           <title>Sidecar</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-04-30-sidecar.jpg&quot; alt=&quot;I'll probably end up getting a sidecar for human interations one of these days. Like a human service mesh.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-04-30T03:19:02-03:00</pubDate>
+          <pubDate>2018-04-30T08:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/comics/sidecar/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/sidecar/</guid>
         </item>
@@ -1987,7 +1998,7 @@ your head around…&lt;/p&gt;
           <title>The show must go on</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-04-23-the-show-must-go-on.jpg&quot; alt=&quot;People will do the dumbest things in order to convince their clients that everything is going alright.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-04-23T03:19:02-03:00</pubDate>
+          <pubDate>2018-04-23T08:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/comics/the-show-must-go-on/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/the-show-must-go-on/</guid>
         </item>
@@ -1998,7 +2009,7 @@ your head around…&lt;/p&gt;
           <title>Visage pamphlet</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-04-16-visage-pamphlet.jpg&quot; alt=&quot;Isn't it weird to being asked to delete your data, then not doing it afterwards? It is a technique known as the &amp;quot;Oxford Investigativa&amp;quot;.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-04-16T03:19:02-03:00</pubDate>
+          <pubDate>2018-04-16T08:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/comics/visage-pamphlet/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/visage-pamphlet/</guid>
         </item>
@@ -2009,7 +2020,7 @@ your head around…&lt;/p&gt;
           <title>Dear Jenkins</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-04-09-dear-jenkins.jpg&quot; alt=&quot;I say that I hate Jenkins, often. It's not true though.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-04-09T03:19:02-03:00</pubDate>
+          <pubDate>2018-04-09T08:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/comics/dear-jenkins/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/dear-jenkins/</guid>
         </item>
@@ -2020,7 +2031,7 @@ your head around…&lt;/p&gt;
           <title>Choices</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-04-02-choices.jpg&quot; alt=&quot;It seems crazy to look like a moron if you're not doing either golang or rust in 2018.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-04-02T03:19:02-03:00</pubDate>
+          <pubDate>2018-04-02T08:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/comics/choices/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/choices/</guid>
         </item>
@@ -2031,7 +2042,7 @@ your head around…&lt;/p&gt;
           <title>Go nuts</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-03-26-go-nuts.jpg&quot; alt=&quot;Fun fact: The #go channel on Freenode is about the board game, not about the programming language.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-03-26T03:19:02-03:00</pubDate>
+          <pubDate>2018-03-26T08:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/comics/go-nuts/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/go-nuts/</guid>
         </item>
@@ -2042,7 +2053,7 @@ your head around…&lt;/p&gt;
           <title>Jokes</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-03-19-jokes.jpg&quot; alt=&quot;I like explaining my jokes to people. It's funnier, somehow. They tend to get frustrated. I can't really figure out why yet.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-03-19T03:19:02-03:00</pubDate>
+          <pubDate>2018-03-19T07:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/comics/jokes/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/jokes/</guid>
         </item>
@@ -2053,7 +2064,7 @@ your head around…&lt;/p&gt;
           <title>Microservices</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-03-12-microservices.jpg&quot; alt=&quot;What is the actual size of a microservice? When does it become a miliservice?&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-03-12T03:19:02-03:00</pubDate>
+          <pubDate>2018-03-12T07:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/comics/microservices/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/microservices/</guid>
         </item>
@@ -2064,7 +2075,7 @@ your head around…&lt;/p&gt;
           <title>Yoloprotect</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-03-05-yoloprotect.jpg&quot; alt=&quot;It's funny that bpfilter came out when we haven't even started using nftables, right?&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-03-05T03:19:02-03:00</pubDate>
+          <pubDate>2018-03-05T07:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/comics/yoloprotect/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/yoloprotect/</guid>
         </item>
@@ -2075,7 +2086,7 @@ your head around…&lt;/p&gt;
           <title>Velocity</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-02-26-velocity.jpg&quot; alt=&quot;I wonder if managers are going to understand eventually that velocity is not a KPI that should be use to assess teams&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-02-26T03:19:02-03:00</pubDate>
+          <pubDate>2018-02-26T07:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/comics/velocity/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/velocity/</guid>
         </item>
@@ -2356,7 +2367,7 @@ You’re right, the possibilities are…&lt;/li&gt;
   &lt;li&gt;How does he do that ?&lt;/li&gt;
 &lt;/ul&gt;
 </description>
-          <pubDate>2018-02-21T04:19:02-03:00</pubDate>
+          <pubDate>2018-02-21T08:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/blog/the-wizard-2/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/blog/the-wizard-2/</guid>
         </item>
@@ -2367,7 +2378,7 @@ You’re right, the possibilities are…&lt;/li&gt;
           <title>YAML</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-02-19-yaml.jpg&quot; alt=&quot;What's with this new YAML sucks trend? Have you ever tried to read a JSON object? What about (not) goot old XML?&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-02-19T03:19:02-03:00</pubDate>
+          <pubDate>2018-02-19T07:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/comics/yaml/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/yaml/</guid>
         </item>
@@ -2378,7 +2389,7 @@ You’re right, the possibilities are…&lt;/li&gt;
           <title>Service Mesh</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-02-12-service-mesh.jpg&quot; alt=&quot;I wonder if Service Mesh is the new Serverless, or the new Blockchain.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-02-12T03:19:02-03:00</pubDate>
+          <pubDate>2018-02-12T07:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/comics/service-mesh/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/service-mesh/</guid>
         </item>
@@ -2389,7 +2400,7 @@ You’re right, the possibilities are…&lt;/li&gt;
           <title>Serverless</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-02-05-serverless.jpg&quot; alt=&quot;How come people keep talking about serverless, when everything underneath it is actually servers?&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-02-05T03:19:02-03:00</pubDate>
+          <pubDate>2018-02-05T07:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/comics/serverless/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/serverless/</guid>
         </item>
@@ -2400,7 +2411,7 @@ You’re right, the possibilities are…&lt;/li&gt;
           <title>Communication</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-01-29-communication.jpg&quot; alt=&quot;DevOps requires communication between development and operations, and it's better if they don't want to each each other.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-01-29T03:19:02-03:00</pubDate>
+          <pubDate>2018-01-29T07:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/comics/communication/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/communication/</guid>
         </item>
@@ -2411,7 +2422,7 @@ You’re right, the possibilities are…&lt;/li&gt;
           <title>Estimations</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-01-22-estimations.jpg&quot; alt=&quot;There are many valid, snarky responses you can use when someone asks you to estimate a user story.&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-01-22T03:19:02-03:00</pubDate>
+          <pubDate>2018-01-22T07:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/comics/estimations/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/estimations/</guid>
         </item>
@@ -2422,7 +2433,7 @@ You’re right, the possibilities are…&lt;/li&gt;
           <title>Healthchecks</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-01-15-healthchecks.jpg&quot; alt=&quot;If applications were sentient beings, we would annoy the fuck out of them.&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-01-15T03:19:02-03:00</pubDate>
+          <pubDate>2018-01-15T07:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/comics/healthchecks/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/healthchecks/</guid>
         </item>
@@ -2433,7 +2444,7 @@ You’re right, the possibilities are…&lt;/li&gt;
           <title>Meltburn and priorities</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-01-08-meltburn-and-priorities.jpg&quot; alt=&quot;I haven't applied any security patches since 1993, but at least my employees can't open YouTube, right?&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-01-07T21:19:02-03:00</pubDate>
+          <pubDate>2018-01-08T01:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/comics/meltburn-and-priorities/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/meltburn-and-priorities/</guid>
         </item>
@@ -2444,7 +2455,7 @@ You’re right, the possibilities are…&lt;/li&gt;
           <title>Twelve factor</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-01-01-twelve-factor.jpg&quot; alt=&quot;I need a twelve-factor app, not a twelve factor auth, please.&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2018-01-01T03:19:02-03:00</pubDate>
+          <pubDate>2018-01-01T07:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/comics/twelve-factor/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/twelve-factor/</guid>
         </item>
@@ -2727,7 +2738,7 @@ think alike, don’t they?&lt;/p&gt;
 &lt;p&gt;That was fun, wasn’t it? See you on the next adventure!&lt;/p&gt;
 
 </description>
-          <pubDate>2017-12-26T04:19:02-03:00</pubDate>
+          <pubDate>2017-12-26T08:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/blog/kubernetes-vs-docker-volumes/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/blog/kubernetes-vs-docker-volumes/</guid>
         </item>
@@ -2738,7 +2749,7 @@ think alike, don’t they?&lt;/p&gt;
           <title>Haskell goals</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2017-12-25-haskell-goals.jpg&quot; alt=&quot;I learnt Haskell. I can fullfill my dreams now. Hi I do Javascr... HAH! PEASANT!&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2017-12-25T03:19:02-03:00</pubDate>
+          <pubDate>2017-12-25T07:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/comics/haskell-goals/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/haskell-goals/</guid>
         </item>
@@ -2749,7 +2760,7 @@ think alike, don’t they?&lt;/p&gt;
           <title>Containerize everything</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2017-12-18-containerize-everything.jpg&quot; alt=&quot;Let's put a .doc on a container. Is it a good idea? We'll also need Libreoffice in order to read it.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2017-12-18T04:19:02-03:00</pubDate>
+          <pubDate>2017-12-18T08:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/comics/containerize-everything/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/containerize-everything/</guid>
         </item>
@@ -2760,7 +2771,7 @@ think alike, don’t they?&lt;/p&gt;
           <title>Beer</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2017-12-11-beer.jpg&quot; alt=&quot;Do you wanna go get a beer? I'd rather suffer excruciating pain before doing so.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2017-12-11T04:19:02-03:00</pubDate>
+          <pubDate>2017-12-11T08:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/comics/beer/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/beer/</guid>
         </item>
@@ -2771,7 +2782,7 @@ think alike, don’t they?&lt;/p&gt;
           <title>We DevOps now</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2017-12-04-we-devops-now.jpg&quot; alt=&quot;I'll create a new DevOps team between Dev and Ops in order to increase inter-communication.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2017-12-04T04:19:02-03:00</pubDate>
+          <pubDate>2017-12-04T08:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/comics/we-devops-now/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/we-devops-now/</guid>
         </item>
@@ -2782,7 +2793,7 @@ think alike, don’t they?&lt;/p&gt;
           <title>High performance computing</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2017-11-27-high-performance-computing.jpg&quot; alt=&quot;(Computer burns) Are you compiling the linux kernel? Nah, just running intellij.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2017-11-27T04:19:02-03:00</pubDate>
+          <pubDate>2017-11-27T08:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/comics/high-performance-computing/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/high-performance-computing/</guid>
         </item>
@@ -2793,7 +2804,7 @@ think alike, don’t they?&lt;/p&gt;
           <title>The endless struggle</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2017-11-21-the-endless-struggle.jpg&quot; alt=&quot;Vim is better than emacs.&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2017-11-21T16:19:02-03:00</pubDate>
+          <pubDate>2017-11-21T20:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/comics/the-endless-struggle/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/the-endless-struggle/</guid>
         </item>
@@ -3959,7 +3970,7 @@ during that period as you were now. It’s time to go.&lt;/p&gt;
 
 &lt;p&gt;N looks at where you used to be 10 seconds ago. You are no longer there.&lt;/p&gt;
 </description>
-          <pubDate>2017-11-20T04:19:02-03:00</pubDate>
+          <pubDate>2017-11-20T08:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/blog/the-wizard-1/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/blog/the-wizard-1/</guid>
         </item>
@@ -3970,7 +3981,7 @@ during that period as you were now. It’s time to go.&lt;/p&gt;
           <title>Good ideas</title>
           <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2017-11-16-good-ideas.jpg&quot; alt=&quot;Maybe we should delete /var. Ok.&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2017-11-16T16:19:02-03:00</pubDate>
+          <pubDate>2017-11-16T20:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/comics/good-ideas/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/comics/good-ideas/</guid>
         </item>
@@ -4252,7 +4263,7 @@ simpler workflow in order to work with them. Maybe I just haven’t found it yet
 &lt;p&gt;Big up to &lt;a href=&quot;https://dmsimard.com/about&quot;&gt;David&lt;/a&gt; for his work on ARA. Keep up the good work!&lt;/p&gt;
 
 </description>
-          <pubDate>2017-10-30T16:19:02-03:00</pubDate>
+          <pubDate>2017-10-30T20:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/blog/ara/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/blog/ara/</guid>
         </item>
@@ -4677,7 +4688,7 @@ when your Manager group increases in size.&lt;/li&gt;
 Anyway. I had a blast, I hope you did too!&lt;/p&gt;
 
 </description>
-          <pubDate>2017-10-16T16:19:02-03:00</pubDate>
+          <pubDate>2017-10-16T21:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/blog/how-does-it-work-docker-5/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/blog/how-does-it-work-docker-5/</guid>
         </item>
@@ -5199,7 +5210,7 @@ you about that on the next article though.&lt;/p&gt;
 &lt;p&gt;Stay in touch!&lt;/p&gt;
 
 </description>
-          <pubDate>2017-10-02T16:19:02-03:00</pubDate>
+          <pubDate>2017-10-02T21:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/blog/how-does-it-work-docker-4/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/blog/how-does-it-work-docker-4/</guid>
         </item>
@@ -5367,7 +5378,7 @@ further, since I haven’t actually tried them myself.&lt;/p&gt;
 around, we’ll be right back!&lt;/p&gt;
 
 </description>
-          <pubDate>2017-09-21T16:19:02-03:00</pubDate>
+          <pubDate>2017-09-21T21:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/blog/how-does-it-work-docker-3/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/blog/how-does-it-work-docker-3/</guid>
         </item>
@@ -5653,7 +5664,7 @@ Standalone” argument).&lt;/p&gt;
 load-balancing and security on the next one. Don’t go anywhere!&lt;/p&gt;
 
 </description>
-          <pubDate>2017-09-04T16:19:02-03:00</pubDate>
+          <pubDate>2017-09-04T21:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/blog/how-does-it-work-docker-2/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/blog/how-does-it-work-docker-2/</guid>
         </item>
@@ -5866,7 +5877,7 @@ you about Docker (and Swarm’s) networking model.&lt;/p&gt;
 &lt;p&gt;Stay tuned!&lt;/p&gt;
 
 </description>
-          <pubDate>2017-06-08T15:19:02-04:00</pubDate>
+          <pubDate>2017-06-08T21:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/blog/how-does-it-work-docker-1/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/blog/how-does-it-work-docker-1/</guid>
         </item>
@@ -6171,7 +6182,7 @@ like Terraform.&lt;/p&gt;
 &lt;p&gt;Anyways, I hope you enjoyed that as much as I did!&lt;/p&gt;
 
 </description>
-          <pubDate>2017-05-01T16:19:02-03:00</pubDate>
+          <pubDate>2017-05-01T21:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/blog/broom/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/blog/broom/</guid>
         </item>
@@ -6539,7 +6550,7 @@ work on some other things too:&lt;/p&gt;
 &lt;p&gt;I might work on these things in the future. Anyways, see you on the next adventure!&lt;/p&gt;
 
 </description>
-          <pubDate>2017-04-03T16:19:02-03:00</pubDate>
+          <pubDate>2017-04-03T21:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/blog/how-does-it-work-kube-5/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/blog/how-does-it-work-kube-5/</guid>
         </item>
@@ -6851,7 +6862,7 @@ the really really fun part in the next article.&lt;/p&gt;
 &lt;p&gt;Stay tuned!&lt;/p&gt;
 
 </description>
-          <pubDate>2017-03-30T16:19:02-03:00</pubDate>
+          <pubDate>2017-03-30T21:19:02+02:00</pubDate>
           <link>https://sebiwi.github.io/blog/how-does-it-work-kube-4/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/blog/how-does-it-work-kube-4/</guid>
         </item>
@@ -6968,7 +6979,7 @@ exactly the platform we’re using for our project. Great.&lt;/p&gt;
 &lt;p&gt;Stay tuned!&lt;/p&gt;
 
 </description>
-          <pubDate>2017-03-24T16:19:02-03:00</pubDate>
+          <pubDate>2017-03-24T20:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/blog/how-does-it-work-kube-3/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/blog/how-does-it-work-kube-3/</guid>
         </item>
@@ -7076,7 +7087,7 @@ trade first. That’s all for today though. The fun part starts in the next arti
 &lt;p&gt;Stay tuned!&lt;/p&gt;
 
 </description>
-          <pubDate>2017-03-17T16:19:02-03:00</pubDate>
+          <pubDate>2017-03-17T20:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/blog/how-does-it-work-kube-2/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/blog/how-does-it-work-kube-2/</guid>
         </item>
@@ -7224,7 +7235,7 @@ for today though. I’ll talk to you about networking in the next episode.&lt;/p
 &lt;p&gt;Stay tuned!&lt;/p&gt;
 
 </description>
-          <pubDate>2017-03-11T16:19:02-03:00</pubDate>
+          <pubDate>2017-03-11T20:19:02+01:00</pubDate>
           <link>https://sebiwi.github.io/blog/how-does-it-work-kube-1/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/blog/how-does-it-work-kube-1/</guid>
         </item>
@@ -7296,7 +7307,7 @@ Maybe I’ll do it sometime in the future. You’re free to contribute as well i
 &lt;p&gt;Anyway, I just thought I’d share.&lt;/p&gt;
 
 </description>
-          <pubDate>2017-03-04T06:50:02-03:00</pubDate>
+          <pubDate>2017-03-04T10:50:02+01:00</pubDate>
           <link>https://sebiwi.github.io/blog/fpaste-cli/</link>
           <guid isPermaLink="true">https://sebiwi.github.io/blog/fpaste-cli/</guid>
         </item>
