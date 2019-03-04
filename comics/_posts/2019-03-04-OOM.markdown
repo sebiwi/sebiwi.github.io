@@ -1,0 +1,12 @@
+---
+title:  "OOM"
+layout: post
+date:   2019-03-04 07:19:02 +0100
+tag:
+- comics
+category: comics
+author: sebiwi
+image: /assets/images/comics/2019-03-04-OOM.jpg
+---
+
+![The OOM killer is supposed to kill processes based on an OOM score. In reality, it just kills the Java application.]({{ site.url }}{{ page.image }}){: class="bigger-image" }
