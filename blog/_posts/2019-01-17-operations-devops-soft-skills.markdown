@@ -121,8 +121,6 @@ doing so.
 ![Why do you keep using Jenkins if you hate it?]({{ site.url }}/assets/images/comics/2018-04-09-dear-jenkins.jpg)
 <figcaption class="caption">Improve, based on your experiences</figcaption>
 
-Improve, based on your experiences
-
 ## On facilitating interactions
 
 More often than not, people on your team will have questions regarding your
