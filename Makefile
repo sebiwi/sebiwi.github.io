@@ -4,7 +4,7 @@ serve:
 	@bundle exec jekyll serve
 
 build:
-	@bundle exec jekyll serve
+	@bundle exec jekyll build
 
 test:
 	./test.sh
