@@ -57,8 +57,10 @@ simple as possible][2].
 At least that’s the most important part. But also included with ARA is a CLI
 which allows you to query the aforementioned database interactively, a web
 interface coded in Flask which allows you to check out all of your data
-dynamically, and two Ansible modules: [ara_record][3] and [ara_read][4]. I’ll talk about
-these two later.
+dynamically, and two Ansible modules: ara_record and ara_read.
+
+**EDIT: Apparently, the ara_read module does not exist anymore, and the ara_record module
+is now a callback plugin.**
 
 ## How to install it?
 
@@ -103,9 +105,7 @@ in order to launch the dashboard as a service, and I exposed it using nginx.
 Simple.
 
 The ARA installation part remains the same for this case, unless you want to use
-MySQL or PostgreSQL instead of SQLite. I didn’t. [Here’s a guide of the schemas
-you’ll need to create and the extra configuration variables you will need to add
-in that case][5].
+MySQL or PostgreSQL instead of SQLite. I didn’t.
 
 Your service file will look somewhat like this one:
 
@@ -220,6 +220,8 @@ you’re using this as a key element in order to pass data between your plays,
 you’re basically structuring your playbooks/roles/plays the wrong way. But
 that’s just me.
 
+**EDIT: Once again, this section is no longer relevant.**
+
 Finally, the web interface is quite cool since it allows you to filter
 information by hostname, keyword, or status. This is particularly useful when
 you’re trying to see the changed, or failed tasks of a playbook, or when you’re
@@ -278,7 +280,4 @@ Big up to [David][6] for his work on ARA. Keep up the good work!
 
 [1]: https://ara.readthedocs.io/en/latest/
 [2]: https://en.wikipedia.org/wiki/KISS_principle
-[3]: https://ara.readthedocs.io/en/latest/usage.html#ara-record
-[4]: https://ara.readthedocs.io/en/latest/usage.html#ara-read
-[5]: http://ara.readthedocs.io/en/latest/configuration.html#ara-database
 [6]: https://dmsimard.com/about
