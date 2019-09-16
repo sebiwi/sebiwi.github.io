@@ -7,7 +7,7 @@ if [[ -z "$1" ]]; then
   exit
 fi
 
-make build
+bundle exec jekyll build
 pushd _site
 git add .
 git commit -m "$1"

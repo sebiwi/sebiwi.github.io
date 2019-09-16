@@ -3,82 +3,82 @@
   <channel>
     <title>Sebiwi</title>
     <description>Tech and stuff</description>
-    <link>http://localhost:4000</link>
+    <link>https://sebiwi.github.io</link>
     
       
         <item>
           <title>Technical</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2019-09-16-technical.jpg&quot; alt=&quot;Often, people think all of their problems are technical. Most of the time, they're not.&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2019-09-16-technical.jpg&quot; alt=&quot;Often, people think all of their problems are technical. Most of the time, they're not.&quot; /&gt;&lt;/p&gt;
 </description>
-          <pubDate>2019-03-26T07:19:02+01:00</pubDate>
-          <link>http://localhost:4000/comics/technical/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/technical/</guid>
+          <pubDate>2019-09-16T08:19:02+02:00</pubDate>
+          <link>https://sebiwi.github.io/comics/technical/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/technical/</guid>
         </item>
       
     
       
         <item>
           <title>Planning</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2019-03-25-planning.jpg&quot; alt=&quot;I love planning meetings. Specially when we're supposed to plan every single aspect of a product's lifetime for the next 25 years&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2019-03-25-planning.jpg&quot; alt=&quot;I love planning meetings. Specially when we're supposed to plan every single aspect of a product's lifetime for the next 25 years&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2019-03-25T07:19:02+01:00</pubDate>
-          <link>http://localhost:4000/comics/planning/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/planning/</guid>
+          <link>https://sebiwi.github.io/comics/planning/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/planning/</guid>
         </item>
       
     
       
         <item>
           <title>Regex</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2019-03-18-regex.jpg&quot; alt=&quot;I've heard people trying to evaluate performance by counting lines of code. That's attributing the same value to a variable assignment and a regular expression.&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2019-03-18-regex.jpg&quot; alt=&quot;I've heard people trying to evaluate performance by counting lines of code. That's attributing the same value to a variable assignment and a regular expression.&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2019-03-18T07:19:02+01:00</pubDate>
-          <link>http://localhost:4000/comics/regex/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/regex/</guid>
+          <link>https://sebiwi.github.io/comics/regex/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/regex/</guid>
         </item>
       
     
       
         <item>
           <title>Datalake</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2019-03-11-datalake.jpg&quot; alt=&quot;Everyone talks about datalakes, no one talks about quality data. So almost every datalake looks like a shitpile.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2019-03-11-datalake.jpg&quot; alt=&quot;Everyone talks about datalakes, no one talks about quality data. So almost every datalake looks like a shitpile.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2019-03-11T07:19:02+01:00</pubDate>
-          <link>http://localhost:4000/comics/datalake/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/datalake/</guid>
+          <link>https://sebiwi.github.io/comics/datalake/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/datalake/</guid>
         </item>
       
     
       
         <item>
           <title>OOM</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2019-03-04-OOM.jpg&quot; alt=&quot;The OOM killer is supposed to kill processes based on an OOM score. In reality, it just kills the Java application.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2019-03-04-OOM.jpg&quot; alt=&quot;The OOM killer is supposed to kill processes based on an OOM score. In reality, it just kills the Java application.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2019-03-04T07:19:02+01:00</pubDate>
-          <link>http://localhost:4000/comics/OOM/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/OOM/</guid>
+          <link>https://sebiwi.github.io/comics/OOM/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/OOM/</guid>
         </item>
       
     
       
         <item>
           <title>Agile says</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2019-01-28-agile-says.jpg&quot; alt=&quot;It's funny to hear people say &amp;quot;Agile says&amp;quot;. It's like there are rules to follow.&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2019-01-28-agile-says.jpg&quot; alt=&quot;It's funny to hear people say &amp;quot;Agile says&amp;quot;. It's like there are rules to follow.&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2019-01-28T07:19:02+01:00</pubDate>
-          <link>http://localhost:4000/comics/agile-says/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/agile-says/</guid>
+          <link>https://sebiwi.github.io/comics/agile-says/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/agile-says/</guid>
         </item>
       
     
       
         <item>
           <title>Status feature</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2019-01-21-status-feature.jpg&quot; alt=&quot;Why did they add the status feature to GitHub? What is this, Facebook?&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2019-01-21-status-feature.jpg&quot; alt=&quot;Why did they add the status feature to GitHub? What is this, Facebook?&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2019-01-21T07:19:02+01:00</pubDate>
-          <link>http://localhost:4000/comics/status-feature/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/status-feature/</guid>
+          <link>https://sebiwi.github.io/comics/status-feature/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/status-feature/</guid>
         </item>
       
     
@@ -100,7 +100,7 @@ made sense for management to group people into teams using their skillset as
 sorting criteria… you name it. In the end, most interactions between
 Development teams and Operation teams happened through ticketing systems.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/soft-skills/effective-communication.jpg&quot; alt=&quot;Effective communication&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/soft-skills/effective-communication.jpg&quot; alt=&quot;Effective communication&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;Effective communication&lt;/figcaption&gt;
 
 &lt;p&gt;These workflows created and fueled most of the &lt;strong&gt;communication issues&lt;/strong&gt; within
@@ -196,7 +196,7 @@ way up to something that suits your needs. “Simple is better” should be your
 mantra. Once again, apply the knowledge acquired from previous experiences when
 doing so.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-04-09-dear-jenkins.jpg&quot; alt=&quot;Why do you keep using Jenkins if you hate it?&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-04-09-dear-jenkins.jpg&quot; alt=&quot;Why do you keep using Jenkins if you hate it?&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;Improve, based on your experiences&lt;/figcaption&gt;
 
 &lt;h2 id=&quot;on-facilitating-interactions&quot;&gt;On facilitating interactions&lt;/h2&gt;
@@ -208,7 +208,7 @@ lot of terms will be thrown around: availability, redundancy, stress testing,
     about these subjects, that’s a good thing too&lt;/strong&gt;. Either way, you might want to
 step in and catalyze the discussion.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-01-29-communication.jpg&quot; alt=&quot;Individuals and interactions overs processes and tools&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-01-29-communication.jpg&quot; alt=&quot;Individuals and interactions overs processes and tools&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;Individuals and interactions over processes and tools&lt;/figcaption&gt;
 
 &lt;p&gt;Before doing so, &lt;strong&gt;remember to be kind&lt;/strong&gt;. It is a key aspect in human interaction,
@@ -271,7 +271,7 @@ a plug in replacement for you right away, they are already doing something else
 as a full-time job. Still, having enough knowledge to be able to debug common
 issues is already great.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/soft-skills/fullstack-devops-engineer.jpg&quot; alt=&quot;Fullstack DevOps engineer&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/soft-skills/fullstack-devops-engineer.jpg&quot; alt=&quot;Fullstack DevOps engineer&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;Fullstack DevOps engineer&lt;/figcaption&gt;
 
 &lt;p&gt;The most efficient form of knowledge sharing is pair programming. It is
@@ -352,7 +352,7 @@ Not knowing is not an issue. It is impossible to know everything. It is a good
 thing to say it. Be honest. People will trust you more, and start doing it
 themselves too.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-12-03-experience.jpg&quot; alt=&quot;I don't know. Say it.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-12-03-experience.jpg&quot; alt=&quot;I don't know. Say it.&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;&quot;I don't know&quot;. Say it.&lt;/figcaption&gt;
 
 &lt;h2 id=&quot;theres-no-way-im-remembering-all-those-things&quot;&gt;There’s no way I’m remembering all those things&lt;/h2&gt;
@@ -372,250 +372,250 @@ themselves too.&lt;/p&gt;
 
 </description>
           <pubDate>2019-01-17T07:19:02+01:00</pubDate>
-          <link>http://localhost:4000/blog/operations-devops-soft-skills/</link>
-          <guid isPermaLink="true">http://localhost:4000/blog/operations-devops-soft-skills/</guid>
+          <link>https://sebiwi.github.io/blog/operations-devops-soft-skills/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/blog/operations-devops-soft-skills/</guid>
         </item>
       
     
       
         <item>
           <title>ESx</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2019-01-14-ESx.jpg&quot; alt=&quot;You can get a neat mathematical formula to calculate the real name of an ECMAScript. I double dare you to try to get the same thing with Windows.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2019-01-14-ESx.jpg&quot; alt=&quot;You can get a neat mathematical formula to calculate the real name of an ECMAScript. I double dare you to try to get the same thing with Windows.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2019-01-14T07:19:02+01:00</pubDate>
-          <link>http://localhost:4000/comics/ESx/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/ESx/</guid>
+          <link>https://sebiwi.github.io/comics/ESx/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/ESx/</guid>
         </item>
       
     
       
         <item>
           <title>Reality</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2019-01-07-reality.jpg&quot; alt=&quot;There's a difference between the planning and our current progress. There must be an issue with reality. Certainly.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2019-01-07-reality.jpg&quot; alt=&quot;There's a difference between the planning and our current progress. There must be an issue with reality. Certainly.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2019-01-07T07:19:02+01:00</pubDate>
-          <link>http://localhost:4000/comics/reality/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/reality/</guid>
+          <link>https://sebiwi.github.io/comics/reality/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/reality/</guid>
         </item>
       
     
       
         <item>
           <title>Retrospective</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-12-31-retrospective.jpg&quot; alt=&quot;It's been a while since I started posting drawings in here. It's been fun. Maybe it's time for a little retrospective&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-12-31-retrospective.jpg&quot; alt=&quot;It's been a while since I started posting drawings in here. It's been fun. Maybe it's time for a little retrospective&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-12-31T07:19:02+01:00</pubDate>
-          <link>http://localhost:4000/comics/retrospective/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/retrospective/</guid>
+          <link>https://sebiwi.github.io/comics/retrospective/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/retrospective/</guid>
         </item>
       
     
       
         <item>
           <title>You had me at EHLO</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-12-24-you-had-me-at-ehlo.jpg&quot; alt=&quot;Christmas is about giving. Does giving &amp;quot;a hard time&amp;quot; count? I'm thinkin about a nice Reply Allpocalypse, for instance.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-12-24-you-had-me-at-ehlo.jpg&quot; alt=&quot;Christmas is about giving. Does giving &amp;quot;a hard time&amp;quot; count? I'm thinkin about a nice Reply Allpocalypse, for instance.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-12-24T07:19:02+01:00</pubDate>
-          <link>http://localhost:4000/comics/you-had-me-at-ehlo/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/you-had-me-at-ehlo/</guid>
+          <link>https://sebiwi.github.io/comics/you-had-me-at-ehlo/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/you-had-me-at-ehlo/</guid>
         </item>
       
     
       
         <item>
           <title>Creativity</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-12-17-creativity.jpg&quot; alt=&quot;Developers are the most creative being in the whole universe. It would be great to have them consider operation limits within the scope of their creation though.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-12-17-creativity.jpg&quot; alt=&quot;Developers are the most creative being in the whole universe. It would be great to have them consider operation limits within the scope of their creation though.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-12-17T07:19:02+01:00</pubDate>
-          <link>http://localhost:4000/comics/creativity/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/creativity/</guid>
+          <link>https://sebiwi.github.io/comics/creativity/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/creativity/</guid>
         </item>
       
     
       
         <item>
           <title>Random</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-12-10-random.jpg&quot; alt=&quot;I like how project managers make accurate estimations by multiplying other estimations by 2. It's almost like multiplying two random numbers straight up.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-12-10-random.jpg&quot; alt=&quot;I like how project managers make accurate estimations by multiplying other estimations by 2. It's almost like multiplying two random numbers straight up.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-12-10T07:19:02+01:00</pubDate>
-          <link>http://localhost:4000/comics/random/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/random/</guid>
+          <link>https://sebiwi.github.io/comics/random/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/random/</guid>
         </item>
       
     
       
         <item>
           <title>Experience</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-12-03-experience.jpg&quot; alt=&quot;Experience is a dim lamp which only lights the one who wears it. This isn't my domain of expertise though.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-12-03-experience.jpg&quot; alt=&quot;Experience is a dim lamp which only lights the one who wears it. This isn't my domain of expertise though.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-12-03T07:19:02+01:00</pubDate>
-          <link>http://localhost:4000/comics/experience/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/experience/</guid>
+          <link>https://sebiwi.github.io/comics/experience/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/experience/</guid>
         </item>
       
     
       
         <item>
           <title>Scrum Man</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-11-26-scrum-man.jpg&quot; alt=&quot;Sometimes I don't even understand why scrum is supposed to be agile. Micro-deadlines, velocity, no backlog modification that would endanger the sprint goal? Da fuck?&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-11-26-scrum-man.jpg&quot; alt=&quot;Sometimes I don't even understand why scrum is supposed to be agile. Micro-deadlines, velocity, no backlog modification that would endanger the sprint goal? Da fuck?&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-11-26T07:19:02+01:00</pubDate>
-          <link>http://localhost:4000/comics/scrum-man/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/scrum-man/</guid>
+          <link>https://sebiwi.github.io/comics/scrum-man/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/scrum-man/</guid>
         </item>
       
     
       
         <item>
           <title>Clipboard</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-11-19-clipboard.jpg&quot; alt=&quot;The Mac's clipboard is shared with the iPhone's. By default. I just sent a `kubectl get pods -n dev` to my Tinder match.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-11-19-clipboard.jpg&quot; alt=&quot;The Mac's clipboard is shared with the iPhone's. By default. I just sent a `kubectl get pods -n dev` to my Tinder match.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-11-19T07:19:02+01:00</pubDate>
-          <link>http://localhost:4000/comics/clipboard/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/clipboard/</guid>
+          <link>https://sebiwi.github.io/comics/clipboard/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/clipboard/</guid>
         </item>
       
     
       
         <item>
           <title>Stash</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-11-12-stash.jpg&quot; alt=&quot;Wouldn't it be cool if we could use git in real life?&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-11-12-stash.jpg&quot; alt=&quot;Wouldn't it be cool if we could use git in real life?&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-11-12T07:19:02+01:00</pubDate>
-          <link>http://localhost:4000/comics/stash/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/stash/</guid>
+          <link>https://sebiwi.github.io/comics/stash/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/stash/</guid>
         </item>
       
     
       
         <item>
           <title>Typing</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-11-05-typing.jpg&quot; alt=&quot;I wonder how they test static language typing. Probably stress tests?&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-11-05-typing.jpg&quot; alt=&quot;I wonder how they test static language typing. Probably stress tests?&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-11-05T07:19:02+01:00</pubDate>
-          <link>http://localhost:4000/comics/typing/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/typing/</guid>
+          <link>https://sebiwi.github.io/comics/typing/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/typing/</guid>
         </item>
       
     
       
         <item>
           <title>Monday news</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-10-29-monday-news.jpg&quot; alt=&quot;I guess nobody ever got fired for buying RedHat&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-10-29-monday-news.jpg&quot; alt=&quot;I guess nobody ever got fired for buying RedHat&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-10-29T07:19:02+01:00</pubDate>
-          <link>http://localhost:4000/comics/monday-news/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/monday-news/</guid>
+          <link>https://sebiwi.github.io/comics/monday-news/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/monday-news/</guid>
         </item>
       
     
       
         <item>
           <title>Cyclomatic</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-10-22-cyclomatic.jpg&quot; alt=&quot;Cyclomatic compelxity should not be minimized during conversations. Life would be less funnier.&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-10-22-cyclomatic.jpg&quot; alt=&quot;Cyclomatic compelxity should not be minimized during conversations. Life would be less funnier.&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-10-22T08:19:02+02:00</pubDate>
-          <link>http://localhost:4000/comics/cyclomatic/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/cyclomatic/</guid>
+          <link>https://sebiwi.github.io/comics/cyclomatic/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/cyclomatic/</guid>
         </item>
       
     
       
         <item>
           <title>Bingo</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-10-15-bingo.jpg&quot; alt=&quot;We try to play bullshit bingo at each conference or presentation we go. It seems slightly nihilistic, in retrospective.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-10-15-bingo.jpg&quot; alt=&quot;We try to play bullshit bingo at each conference or presentation we go. It seems slightly nihilistic, in retrospective.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-10-15T08:19:02+02:00</pubDate>
-          <link>http://localhost:4000/comics/bingo/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/bingo/</guid>
+          <link>https://sebiwi.github.io/comics/bingo/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/bingo/</guid>
         </item>
       
     
       
         <item>
           <title>Kernel</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-10-08-kernel.jpg&quot; alt=&quot;I really like Linus. I just hope he gets his shit together soon, otherwise it's gonna make the community poisonous.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-10-08-kernel.jpg&quot; alt=&quot;I really like Linus. I just hope he gets his shit together soon, otherwise it's gonna make the community poisonous.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-10-08T08:19:02+02:00</pubDate>
-          <link>http://localhost:4000/comics/kernel/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/kernel/</guid>
+          <link>https://sebiwi.github.io/comics/kernel/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/kernel/</guid>
         </item>
       
     
       
         <item>
           <title>Synced</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-10-01-synced.jpg&quot; alt=&quot;I'm having a hard time trusting Chrome nowadays. Specially since all these offers started popping in my email.&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-10-01-synced.jpg&quot; alt=&quot;I'm having a hard time trusting Chrome nowadays. Specially since all these offers started popping in my email.&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-10-01T08:19:02+02:00</pubDate>
-          <link>http://localhost:4000/comics/synced/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/synced/</guid>
+          <link>https://sebiwi.github.io/comics/synced/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/synced/</guid>
         </item>
       
     
       
         <item>
           <title>Master Branch</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-09-24-master-branch.jpg&quot; alt=&quot;It's good that people are starting to notice concepts that should be reconstructed in our line of work. There is still a long road ahead though. With master-slave on the works, people are forgetting some other things. Like the master branch, for example.&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-09-24-master-branch.jpg&quot; alt=&quot;It's good that people are starting to notice concepts that should be reconstructed in our line of work. There is still a long road ahead though. With master-slave on the works, people are forgetting some other things. Like the master branch, for example.&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-09-24T08:19:02+02:00</pubDate>
-          <link>http://localhost:4000/comics/master-branch/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/master-branch/</guid>
+          <link>https://sebiwi.github.io/comics/master-branch/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/master-branch/</guid>
         </item>
       
     
       
         <item>
           <title>Futility</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-09-17-futility.jpg&quot; alt=&quot;I always wondered about the actual definition of an exercice in futility. I looked it up, and a lot of things came into my mind. Like front-end tests, for example&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-09-17-futility.jpg&quot; alt=&quot;I always wondered about the actual definition of an exercice in futility. I looked it up, and a lot of things came into my mind. Like front-end tests, for example&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-09-17T08:19:02+02:00</pubDate>
-          <link>http://localhost:4000/comics/futility/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/futility/</guid>
+          <link>https://sebiwi.github.io/comics/futility/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/futility/</guid>
         </item>
       
     
       
         <item>
           <title>Distributed monolith</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-09-10-distributed-monolith.jpg&quot; alt=&quot;Check Conway's Law before speedboating into microservices please&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-09-10-distributed-monolith.jpg&quot; alt=&quot;Check Conway's Law before speedboating into microservices please&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-09-10T08:19:02+02:00</pubDate>
-          <link>http://localhost:4000/comics/distributed-monolith/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/distributed-monolith/</guid>
+          <link>https://sebiwi.github.io/comics/distributed-monolith/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/distributed-monolith/</guid>
         </item>
       
     
       
         <item>
           <title>Generics</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-09-03-generics.jpg&quot; alt=&quot;Everyone is talking about the necessity of generics in go 2. I wonder if they actually know what generics are used for.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-09-03-generics.jpg&quot; alt=&quot;Everyone is talking about the necessity of generics in go 2. I wonder if they actually know what generics are used for.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-09-03T08:19:02+02:00</pubDate>
-          <link>http://localhost:4000/comics/generics/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/generics/</guid>
+          <link>https://sebiwi.github.io/comics/generics/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/generics/</guid>
         </item>
       
     
       
         <item>
           <title>Dashboards</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-08-28-dashboards.jpg&quot; alt=&quot;Dashboard metrics are the funniest thing. Most of the time they look like fillers though.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-08-28-dashboards.jpg&quot; alt=&quot;Dashboard metrics are the funniest thing. Most of the time they look like fillers though.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-08-27T08:19:02+02:00</pubDate>
-          <link>http://localhost:4000/comics/dashboards/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/dashboards/</guid>
+          <link>https://sebiwi.github.io/comics/dashboards/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/dashboards/</guid>
         </item>
       
     
       
         <item>
           <title>Math</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-08-20-math.jpg&quot; alt=&quot;A teacher once told me that if I'm having a hard time understanding a subject it's because I don't know enough math. It is not true.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-08-20-math.jpg&quot; alt=&quot;A teacher once told me that if I'm having a hard time understanding a subject it's because I don't know enough math. It is not true.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-08-20T08:19:02+02:00</pubDate>
-          <link>http://localhost:4000/comics/math/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/math/</guid>
+          <link>https://sebiwi.github.io/comics/math/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/math/</guid>
         </item>
       
     
@@ -1037,107 +1037,107 @@ for ourselves.&lt;/p&gt;
 
 </description>
           <pubDate>2018-08-16T08:19:02+02:00</pubDate>
-          <link>http://localhost:4000/blog/software-craftsmanship-terraform/</link>
-          <guid isPermaLink="true">http://localhost:4000/blog/software-craftsmanship-terraform/</guid>
+          <link>https://sebiwi.github.io/blog/software-craftsmanship-terraform/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/blog/software-craftsmanship-terraform/</guid>
         </item>
       
     
       
         <item>
           <title>INVEST</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-08-13-INVEST.jpg&quot; alt=&quot;I really like INVEST user stories, but some people insist on keeping them rather VAGUE&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-08-13-INVEST.jpg&quot; alt=&quot;I really like INVEST user stories, but some people insist on keeping them rather VAGUE&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-08-13T08:19:02+02:00</pubDate>
-          <link>http://localhost:4000/comics/INVEST/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/INVEST/</guid>
+          <link>https://sebiwi.github.io/comics/INVEST/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/INVEST/</guid>
         </item>
       
     
       
         <item>
           <title>Burritos</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-07-30-burritos.jpg&quot; alt=&quot;I always hear the same explanation from people trying to explain monads. It makes you wonder if they actually understand what it means.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-07-30-burritos.jpg&quot; alt=&quot;I always hear the same explanation from people trying to explain monads. It makes you wonder if they actually understand what it means.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-07-30T08:19:02+02:00</pubDate>
-          <link>http://localhost:4000/comics/burritos/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/burritos/</guid>
+          <link>https://sebiwi.github.io/comics/burritos/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/burritos/</guid>
         </item>
       
     
       
         <item>
           <title>Spacious separations</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-07-23-spacious-separations.jpg&quot; alt=&quot;I heavily dislike `ss` output format. I guess `ss` stands for Spacious separations.&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-07-23-spacious-separations.jpg&quot; alt=&quot;I heavily dislike `ss` output format. I guess `ss` stands for Spacious separations.&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-07-23T08:19:02+02:00</pubDate>
-          <link>http://localhost:4000/comics/spacious-separartions/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/spacious-separartions/</guid>
+          <link>https://sebiwi.github.io/comics/spacious-separartions/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/spacious-separartions/</guid>
         </item>
       
     
       
         <item>
           <title>Dear Terraform</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-07-16-dear-terraform.jpg&quot; alt=&quot;I believe one of the worst moments when doing infrastructure as code is when your Terraform apply crashes and then your tfstate file is all fucked up.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-07-16-dear-terraform.jpg&quot; alt=&quot;I believe one of the worst moments when doing infrastructure as code is when your Terraform apply crashes and then your tfstate file is all fucked up.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-07-16T08:19:02+02:00</pubDate>
-          <link>http://localhost:4000/comics/dear-terrafom/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/dear-terrafom/</guid>
+          <link>https://sebiwi.github.io/comics/dear-terrafom/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/dear-terrafom/</guid>
         </item>
       
     
       
         <item>
           <title>We DevSecOps now</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-07-09-we-devsecops-now.jpg&quot; alt=&quot;Now that I have a DevSecOps team I only need another DevOps team to complete my organisation entity chain&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-07-09-we-devsecops-now.jpg&quot; alt=&quot;Now that I have a DevSecOps team I only need another DevOps team to complete my organisation entity chain&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-07-09T08:19:02+02:00</pubDate>
-          <link>http://localhost:4000/comics/we-devsecops-now/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/we-devsecops-now/</guid>
+          <link>https://sebiwi.github.io/comics/we-devsecops-now/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/we-devsecops-now/</guid>
         </item>
       
     
       
         <item>
           <title>Features</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-07-02-features.jpg&quot; alt=&quot;Programming languages are not chosen based on their features, but rather on their popularity.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-07-02-features.jpg&quot; alt=&quot;Programming languages are not chosen based on their features, but rather on their popularity.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-07-02T08:19:02+02:00</pubDate>
-          <link>http://localhost:4000/comics/features/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/features/</guid>
+          <link>https://sebiwi.github.io/comics/features/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/features/</guid>
         </item>
       
     
       
         <item>
           <title>Summer thoughts</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-06-25-summer-thoughts.jpg&quot; alt=&quot;I aways have multiple threads in my head, thinking about the most random stuff on every single situation.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-06-25-summer-thoughts.jpg&quot; alt=&quot;I aways have multiple threads in my head, thinking about the most random stuff on every single situation.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-06-25T08:19:02+02:00</pubDate>
-          <link>http://localhost:4000/comics/summer-thoughts/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/summer-thoughts/</guid>
+          <link>https://sebiwi.github.io/comics/summer-thoughts/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/summer-thoughts/</guid>
         </item>
       
     
       
         <item>
           <title>Trust</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-06-18-trust.jpg&quot; alt=&quot;If you put some images in prodution, it's a good idea to go and see what the image actually does.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-06-18-trust.jpg&quot; alt=&quot;If you put some images in prodution, it's a good idea to go and see what the image actually does.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-06-18T08:19:02+02:00</pubDate>
-          <link>http://localhost:4000/comics/trust/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/trust/</guid>
+          <link>https://sebiwi.github.io/comics/trust/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/trust/</guid>
         </item>
       
     
       
         <item>
           <title>Acquisition</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-06-11-acquisition.jpg&quot; alt=&quot;If you're excited about Microsoft's acquisition of GitHub, wait until you start seeing Mr. Clippy giving you advice in order to create merge requests.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-06-11-acquisition.jpg&quot; alt=&quot;If you're excited about Microsoft's acquisition of GitHub, wait until you start seeing Mr. Clippy giving you advice in order to create merge requests.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-06-11T08:19:02+02:00</pubDate>
-          <link>http://localhost:4000/comics/acquisition/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/acquisition/</guid>
+          <link>https://sebiwi.github.io/comics/acquisition/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/acquisition/</guid>
         </item>
       
     
@@ -1690,8 +1690,8 @@ file… maybe this simple solution can also be a good start.&lt;/p&gt;
 
 </description>
           <pubDate>2018-06-07T09:19:02+02:00</pubDate>
-          <link>http://localhost:4000/blog/ansible-container/</link>
-          <guid isPermaLink="true">http://localhost:4000/blog/ansible-container/</guid>
+          <link>https://sebiwi.github.io/blog/ansible-container/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/blog/ansible-container/</guid>
         </item>
       
     
@@ -1986,151 +1986,151 @@ your head around…&lt;/p&gt;
 &lt;/ul&gt;
 </description>
           <pubDate>2018-06-07T09:19:02+02:00</pubDate>
-          <link>http://localhost:4000/blog/the-wizard-3/</link>
-          <guid isPermaLink="true">http://localhost:4000/blog/the-wizard-3/</guid>
+          <link>https://sebiwi.github.io/blog/the-wizard-3/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/blog/the-wizard-3/</guid>
         </item>
       
     
       
         <item>
           <title>GDPR</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-06-04-GDPR.jpg&quot; alt=&quot;If you wanna stress an OPS person, ask him how he is going to handle GDPR.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-06-04-GDPR.jpg&quot; alt=&quot;If you wanna stress an OPS person, ask him how he is going to handle GDPR.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-06-04T08:19:02+02:00</pubDate>
-          <link>http://localhost:4000/comics/GDPR/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/GDPR/</guid>
+          <link>https://sebiwi.github.io/comics/GDPR/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/GDPR/</guid>
         </item>
       
     
       
         <item>
           <title>Deadlock</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-05-28-deadlock.jpg&quot; alt=&quot;I happen to think that the hardest moment of the day is deciding what to get for lunch.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-05-28-deadlock.jpg&quot; alt=&quot;I happen to think that the hardest moment of the day is deciding what to get for lunch.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-05-28T08:19:02+02:00</pubDate>
-          <link>http://localhost:4000/comics/deadlock/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/deadlock/</guid>
+          <link>https://sebiwi.github.io/comics/deadlock/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/deadlock/</guid>
         </item>
       
     
       
         <item>
           <title>Stereotypes</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-05-21-stereotypes.jpg&quot; alt=&quot;A lot of persons told me that I should make Deb wear a dress and a ribbon. I'm not doing it.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-05-21-stereotypes.jpg&quot; alt=&quot;A lot of persons told me that I should make Deb wear a dress and a ribbon. I'm not doing it.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-05-22T08:19:02+02:00</pubDate>
-          <link>http://localhost:4000/comics/stereotypes/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/stereotypes/</guid>
+          <link>https://sebiwi.github.io/comics/stereotypes/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/stereotypes/</guid>
         </item>
       
     
       
         <item>
           <title>Sidecar</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-04-30-sidecar.jpg&quot; alt=&quot;I'll probably end up getting a sidecar for human interations one of these days. Like a human service mesh.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-04-30-sidecar.jpg&quot; alt=&quot;I'll probably end up getting a sidecar for human interations one of these days. Like a human service mesh.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-04-30T08:19:02+02:00</pubDate>
-          <link>http://localhost:4000/comics/sidecar/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/sidecar/</guid>
+          <link>https://sebiwi.github.io/comics/sidecar/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/sidecar/</guid>
         </item>
       
     
       
         <item>
           <title>The show must go on</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-04-23-the-show-must-go-on.jpg&quot; alt=&quot;People will do the dumbest things in order to convince their clients that everything is going alright.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-04-23-the-show-must-go-on.jpg&quot; alt=&quot;People will do the dumbest things in order to convince their clients that everything is going alright.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-04-23T08:19:02+02:00</pubDate>
-          <link>http://localhost:4000/comics/the-show-must-go-on/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/the-show-must-go-on/</guid>
+          <link>https://sebiwi.github.io/comics/the-show-must-go-on/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/the-show-must-go-on/</guid>
         </item>
       
     
       
         <item>
           <title>Visage pamphlet</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-04-16-visage-pamphlet.jpg&quot; alt=&quot;Isn't it weird to being asked to delete your data, then not doing it afterwards? It is a technique known as the &amp;quot;Oxford Investigativa&amp;quot;.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-04-16-visage-pamphlet.jpg&quot; alt=&quot;Isn't it weird to being asked to delete your data, then not doing it afterwards? It is a technique known as the &amp;quot;Oxford Investigativa&amp;quot;.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-04-16T08:19:02+02:00</pubDate>
-          <link>http://localhost:4000/comics/visage-pamphlet/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/visage-pamphlet/</guid>
+          <link>https://sebiwi.github.io/comics/visage-pamphlet/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/visage-pamphlet/</guid>
         </item>
       
     
       
         <item>
           <title>Dear Jenkins</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-04-09-dear-jenkins.jpg&quot; alt=&quot;I say that I hate Jenkins, often. It's not true though.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-04-09-dear-jenkins.jpg&quot; alt=&quot;I say that I hate Jenkins, often. It's not true though.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-04-09T08:19:02+02:00</pubDate>
-          <link>http://localhost:4000/comics/dear-jenkins/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/dear-jenkins/</guid>
+          <link>https://sebiwi.github.io/comics/dear-jenkins/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/dear-jenkins/</guid>
         </item>
       
     
       
         <item>
           <title>Choices</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-04-02-choices.jpg&quot; alt=&quot;It seems crazy to look like a moron if you're not doing either golang or rust in 2018.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-04-02-choices.jpg&quot; alt=&quot;It seems crazy to look like a moron if you're not doing either golang or rust in 2018.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-04-02T08:19:02+02:00</pubDate>
-          <link>http://localhost:4000/comics/choices/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/choices/</guid>
+          <link>https://sebiwi.github.io/comics/choices/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/choices/</guid>
         </item>
       
     
       
         <item>
           <title>Go nuts</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-03-26-go-nuts.jpg&quot; alt=&quot;Fun fact: The #go channel on Freenode is about the board game, not about the programming language.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-03-26-go-nuts.jpg&quot; alt=&quot;Fun fact: The #go channel on Freenode is about the board game, not about the programming language.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-03-26T08:19:02+02:00</pubDate>
-          <link>http://localhost:4000/comics/go-nuts/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/go-nuts/</guid>
+          <link>https://sebiwi.github.io/comics/go-nuts/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/go-nuts/</guid>
         </item>
       
     
       
         <item>
           <title>Jokes</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-03-19-jokes.jpg&quot; alt=&quot;I like explaining my jokes to people. It's funnier, somehow. They tend to get frustrated. I can't really figure out why yet.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-03-19-jokes.jpg&quot; alt=&quot;I like explaining my jokes to people. It's funnier, somehow. They tend to get frustrated. I can't really figure out why yet.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-03-19T07:19:02+01:00</pubDate>
-          <link>http://localhost:4000/comics/jokes/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/jokes/</guid>
+          <link>https://sebiwi.github.io/comics/jokes/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/jokes/</guid>
         </item>
       
     
       
         <item>
           <title>Microservices</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-03-12-microservices.jpg&quot; alt=&quot;What is the actual size of a microservice? When does it become a miliservice?&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-03-12-microservices.jpg&quot; alt=&quot;What is the actual size of a microservice? When does it become a miliservice?&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-03-12T07:19:02+01:00</pubDate>
-          <link>http://localhost:4000/comics/microservices/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/microservices/</guid>
+          <link>https://sebiwi.github.io/comics/microservices/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/microservices/</guid>
         </item>
       
     
       
         <item>
           <title>Yoloprotect</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-03-05-yoloprotect.jpg&quot; alt=&quot;It's funny that bpfilter came out when we haven't even started using nftables, right?&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-03-05-yoloprotect.jpg&quot; alt=&quot;It's funny that bpfilter came out when we haven't even started using nftables, right?&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-03-05T07:19:02+01:00</pubDate>
-          <link>http://localhost:4000/comics/yoloprotect/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/yoloprotect/</guid>
+          <link>https://sebiwi.github.io/comics/yoloprotect/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/yoloprotect/</guid>
         </item>
       
     
       
         <item>
           <title>Velocity</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-02-26-velocity.jpg&quot; alt=&quot;I wonder if managers are going to understand eventually that velocity is not a KPI that should be use to assess teams&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-02-26-velocity.jpg&quot; alt=&quot;I wonder if managers are going to understand eventually that velocity is not a KPI that should be use to assess teams&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-02-26T07:19:02+01:00</pubDate>
-          <link>http://localhost:4000/comics/velocity/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/velocity/</guid>
+          <link>https://sebiwi.github.io/comics/velocity/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/velocity/</guid>
         </item>
       
     
@@ -2410,96 +2410,96 @@ You’re right, the possibilities are…&lt;/li&gt;
 &lt;/ul&gt;
 </description>
           <pubDate>2018-02-21T08:19:02+01:00</pubDate>
-          <link>http://localhost:4000/blog/the-wizard-2/</link>
-          <guid isPermaLink="true">http://localhost:4000/blog/the-wizard-2/</guid>
+          <link>https://sebiwi.github.io/blog/the-wizard-2/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/blog/the-wizard-2/</guid>
         </item>
       
     
       
         <item>
           <title>YAML</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-02-19-yaml.jpg&quot; alt=&quot;What's with this new YAML sucks trend? Have you ever tried to read a JSON object? What about (not) goot old XML?&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-02-19-yaml.jpg&quot; alt=&quot;What's with this new YAML sucks trend? Have you ever tried to read a JSON object? What about (not) goot old XML?&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-02-19T07:19:02+01:00</pubDate>
-          <link>http://localhost:4000/comics/yaml/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/yaml/</guid>
+          <link>https://sebiwi.github.io/comics/yaml/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/yaml/</guid>
         </item>
       
     
       
         <item>
           <title>Service Mesh</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-02-12-service-mesh.jpg&quot; alt=&quot;I wonder if Service Mesh is the new Serverless, or the new Blockchain.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-02-12-service-mesh.jpg&quot; alt=&quot;I wonder if Service Mesh is the new Serverless, or the new Blockchain.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-02-12T07:19:02+01:00</pubDate>
-          <link>http://localhost:4000/comics/service-mesh/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/service-mesh/</guid>
+          <link>https://sebiwi.github.io/comics/service-mesh/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/service-mesh/</guid>
         </item>
       
     
       
         <item>
           <title>Serverless</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-02-05-serverless.jpg&quot; alt=&quot;How come people keep talking about serverless, when everything underneath it is actually servers?&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-02-05-serverless.jpg&quot; alt=&quot;How come people keep talking about serverless, when everything underneath it is actually servers?&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-02-05T07:19:02+01:00</pubDate>
-          <link>http://localhost:4000/comics/serverless/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/serverless/</guid>
+          <link>https://sebiwi.github.io/comics/serverless/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/serverless/</guid>
         </item>
       
     
       
         <item>
           <title>Communication</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-01-29-communication.jpg&quot; alt=&quot;DevOps requires communication between development and operations, and it's better if they don't want to each each other.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-01-29-communication.jpg&quot; alt=&quot;DevOps requires communication between development and operations, and it's better if they don't want to each each other.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-01-29T07:19:02+01:00</pubDate>
-          <link>http://localhost:4000/comics/communication/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/communication/</guid>
+          <link>https://sebiwi.github.io/comics/communication/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/communication/</guid>
         </item>
       
     
       
         <item>
           <title>Estimations</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-01-22-estimations.jpg&quot; alt=&quot;There are many valid, snarky responses you can use when someone asks you to estimate a user story.&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-01-22-estimations.jpg&quot; alt=&quot;There are many valid, snarky responses you can use when someone asks you to estimate a user story.&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-01-22T07:19:02+01:00</pubDate>
-          <link>http://localhost:4000/comics/estimations/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/estimations/</guid>
+          <link>https://sebiwi.github.io/comics/estimations/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/estimations/</guid>
         </item>
       
     
       
         <item>
           <title>Healthchecks</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-01-15-healthchecks.jpg&quot; alt=&quot;If applications were sentient beings, we would annoy the fuck out of them.&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-01-15-healthchecks.jpg&quot; alt=&quot;If applications were sentient beings, we would annoy the fuck out of them.&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-01-15T07:19:02+01:00</pubDate>
-          <link>http://localhost:4000/comics/healthchecks/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/healthchecks/</guid>
+          <link>https://sebiwi.github.io/comics/healthchecks/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/healthchecks/</guid>
         </item>
       
     
       
         <item>
           <title>Meltburn and priorities</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-01-08-meltburn-and-priorities.jpg&quot; alt=&quot;I haven't applied any security patches since 1993, but at least my employees can't open YouTube, right?&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-01-08-meltburn-and-priorities.jpg&quot; alt=&quot;I haven't applied any security patches since 1993, but at least my employees can't open YouTube, right?&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-01-08T01:19:02+01:00</pubDate>
-          <link>http://localhost:4000/comics/meltburn-and-priorities/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/meltburn-and-priorities/</guid>
+          <link>https://sebiwi.github.io/comics/meltburn-and-priorities/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/meltburn-and-priorities/</guid>
         </item>
       
     
       
         <item>
           <title>Twelve factor</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2018-01-01-twelve-factor.jpg&quot; alt=&quot;I need a twelve-factor app, not a twelve factor auth, please.&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2018-01-01-twelve-factor.jpg&quot; alt=&quot;I need a twelve-factor app, not a twelve factor auth, please.&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2018-01-01T07:19:02+01:00</pubDate>
-          <link>http://localhost:4000/comics/twelve-factor/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/twelve-factor/</guid>
+          <link>https://sebiwi.github.io/comics/twelve-factor/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/twelve-factor/</guid>
         </item>
       
     
@@ -2528,7 +2528,7 @@ your data.&lt;/p&gt;
 &lt;p&gt;A container is created from a fixed image, and all its changes are lost when
 re-instantiating the image into a new container. It is an ephemeral resource.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/kube-vs-swarm/1/ephemeral-resource.jpg&quot; alt=&quot;Ephemeral resource&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/kube-vs-swarm/1/ephemeral-resource.jpg&quot; alt=&quot;Ephemeral resource&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;How can we make sure that all the data in the container is persisted somewhere?
 You could snapshot the container into a new image, but there is a limit in the
@@ -2586,7 +2586,7 @@ gcePersistentDisk (GCE), awsElasticBlockStore (AWS), and AzureDiskVolume
 nfs, iscsi, or fc (fibre channel). Others can be backed on modern, distributed
 file systems, like flocker, glusterfs and cephfs.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/kube-vs-swarm/1/kube-logo.png&quot; alt=&quot;Kubernetes logo&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/kube-vs-swarm/1/kube-logo.png&quot; alt=&quot;Kubernetes logo&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;There’s no way we can describe all of them in a single article. We just can’t.
 I’m sorry. We’ll do a couple of important ones though.&lt;/p&gt;
@@ -2673,7 +2673,7 @@ which the volume is mounted might move from a cluster node to another. If this
 happens, it will lose the data that was on the precedent node and a new empty
 volume will be recreated on the new node. Ouch.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/kube-vs-swarm/1/swarm-logo.png&quot; alt=&quot;Swarm logo&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/kube-vs-swarm/1/swarm-logo.png&quot; alt=&quot;Swarm logo&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;One possible solution to palliate this problem is to associate placement
 constraints with the container so it always runs on the same node. You should
@@ -2781,74 +2781,74 @@ think alike, don’t they?&lt;/p&gt;
 
 </description>
           <pubDate>2017-12-26T08:19:02+01:00</pubDate>
-          <link>http://localhost:4000/blog/kubernetes-vs-docker-volumes/</link>
-          <guid isPermaLink="true">http://localhost:4000/blog/kubernetes-vs-docker-volumes/</guid>
+          <link>https://sebiwi.github.io/blog/kubernetes-vs-docker-volumes/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/blog/kubernetes-vs-docker-volumes/</guid>
         </item>
       
     
       
         <item>
           <title>Haskell goals</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2017-12-25-haskell-goals.jpg&quot; alt=&quot;I learnt Haskell. I can fullfill my dreams now. Hi I do Javascr... HAH! PEASANT!&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2017-12-25-haskell-goals.jpg&quot; alt=&quot;I learnt Haskell. I can fullfill my dreams now. Hi I do Javascr... HAH! PEASANT!&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2017-12-25T07:19:02+01:00</pubDate>
-          <link>http://localhost:4000/comics/haskell-goals/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/haskell-goals/</guid>
+          <link>https://sebiwi.github.io/comics/haskell-goals/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/haskell-goals/</guid>
         </item>
       
     
       
         <item>
           <title>Containerize everything</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2017-12-18-containerize-everything.jpg&quot; alt=&quot;Let's put a .doc on a container. Is it a good idea? We'll also need Libreoffice in order to read it.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2017-12-18-containerize-everything.jpg&quot; alt=&quot;Let's put a .doc on a container. Is it a good idea? We'll also need Libreoffice in order to read it.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2017-12-18T08:19:02+01:00</pubDate>
-          <link>http://localhost:4000/comics/containerize-everything/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/containerize-everything/</guid>
+          <link>https://sebiwi.github.io/comics/containerize-everything/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/containerize-everything/</guid>
         </item>
       
     
       
         <item>
           <title>Beer</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2017-12-11-beer.jpg&quot; alt=&quot;Do you wanna go get a beer? I'd rather suffer excruciating pain before doing so.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2017-12-11-beer.jpg&quot; alt=&quot;Do you wanna go get a beer? I'd rather suffer excruciating pain before doing so.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2017-12-11T08:19:02+01:00</pubDate>
-          <link>http://localhost:4000/comics/beer/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/beer/</guid>
+          <link>https://sebiwi.github.io/comics/beer/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/beer/</guid>
         </item>
       
     
       
         <item>
           <title>We DevOps now</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2017-12-04-we-devops-now.jpg&quot; alt=&quot;I'll create a new DevOps team between Dev and Ops in order to increase inter-communication.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2017-12-04-we-devops-now.jpg&quot; alt=&quot;I'll create a new DevOps team between Dev and Ops in order to increase inter-communication.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2017-12-04T08:19:02+01:00</pubDate>
-          <link>http://localhost:4000/comics/we-devops-now/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/we-devops-now/</guid>
+          <link>https://sebiwi.github.io/comics/we-devops-now/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/we-devops-now/</guid>
         </item>
       
     
       
         <item>
           <title>High performance computing</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2017-11-27-high-performance-computing.jpg&quot; alt=&quot;(Computer burns) Are you compiling the linux kernel? Nah, just running intellij.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2017-11-27-high-performance-computing.jpg&quot; alt=&quot;(Computer burns) Are you compiling the linux kernel? Nah, just running intellij.&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2017-11-27T08:19:02+01:00</pubDate>
-          <link>http://localhost:4000/comics/high-performance-computing/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/high-performance-computing/</guid>
+          <link>https://sebiwi.github.io/comics/high-performance-computing/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/high-performance-computing/</guid>
         </item>
       
     
       
         <item>
           <title>The endless struggle</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2017-11-21-the-endless-struggle.jpg&quot; alt=&quot;Vim is better than emacs.&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2017-11-21-the-endless-struggle.jpg&quot; alt=&quot;Vim is better than emacs.&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2017-11-21T20:19:02+01:00</pubDate>
-          <link>http://localhost:4000/comics/the-endless-struggle/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/the-endless-struggle/</guid>
+          <link>https://sebiwi.github.io/comics/the-endless-struggle/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/the-endless-struggle/</guid>
         </item>
       
     
@@ -2880,7 +2880,7 @@ late 21st century). Sometimes, it is hard to keep up with it…&lt;/p&gt;
 &lt;p&gt;You look to your left. N is sitting right there. He looks at you with mild
 concern in his eyes.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/wizard/wizard-1.jpg&quot; alt=&quot;Wizard&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/wizard/wizard-1.jpg&quot; alt=&quot;Wizard&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Are you okay?&lt;/li&gt;
@@ -4013,19 +4013,19 @@ during that period as you were now. It’s time to go.&lt;/p&gt;
 &lt;p&gt;N looks at where you used to be 10 seconds ago. You are no longer there.&lt;/p&gt;
 </description>
           <pubDate>2017-11-20T08:19:02+01:00</pubDate>
-          <link>http://localhost:4000/blog/the-wizard-1/</link>
-          <guid isPermaLink="true">http://localhost:4000/blog/the-wizard-1/</guid>
+          <link>https://sebiwi.github.io/blog/the-wizard-1/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/blog/the-wizard-1/</guid>
         </item>
       
     
       
         <item>
           <title>Good ideas</title>
-          <description>&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/comics/2017-11-16-good-ideas.jpg&quot; alt=&quot;Maybe we should delete /var. Ok.&quot; /&gt;&lt;/p&gt;
+          <description>&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/comics/2017-11-16-good-ideas.jpg&quot; alt=&quot;Maybe we should delete /var. Ok.&quot; /&gt;&lt;/p&gt;
 </description>
           <pubDate>2017-11-16T20:19:02+01:00</pubDate>
-          <link>http://localhost:4000/comics/good-ideas/</link>
-          <guid isPermaLink="true">http://localhost:4000/comics/good-ideas/</guid>
+          <link>https://sebiwi.github.io/comics/good-ideas/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/comics/good-ideas/</guid>
         </item>
       
     
@@ -4064,7 +4064,7 @@ detailed analysis of your Ansible playbook runs, which includes:&lt;/p&gt;
   &lt;li&gt;Parameters used&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/ara/dashboard-basic.png&quot; alt=&quot;ARA Dashboard&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/ara/dashboard-basic.png&quot; alt=&quot;ARA Dashboard&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;ARA Dashboard&lt;/figcaption&gt;
 
 &lt;p&gt;And a bunch of other cool things. We will take a look into that in a second.
@@ -4076,7 +4076,7 @@ Yeah, really.&lt;/p&gt;
 playbook’s execution into a database, which is SQLite by default. That’s it. &lt;a href=&quot;https://en.wikipedia.org/wiki/KISS_principle&quot;&gt;As
 simple as possible&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/ara/ara-callback.png&quot; alt=&quot;ARA Callback&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/ara/ara-callback.png&quot; alt=&quot;ARA Callback&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;ARA Dashboard&lt;/figcaption&gt;
 
 &lt;p&gt;At least that’s the most important part. But also included with ARA is a CLI
@@ -4210,7 +4210,7 @@ like this:&lt;/p&gt;
 &lt;p&gt;Which will translate into a record on the ARA database, or something like this
 on the dashboard:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/ara/dashboard-record.png&quot; alt=&quot;Dashboard record&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/ara/dashboard-record.png&quot; alt=&quot;Dashboard record&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;Record on the dashboard&lt;/figcaption&gt;
 
 &lt;p&gt;You can also record things using the ad-hoc command directly, like so:&lt;/p&gt;
@@ -4244,10 +4244,10 @@ information by hostname, keyword, or status. This is particularly useful when
 you’re trying to see the changed, or failed tasks of a playbook, or when you’re
 trying to see all the tasks linked to a certain role or middleware.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/ara/search-elastic.png&quot; alt=&quot;Search elastic&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/ara/search-elastic.png&quot; alt=&quot;Search elastic&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;Full text search&lt;/figcaption&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/ara/search-failed.png&quot; alt=&quot;Search failed&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/ara/search-failed.png&quot; alt=&quot;Search failed&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;Search by status&lt;/figcaption&gt;
 
 &lt;h3 id=&quot;alright-lets-recap&quot;&gt;Alright, let’s recap.&lt;/h3&gt;
@@ -4308,8 +4308,8 @@ simpler workflow in order to work with them. Maybe I just haven’t found it yet
 
 </description>
           <pubDate>2017-10-30T20:19:02+01:00</pubDate>
-          <link>http://localhost:4000/blog/ara/</link>
-          <guid isPermaLink="true">http://localhost:4000/blog/ara/</guid>
+          <link>https://sebiwi.github.io/blog/ara/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/blog/ara/</guid>
         </item>
       
     
@@ -4622,13 +4622,13 @@ ID                         NAME                  IMAGE  NODE             DESIRED
 &lt;p&gt;We can see that they are running on swarm-worker-02 (10.0.0.122) and
 swarm-worker-03 (10.0.0.123). So, if we try to access 10.0.0.122:8080:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/how-does-it-work-docker/5/normal-node.png&quot; alt=&quot;Normal node&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/how-does-it-work-docker/5/normal-node.png&quot; alt=&quot;Normal node&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;This isn't that amazing&lt;/figcaption&gt;
 
 &lt;p&gt;Cool, that works. What if we try to access swarm-worker-01
 (10.0.0.121) though?&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/how-does-it-work-docker/5/other-node.png&quot; alt=&quot;Other node&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/how-does-it-work-docker/5/other-node.png&quot; alt=&quot;Other node&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;This is pretty rad&lt;/figcaption&gt;
 
 &lt;p&gt;Now, you still need a reverse-proxy or a load-balancer in order to
@@ -4733,8 +4733,8 @@ Anyway. I had a blast, I hope you did too!&lt;/p&gt;
 
 </description>
           <pubDate>2017-10-16T21:19:02+02:00</pubDate>
-          <link>http://localhost:4000/blog/how-does-it-work-docker-5/</link>
-          <guid isPermaLink="true">http://localhost:4000/blog/how-does-it-work-docker-5/</guid>
+          <link>https://sebiwi.github.io/blog/how-does-it-work-docker-5/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/blog/how-does-it-work-docker-5/</guid>
         </item>
       
     
@@ -5255,8 +5255,8 @@ you about that on the next article though.&lt;/p&gt;
 
 </description>
           <pubDate>2017-10-02T21:19:02+02:00</pubDate>
-          <link>http://localhost:4000/blog/how-does-it-work-docker-4/</link>
-          <guid isPermaLink="true">http://localhost:4000/blog/how-does-it-work-docker-4/</guid>
+          <link>https://sebiwi.github.io/blog/how-does-it-work-docker-4/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/blog/how-does-it-work-docker-4/</guid>
         </item>
       
     
@@ -5292,7 +5292,7 @@ DNS entries that belong to networks  in which the node has containers or tasks.
 This means that they will not store information that’s irrelevant to them
 practically, or that other containers do not need to know.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/how-does-it-work-docker/3/service-discovery.png&quot; alt=&quot;Service discovery&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/how-does-it-work-docker/3/service-discovery.png&quot; alt=&quot;Service discovery&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;&lt;a href=&quot;https://success.docker.com/Architecture/Docker_Reference_Architecture%3A_Designing_Scalable%2C_Portable_Docker_Container_Networks&quot;&gt;Discover what's up&lt;/a&gt;&lt;/figcaption&gt;
 
 &lt;p&gt;For example, in this image, there is a network called mynet. There are two
@@ -5352,7 +5352,7 @@ network called ingress. This overlay network is only used when transporting
 external traffic to the requested services. In this scope, the same internal
 load balancing strategies described in the previous section are used.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/how-does-it-work-docker/3/load-balancing.png&quot; alt=&quot;Load balancing&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/how-does-it-work-docker/3/load-balancing.png&quot; alt=&quot;Load balancing&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;&lt;a href=&quot;https://success.docker.com/Architecture/Docker_Reference_Architecture%3A_Universal_Control_Plane_2.0_Service_Discovery_and_Load_Balancing&quot;&gt;Balance that load&lt;/a&gt;&lt;/figcaption&gt;
 
 &lt;p&gt;In this picture, a service is created with two replicas, on the appnet overlay
@@ -5405,7 +5405,7 @@ leaving the source container, and it is decrypted once it arrives to the
 destination container. This guarantees security even when you do not fully
 control the underlying network infrastructure.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/how-does-it-work-docker/3/ipsec.png&quot; alt=&quot;Load balancing&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/how-does-it-work-docker/3/ipsec.png&quot; alt=&quot;Load balancing&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;&lt;a href=&quot;https://success.docker.com/Architecture/Docker_Reference_Architecture%3A_Designing_Scalable%2C_Portable_Docker_Container_Networks&quot;&gt;No one will ever know&lt;/a&gt;&lt;/figcaption&gt;
 
 &lt;p&gt;In the picture, when container 1 sends traffic to container 2, everything is
@@ -5423,8 +5423,8 @@ around, we’ll be right back!&lt;/p&gt;
 
 </description>
           <pubDate>2017-09-21T21:19:02+02:00</pubDate>
-          <link>http://localhost:4000/blog/how-does-it-work-docker-3/</link>
-          <guid isPermaLink="true">http://localhost:4000/blog/how-does-it-work-docker-3/</guid>
+          <link>https://sebiwi.github.io/blog/how-does-it-work-docker-3/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/blog/how-does-it-work-docker-3/</guid>
         </item>
       
     
@@ -5468,7 +5468,7 @@ dynamic port-forwarding part. For this, they relied heavily on the existing
 Linux kernel’s networking stack. This is fairly cool, since the existing Linux
 networking features are pretty mature and robust already.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/how-does-it-work-docker/2/networking.png&quot; alt=&quot;Docker networking&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/how-does-it-work-docker/2/networking.png&quot; alt=&quot;Docker networking&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;&lt;a href=&quot;https://blog.docker.com/2016/03/docker-networking-design-philosophy/&quot;&gt;You there?&lt;/a&gt;&lt;/figcaption&gt;
 
 &lt;p&gt;In order to provide its networking, Docker uses numerous Linux networking tools
@@ -5516,7 +5516,7 @@ Container Network Model (CNM) which is implemented by Docker’s libnetwork.&lt;
 &lt;p&gt;There are three main components of the CNM model: Sandboxes, Endpoints and
 Networks.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/how-does-it-work-docker/2/cnm.jpeg&quot; alt=&quot;CNM diagram&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/how-does-it-work-docker/2/cnm.jpeg&quot; alt=&quot;CNM diagram&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;You there?&lt;/figcaption&gt;
 
 &lt;p&gt;The &lt;strong&gt;Sandbox&lt;/strong&gt; contains the configuration of the container’s network stack, such
@@ -5625,7 +5625,7 @@ protocol to propagate all the aforementioned information. It is scoped by
 Network, which is quite cool since it dramatically reduces the amount of
 updates a host receives.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/how-does-it-work-docker/2/control-plane.png&quot; alt=&quot;Control plane&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/how-does-it-work-docker/2/control-plane.png&quot; alt=&quot;Control plane&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;&lt;a href=&quot;https://success.docker.com/Architecture/Docker_Reference_Architecture%3A_Designing_Scalable%2C_Portable_Docker_Container_Networks&quot;&gt;Control that cluster&lt;/a&gt;&lt;/figcaption&gt;
 
 &lt;p&gt;It is built upon many components that work together in order to achieve fast
@@ -5649,7 +5649,7 @@ between hosts on the underlay network, while the overlay is the stateless VXLAN
 tunnel, that exists as point-to-multipoint connections between each host
 participating in the overlay network.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/how-does-it-work-docker/2/overlay-network.png&quot; alt=&quot;Overlay networks&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/how-does-it-work-docker/2/overlay-network.png&quot; alt=&quot;Overlay networks&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;&lt;a href=&quot;https://success.docker.com/Architecture/Docker_Reference_Architecture%3A_Designing_Scalable%2C_Portable_Docker_Container_Networks&quot;&gt;Like this&lt;/a&gt;&lt;/figcaption&gt;
 
 &lt;p&gt;For example, in the previous diagram:&lt;/p&gt;
@@ -5701,7 +5701,7 @@ mode of operation is not encouraged by Docker, and it might even be deprecated
 in the future (which further discredits the whole “we’re not deprecating Swarm
 Standalone” argument).&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/how-does-it-work-docker/2/bridge-overlay.png&quot; alt=&quot;Overlay networks&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/how-does-it-work-docker/2/bridge-overlay.png&quot; alt=&quot;Overlay networks&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;Cool stuff&lt;/figcaption&gt;
 
 &lt;p&gt;That’s all for the networking part. I’ll talk to you about service discovery,
@@ -5709,8 +5709,8 @@ load-balancing and security on the next one. Don’t go anywhere!&lt;/p&gt;
 
 </description>
           <pubDate>2017-09-04T21:19:02+02:00</pubDate>
-          <link>http://localhost:4000/blog/how-does-it-work-docker-2/</link>
-          <guid isPermaLink="true">http://localhost:4000/blog/how-does-it-work-docker-2/</guid>
+          <link>https://sebiwi.github.io/blog/how-does-it-work-docker-2/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/blog/how-does-it-work-docker-2/</guid>
         </item>
       
     
@@ -5771,7 +5771,7 @@ another toolkit developed by Docker, called &lt;a href=&quot;https://github.com/
 using a key-value data store for service discovery like you needed to do when
 using Swarm Mode Standalone: it is already included in Swarm Mode.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/how-does-it-work-docker/1/swarm.png&quot; alt=&quot;Swarm logo&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/how-does-it-work-docker/1/swarm.png&quot; alt=&quot;Swarm logo&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;Swarm me up&lt;/figcaption&gt;
 
 &lt;p&gt;So there’s two of them. Theoretically, Docker has no plans of deprecating Docker
@@ -5820,7 +5820,7 @@ communicating with the server&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/how-does-it-work-docker/1/engine-components-flow.png&quot; alt=&quot;Engine components&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/how-does-it-work-docker/1/engine-components-flow.png&quot; alt=&quot;Engine components&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;&lt;a href=&quot;https://docs.docker.com/engine/docker-overview/#docker-engine&quot;&gt;Not your regular engine&lt;/a&gt;&lt;/figcaption&gt;
 
 &lt;p&gt;Basically, you use the CLI to talk and interact with the Docker daemon, through
@@ -5862,7 +5862,7 @@ containers) are delegated by the Docker Engine to containerd which uses runC to
 execute all its container-related actions. The Engine still manages
 volumes, networks and builds, but containers are now containerd’s territory.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/how-does-it-work-docker/1/runc-containerd.png&quot; alt=&quot;Engine components&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/how-does-it-work-docker/1/runc-containerd.png&quot; alt=&quot;Engine components&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;&lt;a href=&quot;https://medium.com/@tiffanyfayj/docker-1-11-et-plus-engine-is-now-built-on-runc-and-containerd-a6d06d7e80ef&quot;&gt;Like a layer cake&lt;/a&gt;&lt;/figcaption&gt;
 
 &lt;p&gt;There’s also another component called containerd-shim which sits between
@@ -5900,7 +5900,7 @@ Manager-only nodes. There is also an agent on every Worker node, which reports
 on the state of its tasks to the Manager &lt;strong&gt;&lt;em&gt;&lt;del&gt;(so basically, middle-management)&lt;/del&gt;&lt;/em&gt;&lt;/strong&gt;.
 That way, the Manager can maintain the desired state of the cluster.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/how-does-it-work-docker/1/swarm-diagram.png&quot; alt=&quot;Swarm diagram&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/how-does-it-work-docker/1/swarm-diagram.png&quot; alt=&quot;Swarm diagram&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;A service is the definition of one (or many) tasks to be executed on Worker
 nodes.&lt;/em&gt; When creating a service, you need to specify which container image to
@@ -5922,8 +5922,8 @@ you about Docker (and Swarm’s) networking model.&lt;/p&gt;
 
 </description>
           <pubDate>2017-06-08T21:19:02+02:00</pubDate>
-          <link>http://localhost:4000/blog/how-does-it-work-docker-1/</link>
-          <guid isPermaLink="true">http://localhost:4000/blog/how-does-it-work-docker-1/</guid>
+          <link>https://sebiwi.github.io/blog/how-does-it-work-docker-1/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/blog/how-does-it-work-docker-1/</guid>
         </item>
       
     
@@ -5960,7 +5960,7 @@ and destroy it if it is not properly tagged. I also want to get a notification w
 useful information about the instance creation request, such as the instance type, or the username of
 the user that created the resource.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/broom/broom.png&quot; alt=&quot;Broom&quot; class=&quot;center-image&quot; width=&quot;140px&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/broom/broom.png&quot; alt=&quot;Broom&quot; class=&quot;center-image&quot; width=&quot;140px&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;Keep your stuff clean!&lt;/figcaption&gt;
 
 &lt;p&gt;I decided to call this thing Broom, since I use it to keep my things clean. Get it?&lt;/p&gt;
@@ -5995,7 +5995,7 @@ compared to the EC2 minimum usage fee of one hour.&lt;/p&gt;
 &lt;p&gt;How does this work? How can AWS spin up EC2 instances, deploy your code in them, and answer
 requests that fast? &lt;em&gt;How&lt;/em&gt;?&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/broom/containers.jpg&quot; alt=&quot;Broom&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/broom/containers.jpg&quot; alt=&quot;Broom&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;Get the hint?&lt;/figcaption&gt;
 
 &lt;p&gt;It’s all about containers, really. When a Lambda function is triggered, Lambda launches a container
@@ -6031,7 +6031,7 @@ log files to your Amazon S3 bucket
 
 &lt;p&gt;Or the AWS web console:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/broom/cloudtrail-console.jpg&quot; alt=&quot;AWS CloudTrail Console&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/broom/cloudtrail-console.jpg&quot; alt=&quot;AWS CloudTrail Console&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;You can create a new S3 bucket in the same single step if you’re using the console. You’ll
 have to do it separately if you’re using the CLI. You can also configure an SNS topic in
@@ -6058,7 +6058,7 @@ whenever instances are destroyed. Same as before, you can do it using either the
 &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/broom/sns-topic.png&quot; alt=&quot;SNS console&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/broom/sns-topic.png&quot; alt=&quot;SNS console&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;Console version&lt;/figcaption&gt;
 
 &lt;p&gt;Don’t forget to subscribe to this topic if you want to receive notifications. You probably do, so do it.&lt;/p&gt;
@@ -6179,17 +6179,17 @@ you already have everything that’s needed.&lt;/p&gt;
 On “Event type”, choose “Object Created”, since you want your function to be executed when
 a new log object is created. You can enable the trigger right away, or afterwards, it’s up to you.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/broom/lambda-trigger.png&quot; alt=&quot;Lambda trigger&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/broom/lambda-trigger.png&quot; alt=&quot;Lambda trigger&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;Trigger happy&lt;/figcaption&gt;
 
 &lt;p&gt;Then name your function, select the runtime, and include your code with it:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/broom/lambda-function.png&quot; alt=&quot;Lambda trigger&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/broom/lambda-function.png&quot; alt=&quot;Lambda trigger&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Be sure to specify the role you created earlier in the “Lambda function handler and role” section.
 If you don’t, the function won’t execute properly.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/broom/lambda-role.png&quot; alt=&quot;Lambda role&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/broom/lambda-role.png&quot; alt=&quot;Lambda role&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;You can change the assigned resources and the maximal execution time in the advanced settings
 section. I usually set this up to 128 MB and 20 second timeout, but it might depend on the
@@ -6199,7 +6199,7 @@ specific characteristics of your team.&lt;/p&gt;
 
 &lt;p&gt;If you create an instance without proper tagging, you will receive a notification like this one:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/broom/sns-mail.png&quot; alt=&quot;SNS notifcation mail&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/broom/sns-mail.png&quot; alt=&quot;SNS notifcation mail&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;Whoops, sorry!&lt;/figcaption&gt;
 
 &lt;h2 id=&quot;final-thoughts&quot;&gt;Final thoughts&lt;/h2&gt;
@@ -6227,8 +6227,8 @@ like Terraform.&lt;/p&gt;
 
 </description>
           <pubDate>2017-05-01T21:19:02+02:00</pubDate>
-          <link>http://localhost:4000/blog/broom/</link>
-          <guid isPermaLink="true">http://localhost:4000/blog/broom/</guid>
+          <link>https://sebiwi.github.io/blog/broom/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/blog/broom/</guid>
         </item>
       
     
@@ -6517,22 +6517,22 @@ kubectl port-forward kubernetes-dashboard-v.1.4.1-ID 9090 &lt;span class=&quot;n
 
 &lt;p&gt;And now, your Kubernetes Dashboard should be accessible on port 9090.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/how-does-it-work-kube/5/kube-dashboard.png&quot; alt=&quot;Kubernetes dashboard&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/how-does-it-work-kube/5/kube-dashboard.png&quot; alt=&quot;Kubernetes dashboard&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;Show me the money!&lt;/figcaption&gt;
 
 &lt;p&gt;Woot! Almost done. Now we only need to test that it works, and that our code is working as intended.&lt;/p&gt;
 
 &lt;p&gt;So, &lt;code class=&quot;highlighter-rouge&quot;&gt;molecule test&lt;/code&gt; says that:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/how-does-it-work-kube/5/molecule-1.png&quot; alt=&quot;Molecule infra&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/how-does-it-work-kube/5/molecule-1.png&quot; alt=&quot;Molecule infra&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Our infrastructure is created without any hiccups.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/how-does-it-work-kube/5/molecule-2.png&quot; alt=&quot;Molecule playbooks&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/how-does-it-work-kube/5/molecule-2.png&quot; alt=&quot;Molecule playbooks&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The playbook runs as intended.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/how-does-it-work-kube/5/molecule-3.png&quot; alt=&quot;Molecule lint&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/how-does-it-work-kube/5/molecule-3.png&quot; alt=&quot;Molecule lint&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;And that our code is properly linted, and it is idempotent as well!&lt;/p&gt;
 
@@ -6552,7 +6552,7 @@ It can be launched using kubectl:&lt;/p&gt;
 
 &lt;p&gt;We can see that the resources are properly created on the Dashboard:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/how-does-it-work-kube/5/dashboard-guestbook.png&quot; alt=&quot;Molecule lint&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/how-does-it-work-kube/5/dashboard-guestbook.png&quot; alt=&quot;Molecule lint&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;And then we can even test the application by port-forwarding to the frontend application:&lt;/p&gt;
 
@@ -6562,7 +6562,7 @@ kubectl port-forward frontend-ID 8080:80
 
 &lt;p&gt;The application should be accessible on port 8080. You can test it by adding a message to the guestbook:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/how-does-it-work-kube/5/guestbook.png&quot; alt=&quot;Kubernetes dashboard&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/how-does-it-work-kube/5/guestbook.png&quot; alt=&quot;Kubernetes dashboard&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;Get it?&lt;/figcaption&gt;
 
 &lt;p&gt;Great. It works. Mission accomplished!&lt;/p&gt;
@@ -6595,8 +6595,8 @@ work on some other things too:&lt;/p&gt;
 
 </description>
           <pubDate>2017-04-03T21:19:02+02:00</pubDate>
-          <link>http://localhost:4000/blog/how-does-it-work-kube-5/</link>
-          <guid isPermaLink="true">http://localhost:4000/blog/how-does-it-work-kube-5/</guid>
+          <link>https://sebiwi.github.io/blog/how-does-it-work-kube-5/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/blog/how-does-it-work-kube-5/</guid>
         </item>
       
     
@@ -6806,7 +6806,7 @@ resources; there are no system modifications because of them.&lt;/p&gt;
 It allows me to replay tasks when certain script do not exist, and to have a clear idea of what
 failed when I get an error: I know right away which task failed, which helps in the debugging process.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/how-does-it-work-kube/4/ansible-scripts.png&quot; alt=&quot;Ansible scripts&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/how-does-it-work-kube/4/ansible-scripts.png&quot; alt=&quot;Ansible scripts&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;&lt;a href=&quot;http://docs.ansible.com/ansible/script_module.html#notes&quot;&gt;Thanks mom&lt;/a&gt;&lt;/figcaption&gt;
 
 &lt;p&gt;I did not create &lt;a href=&quot;https://coreos.com/blog/managing-coreos-with-ansible.html&quot;&gt;this approach&lt;/a&gt;, by the way. I just optimised it to make it actually idempotent.
@@ -6907,8 +6907,8 @@ the really really fun part in the next article.&lt;/p&gt;
 
 </description>
           <pubDate>2017-03-30T21:19:02+02:00</pubDate>
-          <link>http://localhost:4000/blog/how-does-it-work-kube-4/</link>
-          <guid isPermaLink="true">http://localhost:4000/blog/how-does-it-work-kube-4/</guid>
+          <link>https://sebiwi.github.io/blog/how-does-it-work-kube-4/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/blog/how-does-it-work-kube-4/</guid>
         </item>
       
     
@@ -6947,7 +6947,7 @@ distribution that uses containers to run applications. This is a game changer if
 standard Linux distributions, in which you install packages using a package manager. This thing
 doesn’t even have a package manager.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/how-does-it-work-kube/3/coreos-package-manager.png&quot; alt=&quot;CoreOS package manager&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/how-does-it-work-kube/3/coreos-package-manager.png&quot; alt=&quot;CoreOS package manager&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;Now what?!&lt;/figcaption&gt;
 
 &lt;p&gt;It just ships with the basic GNU Core Utilities so you can move around, and then some tools
@@ -6956,7 +6956,7 @@ I’ll explain how these things work and how I’m going to use them in the whol
 later. Just keep in mind that CoreOS (yeah yeah, Container Linux) is an OS specifically
 designed to run containers, and that we’re going to take advantage of that in our context.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/how-does-it-work-kube/3/coreos-explanation.png&quot; alt=&quot;CoreOS distribution&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/how-does-it-work-kube/3/coreos-explanation.png&quot; alt=&quot;CoreOS distribution&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;&lt;a href=&quot;https://coreos.com/why/#distro&quot;&gt;CoreOS as a distribution&lt;/a&gt;&lt;/figcaption&gt;
 
 &lt;p&gt;&lt;em&gt;So we’re going to manually create these CoreOS virtual machines before installing Kubernetes, right?&lt;/em&gt;&lt;/p&gt;
@@ -7001,7 +7001,7 @@ your roles on the newly created infrastructure, and then it destroys the infrast
 also checks for a whole range of other things, like syntax, code quality and impotence,
 so it’s pretty well adapted for what we’re trying to do here.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/how-does-it-work-kube/3/molecule-logo.png&quot; alt=&quot;Molecule logo&quot; class=&quot;center-image&quot; width=&quot;360px&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/how-does-it-work-kube/3/molecule-logo.png&quot; alt=&quot;Molecule logo&quot; class=&quot;center-image&quot; width=&quot;360px&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;It's an actual molecule!&lt;/figcaption&gt;
 
 &lt;p&gt;There are 3 main Molecule drivers: Docker, OpenStack and Vagrant. I usually use the Docker
@@ -7024,8 +7024,8 @@ exactly the platform we’re using for our project. Great.&lt;/p&gt;
 
 </description>
           <pubDate>2017-03-24T20:19:02+01:00</pubDate>
-          <link>http://localhost:4000/blog/how-does-it-work-kube-3/</link>
-          <guid isPermaLink="true">http://localhost:4000/blog/how-does-it-work-kube-3/</guid>
+          <link>https://sebiwi.github.io/blog/how-does-it-work-kube-3/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/blog/how-does-it-work-kube-3/</guid>
         </item>
       
     
@@ -7039,7 +7039,7 @@ hosted on different machines can be a little bit tricky. Docker will create by
 default a virtual bridge called “docker0” on the host machine, and it will assign
 a private network range to it.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/how-does-it-work-kube/2/docker-bridge.png&quot; alt=&quot;Docker bridge&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/how-does-it-work-kube/2/docker-bridge.png&quot; alt=&quot;Docker bridge&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;Super bridge (172.17.0.1/16)&lt;/figcaption&gt;
 
 &lt;p&gt;For each container that is created, a virtual ethernet device is attached to this bridge,
@@ -7070,7 +7070,7 @@ For this project, we will use the combination of two of these options: Calico an
 
 &lt;p&gt;Alright. Let’s talk about Flannel and Calico then.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/how-does-it-work-kube/2/flannel-calico.jpg&quot; alt=&quot;Flannel and Calico&quot; class=&quot;center-image&quot; width=&quot;360px&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/how-does-it-work-kube/2/flannel-calico.jpg&quot; alt=&quot;Flannel and Calico&quot; class=&quot;center-image&quot; width=&quot;360px&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;Great logos&lt;/figcaption&gt;
 
 &lt;p&gt;Flannel allows inter-pod communication between different hosts by providing an overlay software-defined
@@ -7091,7 +7091,7 @@ arrives to Host Machine B, the encapsulation is removed and the packet is routed
 inner IP address. The flannel configuration regarding the container/Host Machine mapping is stored in etcd.
 The routing is done by a flannel daemon called flanneld.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/how-does-it-work-kube/2/flannel-sdn.png&quot; alt=&quot;Flannel SDN diagram&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/how-does-it-work-kube/2/flannel-sdn.png&quot; alt=&quot;Flannel SDN diagram&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;&lt;a href=&quot;https://github.com/coreos/flannel/blob/master/README.md#theory-of-operation&quot;&gt;Like this, see?&lt;/a&gt;&lt;/figcaption&gt;
 
 &lt;p&gt;Calico secures this overlay network, restricting traffic between the pods based on a fine-grained network policy.
@@ -7132,8 +7132,8 @@ trade first. That’s all for today though. The fun part starts in the next arti
 
 </description>
           <pubDate>2017-03-17T20:19:02+01:00</pubDate>
-          <link>http://localhost:4000/blog/how-does-it-work-kube-2/</link>
-          <guid isPermaLink="true">http://localhost:4000/blog/how-does-it-work-kube-2/</guid>
+          <link>https://sebiwi.github.io/blog/how-does-it-work-kube-2/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/blog/how-does-it-work-kube-2/</guid>
         </item>
       
     
@@ -7207,7 +7207,7 @@ just think of a pod as a container, since we will only have one container inside
 
 &lt;p&gt;A standard Kubernetes installation consists of both Master and Worker nodes:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/how-does-it-work-kube/1/kube-general-architecture.png&quot; alt=&quot;Kubernetes general architecture&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/how-does-it-work-kube/1/kube-general-architecture.png&quot; alt=&quot;Kubernetes general architecture&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;Kubernetes general architecture, for real&lt;/figcaption&gt;
 
 &lt;h2 id=&quot;wait-where-is-the-master-node&quot;&gt;Wait, where is the Master node?&lt;/h2&gt;
@@ -7219,7 +7219,7 @@ separate component (more on this later).&lt;/p&gt;
 
 &lt;p&gt;So the Master node actually becomes everything that is inside the red square:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/how-does-it-work-kube/1/kube-master-node.png&quot; alt=&quot;Kubernetes master node&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/how-does-it-work-kube/1/kube-master-node.png&quot; alt=&quot;Kubernetes master node&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;Here, see?&lt;/figcaption&gt;
 
 &lt;p&gt;All these components are part of the Kubernetes control pane. Keep in mind that you can have these
@@ -7245,7 +7245,7 @@ actually run the containers are the Worker nodes.&lt;/p&gt;
 &lt;p&gt;The Worker node is composed of a kubelet, and a proxy (kube-proxy). You can see these components
 inside the red square, in the diagram below.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/how-does-it-work-kube/1/kube-worker-node.png&quot; alt=&quot;Kubernetes worker node&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/how-does-it-work-kube/1/kube-worker-node.png&quot; alt=&quot;Kubernetes worker node&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;Right here&lt;/figcaption&gt;
 
 &lt;p&gt;The kubelet is the agent on the worker node that actually starts and stops the pods, and communicates
@@ -7263,7 +7263,7 @@ and service discovery. It actually means &lt;a href=&quot;https://www.youtube.co
 is a weird name because it is not a filesystem, but a key-value store. They are aware of it though. Just in
 case you missed it in the previous diagrams, it is the black square inside the red square:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/how-does-it-work-kube/1/etcd.png&quot; alt=&quot;etcd&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/how-does-it-work-kube/1/etcd.png&quot; alt=&quot;etcd&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;You never know&lt;/figcaption&gt;
 
 &lt;p&gt;All the persistent master state is stocked in etcd. Since components can actually “watch” components, they are
@@ -7280,8 +7280,8 @@ for today though. I’ll talk to you about networking in the next episode.&lt;/p
 
 </description>
           <pubDate>2017-03-11T20:19:02+01:00</pubDate>
-          <link>http://localhost:4000/blog/how-does-it-work-kube-1/</link>
-          <guid isPermaLink="true">http://localhost:4000/blog/how-does-it-work-kube-1/</guid>
+          <link>https://sebiwi.github.io/blog/how-does-it-work-kube-1/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/blog/how-does-it-work-kube-1/</guid>
         </item>
       
     
@@ -7301,7 +7301,7 @@ text when trying to debug something.&lt;/p&gt;
 
 &lt;p&gt;Basically, I really dislike this format:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/fpaste-cli/awful-message.png&quot; alt=&quot;Awful hangouts message&quot; class=&quot;center-image&quot; width=&quot;220px&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/fpaste-cli/awful-message.png&quot; alt=&quot;Awful hangouts message&quot; class=&quot;center-image&quot; width=&quot;220px&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;Sigh.&lt;/figcaption&gt;
 
 &lt;p&gt;It makes me want to rage quit. And then throw my computer out the window.
@@ -7313,7 +7313,7 @@ Everyone knows that 13 seconds is way too long in 2017.&lt;/p&gt;
 
 &lt;p&gt;I highlight the stuff I want to share, I right click it, and then I click on “Send to fpaste”.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/fpaste-cli/send-to-fpaste.png&quot; alt=&quot;Send to fpaste example&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/fpaste-cli/send-to-fpaste.png&quot; alt=&quot;Send to fpaste example&quot; /&gt;&lt;/p&gt;
 &lt;figcaption class=&quot;caption&quot;&gt;This looks simple, right?&lt;/figcaption&gt;
 
 &lt;p&gt;This is a pretty cool picture by the way. It has send to fpaste, vim, and zebras on it.&lt;/p&gt;
@@ -7321,7 +7321,7 @@ Everyone knows that 13 seconds is way too long in 2017.&lt;/p&gt;
 &lt;p&gt;Then, magically, I have an fpaste link on my clipboard, which contains the content I just
 highlighted:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/fpaste-cli/send-to-fpaste-result.png&quot; alt=&quot;Send to fpaste result&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/fpaste-cli/send-to-fpaste-result.png&quot; alt=&quot;Send to fpaste result&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Pretty cool huh? And stylish, while at it.&lt;/p&gt;
 
@@ -7343,7 +7343,7 @@ highlighted text to your script as stdin. You can use the one that’s already o
 but you will have to adapt it depending on the location of fpaste.py in your system. You can create
 a symbolic link in your path if you’re really diggin’ it.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/fpaste-cli/service-creation.png&quot; alt=&quot;Service creation&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/fpaste-cli/service-creation.png&quot; alt=&quot;Service creation&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;For the script, I didn’t wrap the whole API, since I just wanted to get something working fast.
 Maybe I’ll do it sometime in the future. You’re free to contribute as well if you feel like it.&lt;/p&gt;
@@ -7352,8 +7352,8 @@ Maybe I’ll do it sometime in the future. You’re free to contribute as well i
 
 </description>
           <pubDate>2017-03-04T10:50:02+01:00</pubDate>
-          <link>http://localhost:4000/blog/fpaste-cli/</link>
-          <guid isPermaLink="true">http://localhost:4000/blog/fpaste-cli/</guid>
+          <link>https://sebiwi.github.io/blog/fpaste-cli/</link>
+          <guid isPermaLink="true">https://sebiwi.github.io/blog/fpaste-cli/</guid>
         </item>
       
     
