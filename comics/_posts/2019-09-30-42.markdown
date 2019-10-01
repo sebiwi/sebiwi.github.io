@@ -1,0 +1,12 @@
+---
+title:  "42"
+layout: post
+date:   2019-09-30 07:19:02 +0100
+tag:
+- comics
+category: comics
+author: sebiwi
+image: /assets/images/comics/2019-09-30-42.jpg
+---
+
+![If she'd written the Hitchhiker's guide to the Galaxy, the Answer to the Ultimate Question of Life, the Universe, and Everything would be vim.]({{ site.url }}{{ page.image }})
