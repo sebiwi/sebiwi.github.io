@@ -1,8 +1,10 @@
 # main text of home
 name: Sebiwi
 bio: Tech, fun, and cookies
-workplace: Amazon Web Services
-workplace_site: https://aws.amazon.com/
+## Add "<h2 class="description">I solve problems at <a href="{{ site.workplace_site }}">{{ site.workplace }}</a>.</h2>" to headet.html when youre
+## allowed to talk about your job again.
+# workplace: Amazon Web Services
+# workplace_site: https://aws.amazon.com/
 
 # twitter summary info
 description: Tech, fun and cookies
