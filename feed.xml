@@ -717,7 +717,7 @@ themselves too.&lt;/p&gt;
 &lt;h2 id=&quot;tldr&quot;&gt;TL;DR;&lt;/h2&gt;
 
 &lt;p&gt;We’re working with Terraform, layering and workspaces. This makes the standard
-&lt;code class=&quot;highlighter-rouge&quot;&gt;terraform workspace select x&lt;/code&gt; pretty cumbersome and dangerous. We wrote a Ruby
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;terraform workspace select x&lt;/code&gt; pretty cumbersome and dangerous. We wrote a Ruby
 wrapper using Test-Driven Development. It allows us to have a tested,
 maintainable and efficient solution to the aforementioned issue.&lt;/p&gt;
 
@@ -749,7 +749,7 @@ itself and within organizations that use Terraform.&lt;/em&gt;&lt;/strong&gt;&lt
 &lt;p&gt;So why should we use Workspaces in real life? Let us take a look at some
 standard Terraform code. Whereas before you would have something like this:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;environments/
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;environments/
 ├── dev
 │   ├── dev.tf
 │   ├── dev.tfvars
@@ -766,7 +766,7 @@ standard Terraform code. Whereas before you would have something like this:&lt;/
 
 &lt;p&gt;Now, you will have something like this:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;terraform/
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;terraform/
 ├── infrastructure.tf
 ├── dev.tfvars
 ├── prod.tfvars
@@ -774,13 +774,13 @@ standard Terraform code. Whereas before you would have something like this:&lt;/
 └── variables.tf
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;With all the necessary &lt;code class=&quot;highlighter-rouge&quot;&gt;dev&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;uat&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;prod&lt;/code&gt; Workspaces. You will still need
+&lt;p&gt;With all the necessary &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dev&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;uat&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prod&lt;/code&gt; Workspaces. You will still need
 to create the Workspaces using Terraform itself, like so:&lt;/p&gt;
 
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tf workspace new &amp;lt;workspace&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;You can list all your Workspaces using the &lt;code class=&quot;highlighter-rouge&quot;&gt;terraform workspace list&lt;/code&gt; command:&lt;/p&gt;
+&lt;p&gt;You can list all your Workspaces using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;terraform workspace list&lt;/code&gt; command:&lt;/p&gt;
 
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;tf workspace list
     default
@@ -791,7 +791,7 @@ to create the Workspaces using Terraform itself, like so:&lt;/p&gt;
 
 &lt;p&gt;For each Workspace, Terraform will create a new tfstate file, adding the
 Workspace name as a suffix for the filename or the key name when using a remote
-backend. If you don’t use Workspaces, you will still be using the &lt;code class=&quot;highlighter-rouge&quot;&gt;default&lt;/code&gt;
+backend. If you don’t use Workspaces, you will still be using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default&lt;/code&gt;
 Workspace.&lt;/p&gt;
 
 &lt;p&gt;This is phenomenal, as it allows us to reuse most of the code written for a
@@ -852,7 +852,7 @@ perimeter if something goes wrong.&lt;/li&gt;
 
 &lt;p&gt;Code-wise, we go from this:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;terraform
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;terraform
 ├── README.md
 ├── cloud_init.tpl
 ├── config.tf
@@ -879,7 +879,7 @@ perimeter if something goes wrong.&lt;/li&gt;
 
 &lt;p&gt;To this:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;terraform
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;terraform
 ├── 00_resource_group
 ├── 01_dns
 ├── 02_tooling
@@ -909,7 +909,7 @@ changes or destroy resources on a layer using the wrong workspace if we are not
 paying attention. In order for this to work, you need to select the right
 workspace in each directory. There is no easy way to be sure on which
 environment you are working when you go from a directory to another one. You
-can do a &lt;code class=&quot;highlighter-rouge&quot;&gt;terraform workspace list&lt;/code&gt; each time you change your current
+can do a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;terraform workspace list&lt;/code&gt; each time you change your current
 directory, but this gets dull quite fast, and you will probably forget to do it
 eventually and screw things up.&lt;/p&gt;
 
@@ -947,7 +947,7 @@ looking somewhat like this:&lt;/p&gt;
 &lt;p&gt;But most of the time, this is not enough. It helps you prevent some mistakes
 but it does not prevent you from screwing things up. And it does nothing about
 the cumbersome aspect of going through every single layer of the infrastructure
-and doing &lt;code class=&quot;highlighter-rouge&quot;&gt;terraform apply&lt;/code&gt; commands everywhere. You will probably just go from
+and doing &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;terraform apply&lt;/code&gt; commands everywhere. You will probably just go from
 one directory to another and run your Terraform command from your bash history
 without checking the selected workspace.&lt;/p&gt;
 
@@ -956,14 +956,14 @@ is to check that we are working on the right workspace on every single layer.
 So we started from what we would have loved to have. We imagined the right tool
 and then we built it.&lt;/p&gt;
 
-&lt;p&gt;If we had an improved Terraform, called &lt;code class=&quot;highlighter-rouge&quot;&gt;tf&lt;/code&gt;, and we would want to apply
+&lt;p&gt;If we had an improved Terraform, called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tf&lt;/code&gt;, and we would want to apply
 changes on every layer, on the development workspace, we would love to have
 something like this:&lt;/p&gt;
 
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tf development apply
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;If the workspace does not match in any single one of the layers, &lt;a href=&quot;https://github.com/sebiwi/terraform-wrapper/blob/master/terraform_wrapper.rb#L51&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;tf&lt;/code&gt; will stop
+&lt;p&gt;If the workspace does not match in any single one of the layers, &lt;a href=&quot;https://github.com/sebiwi/terraform-wrapper/blob/master/terraform_wrapper.rb#L51&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tf&lt;/code&gt; will stop
 and tell you to select the right workspace before trying to apply your changes&lt;/a&gt;.
 Needless to say, it will also provide you with a way to choose the right
 workspace on every single layer, so you won’t have to go and do it manually on
@@ -1044,7 +1044,7 @@ different directory structures for different test scenarios. The directory
 structures can be seen in the GitHub repository itself, but they look like
 this:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;▾ terraform_tests/
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;▾ terraform_tests/
   ▾ test_flat/
     ▸ .terraform/
     ▸ modules/
@@ -1086,12 +1086,12 @@ to write the directory in which Terraform was launched and the parameters that
 were used when Terraform was called into a temporary file.  We then ran
 assertions on this file in order to test all our use cases. This solution
 allowed us to keep the code simple, and enabled easy scenario additions  by
-simply creating the required directory structure in the &lt;code class=&quot;highlighter-rouge&quot;&gt;terraform_tests&lt;/code&gt;
+simply creating the required directory structure in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;terraform_tests&lt;/code&gt;
 directory. Maintainability for the win!&lt;/p&gt;
 
 &lt;h2 id=&quot;installation&quot;&gt;Installation&lt;/h2&gt;
 
-&lt;p&gt;Just &lt;a href=&quot;https://github.com/sebiwi/terraform-wrapper&quot;&gt;clone the project&lt;/a&gt;, and symlink the &lt;code class=&quot;highlighter-rouge&quot;&gt;tf.rb&lt;/code&gt; file somewhere in your
+&lt;p&gt;Just &lt;a href=&quot;https://github.com/sebiwi/terraform-wrapper&quot;&gt;clone the project&lt;/a&gt;, and symlink the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tf.rb&lt;/code&gt; file somewhere in your
 path, like so:&lt;/p&gt;
 
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;ln&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; &amp;lt;terraform_wrapper_directory&amp;gt;/tf.rb /usr/local/bin/tf
@@ -1382,7 +1382,7 @@ Container.&lt;/p&gt;
 
 &lt;p&gt;From its homepage:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;WHY NOT BUILD YOUR CONTAINERS WITH ANSIBLE PLAYBOOKS? NOW YOU CAN.
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;WHY NOT BUILD YOUR CONTAINERS WITH ANSIBLE PLAYBOOKS? NOW YOU CAN.
 
 Ansible Container represents an end to the command &amp;amp;&amp;amp; command &amp;amp;&amp;amp; command (and
 so on) syntax you’ve been struggling with to build containers.
@@ -1831,31 +1831,31 @@ a playground to refine your creations, thousand of years ago.&lt;/p&gt;
 
 &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;testinfra.utils.ansible_runner&lt;/span&gt;
 
-&lt;span class=&quot;n&quot;&gt;testinfra_hosts&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;testinfra&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;utils&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ansible_runner&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AnsibleRunner&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;environ&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'MOLECULE_INVENTORY_FILE'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_hosts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'all'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;testinfra_hosts&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;testinfra&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;utils&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ansible_runner&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AnsibleRunner&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;environ&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'MOLECULE_INVENTORY_FILE'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_hosts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'all'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
 
 &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test_filebeat_is_installed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;filebeat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;package&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'filebeat'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;filebeat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;package&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'filebeat'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
-    &lt;span class=&quot;k&quot;&gt;assert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filebeat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;is_installed&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;assert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filebeat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;is_installed&lt;/span&gt;
 
 
 &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test_filebeat_is_running&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;filebeat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;service&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'filebeat'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;filebeat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;service&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'filebeat'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
-    &lt;span class=&quot;k&quot;&gt;assert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filebeat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;is_running&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;assert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filebeat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;is_running&lt;/span&gt;
 
 &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test_filebeat_is_enabled&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;filebeat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;service&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'filebeat'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;filebeat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;service&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'filebeat'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
-    &lt;span class=&quot;k&quot;&gt;assert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filebeat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;is_enabled&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;assert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filebeat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;is_enabled&lt;/span&gt;
 
 
 &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test_filebeat_configuration_exists&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;filebeat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'/etc/filebeat/filebeat.yml'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;filebeat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'/etc/filebeat/filebeat.yml'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
-    &lt;span class=&quot;k&quot;&gt;assert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filebeat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exists&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;assert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filebeat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exists&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Nevertheless, you want to add an extension to the spell, depending on whether
@@ -1901,7 +1901,7 @@ only…&lt;/p&gt;
 want the nginx logs to be forwarded to my Elasticsearch cluster. I use the
 nginx Filebeat module, which also happens to create pretty cool dashboards.&lt;/li&gt;
   &lt;li&gt;Great. Just use an include_tasks conditioned by a boolean variable defined
-somewhere. You could name it &lt;code class=&quot;highlighter-rouge&quot;&gt;activate_filebeat_nginx_module&lt;/code&gt;, for example.&lt;/li&gt;
+somewhere. You could name it &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;activate_filebeat_nginx_module&lt;/code&gt;, for example.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;He’s good.&lt;/p&gt;
@@ -1909,7 +1909,7 @@ somewhere. You could name it &lt;code class=&quot;highlighter-rouge&quot;&gt;act
 &lt;ul&gt;
   &lt;li&gt;Yeah, that’s what I did. Then again, my problem isn’t that part, but rather
 testing the conditional part. I don’t activate the module by default. The
-&lt;code class=&quot;highlighter-rouge&quot;&gt;activate_filebeat_nginx_module&lt;/code&gt; is set to false in the role’s defaults. So my
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;activate_filebeat_nginx_module&lt;/code&gt; is set to false in the role’s defaults. So my
 Molecule test only tests the default case.&lt;/li&gt;
   &lt;li&gt;Yes. That’s because that’s the default scenario. Just create another scenario.&lt;/li&gt;
 &lt;/ul&gt;
@@ -1924,13 +1924,13 @@ Molecule test only tests the default case.&lt;/li&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Remember how you taught me how to create a role with tests using Molecule?
-The principle is rather simple. You type &lt;code class=&quot;highlighter-rouge&quot;&gt;molecule init role --role-name
+The principle is rather simple. You type &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;molecule init role --role-name
 filebeat&lt;/code&gt; and Molecule creates all the resources you’re going to need in order
 to test your role. That includes the test files and all the other playbooks you
 may need: the prepare playbook, the side_effects playbook…&lt;/li&gt;
   &lt;li&gt;Indeed. I remember.&lt;/li&gt;
-  &lt;li&gt;The thing is that Molecule creates a &lt;code class=&quot;highlighter-rouge&quot;&gt;default&lt;/code&gt; scenario in order to do that.
-That’s why all your resources are under the &lt;code class=&quot;highlighter-rouge&quot;&gt;molecule/default&lt;/code&gt; directory on
+  &lt;li&gt;The thing is that Molecule creates a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default&lt;/code&gt; scenario in order to do that.
+That’s why all your resources are under the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;molecule/default&lt;/code&gt; directory on
 your role.&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -1968,8 +1968,8 @@ are no variables specified for the role.&lt;/li&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;This is because you are actually testing the &lt;code class=&quot;highlighter-rouge&quot;&gt;default&lt;/code&gt; scenario: the one
-where you only use the default variables that are defined in the &lt;code class=&quot;highlighter-rouge&quot;&gt;default&lt;/code&gt;
+  &lt;li&gt;This is because you are actually testing the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default&lt;/code&gt; scenario: the one
+where you only use the default variables that are defined in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default&lt;/code&gt;
 directory of your role.&lt;/li&gt;
   &lt;li&gt;I see.&lt;/li&gt;
 &lt;/ul&gt;
@@ -2046,11 +2046,11 @@ explicit enough already in order to understand it. Try it.&lt;/li&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Good. Now you can test everything you wanted. Just remember that in order to
-test every scenario, you need to use &lt;code class=&quot;highlighter-rouge&quot;&gt;molecule test --all&lt;/code&gt;. This will execute
+test every scenario, you need to use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;molecule test --all&lt;/code&gt;. This will execute
 every scenario, which is probably what you want. If you want to speed up the
-red/green/refactor loop, you can use the &lt;code class=&quot;highlighter-rouge&quot;&gt;create&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;converge&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;verify&lt;/code&gt;
+red/green/refactor loop, you can use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;create&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;converge&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;verify&lt;/code&gt;
 actions like you taught me before, but you need to specify the scenario name
-when executing every action, like this: &lt;code class=&quot;highlighter-rouge&quot;&gt;molecule create --scenario-name
+when executing every action, like this: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;molecule create --scenario-name
 activate_filebeat_nginx_module&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -3135,7 +3135,7 @@ but you give him a second so that he can get his ideas together.&lt;/p&gt;
   &lt;li&gt;Test matrix? Default? And what are all of those things?&lt;/li&gt;
   &lt;li&gt;When I talked about testing Ansible code on many different levels, this is
 what I meant. The default scenario is what gets executed when you type
-&lt;code class=&quot;highlighter-rouge&quot;&gt;molecule test&lt;/code&gt; on your terminal, and it contains all of these actions:
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;molecule test&lt;/code&gt; on your terminal, and it contains all of these actions:
 destroy, dependency, syntax, create, converge, idempotence…&lt;/li&gt;
   &lt;li&gt;Yeah, I can read.&lt;/li&gt;
 &lt;/ul&gt;
@@ -3153,7 +3153,7 @@ structure. You wait for a while until he starts talking again.&lt;/p&gt;
 &lt;p&gt;You decide now is the time to go down the rabbit hole.&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;Since I typed &lt;code class=&quot;highlighter-rouge&quot;&gt;molecule test&lt;/code&gt;, molecule executes the default test sequence,
+  &lt;li&gt;Since I typed &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;molecule test&lt;/code&gt;, molecule executes the default test sequence,
 which corresponds to all of these actions. We can also redefine different
 sequences for different targets if the default test sequence does not satisfy
 our testing criteria.&lt;/li&gt;
@@ -3232,28 +3232,28 @@ like N a little better now. Enough to keep the game going.&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;Yes, but we will deal with that later. Just concentrate on the actions that
 we should execute in order to fully test our role.&lt;/li&gt;
-  &lt;li&gt;Okay, so then we need &lt;code class=&quot;highlighter-rouge&quot;&gt;destroy&lt;/code&gt;… what is &lt;code class=&quot;highlighter-rouge&quot;&gt;dependency&lt;/code&gt;?&lt;/li&gt;
+  &lt;li&gt;Okay, so then we need &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;destroy&lt;/code&gt;… what is &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dependency&lt;/code&gt;?&lt;/li&gt;
   &lt;li&gt;It allows you to pull dependencies from the galaxy, if you need them.&lt;/li&gt;
-  &lt;li&gt;Ah, let’s skip that then. What’s the difference between &lt;code class=&quot;highlighter-rouge&quot;&gt;syntax&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;lint&lt;/code&gt;?&lt;/li&gt;
-  &lt;li&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;syntax&lt;/code&gt; action runs your playbook using the &lt;code class=&quot;highlighter-rouge&quot;&gt;--syntax-check&lt;/code&gt; option
-native in Ansible, whereas &lt;code class=&quot;highlighter-rouge&quot;&gt;lint&lt;/code&gt; checks your files using flake8, yamllint
+  &lt;li&gt;Ah, let’s skip that then. What’s the difference between &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;syntax&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lint&lt;/code&gt;?&lt;/li&gt;
+  &lt;li&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;syntax&lt;/code&gt; action runs your playbook using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--syntax-check&lt;/code&gt; option
+native in Ansible, whereas &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lint&lt;/code&gt; checks your files using flake8, yamllint
 and ansible-lint.&lt;/li&gt;
-  &lt;li&gt;So &lt;code class=&quot;highlighter-rouge&quot;&gt;create&lt;/code&gt; uses the create.yml file we just saw under the molecule directory
+  &lt;li&gt;So &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;create&lt;/code&gt; uses the create.yml file we just saw under the molecule directory
 inside the role right?&lt;/li&gt;
-  &lt;li&gt;Yes. It creates a Docker container suitable for Ansible use. And &lt;code class=&quot;highlighter-rouge&quot;&gt;destroy&lt;/code&gt;
+  &lt;li&gt;Yes. It creates a Docker container suitable for Ansible use. And &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;destroy&lt;/code&gt;
 uses the destroy.yml file. They’re both playbooks, so these actions are
 managed by Ansible.&lt;/li&gt;
-  &lt;li&gt;Eat your own dog food, alright. So &lt;code class=&quot;highlighter-rouge&quot;&gt;converge&lt;/code&gt; executes my role on the container?&lt;/li&gt;
+  &lt;li&gt;Eat your own dog food, alright. So &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;converge&lt;/code&gt; executes my role on the container?&lt;/li&gt;
   &lt;li&gt;That’s right.&lt;/li&gt;
-  &lt;li&gt;What about &lt;code class=&quot;highlighter-rouge&quot;&gt;side-effect&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;verify&lt;/code&gt;?&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;side-effect&lt;/code&gt; lets you produce situations in which you will be able to test
+  &lt;li&gt;What about &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;side-effect&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;verify&lt;/code&gt;?&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;side-effect&lt;/code&gt; lets you produce situations in which you will be able to test
 more things, like HA failover, for example. I don’t think we’ll be needing
-that one for this situation. And &lt;code class=&quot;highlighter-rouge&quot;&gt;verify&lt;/code&gt; is where all the magic happens.
+that one for this situation. And &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;verify&lt;/code&gt; is where all the magic happens.
 That’s where our unit tests get executed.&lt;/li&gt;
   &lt;li&gt;Unit tests? What?&lt;/li&gt;
   &lt;li&gt;You’ll see in a second.&lt;/li&gt;
-  &lt;li&gt;Alright. So I guess we’ll need &lt;code class=&quot;highlighter-rouge&quot;&gt;destroy&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;syntax&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;lint&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;create&lt;/code&gt;,
-&lt;code class=&quot;highlighter-rouge&quot;&gt;converge&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;verify&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;destroy&lt;/code&gt; again. No, wait. No destroy at the end.
+  &lt;li&gt;Alright. So I guess we’ll need &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;destroy&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;syntax&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lint&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;create&lt;/code&gt;,
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;converge&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;verify&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;destroy&lt;/code&gt; again. No, wait. No destroy at the end.
 That’s why it is at the beginning.&lt;/li&gt;
   &lt;li&gt;As you wish.&lt;/li&gt;
 &lt;/ul&gt;
@@ -3303,9 +3303,9 @@ faster, you’re able to acquire power faster as well.&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Because we want our feedback loop to be as short and quick as possible. So
-we’re going to &lt;code class=&quot;highlighter-rouge&quot;&gt;create&lt;/code&gt; our resources, &lt;code class=&quot;highlighter-rouge&quot;&gt;converge&lt;/code&gt; them with our Ansible role,
-and &lt;code class=&quot;highlighter-rouge&quot;&gt;verify&lt;/code&gt; that the results are what we expect. You can do this by typing
-&lt;code class=&quot;highlighter-rouge&quot;&gt;molecule create&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;molecule converge&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;molecule verify&lt;/code&gt;. Then, if it all
+we’re going to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;create&lt;/code&gt; our resources, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;converge&lt;/code&gt; them with our Ansible role,
+and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;verify&lt;/code&gt; that the results are what we expect. You can do this by typing
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;molecule create&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;molecule converge&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;molecule verify&lt;/code&gt;. Then, if it all
 works, we’re going to run our whole test sequence.&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -3375,16 +3375,16 @@ the enclosure’s reality:&lt;/p&gt;
 
 &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;testinfra.utils.ansible_runner&lt;/span&gt;
 
-&lt;span class=&quot;n&quot;&gt;testinfra_hosts&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;testinfra&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;utils&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ansible_runner&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AnsibleRunner&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;environ&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'MOLECULE_INVENTORY_FILE'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_hosts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'all'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;testinfra_hosts&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;testinfra&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;utils&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ansible_runner&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AnsibleRunner&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;environ&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'MOLECULE_INVENTORY_FILE'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_hosts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'all'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
 
 &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test_nginx_is_installed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
     &lt;span class=&quot;c1&quot;&gt;# Given
-&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;nginx&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;package&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'nginx'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;nginx&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;package&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'nginx'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
     &lt;span class=&quot;c1&quot;&gt;# Then
-&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;assert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nginx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;is_installed&lt;/span&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;assert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nginx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;is_installed&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
@@ -3512,7 +3512,7 @@ dazzled with the fireworks. It’s time for a new trial.&lt;/p&gt;
   &lt;li&gt;Excellent! I guess we’re done!&lt;/li&gt;
   &lt;li&gt;Yeah. Did you try it?&lt;/li&gt;
   &lt;li&gt;Oh right, let’s see. Can I login to the container somehow?&lt;/li&gt;
-  &lt;li&gt;Yeah, &lt;code class=&quot;highlighter-rouge&quot;&gt;molecule login&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;Yeah, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;molecule login&lt;/code&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@instance /]# curl localhost
@@ -3541,10 +3541,10 @@ L started teaching in the first place.&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test_nginx_is_running&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
     &lt;span class=&quot;c1&quot;&gt;# Given
-&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;nginx&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;service&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'nginx'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;nginx&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;service&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'nginx'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
     &lt;span class=&quot;c1&quot;&gt;# Then
-&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;assert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nginx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;is_running&lt;/span&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;assert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nginx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;is_running&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
@@ -4008,10 +4008,10 @@ knowledge was always inside of N, he just needed to hear the right questions.&lt
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test_nginx_is_enabled&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
     &lt;span class=&quot;c1&quot;&gt;# Given
-&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;nginx&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;service&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'nginx'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;nginx&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;service&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'nginx'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
     &lt;span class=&quot;c1&quot;&gt;# Then
-&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;assert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nginx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;is_enabled&lt;/span&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;assert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nginx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;is_enabled&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;He claps his hands together. Red light appears everywhere.&lt;/p&gt;
@@ -4193,19 +4193,19 @@ apt-get &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb
 
 &lt;p&gt;And then install it using pip:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip install ara
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip install ara
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;This will create a .ara directory at the user’s home, with an SQLite database
 inside of it, as well as a logfile. Then, in order to launch the dashboard, just
-use some &lt;code class=&quot;highlighter-rouge&quot;&gt;ara-manage&lt;/code&gt; magic:&lt;/p&gt;
+use some &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ara-manage&lt;/code&gt; magic:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ara-manage runserver
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ara-manage runserver
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;This will launch the development server which will listen on port 9191 by
-default. You can specify different IP and port settings by using the &lt;code class=&quot;highlighter-rouge&quot;&gt;-i&lt;/code&gt; and the
-&lt;code class=&quot;highlighter-rouge&quot;&gt;-p&lt;/code&gt; options, respectively. After this you’re all set, and you can go and see all
+default. You can specify different IP and port settings by using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-i&lt;/code&gt; and the
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-p&lt;/code&gt; options, respectively. After this you’re all set, and you can go and see all
 your beautiful dashboards on the web interface.&lt;/p&gt;
 
 &lt;p&gt;Then again, you’ll probably want your dashboard to be accessible at all times if
@@ -4219,7 +4219,7 @@ MySQL or PostgreSQL instead of SQLite. I didn’t.&lt;/p&gt;
 
 &lt;p&gt;Your service file will look somewhat like this one:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[Unit]
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[Unit]
 Description=ara
 After=network.target
 
@@ -4309,7 +4309,7 @@ key=all_your_base                                 &lt;/span&gt;&lt;span class=&q
 value='are belong to us'&quot;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;You can obtain the playbook ID using the ARA CLI, with &lt;code class=&quot;highlighter-rouge&quot;&gt;ara playbook list&lt;/code&gt;. A
+&lt;p&gt;You can obtain the playbook ID using the ARA CLI, with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ara playbook list&lt;/code&gt;. A
 cool thing about this is that you can actually record data once the playbook is
 already done, if you have the playbook’s id.&lt;/p&gt;
 
@@ -4561,9 +4561,9 @@ infrastructure is destroyed:&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Now, what I basically do when running these tests is that I run just
-the &lt;code class=&quot;highlighter-rouge&quot;&gt;molecule create&lt;/code&gt; to create the infrastructure, and then I’ll just
-run &lt;code class=&quot;highlighter-rouge&quot;&gt;molecule converge&lt;/code&gt; to test that my roles are working properly and
-&lt;code class=&quot;highlighter-rouge&quot;&gt;molecule idempotence&lt;/code&gt; to verify that they are indeed idempotent. This
+the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;molecule create&lt;/code&gt; to create the infrastructure, and then I’ll just
+run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;molecule converge&lt;/code&gt; to test that my roles are working properly and
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;molecule idempotence&lt;/code&gt; to verify that they are indeed idempotent. This
 helps reducing the duration of the feedback loop, which in turn helps
 me to develop faster. Just remember to launch the whole pipeline from
 time to time to check if your roles are able to correctly configure
@@ -4587,17 +4587,17 @@ name of redis, with a 10 second update delay, using the 3.0.6 version
 of the redis image. The update delay is the time between updates of
 tasks (containers) of a service. This means that the tasks will be
 updated one at the time, with a 10 second delay between them. You can
-then list your services using the &lt;code class=&quot;highlighter-rouge&quot;&gt;ls&lt;/code&gt; command:&lt;/p&gt;
+then list your services using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ls&lt;/code&gt; command:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;core@swarm-manager-01 ~ $ docker service ls
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;core@swarm-manager-01 ~ $ docker service ls
 ID            NAME   REPLICAS  IMAGE        COMMAND
 09j27f6ehaq6  redis  0/1       redis:3.0.6
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;And see information regarding the different tasks of the service using
-the &lt;code class=&quot;highlighter-rouge&quot;&gt;ps&lt;/code&gt; command, with the service name:&lt;/p&gt;
+the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ps&lt;/code&gt; command, with the service name:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;core@swarm-manager-01 ~ $ docker service ps redis
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;core@swarm-manager-01 ~ $ docker service ps redis
 ID                         NAME     IMAGE        NODE             DESIRED STATE  CURRENT STATE           ERROR
 06cj3g824k8r0jjpoew0uip7z  redis.1  redis:3.0.6  swarm-worker-03  Running        Running 42 seconds ago
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -4605,15 +4605,15 @@ ID                         NAME     IMAGE        NODE             DESIRED STATE 
 &lt;p&gt;You can see the image, the desired state, the current state and the
 node in which the container is running.&lt;/p&gt;
 
-&lt;p&gt;You can also scale up/down your services, using the &lt;code class=&quot;highlighter-rouge&quot;&gt;scale&lt;/code&gt; command:&lt;/p&gt;
+&lt;p&gt;You can also scale up/down your services, using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scale&lt;/code&gt; command:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;core@swarm-manager-01 ~ $ docker service scale redis=11
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;core@swarm-manager-01 ~ $ docker service scale redis=11
 redis scaled to 11
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=s9F5fhJQo34&amp;amp;t=2m&quot;&gt;This scales your nodes up to 11&lt;/a&gt;. Sick!&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;core@swarm-manager-01 ~ $ docker service ps redis
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;core@swarm-manager-01 ~ $ docker service ps redis
 ID                         NAME          IMAGE        NODE             DESIRED STATE  CURRENT STATE            ERROR
 06cj3g824k8r0jjpoew0uip7z  redis.1       redis:3.0.6  swarm-worker-03  Running        Running 8 minutes ago
 5wa862swszkvklchaug02powy  redis.2       redis:3.0.6  swarm-worker-02  Running        Running 25 seconds ago
@@ -4627,16 +4627,16 @@ down (to 1, for exampe).&lt;/p&gt;
 
 &lt;p&gt;Let’s try to update a service in order to see the rolling updates
 work. We’re going to go from redis version 3.0.6 to 3.0.7. Exciting,
-huh? For this, we will use the &lt;code class=&quot;highlighter-rouge&quot;&gt;update&lt;/code&gt; command:&lt;/p&gt;
+huh? For this, we will use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;update&lt;/code&gt; command:&lt;/p&gt;
 
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker service update &lt;span class=&quot;nt&quot;&gt;--image&lt;/span&gt; redis:3.0.7 redis
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;This will launch the rolling update process. It will take some time
-due to the update delay we set before. If you launch a &lt;code class=&quot;highlighter-rouge&quot;&gt;ps&lt;/code&gt; command on
+due to the update delay we set before. If you launch a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ps&lt;/code&gt; command on
 the service, you should be able to see your containers updating:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;core@swarm-manager-01 ~ $ docker service ps redis
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;core@swarm-manager-01 ~ $ docker service ps redis
 ID                         NAME          IMAGE        NODE             DESIRED STATE  CURRENT STATE            ERROR
 ...
 e8lf3q9ic8674fba8a863ciwh  redis.5       redis:3.0.7  swarm-worker-02  Running        Running 22 seconds ago
@@ -4648,9 +4648,9 @@ e8lf3q9ic8674fba8a863ciwh  redis.5       redis:3.0.7  swarm-worker-02  Running  
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;This should happens with every node eventually. You can see the
-service status if you use the &lt;code class=&quot;highlighter-rouge&quot;&gt;inspect&lt;/code&gt; command on it:&lt;/p&gt;
+service status if you use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;inspect&lt;/code&gt; command on it:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;core@swarm-manager-01 ~ $ docker service inspect --pretty redis
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;core@swarm-manager-01 ~ $ docker service inspect --pretty redis
 ID:             buye01j0ofdmt32lqplgvknic
 Name:           redis
 Mode:           Replicated
@@ -4669,10 +4669,10 @@ ContainerSpec:
 Resources:
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Once it’s done, you should be able to see the &lt;code class=&quot;highlighter-rouge&quot;&gt;completed&lt;/code&gt; state on the
+&lt;p&gt;Once it’s done, you should be able to see the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;completed&lt;/code&gt; state on the
 same inspection:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Update status:
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Update status:
  State:         completed
  Started:       3 minutes ago
  Completed:     51 seconds ago
@@ -4680,7 +4680,7 @@ same inspection:&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Afterwards, when you’re bored with it, you can delete it using the
-&lt;code class=&quot;highlighter-rouge&quot;&gt;rm&lt;/code&gt; command:&lt;/p&gt;
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rm&lt;/code&gt; command:&lt;/p&gt;
 
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker service &lt;span class=&quot;nb&quot;&gt;rm &lt;/span&gt;redis
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -4701,7 +4701,7 @@ port and routes the request all the way to the containers. So:&lt;/p&gt;
 inside the containers. Let us then see where our containers are
 running:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;core@swarm-manager-01 ~ $ docker service ps amazing-web-server
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;core@swarm-manager-01 ~ $ docker service ps amazing-web-server
 ID                         NAME                  IMAGE  NODE             DESIRED STATE  CURRENT STATE                   ERROR
 6viw0duiqjobqwlajs8flrbk1  amazing-web-server.1  nginx  swarm-worker-03  Running        Running less than a second ago
 8vmfut5b34e04h84ojvyaeb30  amazing-web-server.2  nginx  swarm-worker-02  Running        Running less than a second ago
@@ -4733,7 +4733,7 @@ undeniable.&lt;/p&gt;
 
 &lt;p&gt;No more Leader. Access the second manager node and see what’s going on:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;vagrant ssh swarm-manager-02
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;vagrant ssh swarm-manager-02
 core@swarm-manager-02 ~ $ docker node ls
 ID                           HOSTNAME          STATUS   AVAILABILITY  MANAGER STATUS
 1qmj079wp0cg5kys5ej8cs58i    swarm-worker-02   Ready    Active
@@ -4755,7 +4755,7 @@ to see what happens:&lt;/p&gt;
 
 &lt;p&gt;If we check the service status:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;core@swarm-manager-02 ~ $ docker service ps amazing-web-server
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;core@swarm-manager-02 ~ $ docker service ps amazing-web-server
 ID                         NAME                      IMAGE  NODE             DESIRED STATE  CURRENT STATE                ERROR
 95u3ndb01onpx6ki5daohuwf1  amazing-web-server.1      nginx  swarm-worker-01  Running        Running about a minute ago
 3zx3cua2eu1dgykphj8rsnuwd   \_ amazing-web-server.1  nginx  swarm-worker-02  Shutdown       Running 7 minutes ago
@@ -4947,7 +4947,7 @@ defined are just actions and don’t really generate files.&lt;/p&gt;
 Ansible part, we’ll start by creating an inventory with all our six
 nodes in it, separated by groups:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[swarm-leader]
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[swarm-leader]
 swarm-manager-01
 
 [swarm-manager]
@@ -4961,7 +4961,7 @@ swarm-worker-02
 swarm-worker-03
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;You will probably notice there is a &lt;code class=&quot;highlighter-rouge&quot;&gt;swarm-leader&lt;/code&gt; group in the
+&lt;p&gt;You will probably notice there is a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;swarm-leader&lt;/code&gt; group in the
 inventory, which contains a single host. Like I said in the first
 article, there might be many Managers in a cluster; Nevertheless,
 there is only one Leader at any given moment. We will use this group
@@ -5004,8 +5004,8 @@ roles/bootstrap/ansible-bootstrap, which has 3 files under the tasks
 directory: main.yml, configure.yml and test.yml. The configure.yml
 file holds all the tasks necessary in order to install PyPy. The
 test.yml file verifies if Python is correctly installed by doing
-&lt;code class=&quot;highlighter-rouge&quot;&gt;python --version&lt;/code&gt;. The main.yml file wraps these two files, adding
-the &lt;code class=&quot;highlighter-rouge&quot;&gt;test&lt;/code&gt; tag to the test.yml part:&lt;/p&gt;
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;python --version&lt;/code&gt;. The main.yml file wraps these two files, adding
+the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;test&lt;/code&gt; tag to the test.yml part:&lt;/p&gt;
 
 &lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# filename: roles/bootstrap/ansible-bootstrap/tasks/main.yml&lt;/span&gt;
 &lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
@@ -5134,7 +5134,7 @@ hostname and IP addresses:&lt;/p&gt;
 &lt;span class=&quot;nn&quot;&gt;...&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;With that in place, I just need to run &lt;code class=&quot;highlighter-rouge&quot;&gt;molecule test&lt;/code&gt; in order to
+&lt;p&gt;With that in place, I just need to run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;molecule test&lt;/code&gt; in order to
 test that my infrastructure is created and configured correctly. This
 is actually an oversimplification of everything that can be done using
 molecule, but since &lt;a href=&quot;https://sebiwi.github.io/blog/how-does-it-work-kube-4/&quot;&gt;I already wrote about it on a previous
@@ -5144,7 +5144,7 @@ interested.&lt;/p&gt;
 
 &lt;p&gt;And with that, I also get to add two new (phony) Makefile target:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;smoketest:
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;smoketest:
     @ansible-playbook -i inventories/vagrant.ini swarm.yml --tags test
 
 test:
@@ -5165,7 +5165,7 @@ if you try to run it using Molecule V2 it will probably not work.&lt;/p&gt;
 &lt;p&gt;Next up, we need to setup the three Manager nodes. I’ll start by
 creating a swarm-leader role, under the configuration roles directory:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;roles/
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;roles/
 ├── bootstrap
 │   └── ansible-bootstrap
 └── configure
@@ -5218,12 +5218,12 @@ that it concentrates its resources on leading the cluster:&lt;/p&gt;
 &lt;p&gt;This last part is not actually necessary, specially for small
 clusters. Nevertheless it is usually a good practice, since the leader
 election process can be really intensive in terms of resource
-consumption. The &lt;code class=&quot;highlighter-rouge&quot;&gt;disable_leader_scheduling&lt;/code&gt; variable is defined on
+consumption. The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;disable_leader_scheduling&lt;/code&gt; variable is defined on
 the role’s defaults, and you can override it if you want your Leader
 to handle workloads.&lt;/p&gt;
 
-&lt;p&gt;Fairly simple. Notice the &lt;code class=&quot;highlighter-rouge&quot;&gt;changed_when: false&lt;/code&gt; parameter on the first
-command task. It is there because running  &lt;code class=&quot;highlighter-rouge&quot;&gt;docker info&lt;/code&gt; will not
+&lt;p&gt;Fairly simple. Notice the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;changed_when: false&lt;/code&gt; parameter on the first
+command task. It is there because running  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;docker info&lt;/code&gt; will not
 change the state of the cluster, and it is therefore not a real
 action, just a way of collecting information.&lt;/p&gt;
 
@@ -5292,11 +5292,11 @@ Swarm mode is already activated, it does nothing:&lt;/p&gt;
   &lt;span class=&quot;na&quot;&gt;when&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Swarm:&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;active'&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;not&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;in&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;docker_info.stdout&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;and&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;disable_manager_scheduling&quot;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Notice the &lt;code class=&quot;highlighter-rouge&quot;&gt;delegate_to&lt;/code&gt; option on the token recovery task. This needs
+&lt;p&gt;Notice the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;delegate_to&lt;/code&gt; option on the token recovery task. This needs
 to be done because the token must be recovered from the Leader node
 and the Leader node only. Scheduling is also disabled on these nodes,
 by default, because of the reason specified above on the Leader node.
-This time, the &lt;code class=&quot;highlighter-rouge&quot;&gt;disable_manager_scheduling&lt;/code&gt; variable is also defined
+This time, the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;disable_manager_scheduling&lt;/code&gt; variable is also defined
 on the role’s defaults. You can override this variable if you want
 your Managers to handle workloads.&lt;/p&gt;
 
@@ -5317,7 +5317,7 @@ your Managers to handle workloads.&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;It recovers the nodes information, and then it verifies that the node
-Manager type is &lt;code class=&quot;highlighter-rouge&quot;&gt;Reachable&lt;/code&gt; rather than &lt;code class=&quot;highlighter-rouge&quot;&gt;Leader&lt;/code&gt;, as it was for the
+Manager type is &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Reachable&lt;/code&gt; rather than &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Leader&lt;/code&gt;, as it was for the
 Leader node. It also verifies that the nodes are “drained” since we
 don’t want them to run containers.&lt;/p&gt;
 
@@ -5330,7 +5330,7 @@ don’t want them to run containers.&lt;/p&gt;
       &lt;span class=&quot;na&quot;&gt;tags&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;swarm-manager&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Notice the &lt;code class=&quot;highlighter-rouge&quot;&gt;!&lt;/code&gt; sign on the hosts part of the play. This specifies that
+&lt;p&gt;Notice the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;!&lt;/code&gt; sign on the hosts part of the play. This specifies that
 we want to run the role on every node on the swarm-manager group, that
 isn’t in the swarm-leader group, thus preventing the Leader node to
 try to join the cluster as a non-Leader Manager. Sweet!&lt;/p&gt;
@@ -5355,7 +5355,7 @@ you about that on the next article though.&lt;/p&gt;
 
 &lt;p&gt;Right, Service Discovery. &lt;a href=&quot;https://sebiwi.github.io/blog/how-does-it-work-kube-2/&quot;&gt;From a previous article&lt;/a&gt;:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;“...What if your application needs to advertise its own IP address to
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;“...What if your application needs to advertise its own IP address to
 a container that is hosted on another node? It doesn’t actually knows
 its real IP, since his local IP is getting translated into another IP
 and a port on the host machine. ”
@@ -5524,7 +5524,7 @@ around, we’ll be right back!&lt;/p&gt;
 &lt;p&gt;Right, networking. From a &lt;a href=&quot;https://sebiwi.github.io/blog/how-does-it-work-kube-2/&quot;&gt;previous article on Kubernetes
 Networking&lt;/a&gt;:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;“For each container that is created, a virtual ethernet device is
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;“For each container that is created, a virtual ethernet device is
 attached to this bridge, which is then mapped to eth0 inside the
 container, with an ip within the aforementioned network range. Note
 that this will happen for each host that is running Docker, without
@@ -6026,7 +6026,7 @@ I’m going to talk to you about AWS Lambda and Serverless computing, or FaaS (F
 
 &lt;p&gt;You can check the source code and permission related template files here:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;https://github.com/sebiwi/broom
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;https://github.com/sebiwi/broom
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;If you want to use it, create a Cloudtrail trail, activate it on every region, create an S3 bucket
@@ -6108,7 +6108,7 @@ EC2 instances are actually created. You can do this with Cloudtrail.&lt;/p&gt;
 
 &lt;p&gt;From the &lt;a href=&quot;https://aws.amazon.com/cloudtrail/faqs/&quot;&gt;Cloudtrail&lt;/a&gt; FAQs:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;AWS CloudTrail is a web service that records API calls made on your account and delivers
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;AWS CloudTrail is a web service that records API calls made on your account and delivers
 log files to your Amazon S3 bucket
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
@@ -6199,8 +6199,8 @@ I always refer to myself as ‘LOL’, for example:&lt;/p&gt;
 &lt;p&gt;Then, I declare some helper functions, the first to decompress the Cloudtrail S3 log files:&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;decompress&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gzip&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GzipFile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fileobj&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;io&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BytesIO&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gzip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GzipFile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fileobj&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;io&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BytesIO&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;And the second one to generate a report on the destroyed instance:&lt;/p&gt;
@@ -6219,16 +6219,16 @@ First, I recover the bucket name and the object key:&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;lambda_handler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;bucket&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Records'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'s3'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'bucket'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'name'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;key&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;urllib&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;unquote_plus&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Records'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'s3'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'object'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'key'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;encode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'utf8'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;key&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;urllib&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;unquote_plus&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Records'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'s3'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'object'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'key'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;encode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'utf8'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;This might look a little bit weird. It’s only because the &lt;a href=&quot;http://docs.aws.amazon.com/AmazonS3/latest/dev/notification-content-structure.html&quot;&gt;event message structure&lt;/a&gt; is kinda complex.
 Then, I recover the actual log (s3_object), decompress it, and create a JSON object with it:&lt;/p&gt;
 
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;s3_object&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Bucket&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bucket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Key&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;s3_object_content&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s3_object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Body'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;s3_object&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Bucket&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bucket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Key&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;s3_object_content&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s3_object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Body'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;s3_object_unzipped_content&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;decompress&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s3_object_content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;json_object&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loads&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s3_object_unzipped_content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;json_object&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loads&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s3_object_unzipped_content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;A log object may contain many API calls. I’m only interested in the ones that create EC2
@@ -6239,9 +6239,9 @@ events, I’ll connect to that region and recover the created instances:&lt;/p&g
     &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;record&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'eventName'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;RunInstances&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
         &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;record&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'userIdentity'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'userName'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
         &lt;span class=&quot;n&quot;&gt;region&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;record&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'awsRegion'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;ec2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;boto3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resource&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'ec2'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;region_name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;region&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;ec2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;boto3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resource&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'ec2'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;region_name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;region&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;instance&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;enumerate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;record&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'responseElements'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'instancesSet'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'items'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]):&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;instance_object&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ec2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Instance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;instance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'instanceId'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;instance_object&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ec2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Instance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;instance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'instanceId'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;I’ll check if the tag is present in the instance, and if it exists in the list of valid
@@ -6249,11 +6249,11 @@ codes that I defined previously. If it is not, I’ll destroy the instance, and 
 report to the SNS topic:&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;tags&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tag&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;instance_object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tags&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tag&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;instance_object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tags&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;tags&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Key'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Value'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Code'&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tags&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tags&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Code'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CODES&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;instance_object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;terminate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;sns&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;publish&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TopicArn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SNS_TOPIC_ARN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;report&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;instance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;region&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;instance_object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;terminate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;sns&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;publish&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TopicArn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SNS_TOPIC_ARN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;report&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;instance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;region&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;That’s it! You can adapt this in order to check your instances in many different ways,
@@ -6336,10 +6336,10 @@ certificate and the API server certificate and key. Nothing complicated about th
 &lt;p&gt;Next up, networking. For this we’ll use Flannel and Calico.&lt;/p&gt;
 
 &lt;p&gt;In order to configure Flannel, we just add configuration environment variables under
-&lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/flannel/options.env&lt;/code&gt;. These specify that the flannel interface is this node’s public
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/flannel/options.env&lt;/code&gt;. These specify that the flannel interface is this node’s public
 IP, and that the cluster configuration is stocked in etcd cluster:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;FLANNELD_IFACE={{ ansible_env.COREOS_PUBLIC_IPV4 }}
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;FLANNELD_IFACE={{ ansible_env.COREOS_PUBLIC_IPV4 }}
 FLANNELD_ETCD_ENDPOINTS={{ etcd_endpoints }}
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
@@ -6349,7 +6349,7 @@ FLANNELD_ETCD_ENDPOINTS={{ etcd_endpoints }}
 unit) for flannel, in which we specify that we want to use the configuration specified
 above when the service launches:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[Service]
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[Service]
 ExecStartPre=/usr/bin/ln -sf /etc/flannel/options.env /run/flannel/options.env
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
@@ -6364,7 +6364,7 @@ namespace using a simple &lt;a href=&quot;https://github.com/sebiwi/kubernetes-c
 &lt;p&gt;After that, we gotta configure Docker on the virtual machine. Actually, the only thing we need is to
 be sure that flannel is used for networking. Basically, flanneld needs to be running when Docker starts:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[Unit]
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[Unit]
 Requires=flanneld.service
 After=flanneld.service
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -6453,7 +6453,7 @@ to the Calico plugin. This might sound convoluted at first, but it is actually d
 so that Calico knows which IP range to use (which is determined before by flannel).
 It’s a pretty short configuration so I’ll just put it here:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{
     &quot;name&quot;: &quot;calico&quot;,
     &quot;type&quot;: &quot;flannel&quot;,
     &quot;delegate&quot;: {
@@ -6501,7 +6501,7 @@ role because I figured that the flannel configuration might change from Master t
 next Kubernetes release (turns out it did with 1.5!). Same with the Docker configuration. We just
 want flannel to be running before we run Docker.&lt;/p&gt;
 
-&lt;p&gt;Next up, the kubelet. We will not disable the &lt;code class=&quot;highlighter-rouge&quot;&gt;register for cluster&lt;/code&gt; work flag, since we want
+&lt;p&gt;Next up, the kubelet. We will not disable the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;register for cluster&lt;/code&gt; work flag, since we want
 for these nodes to do the heavy lifting. We will also configure it to talk to the master node,
 to use the CNI network plugin, the specified DNS server, and its own advertising IP. &lt;a href=&quot;https://github.com/sebiwi/kubernetes-coreos/blob/master/roles/configure/kube-worker/templates/services/kubelet.service.j2&quot;&gt;Here’s&lt;/a&gt; the
 configuration if you want to check it out.&lt;/p&gt;
@@ -6610,7 +6610,7 @@ kubectl port-forward kubernetes-dashboard-v.1.4.1-ID 9090 &lt;span class=&quot;n
 
 &lt;p&gt;Woot! Almost done. Now we only need to test that it works, and that our code is working as intended.&lt;/p&gt;
 
-&lt;p&gt;So, &lt;code class=&quot;highlighter-rouge&quot;&gt;molecule test&lt;/code&gt; says that:&lt;/p&gt;
+&lt;p&gt;So, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;molecule test&lt;/code&gt; says that:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/how-does-it-work-kube/5/molecule-1.png&quot; alt=&quot;Molecule infra&quot; class=&quot;bigger-image&quot; /&gt;&lt;/p&gt;
 
@@ -6743,12 +6743,12 @@ worker nodes:&lt;/p&gt;
 
 &lt;p&gt;By the way, you can configure your virtual machines by specifying an Ansible playbook, using
 the Ansible provisioner in your Vagrantfile &lt;a href=&quot;https://www.vagrantup.com/docs/provisioning/ansible.html&quot;&gt;like this&lt;/a&gt;. I choose not to do so because
-I like having my &lt;code class=&quot;highlighter-rouge&quot;&gt;vagrant up&lt;/code&gt; actions separate from my actual configuration.
+I like having my &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vagrant up&lt;/code&gt; actions separate from my actual configuration.
 Extra coupling does not abide by this philosophy.&lt;/p&gt;
 
-&lt;p&gt;Now you’re only a &lt;code class=&quot;highlighter-rouge&quot;&gt;vagrant up&lt;/code&gt; away from having your CoreOS virtual machines running on
+&lt;p&gt;Now you’re only a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vagrant up&lt;/code&gt; away from having your CoreOS virtual machines running on
 your computer. After that, you can export the SSH configuration used by Vagrant with
-&lt;code class=&quot;highlighter-rouge&quot;&gt;vagrant ssh-config &amp;gt; ssh.config&lt;/code&gt;. You can then use this configuration for the Ansible
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vagrant ssh-config &amp;gt; ssh.config&lt;/code&gt;. You can then use this configuration for the Ansible
 configuration, if you include it in your ansible.cfg file:&lt;/p&gt;
 
 &lt;div class=&quot;language-ini highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nn&quot;&gt;[ssh_connection]&lt;/span&gt;
@@ -6759,14 +6759,14 @@ configuration, if you include it in your ansible.cfg file:&lt;/p&gt;
 
 &lt;p&gt;I really like Makefiles. I use them quite often when I have write more than one long command, or many different ones that are going to take a while. I’m also kinda lazy. So I just did this:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;vagrant:
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;vagrant:
 	@vagrant up
 	@vagrant ssh-config &amp;gt; ssh.config
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;figcaption class=&quot;caption&quot;&gt;&lt;a href=&quot;https://github.com/sebiwi/kubernetes-coreos/blob/master/Makefile#L5-L7&quot;&gt;make: automating your life since 1977&lt;/a&gt;&lt;/figcaption&gt;
 
-&lt;p&gt;This way, &lt;code class=&quot;highlighter-rouge&quot;&gt;vagrant up &amp;amp;&amp;amp; vagrant ssh-config &amp;gt; ssh.config&lt;/code&gt; becomes &lt;code class=&quot;highlighter-rouge&quot;&gt;make vagrant&lt;/code&gt;, which saves
+&lt;p&gt;This way, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vagrant up &amp;amp;&amp;amp; vagrant ssh-config &amp;gt; ssh.config&lt;/code&gt; becomes &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;make vagrant&lt;/code&gt;, which saves
 me up to 3,7 seconds every day.&lt;/p&gt;
 
 &lt;p&gt;You can check the &lt;a href=&quot;https://github.com/sebiwi/kubernetes-coreos/blob/master/Vagrantfile&quot;&gt;Vagrantfile&lt;/a&gt;, the &lt;a href=&quot;https://github.com/sebiwi/kubernetes-coreos/blob/master/ansible.cfg&quot;&gt;ansible.cfg&lt;/a&gt; and the &lt;a href=&quot;https://github.com/sebiwi/kubernetes-coreos/blob/master/Makefile&quot;&gt;Makefile&lt;/a&gt; on the GitHub repo.&lt;/p&gt;
@@ -6778,7 +6778,7 @@ configuration of your test infrastructure, and to specify the playbook that you 
 Usually, I try to test each role independently. That means that I’ll have a molecule.yml
 file per role directory, and also a playbook.yml file that uses the role that I’m testing.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker-gc/
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker-gc/
 ├── molecule.yml
 ├── playbook.yml
 ├── tasks
@@ -6790,7 +6790,7 @@ file per role directory, and also a playbook.yml file that uses the role that I�
 &lt;p&gt;The molecule.yml file specifies an infrastructure (I usually use a single Docker container),
 and it also specifies which playbook needs to be used on the previously defined infrastructure.
 For the example in the image above, the playbook.yml file would just include the docker-gc role.
-Molecule also does this for you automatically if you type &lt;code class=&quot;highlighter-rouge&quot;&gt;molecule init --driver docker&lt;/code&gt;
+Molecule also does this for you automatically if you type &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;molecule init --driver docker&lt;/code&gt;
 inside of your role directory. Dope.&lt;/p&gt;
 
 &lt;p&gt;This is a pretty good testing strategy when you have roles that are independent from each other.
@@ -6805,22 +6805,22 @@ to specify a sample test architecture, which is going to be the same one we defi
 Vagrantfile. We’re also going to specify the playbook that we want to test. We’re going to
 name it kubernetes.yml (creative right?). You can see the molecule.yml file &lt;a href=&quot;https://github.com/sebiwi/kubernetes-coreos/blob/master/molecule.yml&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;You can test the roles using the &lt;code class=&quot;highlighter-rouge&quot;&gt;molecule test&lt;/code&gt; command. This will:&lt;/p&gt;
+&lt;p&gt;You can test the roles using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;molecule test&lt;/code&gt; command. This will:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;Create up the infrastructure (&lt;code class=&quot;highlighter-rouge&quot;&gt;create&lt;/code&gt;)&lt;/li&gt;
-  &lt;li&gt;Verify the syntax of the Ansible roles (&lt;code class=&quot;highlighter-rouge&quot;&gt;syntax&lt;/code&gt;)&lt;/li&gt;
-  &lt;li&gt;Execute the playbook (&lt;code class=&quot;highlighter-rouge&quot;&gt;converge&lt;/code&gt;)&lt;/li&gt;
-  &lt;li&gt;Check that the playbook is idempotent by checking for the diffs that a new execution would apply with a dry run (&lt;code class=&quot;highlighter-rouge&quot;&gt;idempotence&lt;/code&gt;)&lt;/li&gt;
-  &lt;li&gt;Destroy the previously created infrastructure (&lt;code class=&quot;highlighter-rouge&quot;&gt;destroy&lt;/code&gt;)&lt;/li&gt;
+  &lt;li&gt;Create up the infrastructure (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;create&lt;/code&gt;)&lt;/li&gt;
+  &lt;li&gt;Verify the syntax of the Ansible roles (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;syntax&lt;/code&gt;)&lt;/li&gt;
+  &lt;li&gt;Execute the playbook (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;converge&lt;/code&gt;)&lt;/li&gt;
+  &lt;li&gt;Check that the playbook is idempotent by checking for the diffs that a new execution would apply with a dry run (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;idempotence&lt;/code&gt;)&lt;/li&gt;
+  &lt;li&gt;Destroy the previously created infrastructure (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;destroy&lt;/code&gt;)&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;These actions can be ran separately by typing &lt;code class=&quot;highlighter-rouge&quot;&gt;molecule &amp;lt;action&amp;gt;&lt;/code&gt;, and replacing action
-with one of the expressions between parentheses above. For example, &lt;code class=&quot;highlighter-rouge&quot;&gt;molecule converge&lt;/code&gt;
+&lt;p&gt;These actions can be ran separately by typing &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;molecule &amp;lt;action&amp;gt;&lt;/code&gt;, and replacing action
+with one of the expressions between parentheses above. For example, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;molecule converge&lt;/code&gt;
 will just play your playbook on the hosts. You get the idea, right?&lt;/p&gt;
 
-&lt;p&gt;I added the &lt;code class=&quot;highlighter-rouge&quot;&gt;molecule test&lt;/code&gt; command to my &lt;a href=&quot;https://github.com/sebiwi/kubernetes-coreos/blob/master/Makefile&quot;&gt;Makefile&lt;/a&gt;, under the &lt;code class=&quot;highlighter-rouge&quot;&gt;test&lt;/code&gt; target. That means
-that I can run &lt;code class=&quot;highlighter-rouge&quot;&gt;make test&lt;/code&gt; instead of &lt;code class=&quot;highlighter-rouge&quot;&gt;molecule test&lt;/code&gt;. That makes me gain 0.4 seconds per day.
+&lt;p&gt;I added the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;molecule test&lt;/code&gt; command to my &lt;a href=&quot;https://github.com/sebiwi/kubernetes-coreos/blob/master/Makefile&quot;&gt;Makefile&lt;/a&gt;, under the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;test&lt;/code&gt; target. That means
+that I can run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;make test&lt;/code&gt; instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;molecule test&lt;/code&gt;. That makes me gain 0.4 seconds per day.
 We’re up to 4.1 seconds in total. Sweet!&lt;/p&gt;
 
 &lt;p&gt;Now that we got our virtual machines running, and our testing configuration ready, let’s start
@@ -6841,8 +6841,8 @@ in the first place, we’ll just install Python manually in each one of the mach
 &lt;p&gt;&lt;em&gt;By the way, if the previous question made you think about the chicken or the egg causality dilemma,
 just know that the &lt;a href=&quot;http://www.popsci.com/science/article/2013-02/fyi-which-came-first-chicken-or-egg&quot;&gt;egg came first&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;There are three Ansible modules that do not need Python installed on the target host: the &lt;a href=&quot;http://docs.ansible.com/ansible/raw_module.html&quot;&gt;raw module&lt;/a&gt;,
-the &lt;a href=&quot;http://docs.ansible.com/ansible/script_module.html&quot;&gt;script module&lt;/a&gt;, and the &lt;a href=&quot;http://docs.ansible.com/ansible/synchronize_module.html&quot;&gt;synchronize module&lt;/a&gt;. The first allows you to execute an SSH command, without
+&lt;p&gt;There are three Ansible modules that do not need Python installed on the target host: the &lt;a href=&quot;https://docs.ansible.com/ansible/2.3/raw_module.html&quot;&gt;raw module&lt;/a&gt;,
+the &lt;a href=&quot;https://docs.ansible.com/ansible/2.3/script_module.html&quot;&gt;script module&lt;/a&gt;, and the &lt;a href=&quot;http://docs.ansible.com/ansible/2.3/synchronize_module.html&quot;&gt;synchronize module&lt;/a&gt;. The first allows you to execute an SSH command, without
 going through the module subsystem. The second one allows you to copy a script to a remote host, and
 execute it using the remote host’s shell environment. The third is a wrapper around rsync, which just
 uses rsync on the control machine and the remote host.&lt;/p&gt;
@@ -6880,13 +6880,13 @@ I install it using a more raw tasks.&lt;/p&gt;
 
 &lt;figcaption class=&quot;caption&quot;&gt;&lt;a href=&quot;https://github.com/sebiwi/kubernetes-coreos/blob/master/roles/bootstrap/ansible-bootstrap/tasks/configure.yml#L1-L26&quot;&gt;Right on&lt;/a&gt;&lt;/figcaption&gt;
 
-&lt;p&gt;Why use the &lt;code class=&quot;highlighter-rouge&quot;&gt;changed_when: false&lt;/code&gt; flag on the tasks inside the block, you say? The thing is
+&lt;p&gt;Why use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;changed_when: false&lt;/code&gt; flag on the tasks inside the block, you say? The thing is
 that each time you execute a raw task, a change will be made, since the shell command is
 actually being executed on the target host. That means that each time you run your playbook,
 you will execute the tasks, no matter what. So if you’re downloading things, creating
 directories, or adding lines to configuration files, you will do so multiple times. This
 is not idempotent. That’s why I verify the state of the Python installation before installing
-Python, and only execute it when Python is not installed. I just add the &lt;code class=&quot;highlighter-rouge&quot;&gt;changed_when: false&lt;/code&gt;
+Python, and only execute it when Python is not installed. I just add the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;changed_when: false&lt;/code&gt;
 flag to the verification tasks, since they only verify the existence of the Python associated
 resources; there are no system modifications because of them.&lt;/p&gt;
 
@@ -6895,7 +6895,7 @@ It allows me to replay tasks when certain script do not exist, and to have a cle
 failed when I get an error: I know right away which task failed, which helps in the debugging process.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://sebiwi.github.io/assets/images/how-does-it-work-kube/4/ansible-scripts.png&quot; alt=&quot;Ansible scripts&quot; /&gt;&lt;/p&gt;
-&lt;figcaption class=&quot;caption&quot;&gt;&lt;a href=&quot;http://docs.ansible.com/ansible/script_module.html#notes&quot;&gt;Thanks mom&lt;/a&gt;&lt;/figcaption&gt;
+&lt;figcaption class=&quot;caption&quot;&gt;&lt;a href=&quot;https://docs.ansible.com/ansible/2.3/script_module.html#notes&quot;&gt;Thanks mom&lt;/a&gt;&lt;/figcaption&gt;
 
 &lt;p&gt;I did not create &lt;a href=&quot;https://coreos.com/blog/managing-coreos-with-ansible.html&quot;&gt;this approach&lt;/a&gt;, by the way. I just optimised it to make it actually idempotent.
 I guess you need to stand in the shoulders of giants in order to further from time to time, right?&lt;/p&gt;
@@ -6904,7 +6904,7 @@ I guess you need to stand in the shoulders of giants in order to further from ti
 and tasks as much as possible. This helps a lot if you want to execute only one part of your playbook,
 or only one role. I also try to use smoke tests whenever it is possible. This means that I’ll check
 that the main feature of my role is working after executing it. If I’m installing Python, I’ll just
-do something like &lt;code class=&quot;highlighter-rouge&quot;&gt;python --version&lt;/code&gt; and check that I don’t get any errors. For that, inside of each
+do something like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;python --version&lt;/code&gt; and check that I don’t get any errors. For that, inside of each
 role’s tasks directory I’ll try to create a main.yml file, which will in turn include a configure.yml
 file and a test.yml file. The configure.yml file will do all the installation/configuration of the
 specified component, and the test.yml file (tagged with the test tag) that will test the component,
@@ -6922,7 +6922,7 @@ if possible.&lt;/p&gt;
 
 &lt;p&gt;By doing this, you will actually test that your infrastructure is running and that it is probably
 properly configured. Then, if you want to run nothing but your tests, you can do it if you specify
-the &lt;code class=&quot;highlighter-rouge&quot;&gt;test&lt;/code&gt; tag while running a playbook. Something like &lt;code class=&quot;highlighter-rouge&quot;&gt;ansible-playbook -i inventories/vagrant.ini
+the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;test&lt;/code&gt; tag while running a playbook. Something like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ansible-playbook -i inventories/vagrant.ini
 kubernetes.yml --tags test&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;And thus, the ‘smoketest’ target on my Makefile is born.&lt;/p&gt;
@@ -6946,7 +6946,7 @@ Just use odd numbers, because of &lt;a href=&quot;https://coreos.com/etcd/docs/l
 configure it to listen on every interface, and then add the advertise client url to
 the etcd unit using environment variables:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[Service]
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[Service]
 {% if groups ['etcd'] | length == 1 %}
 Environment=ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379
 Environment=ETCD_ADVERTISE_CLIENT_URLS=http://{{ ansible_env.COREOS_PUBLIC_IPV4 }}:2379
@@ -6960,7 +6960,7 @@ provide a node name, and a cluster token for everything to work. There are other
 like using an existing etcd cluster as a discovery mechanism (but we don’t have one at the moment),
 or a &lt;a href=&quot;https://coreos.com/os/docs/latest/cluster-discovery.html&quot;&gt;public etcd discovery system&lt;/a&gt;.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{% else %}
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{% else %}
 Environment=ETCD_NAME={{ ansible_hostname }}
 Environment=ETCD_INITIAL_ADVERTISE_PEER_URLS=http://{{ hostvars[ansible_hostname]['ansible_env']['COREOS_PUBLIC_IPV4'] }}:2380
 Environment=ETCD_LISTEN_PEER_URLS=http://{{ hostvars[ansible_hostname]['ansible_env']['COREOS_PUBLIC_IPV4'] }}:2380
@@ -6976,7 +6976,7 @@ Environment=ETCD_INITIAL_CLUSTER_STATE=new
 &lt;figcaption class=&quot;caption&quot;&gt;&lt;a href=&quot;https://github.com/sebiwi/kubernetes-coreos/blob/master/roles/configure/etcd/templates/40-listen-address.conf.j2#L6-L16&quot;&gt;Less straightforward&lt;/a&gt;&lt;/figcaption&gt;
 
 &lt;p&gt;All of these configurations can be made either with environment variables or with flags
-when starting the etcd2 service. The &lt;code class=&quot;highlighter-rouge&quot;&gt;ansible_env.COREOS_PUBLIC_IPV4&lt;/code&gt; variable will be
+when starting the etcd2 service. The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ansible_env.COREOS_PUBLIC_IPV4&lt;/code&gt; variable will be
 replaced by the node’s public IP. I do this often on this project. Then, I just start
 and enable the service. This is done with the systemd module, and that’s why we need Ansible 2.2.&lt;/p&gt;
 
@@ -7056,7 +7056,7 @@ designed to run containers, and that we’re going to take advantage of that in 
 &lt;p&gt;Vagrant is pretty rad too. It allows you to create reproducible environments based on virtual
 machines on many different backends, using code. So you just write something called a Vagrantfile,
 in which you specify all the machines you want and their configuration using Ruby. Then, you type
-&lt;code class=&quot;highlighter-rouge&quot;&gt;vagrant up&lt;/code&gt; and all your virtual machines will start popping up.&lt;/p&gt;
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vagrant up&lt;/code&gt; and all your virtual machines will start popping up.&lt;/p&gt;
 
 &lt;p&gt;For this we’re using VirtualBox as a provider. &lt;a href=&quot;https://www.vagrantup.com/docs/providers/&quot;&gt;There are many others&lt;/a&gt;, in case you’re feeling creative.&lt;/p&gt;
 
