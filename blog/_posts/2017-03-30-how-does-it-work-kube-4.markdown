@@ -217,7 +217,7 @@ It allows me to replay tasks when certain script do not exist, and to have a cle
 failed when I get an error: I know right away which task failed, which helps in the debugging process.
 
 ![Ansible scripts]({{ site.url }}/assets/images/how-does-it-work-kube/4/ansible-scripts.png)
-<figcaption class="caption"><a href="http://docs.ansible.com/ansible/script_module.html#notes">Thanks mom</a></figcaption>
+<figcaption class="caption"><a href="https://docs.ansible.com/ansible/2.3/script_module.html#notes">Thanks mom</a></figcaption>
 
 I did not create [this approach][12], by the way. I just optimised it to make it actually idempotent.
 I guess you need to stand in the shoulders of giants in order to further from time to time, right?
@@ -330,9 +330,9 @@ Stay tuned!
 [5]: https://github.com/sebiwi/kubernetes-coreos/blob/master/molecule.yml
 [6]: http://docs.ansible.com/ansible/intro_installation.html#managed-node-requirements
 [7]: http://www.popsci.com/science/article/2013-02/fyi-which-came-first-chicken-or-egg
-[8]: http://docs.ansible.com/ansible/raw_module.html
-[9]: http://docs.ansible.com/ansible/script_module.html
-[10]: http://docs.ansible.com/ansible/synchronize_module.html
+[8]: https://docs.ansible.com/ansible/2.3/raw_module.html
+[9]: https://docs.ansible.com/ansible/2.3/script_module.html
+[10]: http://docs.ansible.com/ansible/2.3/synchronize_module.html
 [11]: http://pypy.org/
 [12]: https://coreos.com/blog/managing-coreos-with-ansible.html
 [13]: https://github.com/sebiwi/kubernetes-coreos/blob/master/kubernetes.yml#L8
