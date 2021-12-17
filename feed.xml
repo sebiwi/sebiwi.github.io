@@ -1282,22 +1282,22 @@ application.&lt;/p&gt;
 &lt;p&gt;Sadly, the process of creating Docker images isn’t perfect. This, for example,
 is the sample Dockerfile used in order to create an Elasticsearch image:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&quot;language-Dockerfile&quot;&gt;FROM openjdk:8-jre
+&lt;div class=&quot;language-Dockerfile highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; openjdk:8-jre&lt;/span&gt;
 
-# grab gosu for easy step-down from root
-ENV GOSU_VERSION 1.10
-RUN set -x \
-    &amp;amp;&amp;amp; wget -O /usr/local/bin/gosu &quot;https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)&quot; \
-    &amp;amp;&amp;amp; wget -O /usr/local/bin/gosu.asc &quot;https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc&quot; \
-    &amp;amp;&amp;amp; export GNUPGHOME=&quot;$(mktemp -d)&quot; \
-    &amp;amp;&amp;amp; gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 \
-    &amp;amp;&amp;amp; gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu \
-    &amp;amp;&amp;amp; rm -rf &quot;$GNUPGHOME&quot; /usr/local/bin/gosu.asc \
-    &amp;amp;&amp;amp; chmod +x /usr/local/bin/gosu \
-    &amp;amp;&amp;amp; gosu nobody true
+&lt;span class=&quot;c&quot;&gt;# grab gosu for easy step-down from root&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;ENV&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; GOSU_VERSION 1.10&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;RUN &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-x&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\
+&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; wget &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; /usr/local/bin/gosu &lt;span class=&quot;s2&quot;&gt;&quot;https://github.com/tianon/gosu/releases/download/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$GOSU_VERSION&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/gosu-&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;dpkg &lt;span class=&quot;nt&quot;&gt;--print-architecture&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\
+&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; wget &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; /usr/local/bin/gosu.asc &lt;span class=&quot;s2&quot;&gt;&quot;https://github.com/tianon/gosu/releases/download/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$GOSU_VERSION&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/gosu-&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;dpkg &lt;span class=&quot;nt&quot;&gt;--print-architecture&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.asc&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\
+&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;GNUPGHOME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;mktemp&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\
+&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; gpg &lt;span class=&quot;nt&quot;&gt;--keyserver&lt;/span&gt; ha.pool.sks-keyservers.net &lt;span class=&quot;nt&quot;&gt;--recv-keys&lt;/span&gt; B42F6819007F00F88E364FD4036A9C25BF357DD4 &lt;span class=&quot;se&quot;&gt;\
+&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; gpg &lt;span class=&quot;nt&quot;&gt;--batch&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--verify&lt;/span&gt; /usr/local/bin/gosu.asc /usr/local/bin/gosu &lt;span class=&quot;se&quot;&gt;\
+&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;rm&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-rf&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$GNUPGHOME&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; /usr/local/bin/gosu.asc &lt;span class=&quot;se&quot;&gt;\
+&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;chmod&lt;/span&gt; +x /usr/local/bin/gosu &lt;span class=&quot;se&quot;&gt;\
+&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; gosu nobody &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;
 
-RUN set -ex; \
-# https://artifacts.elastic.co/GPG-KEY-elasticsearch
+&lt;span class=&quot;k&quot;&gt;RUN &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-ex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# https://artifacts.elastic.co/GPG-KEY-elasticsearch&lt;/span&gt;
     key='46095ACC8548582C1A2699A9D27D666CD88E42B4'; \
     export GNUPGHOME=&quot;$(mktemp -d)&quot;; \
     gpg --keyserver ha.pool.sks-keyservers.net --recv-keys &quot;$key&quot;; \
@@ -1305,50 +1305,50 @@ RUN set -ex; \
     rm -rf &quot;$GNUPGHOME&quot;; \
     apt-key list
 
-# https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-repositories.html
-# https://www.elastic.co/guide/en/elasticsearch/reference/5.0/deb.html
-RUN set -x \
-    &amp;amp;&amp;amp; apt-get update &amp;amp;&amp;amp; apt-get install -y --no-install-recommends apt-transport-https &amp;amp;&amp;amp; rm -rf /var/lib/apt/lists/* \
-    &amp;amp;&amp;amp; echo 'deb https://artifacts.elastic.co/packages/5.x/apt stable main' &amp;gt; /etc/apt/sources.list.d/elasticsearch.list
+&lt;span class=&quot;c&quot;&gt;# https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-repositories.html&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# https://www.elastic.co/guide/en/elasticsearch/reference/5.0/deb.html&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;RUN &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-x&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\
+&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; apt-get update &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; apt-get &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--no-install-recommends&lt;/span&gt; apt-transport-https &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;rm&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-rf&lt;/span&gt; /var/lib/apt/lists/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\
+&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'deb https://artifacts.elastic.co/packages/5.x/apt stable main'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; /etc/apt/sources.list.d/elasticsearch.list
 
-ENV ELASTICSEARCH_VERSION 5.6.8
-ENV ELASTICSEARCH_DEB_VERSION 5.6.8
+&lt;span class=&quot;k&quot;&gt;ENV&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; ELASTICSEARCH_VERSION 5.6.8&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;ENV&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; ELASTICSEARCH_DEB_VERSION 5.6.8&lt;/span&gt;
 
-RUN set -x \
-    \
-# don't allow the package to install its sysctl file (causes the install to fail)
-# Failed to write '262144' to '/proc/sys/vm/max_map_count': Read-only file system
+&lt;span class=&quot;k&quot;&gt;RUN &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-x&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\
+&lt;/span&gt;    &lt;span class=&quot;se&quot;&gt;\
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# don't allow the package to install its sysctl file (causes the install to fail)&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Failed to write '262144' to '/proc/sys/vm/max_map_count': Read-only file system&lt;/span&gt;
     &amp;amp;&amp;amp; dpkg-divert --rename /usr/lib/sysctl.d/elasticsearch.conf \
     \
     &amp;amp;&amp;amp; apt-get update \
     &amp;amp;&amp;amp; apt-get install -y --no-install-recommends &quot;elasticsearch=$ELASTICSEARCH_DEB_VERSION&quot; \
     &amp;amp;&amp;amp; rm -rf /var/lib/apt/lists/*
 
-ENV PATH /usr/share/elasticsearch/bin:$PATH
+&lt;span class=&quot;k&quot;&gt;ENV&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; PATH /usr/share/elasticsearch/bin:$PATH&lt;/span&gt;
 
-WORKDIR /usr/share/elasticsearch
+&lt;span class=&quot;k&quot;&gt;WORKDIR&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; /usr/share/elasticsearch&lt;/span&gt;
 
-RUN set -ex \
-    &amp;amp;&amp;amp; for path in \
-        ./data \
-        ./logs \
-        ./config \
-        ./config/scripts \
-    ; do \
-        mkdir -p &quot;$path&quot;; \
-        chown -R elasticsearch:elasticsearch &quot;$path&quot;; \
-    done
+&lt;span class=&quot;k&quot;&gt;RUN &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-ex&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\
+&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;path &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\
+&lt;/span&gt;        ./data &lt;span class=&quot;se&quot;&gt;\
+&lt;/span&gt;        ./logs &lt;span class=&quot;se&quot;&gt;\
+&lt;/span&gt;        ./config &lt;span class=&quot;se&quot;&gt;\
+&lt;/span&gt;        ./config/scripts &lt;span class=&quot;se&quot;&gt;\
+&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\
+&lt;/span&gt;        &lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$path&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\
+&lt;/span&gt;        &lt;span class=&quot;nb&quot;&gt;chown&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; elasticsearch:elasticsearch &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$path&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
 
-COPY config ./config
+&lt;span class=&quot;k&quot;&gt;COPY&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; config ./config&lt;/span&gt;
 
-VOLUME /usr/share/elasticsearch/data
+&lt;span class=&quot;k&quot;&gt;VOLUME&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; /usr/share/elasticsearch/data&lt;/span&gt;
 
-COPY docker-entrypoint.sh /
+&lt;span class=&quot;k&quot;&gt;COPY&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; docker-entrypoint.sh /&lt;/span&gt;
 
-EXPOSE 9200 9300
-ENTRYPOINT [&quot;/docker-entrypoint.sh&quot;]
-CMD [&quot;elasticsearch&quot;]
-&lt;/code&gt;&lt;/pre&gt;
+&lt;span class=&quot;k&quot;&gt;EXPOSE&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; 9200 9300&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;ENTRYPOINT&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; [&quot;/docker-entrypoint.sh&quot;]&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;CMD&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; [&quot;elasticsearch&quot;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;It makes you want to die, doesn’t it? It’s complex, verbose and hard to
 interpret. What are the logic steps involved in the construction of this image?
@@ -6829,7 +6829,7 @@ configuring stuff. We just gotta take care of a little problem before we can go 
 &lt;h2 id=&quot;coreos-and-ansible&quot;&gt;CoreOS and Ansible&lt;/h2&gt;
 
 &lt;p&gt;Remember back then when I said that CoreOS ships only with the basics? That means no Python.
-By extension, that means &lt;a href=&quot;http://docs.ansible.com/ansible/intro_installation.html#managed-node-requirements&quot;&gt;no Ansible&lt;/a&gt;. That’s why this time it’s a little bit more tricky.&lt;/p&gt;
+By extension, that means no Ansible. That’s why this time it’s a little bit more tricky.&lt;/p&gt;
 
 &lt;p&gt;So we need to do something about that. If CoreOS won’t come to Python, Python must go to CoreOS.&lt;/p&gt;
 
