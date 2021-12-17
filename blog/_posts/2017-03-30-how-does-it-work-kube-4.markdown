@@ -150,7 +150,7 @@ configuring stuff. We just gotta take care of a little problem before we can go 
 ## CoreOS and Ansible
 
 Remember back then when I said that CoreOS ships only with the basics? That means no Python.
-By extension, that means [no Ansible][6]. That's why this time it's a little bit more tricky.
+By extension, that means no Ansible. That's why this time it's a little bit more tricky.
 
 So we need to do something about that. If CoreOS won't come to Python, Python must go to CoreOS.
 
@@ -328,7 +328,6 @@ Stay tuned!
 [3]: https://github.com/sebiwi/kubernetes-coreos/blob/master/ansible.cfg
 [4]: https://github.com/sebiwi/kubernetes-coreos/blob/master/Makefile
 [5]: https://github.com/sebiwi/kubernetes-coreos/blob/master/molecule.yml
-[6]: http://docs.ansible.com/ansible/intro_installation.html#managed-node-requirements
 [7]: http://www.popsci.com/science/article/2013-02/fyi-which-came-first-chicken-or-egg
 [8]: https://docs.ansible.com/ansible/2.3/raw_module.html
 [9]: https://docs.ansible.com/ansible/2.3/script_module.html
