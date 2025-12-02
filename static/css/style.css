@@ -599,3 +599,60 @@ main {
     align-items: flex-start;
   }
 }
+
+/* ========================================
+   Related Posts
+   ======================================== */
+
+.related-posts {
+  margin: var(--spacing-xl) 0;
+  padding: var(--spacing-lg);
+  background-color: var(--color-surface);
+  border-radius: var(--border-radius);
+}
+
+.related-posts h3 {
+  margin-bottom: var(--spacing-md);
+  font-size: var(--font-size-large);
+}
+
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.related-card {
+  padding: var(--spacing-sm);
+  background-color: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  transition: all var(--transition-speed) var(--transition-easing);
+}
+
+.related-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.related-card a {
+  display: block;
+  color: var(--color-text);
+}
+
+.related-card h4 {
+  font-size: var(--font-size-base);
+  margin-bottom: var(--spacing-xs);
+  color: var(--color-text);
+}
+
+.related-card time {
+  font-size: var(--font-size-small);
+  color: var(--color-text-light);
+}
+
+@media (max-width: 600px) {
+  .related-grid {
+    grid-template-columns: 1fr;
+  }
+}
