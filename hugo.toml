@@ -1,0 +1,38 @@
+baseURL = 'https://sebiwi.github.io/'
+languageCode = 'en-us'
+title = 'Sebiwi'
+
+[params]
+  name = 'Sebiwi'
+  bio = 'Tech, fun, and cookies'
+  description = 'Tech, fun and cookies'
+  picture = '/images/profile.jpg'
+  email = 'contact.sebiwi@gmail.com'
+
+  # Feature toggles
+  showReadTime = true
+  showTags = true
+  showRelated = true
+  showAuthor = true
+  animations = true
+
+  # Social links
+  [params.social]
+    twitter = 'sebiwicb'
+    github = 'sebiwi'
+
+[permalinks]
+  blog = '/blog/:title/'
+  comics = '/comics/:title/'
+
+[taxonomies]
+  tag = 'tags'
+
+[outputs]
+  home = ['HTML', 'RSS']
+  section = ['HTML', 'RSS']
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
