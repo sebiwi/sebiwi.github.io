@@ -170,3 +170,63 @@ main {
 .bigger-image {
   max-width: 100%;
 }
+
+/* ========================================
+   Header
+   ======================================== */
+
+.site-header {
+  background-color: var(--color-background);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--spacing-sm) 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+@media (prefers-color-scheme: dark) {
+  .site-header {
+    background-color: rgba(26, 26, 26, 0.9);
+  }
+}
+
+.site-header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.site-title {
+  font-size: var(--font-size-large);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.site-title:hover {
+  color: var(--color-accent);
+}
+
+.site-nav {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.site-nav a {
+  color: var(--color-text);
+  font-weight: 500;
+  padding: var(--spacing-xs) 0;
+  border-bottom: 2px solid transparent;
+  transition: border-color var(--transition-speed) var(--transition-easing);
+}
+
+.site-nav a:hover {
+  border-bottom-color: var(--color-accent);
+}
+
+@media (max-width: 600px) {
+  .site-nav {
+    gap: var(--spacing-sm);
+  }
+}
