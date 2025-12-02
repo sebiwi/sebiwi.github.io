@@ -89,7 +89,7 @@ p {
 
 a {
   color: var(--color-accent);
-  text-decoration: none;
+  text-decoration: underline;
   transition: color var(--transition-speed) var(--transition-easing);
 }
 
@@ -266,32 +266,29 @@ main {
 }
 
 .social-links a {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 35px;
   height: 35px;
   border-radius: 50%;
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
+  background-color: transparent;
+  border: none;
   transition: all 0.3s ease;
-}
-
-.social-links a:hover {
-  background-color: var(--color-accent);
-  border-color: var(--color-accent);
-  box-shadow: 0 2px 8px rgba(75, 0, 130, 0.3);
+  text-decoration: none;
 }
 
 .social-links a:hover svg {
-  stroke: white;
+  fill: var(--color-accent);
+  stroke: var(--color-accent);
 }
 
 .social-links svg {
-  width: 18px;
-  height: 18px;
-  stroke: var(--color-text);
-  transition: stroke 0.3s ease;
+  width: 20px;
+  height: 20px;
+  fill: #000;
+  stroke: #000;
+  transition: all 0.3s ease;
 }
 
 /* ========================================
@@ -342,11 +339,23 @@ main {
 }
 
 .breaker {
-  text-align: center;
+  height: 1px;
+  margin: 6rem auto;
+  width: 100%;
+  background-color: #ededed;
+  position: relative;
+}
+
+.breaker::before {
+  content: "•";
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
   color: #aaa;
+  background-color: var(--color-background);
+  padding: 0 10px;
   font-size: 1.3rem;
-  margin: 2.5rem 0;
-  letter-spacing: 0.3rem;
 }
 
 .home-nav {
@@ -362,12 +371,12 @@ main {
   padding: 7px 15px;
   width: 70px;
   text-align: center;
-  background-color: var(--color-surface);
+  background-color: transparent;
   border: 1px solid var(--color-border);
-  border-radius: var(--border-radius);
+  border-radius: 4%;
   text-decoration: none;
   color: var(--color-text);
-  transition: color 0.2s ease;
+  transition: color 0.4s ease;
   display: inline-block;
 }
 
