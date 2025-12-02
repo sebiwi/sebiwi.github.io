@@ -1,0 +1,13 @@
+{{ define "main" }}
+<div class="taxonomy-page">
+    <div class="container">
+        <h1 class="page-title">Posts tagged: {{ .Title }}</h1>
+
+        <div class="post-grid">
+            {{ range .Pages }}
+            {{ partial "post-card.html" . }}
+            {{ end }}
+        </div>
+    </div>
+</div>
+{{ end }}
