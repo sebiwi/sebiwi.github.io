@@ -706,3 +706,60 @@ main {
     justify-content: center;
   }
 }
+
+/* ========================================
+   Tags Page
+   ======================================== */
+
+.tags-page,
+.taxonomy-page,
+.list-page {
+  padding: var(--spacing-xl) 0;
+}
+
+.page-title {
+  font-size: var(--font-size-xxlarge);
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.tags-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  justify-content: center;
+  padding: var(--spacing-lg) 0;
+}
+
+.tag-cloud-item {
+  display: inline-block;
+  padding: var(--spacing-xs) var(--spacing-md);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  transition: all var(--transition-speed) var(--transition-easing);
+}
+
+.tag-cloud-item:hover {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.tag-count {
+  font-size: var(--font-size-small);
+  color: var(--color-text-light);
+}
+
+.tag-cloud-item:hover .tag-count {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.no-posts {
+  text-align: center;
+  color: var(--color-text-light);
+  padding: var(--spacing-xxl) 0;
+}
