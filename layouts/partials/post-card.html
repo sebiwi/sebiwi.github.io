@@ -1,33 +1,8 @@
-<article class="post-card">
-    <a href="{{ .RelPermalink }}" class="post-card-link">
-        {{ if .Params.image }}
-        <img src="{{ .Params.image }}" alt="{{ .Title }}" class="post-card-image" loading="lazy">
-        {{ end }}
-
-        <div class="post-card-content">
-            <h2 class="post-card-title">{{ .Title }}</h2>
-
-            <div class="post-card-meta">
-                <time datetime="{{ .Date.Format "2006-01-02" }}">
-                    {{ .Date.Format "Jan 02, 2006" }}
-                </time>
-
-                {{ if .Site.Params.showReadTime }}
-                <span class="read-time">{{ math.Round (div (countwords .Content) 220.0) }} min read</span>
-                {{ end }}
-            </div>
-
-            {{ if and .Summary (ne .Section "comics") }}
-            <p class="post-card-summary">{{ .Summary | truncate 150 }}</p>
-            {{ end }}
-
-            {{ if .Params.tags }}
-            <div class="post-card-tags">
-                {{ range first 3 .Params.tags }}
-                <span class="tag">{{ . }}</span>
-                {{ end }}
-            </div>
-            {{ end }}
-        </div>
+<article class="post-item">
+    <time datetime="{{ .Date.Format "2006-01-02" }}" class="post-item-date">
+        {{ .Date.Format "Jan 02 2006" }}
+    </time>
+    <a href="{{ .RelPermalink }}" class="post-item-link">
+        {{ .Title }}
     </a>
 </article>
