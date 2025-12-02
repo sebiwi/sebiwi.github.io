@@ -145,3 +145,28 @@ blockquote {
   font-style: italic;
   color: var(--color-text-light);
 }
+
+/* ========================================
+   Layout
+   ======================================== */
+
+.container {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 var(--spacing-sm);
+}
+
+main {
+  min-height: calc(100vh - 200px);
+  padding: var(--spacing-xl) 0;
+}
+
+/* Utility Classes */
+.center-image {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.bigger-image {
+  max-width: 100%;
+}
