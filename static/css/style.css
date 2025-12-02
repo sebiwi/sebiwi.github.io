@@ -535,3 +535,67 @@ main {
   font-size: 0.75rem;
   padding: 0.2rem 0.5rem;
 }
+
+/* ========================================
+   Post Navigation
+   ======================================== */
+
+.post-navigation {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  margin: var(--spacing-xl) 0;
+  padding: var(--spacing-lg) 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.post-nav-prev,
+.post-nav-next {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  flex: 1;
+  transition: all var(--transition-speed) var(--transition-easing);
+}
+
+.post-nav-prev:hover,
+.post-nav-next:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.post-nav-next {
+  text-align: right;
+  align-items: flex-end;
+}
+
+.post-nav-label {
+  font-size: var(--font-size-small);
+  color: var(--color-text-light);
+  font-weight: 500;
+}
+
+.post-nav-title {
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+}
+
+.post-nav-placeholder {
+  flex: 1;
+}
+
+@media (max-width: 600px) {
+  .post-navigation {
+    flex-direction: column;
+  }
+
+  .post-nav-next {
+    text-align: left;
+    align-items: flex-start;
+  }
+}
