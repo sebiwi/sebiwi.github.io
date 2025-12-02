@@ -6,3 +6,5 @@ Gemfile.lock
 .bundle
 vendor
 .worktrees/
+public/
+resources/
