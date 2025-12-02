@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Tech, fun and cookies">
+
+    <title>How does it work? Kubernetes! Episode 4 - How to Ansible your CoreOS, and etc(d)! - Sebiwi</title>
+
+    
+    <link rel="stylesheet" href="/css/style.css">
+
+    
+    
+    <meta property="og:title" content="How does it work? Kubernetes! Episode 4 - How to Ansible your CoreOS, and etc(d)!">
+    <meta property="og:description" content="Tech, fun and cookies">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="http://localhost:1313/blog/how-does-it-work-kubernetes-episode-4-how-to-ansible-your-coreos-and-etcd/">
+    
+
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@sebiwicb">
+    <meta name="twitter:title" content="How does it work? Kubernetes! Episode 4 - How to Ansible your CoreOS, and etc(d)!">
+    <meta name="twitter:description" content="Tech, fun and cookies">
+    
+
+    
+    <meta name="color-scheme" content="light dark">
+</head>
+<body>
+    <header class="site-header">
+    <div class="container">
+        <a href="/" class="site-title">Sebiwi</a>
+        <nav class="site-nav">
+            <a href="/blog/">Blog</a>
+            <a href="/comics/">Comics</a>
+            <a href="/tags/">Tags</a>
+        </nav>
+    </div>
+</header>
+
+
+    <main>
+        
+<article class="post">
+    <div class="container">
+        <header class="post-header">
+            
+
+            <h1 class="post-title">How does it work? Kubernetes! Episode 4 - How to Ansible your CoreOS, and etc(d)!</h1>
+
+            <div class="post-meta">
+                <time datetime="2017-03-30">
+                    Thursday, March 30, 2017
+                </time>
+
+                
+                <span class="read-time">9 min read</span>
+                
+            </div>
+
+            
+            
+            <div class="post-tags">
+                
+                <a href="/tags/kubernetes" class="tag">kubernetes</a>
+                
+                <a href="/tags/infrastructure-as-code" class="tag">infrastructure as code</a>
+                
+            </div>
+            
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="can-i-see-the-code-now">Can I see the code now?</h2>
+<p>Right, code. The first step is to actually create the CoreOS virtual machines. I used a really
+simple Vagrantfile in which I specify how many instances I want, and how much computing
+resources each one of them is going to have:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#75715e"># General cluster configuration</span>
+</span></span><span style="display:flex;"><span>$etcd_instances <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>$etcd_instance_memory <span style="color:#f92672">=</span> <span style="color:#ae81ff">1024</span>
+</span></span><span style="display:flex;"><span>$etcd_instance_cpus <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>$kube_master_instances <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>$kube_master_instance_memory <span style="color:#f92672">=</span> <span style="color:#ae81ff">2048</span>
+</span></span><span style="display:flex;"><span>$kube_master_instance_cpus <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>$kube_worker_instances <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>$kube_worker_instance_memory <span style="color:#f92672">=</span> <span style="color:#ae81ff">2048</span>
+</span></span><span style="display:flex;"><span>$kube_worker_instance_cpus <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span></code></pre></div><figcaption class="caption"><a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/Vagrantfile#L4-L13">Amazing complexity</a></figcaption>
+<p>You can modify the amount of instances you want to create in this part. Be aware that if you
+add hosts, you will also need to add them in the inventory for the Ansible code to target
+all the machines.</p>
+<p>I also created a simple IP addressing plan. The principle is that each machine subtype is
+going to have less than 10 nodes. So I just number them from 10.0.0.1x1 to 10.0.0.1x9, with
+x being 0 for the etcd nodes, 1 for the Kubernetes master nodes, and 2 for the Kubernetes
+worker nodes:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#75715e"># Kubernetes Master instances configuration</span>
+</span></span><span style="display:flex;"><span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">..</span>$kube_master_instances)<span style="color:#f92672">.</span>each <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>i<span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span>  config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>define vm_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;kube-master-%02d&#34;</span> <span style="color:#f92672">%</span> i <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>master<span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Name</span>
+</span></span><span style="display:flex;"><span>    master<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>hostname <span style="color:#f92672">=</span> vm_name
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># RAM, CPU</span>
+</span></span><span style="display:flex;"><span>    master<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>provider <span style="color:#e6db74">:virtualbox</span> <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>vb<span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span>      vb<span style="color:#f92672">.</span>gui <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>      vb<span style="color:#f92672">.</span>memory <span style="color:#f92672">=</span> $kube_master_instance_memory
+</span></span><span style="display:flex;"><span>      vb<span style="color:#f92672">.</span>cpus <span style="color:#f92672">=</span> $kube_master_instance_cpus
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># IP</span>
+</span></span><span style="display:flex;"><span>    master<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>network <span style="color:#e6db74">:private_network</span>, <span style="color:#e6db74">ip</span>: <span style="color:#e6db74">&#34;10.0.0.</span><span style="color:#e6db74">#{</span>i<span style="color:#f92672">+</span><span style="color:#ae81ff">110</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><figcaption class="caption"><a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/Vagrantfile#L47-L63">Absolute power</a></figcaption>
+<p>By the way, you can configure your virtual machines by specifying an Ansible playbook, using
+the Ansible provisioner in your Vagrantfile <a href="https://www.vagrantup.com/docs/provisioning/ansible.html">like this</a>. I choose not to do so because
+I like having my <code>vagrant up</code> actions separate from my actual configuration.
+Extra coupling does not abide by this philosophy.</p>
+<p>Now you&rsquo;re only a <code>vagrant up</code> away from having your CoreOS virtual machines running on
+your computer. After that, you can export the SSH configuration used by Vagrant with
+<code>vagrant ssh-config &gt; ssh.config</code>. You can then use this configuration for the Ansible
+configuration, if you include it in your ansible.cfg file:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#66d9ef">[ssh_connection]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ssh_args</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">-F ssh.config</span>
+</span></span></code></pre></div><figcaption class="caption"><a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/ansible.cfg#L7-L8">Like this</a></figcaption>
+<p>I really like Makefiles. I use them quite often when I have write more than one long command, or many different ones that are going to take a while. I&rsquo;m also kinda lazy. So I just did this:</p>
+<pre tabindex="0"><code>vagrant:
+	@vagrant up
+	@vagrant ssh-config &gt; ssh.config
+</code></pre><figcaption class="caption"><a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/Makefile#L5-L7">make: automating your life since 1977</a></figcaption>
+<p>This way, <code>vagrant up &amp;&amp; vagrant ssh-config &gt; ssh.config</code> becomes <code>make vagrant</code>, which saves
+me up to 3,7 seconds every day.</p>
+<p>You can check the <a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/Vagrantfile">Vagrantfile</a>, the <a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/ansible.cfg">ansible.cfg</a> and the <a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/Makefile">Makefile</a> on the GitHub repo.</p>
+<p>Let&rsquo;s set up our testing configuration now.</p>
+<p>Molecule uses a yaml configuration file called molecule.yml. You can use it to define the
+configuration of your test infrastructure, and to specify the playbook that you want to test.
+Usually, I try to test each role independently. That means that I&rsquo;ll have a molecule.yml
+file per role directory, and also a playbook.yml file that uses the role that I&rsquo;m testing.</p>
+<pre tabindex="0"><code>docker-gc/
+├── molecule.yml
+├── playbook.yml
+├── tasks
+└── templates
+</code></pre><figcaption class="caption">Like this</figcaption>
+<p>The molecule.yml file specifies an infrastructure (I usually use a single Docker container),
+and it also specifies which playbook needs to be used on the previously defined infrastructure.
+For the example in the image above, the playbook.yml file would just include the docker-gc role.
+Molecule also does this for you automatically if you type <code>molecule init --driver docker</code>
+inside of your role directory. Dope.</p>
+<p>This is a pretty good testing strategy when you have roles that are independent from each other.
+It works like a charm when I test my docker-gc role. The thing is that for this project, the
+different components depend on each other. I cannot test that my kube-master role is working
+if I don&rsquo;t have an etcd cluster running. I cannot test that my kube-worker role is working
+if I don&rsquo;t have at least one Kubernetes master node. Tricky.</p>
+<p>So instead of creating a molecule.yml file for each role, we&rsquo;re going to create one at the
+root of the project, that is going to test our master playbook. Inside of it, we&rsquo;re going
+to specify a sample test architecture, which is going to be the same one we defined in our
+Vagrantfile. We&rsquo;re also going to specify the playbook that we want to test. We&rsquo;re going to
+name it kubernetes.yml (creative right?). You can see the molecule.yml file <a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/molecule.yml">here</a>.</p>
+<p>You can test the roles using the <code>molecule test</code> command. This will:</p>
+<ul>
+<li>Create up the infrastructure (<code>create</code>)</li>
+<li>Verify the syntax of the Ansible roles (<code>syntax</code>)</li>
+<li>Execute the playbook (<code>converge</code>)</li>
+<li>Check that the playbook is idempotent by checking for the diffs that a new execution would apply with a dry run (<code>idempotence</code>)</li>
+<li>Destroy the previously created infrastructure (<code>destroy</code>)</li>
+</ul>
+<p>These actions can be ran separately by typing <code>molecule &lt;action&gt;</code>, and replacing action
+with one of the expressions between parentheses above. For example, <code>molecule converge</code>
+will just play your playbook on the hosts. You get the idea, right?</p>
+<p>I added the <code>molecule test</code> command to my <a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/Makefile">Makefile</a>, under the <code>test</code> target. That means
+that I can run <code>make test</code> instead of <code>molecule test</code>. That makes me gain 0.4 seconds per day.
+We&rsquo;re up to 4.1 seconds in total. Sweet!</p>
+<p>Now that we got our virtual machines running, and our testing configuration ready, let&rsquo;s start
+configuring stuff. We just gotta take care of a little problem before we can go YOLO with Ansible though.</p>
+<h2 id="coreos-and-ansible">CoreOS and Ansible</h2>
+<p>Remember back then when I said that CoreOS ships only with the basics? That means no Python.
+By extension, that means no Ansible. That&rsquo;s why this time it&rsquo;s a little bit more tricky.</p>
+<p>So we need to do something about that. If CoreOS won&rsquo;t come to Python, Python must go to CoreOS.</p>
+<p><em>Since we cannot use Ansible to install Python because we need Python to execute Ansible modules
+in the first place, we&rsquo;ll just install Python manually in each one of the machines, right?</em></p>
+<p><strong>Well, no, not really.</strong></p>
+<p><em>By the way, if the previous question made you think about the chicken or the egg causality dilemma,
+just know that the <a href="http://www.popsci.com/science/article/2013-02/fyi-which-came-first-chicken-or-egg">egg came first</a>.</em></p>
+<p>There are three Ansible modules that do not need Python installed on the target host: the <a href="https://docs.ansible.com/ansible/2.3/raw_module.html">raw module</a>,
+the <a href="https://docs.ansible.com/ansible/2.3/script_module.html">script module</a>, and the <a href="http://docs.ansible.com/ansible/2.3/synchronize_module.html">synchronize module</a>. The first allows you to execute an SSH command, without
+going through the module subsystem. The second one allows you to copy a script to a remote host, and
+execute it using the remote host&rsquo;s shell environment. The third is a wrapper around rsync, which just
+uses rsync on the control machine and the remote host.</p>
+<p>Using these modules, we can install a lightweight Python implementation called <a href="http://pypy.org/">PyPy</a>. The workflow
+is as follows: I verify that Python is installed using the raw module, and if that is not the case,
+I install it using a more raw tasks.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>- <span style="color:#f92672">block</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Check if Python is installed</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">raw</span>: <span style="color:#e6db74">&#34;{{ ansible_python_interpreter }} --version&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">register</span>: <span style="color:#ae81ff">python_install</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">changed_when</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Check if install tar file exists</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">raw</span>: <span style="color:#e6db74">&#34;stat /tmp/pypy-{{ pypy_version }}.tar.bz2&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">register</span>: <span style="color:#ae81ff">pypy_tar_file</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">changed_when</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Check if pypy directory exists</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">raw</span>: <span style="color:#e6db74">&#34;stat {{ pypy_dir }}&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">register</span>: <span style="color:#ae81ff">pypy_directory</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">changed_when</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Check if libtinfo is simlinked</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">raw</span>: <span style="color:#e6db74">&#34;stat {{ pypy_dir }}/lib/libtinfo.so.5&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">register</span>: <span style="color:#ae81ff">libtinfo_symlink</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">changed_when</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ignore_errors</span>: <span style="color:#66d9ef">yes</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Download PyPy</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">raw</span>: <span style="color:#ae81ff">wget -O /tmp/pypy-{{ pypy_version }}.tar.bz2 https://bitbucket.org/pypy/pypy/downloads/pypy-{{ pypy_version }}-linux64.tar.bz2</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">when</span>: <span style="color:#ae81ff">pypy_tar_file | failed</span>
+</span></span></code></pre></div><figcaption class="caption"><a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/roles/bootstrap/ansible-bootstrap/tasks/configure.yml#L1-L26">Right on</a></figcaption>
+<p>Why use the <code>changed_when: false</code> flag on the tasks inside the block, you say? The thing is
+that each time you execute a raw task, a change will be made, since the shell command is
+actually being executed on the target host. That means that each time you run your playbook,
+you will execute the tasks, no matter what. So if you&rsquo;re downloading things, creating
+directories, or adding lines to configuration files, you will do so multiple times. This
+is not idempotent. That&rsquo;s why I verify the state of the Python installation before installing
+Python, and only execute it when Python is not installed. I just add the <code>changed_when: false</code>
+flag to the verification tasks, since they only verify the existence of the Python associated
+resources; there are no system modifications because of them.</p>
+<p>I feel this is slightly better than executing a shell script with every task embedded into it.
+It allows me to replay tasks when certain script do not exist, and to have a clear idea of what
+failed when I get an error: I know right away which task failed, which helps in the debugging process.</p>
+<p><img src="/images/how-does-it-work-kube/4/ansible-scripts.png" alt="Ansible scripts"></p>
+<figcaption class="caption"><a href="https://docs.ansible.com/ansible/2.3/script_module.html#notes">Thanks mom</a></figcaption>
+<p>I did not create <a href="https://coreos.com/blog/managing-coreos-with-ansible.html">this approach</a>, by the way. I just optimised it to make it actually idempotent.
+I guess you need to stand in the shoulders of giants in order to further from time to time, right?</p>
+<p>Let us revisit testing for a second. As a general rule when writing Ansible code, I try to tag <a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/kubernetes.yml#L8">roles</a>
+and tasks as much as possible. This helps a lot if you want to execute only one part of your playbook,
+or only one role. I also try to use smoke tests whenever it is possible. This means that I&rsquo;ll check
+that the main feature of my role is working after executing it. If I&rsquo;m installing Python, I&rsquo;ll just
+do something like <code>python --version</code> and check that I don&rsquo;t get any errors. For that, inside of each
+role&rsquo;s tasks directory I&rsquo;ll try to create a main.yml file, which will in turn include a configure.yml
+file and a test.yml file. The configure.yml file will do all the installation/configuration of the
+specified component, and the test.yml file (tagged with the test tag) that will test the component,
+if possible.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Install and configure PyPy</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">include</span>: <span style="color:#ae81ff">configure.yml</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Test PyPy installation</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">include</span>: <span style="color:#ae81ff">test.yml</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">tags</span>: [ <span style="color:#ae81ff">test ]</span>
+</span></span></code></pre></div><figcaption class="caption"><a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/roles/bootstrap/ansible-bootstrap/tasks/main.yml#L4-L9">Smoke test all the way!</a></figcaption>
+<p>By doing this, you will actually test that your infrastructure is running and that it is probably
+properly configured. Then, if you want to run nothing but your tests, you can do it if you specify
+the <code>test</code> tag while running a playbook. Something like <code>ansible-playbook -i inventories/vagrant.ini kubernetes.yml --tags test</code>.</p>
+<p>And thus, the &lsquo;smoketest&rsquo; target on my Makefile is born.</p>
+<p>Let us continue.</p>
+<h2 id="ssl">SSL</h2>
+<p>I won&rsquo;t go really deep into this part. <a href="https://www.openssl.org/news/changelog.html#x85">OpenSSL exists since 1998</a>, so it&rsquo;s not exactly recent news.
+I create a CA for the whole cluster, and then create keys and sign certificates for the API server,
+for each one of the workers, and for the administrator (the one that&rsquo;s going to be used by you
+when configuring kubectl).</p>
+<h2 id="etcd">etcd</h2>
+<p>In this deployment we&rsquo;re using a single etcd node. You can modify the number of instances
+from the Vagrantfile, the Ansible code is able to handle a multi-node cluster.
+Just use odd numbers, because of <a href="https://coreos.com/etcd/docs/latest/v2/admin_guide.html#optimal-cluster-size">fault tolerance</a>.</p>
+<p>Anyways, configuration is pretty straightforward on the single-node scenario. I just
+configure it to listen on every interface, and then add the advertise client url to
+the etcd unit using environment variables:</p>
+<p>{% raw %}</p>
+<pre><code>[Service]
+{% if groups ['etcd'] | length == 1 %}
+Environment=ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379
+Environment=ETCD_ADVERTISE_CLIENT_URLS=http://{{ ansible_env.COREOS_PUBLIC_IPV4 }}:2379
+</code></pre>
+<p>{% endraw %}</p>
+<figcaption class="caption"><a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/roles/configure/etcd/templates/40-listen-address.conf.j2#L2-L6">Straightforward</a></figcaption>
+<p>And it gets slightly trickier with a multi-node configuration, since the nodes need
+to be aware of each other, using the ETCD_INITIAL_CLUSTER variable. You also need to
+provide a node name, and a cluster token for everything to work. There are other options,
+like using an existing etcd cluster as a discovery mechanism (but we don&rsquo;t have one at the moment),
+or a <a href="https://coreos.com/os/docs/latest/cluster-discovery.html">public etcd discovery system</a>.</p>
+<p>{% raw %}</p>
+<pre><code>{% else %}
+Environment=ETCD_NAME={{ ansible_hostname }}
+Environment=ETCD_INITIAL_ADVERTISE_PEER_URLS=http://{{ hostvars[ansible_hostname]['ansible_env']['COREOS_PUBLIC_IPV4'] }}:2380
+Environment=ETCD_LISTEN_PEER_URLS=http://{{ hostvars[ansible_hostname]['ansible_env']['COREOS_PUBLIC_IPV4'] }}:2380
+Environment=ETCD_LISTEN_CLIENT_URLS=http://{{ hostvars[ansible_hostname]['ansible_env']['COREOS_PUBLIC_IPV4'] }}:2379,http://127.0.0.1:2379
+Environment=ETCD_ADVERTISE_CLIENT_URLS=http://{{ hostvars[ansible_hostname]['ansible_env']['COREOS_PUBLIC_IPV4'] }}:2379
+Environment=ETCD_INITIAL_CLUSTER_TOKEN=etcd-cluster-1
+Environment=ETCD_INITIAL_CLUSTER={% for host in groups['etcd'] %}{{ host }}=http://{{ hostvars[host]['ansible_env']['COREOS_PUBLIC_IPV4'] }}:2380{% if not loop.last %},{% endif %}{% endfor %}
+
+Environment=ETCD_INITIAL_CLUSTER_STATE=new
+{% endif %}
+</code></pre>
+<p>{% endraw %}</p>
+<figcaption class="caption"><a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/roles/configure/etcd/templates/40-listen-address.conf.j2#L6-L16">Less straightforward</a></figcaption>
+<p>All of these configurations can be made either with environment variables or with flags
+when starting the etcd2 service. The <code>ansible_env.COREOS_PUBLIC_IPV4</code> variable will be
+replaced by the node&rsquo;s public IP. I do this often on this project. Then, I just start
+and enable the service. This is done with the systemd module, and that&rsquo;s why we need Ansible 2.2.</p>
+<p>The test part of the role verifies that machine is listening on port 2379, that the etcd
+cluster is reachable via etcdctl, and then it verifies that the &ldquo;coreos.com&rdquo; default
+namespace exists. It&rsquo;s a simple, effective smoke test.</p>
+<p>With our working 1-node etcd cluster (get it?), we&rsquo;ll configure the Kubernetes master node.</p>
+<h2 id="excellent-how">Excellent, how?</h2>
+<p>Aren’t you tired already? I know I am. That’s all for today. I’ll talk to you about
+the really really fun part in the next article.</p>
+<p>Stay tuned!</p>
+
+        </div>
+
+        
+<nav class="post-navigation">
+    
+    <a href="/blog/how-does-it-work-kubernetes-episode-3-infrastructure-as-code-the-tools-of-the-trade/" class="post-nav-prev">
+        <span class="post-nav-label">&laquo; Previous</span>
+        <span class="post-nav-title">How does it work? Kubernetes! Episode 3 - Infrastructure as code: the tools of the trade</span>
+    </a>
+    
+
+    
+    <a href="/blog/how-does-it-work-kubernetes-episode-5-master-and-worker-at-last/" class="post-nav-next">
+        <span class="post-nav-label">Next &raquo;</span>
+        <span class="post-nav-title">How does it work? Kubernetes! Episode 5 - Master and worker, at last!</span>
+    </a>
+    
+</nav>
+
+
+
+        
+        
+
+<section class="related-posts">
+    <h3>Related Posts</h3>
+    <div class="related-grid">
+        
+        <article class="related-card">
+            <a href="/blog/how-does-it-work-kubernetes-episode-3-infrastructure-as-code-the-tools-of-the-trade/">
+                <h4>How does it work? Kubernetes! Episode 3 - Infrastructure as code: the tools of the trade</h4>
+                <time datetime="2017-03-24">
+                    Mar 24, 2017
+                </time>
+            </a>
+        </article>
+        
+        <article class="related-card">
+            <a href="/blog/how-does-it-work-kubernetes-episode-2-kubernetes-networking/">
+                <h4>How does it work? Kubernetes! Episode 2 - Kubernetes networking</h4>
+                <time datetime="2017-03-17">
+                    Mar 17, 2017
+                </time>
+            </a>
+        </article>
+        
+        <article class="related-card">
+            <a href="/blog/how-does-it-work-kubernetes-episode-1-kubernetes-general-architecture/">
+                <h4>How does it work? Kubernetes! Episode 1 - Kubernetes general architecture</h4>
+                <time datetime="2017-03-11">
+                    Mar 11, 2017
+                </time>
+            </a>
+        </article>
+        
+    </div>
+</section>
+
+
+        
+
+        
+        <aside class="author-info">
+    <img src="/images/profile.jpg" alt="Sebiwi" class="author-avatar">
+    <div class="author-details">
+        <h4 class="author-name">Sebiwi</h4>
+        <p class="author-bio">Tech, fun, and cookies</p>
+        <div class="social-links">
+    
+    <a href="https://twitter.com/sebiwicb" target="_blank" rel="noopener" aria-label="Twitter">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+        </svg>
+    </a>
+    
+
+    
+    <a href="https://github.com/sebiwi" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+        </svg>
+    </a>
+    
+
+    
+    <a href="mailto:contact.sebiwi@gmail.com" aria-label="Email">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+        </svg>
+    </a>
+    
+</div>
+
+    </div>
+</aside>
+
+        
+    </div>
+</article>
+
+    </main>
+
+    <footer class="site-footer">
+    <div class="container">
+        <div class="social-links">
+    
+    <a href="https://twitter.com/sebiwicb" target="_blank" rel="noopener" aria-label="Twitter">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+        </svg>
+    </a>
+    
+
+    
+    <a href="https://github.com/sebiwi" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+        </svg>
+    </a>
+    
+
+    
+    <a href="mailto:contact.sebiwi@gmail.com" aria-label="Email">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+        </svg>
+    </a>
+    
+</div>
+
+        <p class="copyright">&copy; 2025 Sebiwi</p>
+    </div>
+</footer>
+
+
+    
+    <script src="/js/animations.js"></script>
+    
+</body>
+</html>

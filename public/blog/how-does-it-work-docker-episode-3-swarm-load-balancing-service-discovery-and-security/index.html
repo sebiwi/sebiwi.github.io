@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Tech, fun and cookies">
+
+    <title>How does it work? Docker! Episode 3 - Swarm load balancing, service discovery and security - Sebiwi</title>
+
+    
+    <link rel="stylesheet" href="/css/style.css">
+
+    
+    
+    <meta property="og:title" content="How does it work? Docker! Episode 3 - Swarm load balancing, service discovery and security">
+    <meta property="og:description" content="Tech, fun and cookies">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="http://localhost:1313/blog/how-does-it-work-docker-episode-3-swarm-load-balancing-service-discovery-and-security/">
+    
+
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@sebiwicb">
+    <meta name="twitter:title" content="How does it work? Docker! Episode 3 - Swarm load balancing, service discovery and security">
+    <meta name="twitter:description" content="Tech, fun and cookies">
+    
+
+    
+    <meta name="color-scheme" content="light dark">
+</head>
+<body>
+    <header class="site-header">
+    <div class="container">
+        <a href="/" class="site-title">Sebiwi</a>
+        <nav class="site-nav">
+            <a href="/blog/">Blog</a>
+            <a href="/comics/">Comics</a>
+            <a href="/tags/">Tags</a>
+        </nav>
+    </div>
+</header>
+
+
+    <main>
+        
+<article class="post">
+    <div class="container">
+        <header class="post-header">
+            
+
+            <h1 class="post-title">How does it work? Docker! Episode 3 - Swarm load balancing, service discovery and security</h1>
+
+            <div class="post-meta">
+                <time datetime="2017-09-21">
+                    Thursday, September 21, 2017
+                </time>
+
+                
+                <span class="read-time">6 min read</span>
+                
+            </div>
+
+            
+            
+            <div class="post-tags">
+                
+                <a href="/tags/architecure" class="tag">architecure</a>
+                
+                <a href="/tags/docker" class="tag">docker</a>
+                
+                <a href="/tags/infrastructure-as-code" class="tag">infrastructure as code</a>
+                
+            </div>
+            
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="why-service-discovery">Why Service Discovery?</h2>
+<p>Right, Service Discovery. <a href="https://sebiwi.github.io/blog/how-does-it-work-kube-2/">From a previous article</a>:</p>
+<pre><code>“...What if your application needs to advertise its own IP address to
+a container that is hosted on another node? It doesn’t actually knows
+its real IP, since his local IP is getting translated into another IP
+and a port on the host machine. ”
+</code></pre>
+<p><strong>That’s why</strong>.</p>
+<p>The Docker Engine has an embedded DNS server within it, which is used by
+containers when Docker is not running in Swarm mode, and for tasks, when it is.
+It provides name resolution to all the containers that are on the host in
+bridge, overlay or MACVLAN networks. Each container forwards its queries to the
+Docker Engine, which in turn checks if the container or service is on the same
+network as the container that sent the request in the first place. If it is, it
+searches the IP (or virtual IP) address that matches a container, a task’s or a
+service’s name in its internal key-value store and returns it to the container
+that sent the request. Pretty cool, huh?</p>
+<p>As I said before, the Docker Engine will only return an IP address if the
+matching resource is within the same network as the container that generated
+the request. What is also cool about this is that Docker Hosts only store the
+DNS entries that belong to networks  in which the node has containers or tasks.
+This means that they will not store information that’s irrelevant to them
+practically, or that other containers do not need to know.</p>
+<p><img src="/images/how-does-it-work-docker/3/service-discovery.png" alt="Service discovery"></p>
+<figcaption class="caption"><a href="https://success.docker.com/Architecture/Docker_Reference_Architecture%3A_Designing_Scalable%2C_Portable_Docker_Container_Networks">Discover what's up</a></figcaption>
+<p>For example, in this image, there is a network called mynet. There are two
+services running on the network: myservice, and client. myservice has two tasks
+associated to it, whereas client only has one.</p>
+<p>Client then executes a curl request to myservice, and therefore, it also does a
+DNS request. The container built-in Resolver forwards the query to the Docker
+Engine’s DNS server. The request to myservice is then resolved to the 10.0.0.3
+virtual IP. This information is then forwarded back to client.</p>
+<script type="text/javascript" src="https://asciinema.org/a/Q8lfVLua5NIBsIknhojPaRk4g.js" id="asciicast-Q8lfVLua5NIBsIknhojPaRk4g" async height="5"></script>
+<p>What if client requests something that’s not in the internal key-value store?
+For example, if client does a curl request for the sebiwi.github.io domain, the
+same flow will the triggered. The DNS query is forwarded by the resolver to the
+DNS server. Since the sebiwi.github.io name is not present in the key-value
+store (which in turn means that it is not a service within the network), the
+Docker Engine will forward the request to its default configured DNS server.</p>
+<p>This methodology seems quite logical and simple, but it is only possible due to
+the existence of a key-value store integrated with the Docker Engine.</p>
+<h2 id="and-load-balancing">And Load Balancing?</h2>
+<p>Yeah, there’s native load balancing too! There are basically two types of load
+balancing: internal and external. Internal is all about load balancing requests
+that are made from within the Swarm cluster (from other containers), whereas
+external load balancing targets ingress traffic that enters a cluster. Both of
+these functionalities are provided by the Docker Engine itself.</p>
+<p>Let’s talk about internal first. This feature is automatically enabled once a
+Service is created. So when a Service is created, it get a virtual IP address
+right away, on the Service’s network. As we said before in the Service
+Discovery part, when a Service is requested the resulting DNS query is
+forwarded to the Docker Engine, which in turn returns the IP of the service, a
+virtual IP. Traffic sent to that virtual IP is load balanced to all of the
+healthy containers of that service on the network. All the load balancing is
+done by Docker, since only one entry-point is given to the client (one IP).</p>
+<p>Things change slightly when doing external load balancing. First of all, the
+load balancing is not activated by default, but rather when you expose a
+service using the &ndash;publish flag at creation or update time. When this happens,
+every node in the cluster starts listening on the published port. This means
+that every node can respond to a request for the service mapped onto that port.</p>
+<p>What is really interesting is what happens when a node receives a request, but
+it does not have an instance of the container within it. Since Docker 1.12
+(same version that integrated Swarm Mode to the Docker Engine), there is a
+feature called Routing Mesh, which uses <a href="http://www.linuxvirtualserver.org/software/ipvs.html">IP Virtual Servers</a> (ipvs) and iptables
+in order to load balance requests in layer 4. Basically, ipvs implements layer
+4 load balancing functionalities on the Linux Kernel, which allows to redirect
+requests for TCP/UDP-based services to the real backends (containers in this
+case). In Swarm’s specific case, every node listens on the exposed port, and
+then forwards the request to the exposed service’s VIP, using a special overlay
+network called ingress. This overlay network is only used when transporting
+external traffic to the requested services. In this scope, the same internal
+load balancing strategies described in the previous section are used.</p>
+<p><img src="/images/how-does-it-work-docker/3/load-balancing.png" alt="Load balancing"></p>
+<figcaption class="caption"><a href="https://success.docker.com/Architecture/Docker_Reference_Architecture%3A_Universal_Control_Plane_2.0_Service_Discovery_and_Load_Balancing">Balance that load</a></figcaption>
+<p>In this picture, a service is created with two replicas, on the appnet overlay
+network. We can see that the service is exposed on port 8000 on the three
+nodes. This is great, because traffic destined for app can be forwarded to any
+node. In this case, there is an external load balancer, that just happens to
+forward the request to the only node that does not have an instance of the
+service. This request is handled and forwarded by the IPVS on the third node,
+which redirects it to one of the actual containers on the cluster for that
+service, using the ingress network and therefore the aforementioned method of
+load balancing. Neat.</p>
+<script type="text/javascript" src="https://asciinema.org/a/9gKRhNitM8sS777UWA8cCIlTS.js" id="asciicast-9gKRhNitM8sS777UWA8cCIlTS" async height="5"></script>
+<p>Just for the record, when using Docker Enterprise Edition’s Universal Control
+Plane, this Routing Mesh is also capable of routing layer 7 traffic, by
+inspecting the HTTP header of requests, therefore operating at an application
+level. This is actually another feature of Docker Swarm, called HTTP Routing
+Mesh, or HRM, which allows each created service to be accessed through a DNS
+label. When using HRM, the normal Routing Mesh is used as well.  Every HTTP/1.1
+TCP request contains a Host Header. At service creation time, the desired label
+must be specified. When a service is created using the
+io.github.sebiwi.ucp.mesh.http label, the HRM routes all requests with the Host
+field specified in the previously defined label to the VIP of the service. This
+enables direct access to the service under the form of a hostname, so
+theoretically it is the simplest way to expose your service to the internet.
+You won’t need an external load balancer in order to forward traffic to the
+right port at ingress. That’s pretty cool.</p>
+<h2 id="wheres-the-security-though">Where’s the security though?</h2>
+<p>Security is implemented by means of isolation and encryption.</p>
+<p>The isolation part works as follows: every network is segmented from each other
+to prevent all traffic between them. This provides actual layer 3 separation.
+The Docker Engine also manages host firewall rules which prevent access between
+different networks and which also manage ports for containers. Since all of
+this is managed by the Docker Engine itself, it changes dynamically according
+to tasks, services and networks that are created inside of the cluster. Traffic
+generated from inside containers to outside networks is allowed, and so are
+responses generated from this traffic. Ingress traffic is denied by default,
+and is only accepted through exposing service on ports, using the previously
+described methods.</p>
+<p>Let us talk about encryption. All the control plane traffic between nodes is
+secured through TLS. All managers and nodes have signed certificates in them,
+which are created automatically by Swarm and are rotated automatically as well.
+For data plane traffic, all traffic is encrypted using IPSec tunnels when
+leaving the source container, and it is decrypted once it arrives to the
+destination container. This guarantees security even when you do not fully
+control the underlying network infrastructure.</p>
+<p><img src="/images/how-does-it-work-docker/3/ipsec.png" alt="Load balancing"></p>
+<figcaption class="caption"><a href="https://success.docker.com/Architecture/Docker_Reference_Architecture%3A_Designing_Scalable%2C_Portable_Docker_Container_Networks">No one will ever know</a></figcaption>
+<p>In the picture, when container 1 sends traffic to container 2, everything is
+encrypted on the way out, and then it is decrypted once it arrives to host B,
+before entering the destination container. The Swarm leader periodically
+regenerates symmetric keys for IPSec, and it distributes them to all the
+cluster nodes.</p>
+<p>Docker Enterprise Edition’s Universal Control Plane also has advanced security
+options, like role based access control, for example. I won’t discuss these
+further, since I haven’t actually tried them myself.</p>
+<p>Anyways, that’s all for today. Next time, we will start coding stuff! Stick
+around, we’ll be right back!</p>
+
+        </div>
+
+        
+<nav class="post-navigation">
+    
+    <a href="/blog/how-does-it-work-docker-episode-2-swarm-networking/" class="post-nav-prev">
+        <span class="post-nav-label">&laquo; Previous</span>
+        <span class="post-nav-title">How does it work? Docker! Episode 2 - Swarm networking</span>
+    </a>
+    
+
+    
+    <a href="/blog/how-does-it-work-docker-episode-4-control-your-swarm/" class="post-nav-next">
+        <span class="post-nav-label">Next &raquo;</span>
+        <span class="post-nav-title">How does it work? Docker! Episode 4 - Control your Swarm!</span>
+    </a>
+    
+</nav>
+
+
+
+        
+        
+
+<section class="related-posts">
+    <h3>Related Posts</h3>
+    <div class="related-grid">
+        
+        <article class="related-card">
+            <a href="/blog/how-does-it-work-docker-episode-2-swarm-networking/">
+                <h4>How does it work? Docker! Episode 2 - Swarm networking</h4>
+                <time datetime="2017-09-04">
+                    Sep 04, 2017
+                </time>
+            </a>
+        </article>
+        
+        <article class="related-card">
+            <a href="/blog/how-does-it-work-docker-episode-1-swarm-general-architecture/">
+                <h4>How does it work? Docker! Episode 1 - Swarm general architecture</h4>
+                <time datetime="2017-06-08">
+                    Jun 08, 2017
+                </time>
+            </a>
+        </article>
+        
+        <article class="related-card">
+            <a href="/blog/how-does-it-work-kubernetes-episode-2-kubernetes-networking/">
+                <h4>How does it work? Kubernetes! Episode 2 - Kubernetes networking</h4>
+                <time datetime="2017-03-17">
+                    Mar 17, 2017
+                </time>
+            </a>
+        </article>
+        
+    </div>
+</section>
+
+
+        
+
+        
+        <aside class="author-info">
+    <img src="/images/profile.jpg" alt="Sebiwi" class="author-avatar">
+    <div class="author-details">
+        <h4 class="author-name">Sebiwi</h4>
+        <p class="author-bio">Tech, fun, and cookies</p>
+        <div class="social-links">
+    
+    <a href="https://twitter.com/sebiwicb" target="_blank" rel="noopener" aria-label="Twitter">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+        </svg>
+    </a>
+    
+
+    
+    <a href="https://github.com/sebiwi" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+        </svg>
+    </a>
+    
+
+    
+    <a href="mailto:contact.sebiwi@gmail.com" aria-label="Email">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+        </svg>
+    </a>
+    
+</div>
+
+    </div>
+</aside>
+
+        
+    </div>
+</article>
+
+    </main>
+
+    <footer class="site-footer">
+    <div class="container">
+        <div class="social-links">
+    
+    <a href="https://twitter.com/sebiwicb" target="_blank" rel="noopener" aria-label="Twitter">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+        </svg>
+    </a>
+    
+
+    
+    <a href="https://github.com/sebiwi" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+        </svg>
+    </a>
+    
+
+    
+    <a href="mailto:contact.sebiwi@gmail.com" aria-label="Email">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+        </svg>
+    </a>
+    
+</div>
+
+        <p class="copyright">&copy; 2025 Sebiwi</p>
+    </div>
+</footer>
+
+
+    
+    <script src="/js/animations.js"></script>
+    
+</body>
+</html>

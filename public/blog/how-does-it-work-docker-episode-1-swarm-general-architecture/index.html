@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Tech, fun and cookies">
+
+    <title>How does it work? Docker! Episode 1 - Swarm general architecture - Sebiwi</title>
+
+    
+    <link rel="stylesheet" href="/css/style.css">
+
+    
+    
+    <meta property="og:title" content="How does it work? Docker! Episode 1 - Swarm general architecture">
+    <meta property="og:description" content="Tech, fun and cookies">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="http://localhost:1313/blog/how-does-it-work-docker-episode-1-swarm-general-architecture/">
+    
+
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@sebiwicb">
+    <meta name="twitter:title" content="How does it work? Docker! Episode 1 - Swarm general architecture">
+    <meta name="twitter:description" content="Tech, fun and cookies">
+    
+
+    
+    <meta name="color-scheme" content="light dark">
+</head>
+<body>
+    <header class="site-header">
+    <div class="container">
+        <a href="/" class="site-title">Sebiwi</a>
+        <nav class="site-nav">
+            <a href="/blog/">Blog</a>
+            <a href="/comics/">Comics</a>
+            <a href="/tags/">Tags</a>
+        </nav>
+    </div>
+</header>
+
+
+    <main>
+        
+<article class="post">
+    <div class="container">
+        <header class="post-header">
+            
+
+            <h1 class="post-title">How does it work? Docker! Episode 1 - Swarm general architecture</h1>
+
+            <div class="post-meta">
+                <time datetime="2017-06-08">
+                    Thursday, June 08, 2017
+                </time>
+
+                
+                <span class="read-time">7 min read</span>
+                
+            </div>
+
+            
+            
+            <div class="post-tags">
+                
+                <a href="/tags/architecure" class="tag">architecure</a>
+                
+                <a href="/tags/docker" class="tag">docker</a>
+                
+                <a href="/tags/infrastructure-as-code" class="tag">infrastructure as code</a>
+                
+            </div>
+            
+            
+        </header>
+
+        <div class="post-content">
+            <p>Hey there!</p>
+<h2 id="tldr">TL;DR</h2>
+<p>I hacked another thing together, this time in order to install a highly available
+Docker Swarm cluster on CoreOS (yeah, Container Linux), using Ansible.</p>
+<p>If you want to try it:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git clone https://github.com/sebiwi/docker-coreos.git
+</span></span><span style="display:flex;"><span>cd docker-coreos
+</span></span><span style="display:flex;"><span>make up
+</span></span></code></pre></div><p>You will need Ansible 2.2+, Docker, Vagrant and Molecule</p>
+<h2 id="why">Why?</h2>
+<p>Well, <a href="https://sebiwi.github.io/blog/how-does-it-work-kube-1/">I did the same thing with Kubernetes a while ago</a>, because I wanted to test
+all the different new Kubernetes features and have a local cluster to play with.
+I wanted to do and have the same thing with Docker in Swarm mode. I’m also
+planning on comparing both of them eventually. So I needed the whole prime
+matter first: installation procedures, general architecture, networking model,
+concepts and abstractions and so on.</p>
+<p>Finally, I thought it would be nice to explain how every Swarm component fit
+together, so everyone can understand what’s under the hood. I keep getting
+questions like “what is a Kubernetes and where can I buy one?” at work, and if
+it is “better than a Docker”. You won’t find the answer to the last question in
+this article, but at least you will (hopefully) understand how Swarm works. You
+can make up your own mind afterwards. Especially after reading both articles.</p>
+<h2 id="okay-you-got-me-what-is-a-swarm">Okay, you got me. What is a Swarm?</h2>
+<p>Docker Swarm is Docker’s container orchestration and clustering tool. It allows
+you to deploy and orchestrate containers on a large number of hosts, while
+enabling you to do some other cool things in the way.</p>
+<p>There is usually mild confusion when talking about Swarm, which is relatively
+normal since the name has been used to refer to different things over the years.
+First, there was Docker Swarm, currently known as Docker Swarm Standalone. It
+basically allowed you to turn a pool of Docker hosts into a single, large,
+virtual Docker host. In this scenario, a discovery service or a key-value data
+store like <a href="https://www.consul.io/">Consul</a>, <a href="https://coreos.com/etcd/">etcd</a> or <a href="https://zookeeper.apache.org/">Zookeeper</a> was needed in order to obtain high
+availability on the manager nodes (I will discuss this point further later on in
+the series).</p>
+<p>Nowadays, and since Docker v1.12.0-rc1, there is something called Swarm Mode,
+which is included by default in the Docker Engine. Swarm Mode allows you to
+manage natively a cluster of Docker Engines. It is highly integrated with
+another toolkit developed by Docker, called <a href="https://github.com/docker/swarmkit">Swarmkit</a>, which removes the need of
+using a key-value data store for service discovery like you needed to do when
+using Swarm Mode Standalone: it is already included in Swarm Mode.</p>
+<p><img src="/images/how-does-it-work-docker/1/swarm.png" alt="Swarm logo">{: class=&ldquo;bigger-image&rdquo; }</p>
+<figcaption class="caption">Swarm me up</figcaption>
+<p>So there’s two of them. Theoretically, Docker has no plans of deprecating Docker
+Swarm Standalone. From the Docker Swarm’s GitHub page:</p>
+<p><strong><em>Docker does not currently have a plan to deprecate Docker Swarm. The
+Docker API is backward compatible so Docker Swarm will continue to
+work with future Docker Engine versions.</em></strong></p>
+<p>Nevertheless, from the Docker Swarm’s overview page:</p>
+<p><strong><em>You are viewing docs for legacy standalone Swarm. These topics describe
+standalone Docker Swarm. In Docker 1.12 and higher, Swarm mode is integrated
+with Docker Engine. Most users should use integrated Swarm mode&hellip; Standalone
+Docker Swarm is not integrated into the Docker Engine API and CLI commands.</em></strong></p>
+<p>Which means that even if they’re still maintaining Swarm’s Standalone, Swarm
+Mode is where their money is. Therefore, it’s what we’re going to be using for
+this project.</p>
+<p>Let us discuss architecture first.</p>
+<h2 id="docker-architecture">Docker architecture</h2>
+<p>Before talking about Swarm, I’d like to talk about Docker itself. I’ve mentioned
+the Docker Engine quite a few times without actually describing what it really
+is. It is basically a client-server application with three major components: a
+command-line interface (CLI), a REST API and a server.</p>
+<ul>
+<li>
+<p>The server is a daemon process called dockerd. It listens for Docker API
+requests and manages all Docker resources, such as images, networks, containers
+and volumes. It can also communicate with other daemons to manage Docker
+services (more on this later)</p>
+</li>
+<li>
+<p>The REST API is served by the Docker Engine, and it allows clients to talk to
+the daemon and control every aspect of it. It can be accessed with any HTTP
+client, but if you want to stay “official” there are many standard SDKs on many
+languages, and there is also the standard CLI</p>
+</li>
+<li>
+<p>The command-line interface is the primary and most frequently used way of
+communicating with the server</p>
+</li>
+</ul>
+<p><img src="/images/how-does-it-work-docker/1/engine-components-flow.png" alt="Engine components">{: class=&ldquo;bigger-image&rdquo; }</p>
+<figcaption class="caption"><a href="https://docs.docker.com/engine/docker-overview/#docker-engine">Not your regular engine</a></figcaption>
+<p>Basically, you use the CLI to talk and interact with the Docker daemon, through
+the REST API. The daemon then creates all the necessary resources such as
+containers, networks and volumes. The client and the server may coexist on the
+same machine, or they may also be on different hosts.</p>
+<p>Docker is composed of many different things at an engine-level too. It is
+Docker’s plan to <a href="https://blog.docker.com/2015/06/runc/">separate and release all of its infrastructure plumbing
+software</a>, and they’re doing a great job so far. As of Docker 1.12, the Engine
+is decomposed and built upon two different tools: <a href="https://runc.io/">runC</a> and <a href="https://containerd.io/">containerd</a>.</p>
+<p>First, runC is a CLI tool for running containers. The Docker Engine used to do
+that before. First by using <a href="https://linuxcontainers.org/">LXC</a>, and then with <a href="https://github.com/opencontainers/runc/tree/master/libcontainer">libcontainer</a>. Nowadays,
+libcontainer is still used, but only by runC. Another cool thing about this is
+that runC is able to run Open Container Initiative (<a href="https://www.opencontainers.org/">OCI</a>) containers. OCI is a
+standardisation initiative which specify a common interface for containers
+images and container engines, effectively enabling any container build with a
+any OCI-compatible tool to run on any OCI-compatible engine. In other words,
+these are containers that abide by a de jure container standard.</p>
+<p>What is de jure, you say? Check it:</p>
+<p><strong><em>De facto is a Latin phrase that means in fact (literally by or
+from fact) in the sense of &ldquo;in practice but not necessarily ordained
+by law&rdquo; or &ldquo;in practice or actuality, but not officially established&rdquo;,
+as opposed to de jure.</em></strong></p>
+<p>So basically, “De facto” is used, whereas “De jure” comes from a widely
+accepted standard or law. Cool, huh? This is great, since it will theoretically
+allow containers created with one engine to be run on a different engine.
+Therefore its name, Open Container Initiative.At the time of writing this
+article, the main OCI-compatible tools are Docker, and Rocket (Rkt).</p>
+<p>containerd is a daemon that uses runC to manage containers. It exposes a CRUD
+container interface using gRPC, with a very simple API. This way, all the
+container lifecycle actions (like starting, stopping, pausing or destroying
+containers) are delegated by the Docker Engine to containerd which uses runC to
+execute all its container-related actions. The Engine still manages
+volumes, networks and builds, but containers are now containerd’s territory.</p>
+<p><img src="/images/how-does-it-work-docker/1/runc-containerd.png" alt="Engine components"></p>
+<figcaption class="caption"><a href="https://medium.com/@tiffanyfayj/docker-1-11-et-plus-engine-is-now-built-on-runc-and-containerd-a6d06d7e80ef">Like a layer cake</a></figcaption>
+<p>There’s also another component called containerd-shim which sits between
+containerd and runC, acts as the container’s process parent and allow the
+runtime (runC) to exit after starting the containers. This whole thing is
+pretty funny, because the Docker Engine is not able to run containers by itself
+anymore: it delegates all these tasks to runC and containerd (and
+containerd-shim, somehow).</p>
+<p>That’s about it for the Docker architecture. Let’s talk about Swarm now.</p>
+<h2 id="swarm-architecture-and-concepts">Swarm architecture and concepts</h2>
+<p>A Swarm is created by one or many Docker Engines, which uses swarmkit for all
+the cluster-management and orchestration features. You can enable Swarm mode by
+either creating a new Swarm or joining an existing Swarm.</p>
+<p>When using Swarm, you don’t launch single containers, but rather services. But
+before talking about that, I need to talk about nodes.</p>
+<p>A node is just a Docker Engine that is a member of the Swarm. There are two
+types of nodes: Managers and Worker nodes. A Manager node receives a service
+definition and then it dispatches tasks to Worker nodes accordingly. They also
+do the orchestration and cluster management functions required to maintain the
+desired state of the swarm. There may be many Manager nodes on a Swarm, but
+there is only one leader, which is elected by all the other Manager nodes using
+the <a href="https://en.wikipedia.org/wiki/Raft_(computer_science)">Raft algorithm</a> and which performs all the orchestration tasks.</p>
+<script type="text/javascript" src="https://asciinema.org/a/GpkVwipWeyutZySkYL7NpXPDs.js" id="asciicast-GpkVwipWeyutZySkYL7NpXPDs" async height="5"></script>
+<p>Worker nodes receive and execute tasks from Manager nodes. By default, Manager
+nodes are also Worker nodes, but they can be configured to not accept any
+workload <strong><em><del>(just like real-life managers)</del></em></strong> therefore becoming acting as
+Manager-only nodes. There is also an agent on every Worker node, which reports
+on the state of its tasks to the Manager <strong><em><del>(so basically, middle-management)</del></em></strong>.
+That way, the Manager can maintain the desired state of the cluster.</p>
+<p><img src="/images/how-does-it-work-docker/1/swarm-diagram.png" alt="Swarm diagram"></p>
+<p><em>A service is the definition of one (or many) tasks to be executed on Worker
+nodes.</em> When creating a service, you need to specify which container image to
+use, and which commands to execute inside the containers. A service may be
+global, or replicated. When the service is global, it will run on every
+available node once. When it’s replicated, the Manager distributes the given
+number of tasks on the nodes based on the desired scale number. This number may
+also be one.</p>
+<p>A task is just a container and the commands to be run inside of the container.
+It is the standard scheduling unit of Swarm. Once a task is assigned to a node,
+it can’t be moved to another node. It either runs on the selected node, or
+fails.</p>
+<p>So that’s about it for this first chapter. On the next episode, I’ll talk to
+you about Docker (and Swarm’s) networking model.</p>
+<p>Stay tuned!</p>
+
+        </div>
+
+        
+<nav class="post-navigation">
+    
+    <a href="/blog/enforcing-strict-ec2-instance-tagging-policies-with-lambda/" class="post-nav-prev">
+        <span class="post-nav-label">&laquo; Previous</span>
+        <span class="post-nav-title">Enforcing strict EC2 instance tagging policies with Lambda</span>
+    </a>
+    
+
+    
+    <a href="/blog/how-does-it-work-docker-episode-2-swarm-networking/" class="post-nav-next">
+        <span class="post-nav-label">Next &raquo;</span>
+        <span class="post-nav-title">How does it work? Docker! Episode 2 - Swarm networking</span>
+    </a>
+    
+</nav>
+
+
+
+        
+        
+
+<section class="related-posts">
+    <h3>Related Posts</h3>
+    <div class="related-grid">
+        
+        <article class="related-card">
+            <a href="/blog/how-does-it-work-kubernetes-episode-2-kubernetes-networking/">
+                <h4>How does it work? Kubernetes! Episode 2 - Kubernetes networking</h4>
+                <time datetime="2017-03-17">
+                    Mar 17, 2017
+                </time>
+            </a>
+        </article>
+        
+        <article class="related-card">
+            <a href="/blog/how-does-it-work-kubernetes-episode-1-kubernetes-general-architecture/">
+                <h4>How does it work? Kubernetes! Episode 1 - Kubernetes general architecture</h4>
+                <time datetime="2017-03-11">
+                    Mar 11, 2017
+                </time>
+            </a>
+        </article>
+        
+        <article class="related-card">
+            <a href="/blog/how-does-it-work-kubernetes-episode-5-master-and-worker-at-last/">
+                <h4>How does it work? Kubernetes! Episode 5 - Master and worker, at last!</h4>
+                <time datetime="2017-04-03">
+                    Apr 03, 2017
+                </time>
+            </a>
+        </article>
+        
+    </div>
+</section>
+
+
+        
+
+        
+        <aside class="author-info">
+    <img src="/images/profile.jpg" alt="Sebiwi" class="author-avatar">
+    <div class="author-details">
+        <h4 class="author-name">Sebiwi</h4>
+        <p class="author-bio">Tech, fun, and cookies</p>
+        <div class="social-links">
+    
+    <a href="https://twitter.com/sebiwicb" target="_blank" rel="noopener" aria-label="Twitter">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+        </svg>
+    </a>
+    
+
+    
+    <a href="https://github.com/sebiwi" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+        </svg>
+    </a>
+    
+
+    
+    <a href="mailto:contact.sebiwi@gmail.com" aria-label="Email">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+        </svg>
+    </a>
+    
+</div>
+
+    </div>
+</aside>
+
+        
+    </div>
+</article>
+
+    </main>
+
+    <footer class="site-footer">
+    <div class="container">
+        <div class="social-links">
+    
+    <a href="https://twitter.com/sebiwicb" target="_blank" rel="noopener" aria-label="Twitter">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+        </svg>
+    </a>
+    
+
+    
+    <a href="https://github.com/sebiwi" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+        </svg>
+    </a>
+    
+
+    
+    <a href="mailto:contact.sebiwi@gmail.com" aria-label="Email">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+        </svg>
+    </a>
+    
+</div>
+
+        <p class="copyright">&copy; 2025 Sebiwi</p>
+    </div>
+</footer>
+
+
+    
+    <script src="/js/animations.js"></script>
+    
+</body>
+</html>

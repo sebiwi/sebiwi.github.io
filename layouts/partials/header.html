@@ -1,10 +1,11 @@
+{{ if not .IsHome }}
 <header class="site-header">
     <div class="container">
         <a href="/" class="site-title">{{ .Site.Title }}</a>
         <nav class="site-nav">
             <a href="/blog/">Blog</a>
             <a href="/comics/">Comics</a>
-            <a href="/tags/">Tags</a>
         </nav>
     </div>
 </header>
+{{ end }}

@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Tech, fun and cookies">
+
+    <title>How does it work? Docker! Episode 5 - Get some work(ers) done! - Sebiwi</title>
+
+    
+    <link rel="stylesheet" href="/css/style.css">
+
+    
+    
+    <meta property="og:title" content="How does it work? Docker! Episode 5 - Get some work(ers) done!">
+    <meta property="og:description" content="Tech, fun and cookies">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="http://localhost:1313/blog/how-does-it-work-docker-episode-5-get-some-workers-done/">
+    
+
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@sebiwicb">
+    <meta name="twitter:title" content="How does it work? Docker! Episode 5 - Get some work(ers) done!">
+    <meta name="twitter:description" content="Tech, fun and cookies">
+    
+
+    
+    <meta name="color-scheme" content="light dark">
+</head>
+<body>
+    <header class="site-header">
+    <div class="container">
+        <a href="/" class="site-title">Sebiwi</a>
+        <nav class="site-nav">
+            <a href="/blog/">Blog</a>
+            <a href="/comics/">Comics</a>
+            <a href="/tags/">Tags</a>
+        </nav>
+    </div>
+</header>
+
+
+    <main>
+        
+<article class="post">
+    <div class="container">
+        <header class="post-header">
+            
+
+            <h1 class="post-title">How does it work? Docker! Episode 5 - Get some work(ers) done!</h1>
+
+            <div class="post-meta">
+                <time datetime="2017-10-16">
+                    Monday, October 16, 2017
+                </time>
+
+                
+                <span class="read-time">11 min read</span>
+                
+            </div>
+
+            
+            
+            <div class="post-tags">
+                
+                <a href="/tags/docker" class="tag">docker</a>
+                
+                <a href="/tags/infrastructure-as-code" class="tag">infrastructure as code</a>
+                
+            </div>
+            
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="where-are-my-workers-man">Where are my Workers man?</h2>
+<p>Right, workers.</p>
+<p>Same procedure as before: main, configure and test.</p>
+<p>In order to configure the Worker node, we will first check if Swarm
+mode is already activated, like we did on the previous roles. If it
+is, we won’t do squat. If it isn’t, we will go fetch the token needed
+to join the cluster as a Worker node from the Leader node, and then
+join the cluster as a Worker node. You should know that the token used
+in order to join the cluster as a Worker node is different from the
+one user to join it as a non-Leader Manager node. So:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Check if Swarm Mode is already activated</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">command</span>: <span style="color:#ae81ff">docker info</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">register</span>: <span style="color:#ae81ff">docker_info</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">changed_when</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Recover Swarm Leader token</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">shell</span>: <span style="color:#ae81ff">docker swarm join-token worker | grep token | cut -d &#39; &#39; -f 6</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">register</span>: <span style="color:#ae81ff">worker_token</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">when</span>: <span style="color:#e6db74">&#34;&#39;Swarm: active&#39; not in docker_info.stdout&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">delegate_to</span>: <span style="color:#e6db74">&#34;{{ groups[&#39;swarm-leader&#39;][0] }}&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Join Swarm Cluster as Worker</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">command</span>: <span style="color:#ae81ff">docker swarm join --token {{ worker_token.stdout }} {{ hostvars[groups[&#39;swarm-leader&#39;][0]][&#39;ansible_env&#39;][&#39;COREOS_PUBLIC_IPV4&#39;] }}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">when</span>: <span style="color:#e6db74">&#34;&#39;Swarm: active&#39; not in docker_info.stdout&#34;</span>
+</span></span></code></pre></div><p>Once again, the delegate_to flag is needed in order to actually
+recover the token from the Leader node itself. Then, for the test
+part:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Check if node is Worker</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">shell</span>: <span style="color:#ae81ff">docker node ls | grep {{ ansible_hostname }}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">register</span>: <span style="color:#ae81ff">docker_info</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">changed_when</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">delegate_to</span>: <span style="color:#e6db74">&#34;{{ groups[&#39;swarm-leader&#39;][0] }}&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Fail if node is not Worker</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">assert</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">that</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;&#39;Reachable&#39; not in docker_info.stdout&#34;</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;&#39;Leader&#39; not in docker_info.stdout&#34;</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;&#39;Active&#39; in docker_info.stdout&#34;</span>
+</span></span></code></pre></div><p>This is quite similar to the previous test, in the way that first,
+information is collected form the Leader node. Then, the assertions
+are slightly different: we will test that the node is not a Leader nor
+a non-Leader manager node, therefore asserting that it is a Worker
+node, and then we will test if the node is Active, since we want our
+Worker to work, by running containers. That’s why they’re Workers,
+right?</p>
+<p>Once we’re done with that, we’ll just add our newly created role to
+the swam.yml file:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Create Swarm Worker nodes</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">hosts</span>: <span style="color:#ae81ff">swarm-worker</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">roles</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">role</span>: <span style="color:#ae81ff">configure/swarm-worker</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">tags</span>: [ <span style="color:#ae81ff">swarm-worker ]</span>
+</span></span></code></pre></div><p>Nothing special right here, just use the previously defined
+swarm-worker group and you’re all set.</p>
+<h2 id="did-it-work-then">Did it work then?</h2>
+<p>Sure it did. We tested manually. Oh right, we also did that molecule
+thingy at the beginning, didn’t we? Now, testing is something that
+should be done at every step of the way, but I’ll just show you now
+that everything we coded works, is idempotent and it’s syntax is
+valid.</p>
+<p>Use the test target from the Makefile:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>make test
+</span></span></code></pre></div><p>This will launch the whole molecule testing pipeline, first checking
+if the virtual machines are already created, and checking the validity
+of the playbook’s syntax as well:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ sebiwi ~ molecule test
+</span></span><span style="display:flex;"><span>--&gt; Destroying instances...
+</span></span><span style="display:flex;"><span>--&gt; Checking playbook<span style="color:#960050;background-color:#1e0010">&#39;</span>s syntax…
+</span></span></code></pre></div><p>If it is, it will then proceed to create the instances:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>playbook: swarm.yml
+</span></span><span style="display:flex;"><span>--&gt; Creating instances...
+</span></span><span style="display:flex;"><span>Bringing machine <span style="color:#e6db74">&#39;swarm-manager-01&#39;</span> up with <span style="color:#e6db74">&#39;virtualbox&#39;</span> provider...
+</span></span><span style="display:flex;"><span>Bringing machine <span style="color:#e6db74">&#39;swarm-manager-02&#39;</span> up with <span style="color:#e6db74">&#39;virtualbox&#39;</span> provider...
+</span></span><span style="display:flex;"><span>Bringing machine <span style="color:#e6db74">&#39;swarm-manager-03&#39;</span> up with <span style="color:#e6db74">&#39;virtualbox&#39;</span> provider...
+</span></span><span style="display:flex;"><span>Bringing machine <span style="color:#e6db74">&#39;swarm-worker-01&#39;</span> up with <span style="color:#e6db74">&#39;virtualbox&#39;</span> provider...
+</span></span><span style="display:flex;"><span>Bringing machine <span style="color:#e6db74">&#39;swarm-worker-02&#39;</span> up with <span style="color:#e6db74">&#39;virtualbox&#39;</span> provider...
+</span></span><span style="display:flex;"><span>Bringing machine <span style="color:#e6db74">&#39;swarm-worker-03&#39;</span> up with <span style="color:#e6db74">&#39;virtualbox&#39;</span> provider...
+</span></span></code></pre></div><p>Once they are up, the playbook itself will be launched on the newly
+created infrastructure:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>--&gt; Starting Ansible Run...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PLAY <span style="color:#f92672">[</span>Bootstrap coreos hosts<span style="color:#f92672">]</span> **************************************************
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>TASK <span style="color:#f92672">[</span>bootstrap/ansible-bootstrap : Check <span style="color:#66d9ef">if</span> Python is installed<span style="color:#f92672">]</span> **************
+</span></span><span style="display:flex;"><span>fatal: <span style="color:#f92672">[</span>swarm-manager-01<span style="color:#f92672">]</span>: FAILED! <span style="color:#f92672">=</span>&gt; <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;changed&#34;</span>: false, <span style="color:#e6db74">&#34;failed&#34;</span>: true, <span style="color:#e6db74">&#34;rc&#34;</span>: 127, <span style="color:#e6db74">&#34;stderr&#34;</span>: <span style="color:#e6db74">&#34;Warning: Permanently added &#39;[127.0.0.1]:2222&#39; (ECDSA) to the list of known hosts.\r\nShared connection to 127.0.0.1 closed.\r\n&#34;</span>, <span style="color:#e6db74">&#34;stdout&#34;</span>: <span style="color:#e6db74">&#34;/bin/sh: /home/core/bin/python: No such file or directory\r\n&#34;</span>, <span style="color:#e6db74">&#34;stdout_lines&#34;</span>: <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;/bin/sh: /home/core/bin/python: No such file or directory&#34;</span><span style="color:#f92672">]}</span>
+</span></span><span style="display:flex;"><span>...ignoring
+</span></span></code></pre></div><p>If everything works fine, another idempotence test will be executed,
+which will just verify if there are any changes when the playbook is
+ran using the &ndash;dry-run option:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>PLAY RECAP *********************************************************************
+</span></span><span style="display:flex;"><span>swarm-manager-01           : ok<span style="color:#f92672">=</span><span style="color:#ae81ff">15</span>   changed<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>    unreachable<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>    failed<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>swarm-manager-02           : ok<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>   changed<span style="color:#f92672">=</span><span style="color:#ae81ff">6</span>    unreachable<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>    failed<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>swarm-manager-03           : ok<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>   changed<span style="color:#f92672">=</span><span style="color:#ae81ff">6</span>    unreachable<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>    failed<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>swarm-worker-01            : ok<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>   changed<span style="color:#f92672">=</span><span style="color:#ae81ff">6</span>    unreachable<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>    failed<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>swarm-worker-02            : ok<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>   changed<span style="color:#f92672">=</span><span style="color:#ae81ff">6</span>    unreachable<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>    failed<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>swarm-worker-03            : ok<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>   changed<span style="color:#f92672">=</span><span style="color:#ae81ff">6</span>    unreachable<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>    failed<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--&gt; Idempotence test in progress <span style="color:#f92672">(</span>can take a few minutes<span style="color:#f92672">)</span>...
+</span></span><span style="display:flex;"><span>--&gt; Starting Ansible Run...
+</span></span><span style="display:flex;"><span>Idempotence test passed.
+</span></span></code></pre></div><p>Finally, ansible-lint is executed in order to verify the playbook
+style and usage of deprecated tasks/options, and then the
+infrastructure is destroyed:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>--&gt; Executing ansible-lint...
+</span></span><span style="display:flex;"><span>--&gt; Destroying instances...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==</span>&gt; swarm-worker-03: Forcing shutdown of VM...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==</span>&gt; swarm-worker-03: Destroying VM and associated drives...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==</span>&gt; swarm-worker-02: Forcing shutdown of VM...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==</span>&gt; swarm-worker-02: Destroying VM and associated drives...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==</span>&gt; swarm-worker-01: Forcing shutdown of VM...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==</span>&gt; swarm-worker-01: Destroying VM and associated drives...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==</span>&gt; swarm-manager-03: Forcing shutdown of VM...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==</span>&gt; swarm-manager-03: Destroying VM and associated drives...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==</span>&gt; swarm-manager-02: Forcing shutdown of VM...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==</span>&gt; swarm-manager-02: Destroying VM and associated drives...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==</span>&gt; swarm-manager-01: Forcing shutdown of VM...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==</span>&gt; swarm-manager-01: Destroying VM and associated drives...
+</span></span></code></pre></div><p>Now, what I basically do when running these tests is that I run just
+the <code>molecule create</code> to create the infrastructure, and then I’ll just
+run <code>molecule converge</code> to test that my roles are working properly and
+<code>molecule idempotence</code> to verify that they are indeed idempotent. This
+helps reducing the duration of the feedback loop, which in turn helps
+me to develop faster. Just remember to launch the whole pipeline from
+time to time to check if your roles are able to correctly configure
+newly-created infrastructure.</p>
+<h2 id="lets-play">Let’s play!</h2>
+<p>So if you followed all the steps correctly you should have a working
+Swarm cluster by now. Congratulations! Let’s see what it is capable
+of.</p>
+<p>First, the smallest schedulable unit of work in a Swarm cluster is not
+a container, but a service. Let us create one of those on the leader
+node:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker service create --replicas <span style="color:#ae81ff">1</span> --name redis --update-delay 10s redis:3.0.6
+</span></span></code></pre></div><p>This says that we want to create a service, with one replica, with the
+name of redis, with a 10 second update delay, using the 3.0.6 version
+of the redis image. The update delay is the time between updates of
+tasks (containers) of a service. This means that the tasks will be
+updated one at the time, with a 10 second delay between them. You can
+then list your services using the <code>ls</code> command:</p>
+<pre tabindex="0"><code>core@swarm-manager-01 ~ $ docker service ls
+ID            NAME   REPLICAS  IMAGE        COMMAND
+09j27f6ehaq6  redis  0/1       redis:3.0.6
+</code></pre><p>And see information regarding the different tasks of the service using
+the <code>ps</code> command, with the service name:</p>
+<pre tabindex="0"><code>core@swarm-manager-01 ~ $ docker service ps redis
+ID                         NAME     IMAGE        NODE             DESIRED STATE  CURRENT STATE           ERROR
+06cj3g824k8r0jjpoew0uip7z  redis.1  redis:3.0.6  swarm-worker-03  Running        Running 42 seconds ago
+</code></pre><p>You can see the image, the desired state, the current state and the
+node in which the container is running.</p>
+<p>You can also scale up/down your services, using the <code>scale</code> command:</p>
+<pre tabindex="0"><code>core@swarm-manager-01 ~ $ docker service scale redis=11
+redis scaled to 11
+</code></pre><p><a href="https://www.youtube.com/watch?v=s9F5fhJQo34&amp;t=2m">This scales your nodes up to 11</a>. Sick!</p>
+<pre tabindex="0"><code>core@swarm-manager-01 ~ $ docker service ps redis
+ID                         NAME          IMAGE        NODE             DESIRED STATE  CURRENT STATE            ERROR
+06cj3g824k8r0jjpoew0uip7z  redis.1       redis:3.0.6  swarm-worker-03  Running        Running 8 minutes ago
+5wa862swszkvklchaug02powy  redis.2       redis:3.0.6  swarm-worker-02  Running        Running 25 seconds ago
+67w0vlk9v7gh9h5qgwmsnjgya  redis.3       redis:3.0.6  swarm-worker-01  Running        Running 25 seconds ago
+3ws3a9xwt1h4r962gg8htiun8  redis.4       redis:3.0.6  swarm-worker-03  Running
+...
+</code></pre><p>You can use the same command with a different number in order to scale
+down (to 1, for exampe).</p>
+<p>Let’s try to update a service in order to see the rolling updates
+work. We’re going to go from redis version 3.0.6 to 3.0.7. Exciting,
+huh? For this, we will use the <code>update</code> command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker service update --image redis:3.0.7 redis
+</span></span></code></pre></div><p>This will launch the rolling update process. It will take some time
+due to the update delay we set before. If you launch a <code>ps</code> command on
+the service, you should be able to see your containers updating:</p>
+<pre tabindex="0"><code>core@swarm-manager-01 ~ $ docker service ps redis
+ID                         NAME          IMAGE        NODE             DESIRED STATE  CURRENT STATE            ERROR
+...
+e8lf3q9ic8674fba8a863ciwh  redis.5       redis:3.0.7  swarm-worker-02  Running        Running 22 seconds ago
+4b7wmnhc6iqod481ge5njvw7o   \_ redis.5   redis:3.0.6  swarm-worker-01  Shutdown       Shutdown 29 seconds ago
+...
+985dkagqrz8n40hke704an0pk  redis.10      redis:3.0.6  swarm-worker-01  Running        Running 3 minutes ago
+0k4pn77hy4s6e3g778gohktnh  redis.11      redis:3.0.7  swarm-worker-01  Running        Running 3 seconds ago
+4rn0r67hc8uscl0lq7kvx64t5   \_ redis.11  redis:3.0.6  swarm-worker-01  Shutdown       Shutdown 11 seconds ago
+</code></pre><p>This should happens with every node eventually. You can see the
+service status if you use the <code>inspect</code> command on it:</p>
+<pre tabindex="0"><code>core@swarm-manager-01 ~ $ docker service inspect --pretty redis
+ID:             buye01j0ofdmt32lqplgvknic
+Name:           redis
+Mode:           Replicated
+ Replicas:      11
+Update status:
+ State:         updating
+ Started:       2 minutes ago
+ Message:       update in progress
+Placement:
+UpdateConfig:
+ Parallelism:   1
+ Delay:         10s
+ On failure:    pause
+ContainerSpec:
+ Image:         redis:3.0.7
+Resources:
+</code></pre><p>Once it’s done, you should be able to see the <code>completed</code> state on the
+same inspection:</p>
+<pre tabindex="0"><code>Update status:
+ State:         completed
+ Started:       3 minutes ago
+ Completed:     51 seconds ago
+ Message:       update completed
+</code></pre><p>Afterwards, when you’re bored with it, you can delete it using the
+<code>rm</code> command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker service rm redis
+</span></span></code></pre></div><p>What about the Routing Mesh? Let’s try to expose a port. We’ll launch
+an nginx service with two replicas, and then we’ll try to access it on
+the node with no container workload. This way, we will see if the
+request is routed all the way to the corresponding backend, even when
+the backend is not hosted on the accessed node. Just a little
+reminder: when you expose a service using the Routing Mesh, you map it
+to a certain port, and the every node in the cluster listens on that
+port and routes the request all the way to the containers. So:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker service create --name amazing-web-server --publish 8080:80 --replicas <span style="color:#ae81ff">2</span> nginx
+</span></span></code></pre></div><p>By doing this, we will map the 8080 port on all nodes to the 80 port
+inside the containers. Let us then see where our containers are
+running:</p>
+<pre tabindex="0"><code>core@swarm-manager-01 ~ $ docker service ps amazing-web-server
+ID                         NAME                  IMAGE  NODE             DESIRED STATE  CURRENT STATE                   ERROR
+6viw0duiqjobqwlajs8flrbk1  amazing-web-server.1  nginx  swarm-worker-03  Running        Running less than a second ago
+8vmfut5b34e04h84ojvyaeb30  amazing-web-server.2  nginx  swarm-worker-02  Running        Running less than a second ago
+</code></pre><p>We can see that they are running on swarm-worker-02 (10.0.0.122) and
+swarm-worker-03 (10.0.0.123). So, if we try to access 10.0.0.122:8080:</p>
+<p><img src="/images/how-does-it-work-docker/5/normal-node.png" alt="Normal node"></p>
+<figcaption class="caption">This isn't that amazing</figcaption>
+<p>Cool, that works. What if we try to access swarm-worker-01
+(10.0.0.121) though?</p>
+<p><img src="/images/how-does-it-work-docker/5/other-node.png" alt="Other node"></p>
+<figcaption class="caption">This is pretty rad</figcaption>
+<p>Now, you still need a reverse-proxy or a load-balancer in order to
+forward requests to the right Swarm node in order to access the right
+service, but still, the ease of use and effectiveness of the system is
+undeniable.</p>
+<p>What about node failover? Let us find out!</p>
+<p>Let us kill the Leader node first, to see what happens:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>vagrant destroy swarm-manager-01 --force
+</span></span></code></pre></div><p>No more Leader. Access the second manager node and see what’s going on:</p>
+<pre tabindex="0"><code>vagrant ssh swarm-manager-02
+core@swarm-manager-02 ~ $ docker node ls
+ID                           HOSTNAME          STATUS   AVAILABILITY  MANAGER STATUS
+1qmj079wp0cg5kys5ej8cs58i    swarm-worker-02   Ready    Active
+3qeyfmoixwg7k64i6sw78gmms    swarm-worker-01   Ready    Active
+3rgjfac5qau5rft2wpcpliaek *  swarm-manager-02  Ready    Drain         Leader
+6ok8wzq137dxs7uow5xd3rjkd    swarm-manager-01  Unknown  Drain         Unreachable
+9rarjje9gner4lwrcshymtszm    swarm-manager-03  Ready    Drain         Reachable
+a1lsaawsrcoohajmc1luon0mn    swarm-worker-03   Ready    Active
+</code></pre><p>So, swarm-manager-02 became the Leader. Sweet!</p>
+<p>Before, we saw that the nginx containers were running on
+swarm-worker-02 and swarm-worker-03. Now, we will destroy both nodes
+to see what happens:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>vagrant destroy swarm-worker-02 swarm-worker-03 --force
+</span></span></code></pre></div><p>If we check the service status:</p>
+<pre tabindex="0"><code>core@swarm-manager-02 ~ $ docker service ps amazing-web-server
+ID                         NAME                      IMAGE  NODE             DESIRED STATE  CURRENT STATE                ERROR
+95u3ndb01onpx6ki5daohuwf1  amazing-web-server.1      nginx  swarm-worker-01  Running        Running about a minute ago
+3zx3cua2eu1dgykphj8rsnuwd   \_ amazing-web-server.1  nginx  swarm-worker-02  Shutdown       Running 7 minutes ago
+aff0ashfqbcjxbka0jz6sbril  amazing-web-server.2      nginx  swarm-worker-01  Running        Running about a minute ago
+8va90yo2vn2uwvzjrc22d0pjv   \_ amazing-web-server.2  nginx  swarm-worker-03  Shutdown       Running 7 minutes ago
+</code></pre><p>We can see that the containers running on swarm-worker-02 and
+swarm-worker-03 are in ‘Shutdown’ state, and that there are two new
+running containers on swarm-worker-01.</p>
+<p>What a time to be alive!</p>
+<h2 id="final-thoughts">Final thoughts</h2>
+<p>This whole thing was fun. I (and hopefully you too) learned/noticed
+some things along the way:</p>
+<ul>
+<li>Swarm Standalone and Swarm Mode are two (very) different things. The
+latter is already integrated in the Docker Engine after v1.12.</li>
+<li>The Engine is divided into many different pieces as of today,
+including RunC and containerd, which are used to run the containers
+themselves and manage their lifecycle.</li>
+<li>The whole “let’s divide the Engine into little independent pieces”
+seems to have paid off, since every independent component is now
+evolving with its own lifecycle, and furthermore, it helps
+understanding the Engine as a whole.</li>
+<li>Docker uses a different container networking standard than
+Kubernetes, called CNM, with its own abstractions and resources.</li>
+<li>The Network Model, including CNM and the Network Routing Mesh seems
+easier to understand than the whole Kubernetes, even if it seemed
+harder to grasp before actually looking at it. I thought it would be
+hell at first, but it came out okay, kinda.</li>
+<li>Swarm works quite nicely as of now. It can handle the High
+Availability natively, and it doesn’t need an external key/value
+datastore like other solutions do.</li>
+<li>It is super easy to install. When I say super easy, I mean it’s
+super super easy. <a href="https://sebiwi.github.io/blog/how-does-it-work-kube-4/">You should compare what we just did to what we had
+to do for the Kubernetes cluster</a>, and you’ll see that these guys
+really worked their asses off in order to get the installation
+procedure right, nice and simple.</li>
+</ul>
+<p>I would have liked to do some other things as well:</p>
+<ul>
+<li>Explore the volume management further (or at all). It’s a super
+interesting subject, and I’m dying to check it out. I’d love to
+compare it to the way Kube handles them.</li>
+<li>I didn’t get to deploy complex applications or services on the
+cluster. <a href="https://docs.docker.com/compose/bundles/#creating-a-stack-from-a-bundle">No DABs and no stacks</a>. This seemed interesting enough, but
+I didn’t have enough time to actually try it.</li>
+<li>I didn’t get to compare the usage of a different key/value datastore
+instead of the internal one, in terms of performance or ease of use.</li>
+<li>Run some benchmarks on leader election convergence time. I just know
+it works, I don’t know how fast it can be, and how does that change
+when your Manager group increases in size.</li>
+</ul>
+<p>I might do all of these things in the near future. Or not. Who knows.
+Anyway. I had a blast, I hope you did too!</p>
+
+        </div>
+
+        
+<nav class="post-navigation">
+    
+    <a href="/blog/how-does-it-work-docker-episode-4-control-your-swarm/" class="post-nav-prev">
+        <span class="post-nav-label">&laquo; Previous</span>
+        <span class="post-nav-title">How does it work? Docker! Episode 4 - Control your Swarm!</span>
+    </a>
+    
+
+    
+    <a href="/blog/ansible-reporting-with-ara-ansible-run-analysis/" class="post-nav-next">
+        <span class="post-nav-label">Next &raquo;</span>
+        <span class="post-nav-title">Ansible reporting with ARA: Ansible Run Analysis</span>
+    </a>
+    
+</nav>
+
+
+
+        
+        
+
+<section class="related-posts">
+    <h3>Related Posts</h3>
+    <div class="related-grid">
+        
+        <article class="related-card">
+            <a href="/blog/how-does-it-work-docker-episode-4-control-your-swarm/">
+                <h4>How does it work? Docker! Episode 4 - Control your Swarm!</h4>
+                <time datetime="2017-10-02">
+                    Oct 02, 2017
+                </time>
+            </a>
+        </article>
+        
+        <article class="related-card">
+            <a href="/blog/how-does-it-work-docker-episode-3-swarm-load-balancing-service-discovery-and-security/">
+                <h4>How does it work? Docker! Episode 3 - Swarm load balancing, service discovery and security</h4>
+                <time datetime="2017-09-21">
+                    Sep 21, 2017
+                </time>
+            </a>
+        </article>
+        
+        <article class="related-card">
+            <a href="/blog/how-does-it-work-docker-episode-2-swarm-networking/">
+                <h4>How does it work? Docker! Episode 2 - Swarm networking</h4>
+                <time datetime="2017-09-04">
+                    Sep 04, 2017
+                </time>
+            </a>
+        </article>
+        
+    </div>
+</section>
+
+
+        
+
+        
+        <aside class="author-info">
+    <img src="/images/profile.jpg" alt="Sebiwi" class="author-avatar">
+    <div class="author-details">
+        <h4 class="author-name">Sebiwi</h4>
+        <p class="author-bio">Tech, fun, and cookies</p>
+        <div class="social-links">
+    
+    <a href="https://twitter.com/sebiwicb" target="_blank" rel="noopener" aria-label="Twitter">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+        </svg>
+    </a>
+    
+
+    
+    <a href="https://github.com/sebiwi" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+        </svg>
+    </a>
+    
+
+    
+    <a href="mailto:contact.sebiwi@gmail.com" aria-label="Email">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+        </svg>
+    </a>
+    
+</div>
+
+    </div>
+</aside>
+
+        
+    </div>
+</article>
+
+    </main>
+
+    <footer class="site-footer">
+    <div class="container">
+        <div class="social-links">
+    
+    <a href="https://twitter.com/sebiwicb" target="_blank" rel="noopener" aria-label="Twitter">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+        </svg>
+    </a>
+    
+
+    
+    <a href="https://github.com/sebiwi" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+        </svg>
+    </a>
+    
+
+    
+    <a href="mailto:contact.sebiwi@gmail.com" aria-label="Email">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+        </svg>
+    </a>
+    
+</div>
+
+        <p class="copyright">&copy; 2025 Sebiwi</p>
+    </div>
+</footer>
+
+
+    
+    <script src="/js/animations.js"></script>
+    
+</body>
+</html>

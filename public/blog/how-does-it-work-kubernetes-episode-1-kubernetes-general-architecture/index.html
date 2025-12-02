@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Tech, fun and cookies">
+
+    <title>How does it work? Kubernetes! Episode 1 - Kubernetes general architecture - Sebiwi</title>
+
+    
+    <link rel="stylesheet" href="/css/style.css">
+
+    
+    
+    <meta property="og:title" content="How does it work? Kubernetes! Episode 1 - Kubernetes general architecture">
+    <meta property="og:description" content="Tech, fun and cookies">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="http://localhost:1313/blog/how-does-it-work-kubernetes-episode-1-kubernetes-general-architecture/">
+    
+
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@sebiwicb">
+    <meta name="twitter:title" content="How does it work? Kubernetes! Episode 1 - Kubernetes general architecture">
+    <meta name="twitter:description" content="Tech, fun and cookies">
+    
+
+    
+    <meta name="color-scheme" content="light dark">
+</head>
+<body>
+    <header class="site-header">
+    <div class="container">
+        <a href="/" class="site-title">Sebiwi</a>
+        <nav class="site-nav">
+            <a href="/blog/">Blog</a>
+            <a href="/comics/">Comics</a>
+            <a href="/tags/">Tags</a>
+        </nav>
+    </div>
+</header>
+
+
+    <main>
+        
+<article class="post">
+    <div class="container">
+        <header class="post-header">
+            
+
+            <h1 class="post-title">How does it work? Kubernetes! Episode 1 - Kubernetes general architecture</h1>
+
+            <div class="post-meta">
+                <time datetime="2017-03-11">
+                    Saturday, March 11, 2017
+                </time>
+
+                
+                <span class="read-time">6 min read</span>
+                
+            </div>
+
+            
+            
+            <div class="post-tags">
+                
+                <a href="/tags/architecure" class="tag">architecure</a>
+                
+                <a href="/tags/kubernetes" class="tag">kubernetes</a>
+                
+                <a href="/tags/infrastructure-as-code" class="tag">infrastructure as code</a>
+                
+            </div>
+            
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="hey-everybody">Hey everybody</h2>
+<p>I hacked something together in order to create a Kubernetes cluster on CoreOS
+(or Container Linux) using Vagrant and Ansible.</p>
+<p><strong>If you keep reading, I&rsquo;m going to talk to you about Kubernetes, etcd, CoreOS, flannel,
+Calico, Infrastructure as Code and Ansible testing strategies. It&rsquo;s gonna be super fun.</strong></p>
+<p><strong>The whole subject was way too long for a single article. Therefore, I’ve divided it into 5 parts.
+This is episode 1, regarding the Kubernetes general architecture.</strong></p>
+<p>If you want to try it:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git clone https://github.com/sebiwi/kubernetes-coreos
+</span></span><span style="display:flex;"><span>cd kubernetes-coreos
+</span></span><span style="display:flex;"><span>make up
+</span></span></code></pre></div><p>This will spin up 4 VMs: an etcd node, a Kubernetes Master node, and two Kubernetes Worker nodes.
+You can modify the size of the cluster by hacking on the Vagrantfile and the Ansible inventory.</p>
+<p>You will need Ansible 2.2, Vagrant, Virtualbox and kubectl. You will also need molecule and docker-py,
+if you want to run the tests.</p>
+<h2 id="why">Why?</h2>
+<p>The last time I worked with Kubernetes was <a href="https://github.com/kubernetes/kubernetes/releases/tag/v1.0.0">last year</a>. Things have <a href="https://github.com/kubernetes/kubernetes/releases/tag/v1.0.0">changed</a> since then. A guy I know once
+said that in order to understand how something complex works, you need to build it up from scratch.
+I guess that&rsquo;s one of the main points of this project, really. Scientia potentia est. I also wanted
+to be able to test different Kubernetes features in a set up reminiscent of a production cluster.
+<a href="https://github.com/kubernetes/minikube">Minikube</a> is great and all, but you don&rsquo;t actually get to see communication between different containers
+on different hosts, node failover scenarios, scheduling policies, or hardcore scale up procedures
+(with many nodes).</p>
+<p>Finally, I thought it would be nice to explain how every Kubernetes component fits together, so everyone
+can understand what&rsquo;s under the hood. I keep getting questions like &ldquo;what is a Kubernetes&rdquo; at work, and
+if it is &ldquo;better than a Docker&rdquo;. You won&rsquo;t find the answer to the last question in this article, but at
+least you will (hopefully) understand how Kubernetes works. You can make up your own mind afterwards.</p>
+<h2 id="okay-i-was-just-passing-by-but-what-is-kubernetes">Okay, I was just passing by, but what is Kubernetes?</h2>
+<p><a href="https://kubernetes.io/">Kubernetes</a> is a container cluster management tool. I will take a (not so) wild guess and assume that you&rsquo;ve
+already heard about Docker and containers in general.</p>
+<p>The thing is that Docker by itself will probably not suffice when using containers in production. What if your
+application is composed of multiple containers? You will need to be able to handle not only the creation of these
+containers, but also the communication between them. What if you feel that putting all your containers on the same
+host sucks, since if that host goes down, all your containers die with it? You will need to be able to deploy
+containers on many hosts, and also handle the communication between them, which translates into port
+mapping hell unless you&rsquo;re using an SDN solution. What about deploying a new version of your
+application without service interruption? What about container failure management, are you going
+to do go check on every container independently to see if it is healthy, and relaunch it manually
+if it is not? Grrrrrrrraaaaah.</p>
+<p>Kubernetes is a tool you can use if you do not want to develop something specific in order to
+handle all the aforementioned issues. It can help you pilot your container cluster, hence its
+name, which means pilot or helmsman in greek.</p>
+<p>Just a little heads up before we start talking about architecture: I will often talk about pods
+during these series. A pod is a group of one or more containers, that run in a shared context.
+A pod models an application-specific “logical host”, and theoretically it contains one or more
+applications that are tightly coupled: the kind of applications that you would have executed on
+the same physical or virtual host before containers. In practice, and for our use-case, you can
+just think of a pod as a container, since we will only have one container inside each pod.</p>
+<p>A standard Kubernetes installation consists of both Master and Worker nodes:</p>
+<p><img src="/images/how-does-it-work-kube/1/kube-general-architecture.png" alt="Kubernetes general architecture"></p>
+<figcaption class="caption">Kubernetes general architecture, for real</figcaption>
+<h2 id="wait-where-is-the-master-node">Wait, where is the Master node?</h2>
+<p>This architecture diagram specifies a set of master components, but not a Master node per-se.
+You will probably notice that the Distributed Watchable Storage is considered among these components.
+Nevertheless, we will not install it on the same node.  Our Distributed Watchable Storage will be a
+separate component (more on this later).</p>
+<p>So the Master node actually becomes everything that is inside the red square:</p>
+<p><img src="/images/how-does-it-work-kube/1/kube-master-node.png" alt="Kubernetes master node"></p>
+<figcaption class="caption">Here, see?</figcaption>
+<p>All these components are part of the Kubernetes control pane. Keep in mind that you can have these
+on one single node, but you can also put them on many different ones. In our case we&rsquo;re putting them
+all together. So basically, we have an API server, a Scheduler, and a Controller Manager Server.</p>
+<p>The API server exposes the Kubernetes API (duh). It processes REST operations, and then updates etcd
+consequently. The scheduler binds the unscheduled pods to a suitable worker node. If none are available,
+the pod remains unscheduled until a fitting node is found. The controller manager server does all the
+other cluster-level functions, such as endpoint creation, node discovery, and replication control.
+Many controllers are embedded into this controller manager, such as the endpoint controller, the node
+controller and the replication controller. It watches the shared state of the Kubernetes cluster using
+the API server, and makes changes on it with the intention of making the current state and the desired
+state of the cluster match.</p>
+<h2 id="what-about-the-worker-node">What about the Worker node?</h2>
+<p>The Master node does not run any containers, it just handles and manages the cluster. The nodes that
+actually run the containers are the Worker nodes.</p>
+<p><em>Note: This is not actually true in our case, but we will talk about that later, during episode 5.</em></p>
+<p>The Worker node is composed of a kubelet, and a proxy (kube-proxy). You can see these components
+inside the red square, in the diagram below.</p>
+<p><img src="/images/how-does-it-work-kube/1/kube-worker-node.png" alt="Kubernetes worker node"></p>
+<figcaption class="caption">Right here</figcaption>
+<p>The kubelet is the agent on the worker node that actually starts and stops the pods, and communicates
+with the Docker engine at a host level. This means it also manages the containers, the images and the
+associated volumes. It communicates with the API server on the Master node.</p>
+<p>The kube-proxy redirects traffic directed to specific services and pods to their destination. It
+communicates with the API server too.</p>
+<h2 id="and-what-about-that-distributed-watchable-storage-thing">And what about that Distributed Watchable Storage thing?</h2>
+<p>Oh, you mean etcd. This is one of the components that is actually included in Container Linux, and
+developed by CoreOS. It is a distributed, fault tolerant key-value store used for shared configuration
+and service discovery. It actually means <a href="https://www.youtube.com/watch?v=2ByAMZ7CZyY&amp;t=9m48s">&ldquo;something like etc, distributed on many hosts</a>&rdquo;. This <del>sucks</del>
+is a weird name because it is not a filesystem, but a key-value store. They are aware of it though. Just in
+case you missed it in the previous diagrams, it is the black square inside the red square:</p>
+<p><img src="/images/how-does-it-work-kube/1/etcd.png" alt="etcd"></p>
+<figcaption class="caption">You never know</figcaption>
+<p>All the persistent master state is stocked in etcd. Since components can actually &ldquo;watch&rdquo; components, they are
+able to realise that something has changed rather quickly, and then do something about it.</p>
+<p>And that&rsquo;s what I deployed on CoreOS using Ansible. All of these things, and then some more.</p>
+<h2 id="thats-rad-how-did--you-do-it">That’s rad, how did  you do it?</h2>
+<p>You need to understand a little bit about Kubernetes networking before we get to that. That’s all
+for today though. I’ll talk to you about networking in the next episode.</p>
+<p>Stay tuned!</p>
+
+        </div>
+
+        
+<nav class="post-navigation">
+    
+    <a href="/blog/fpaste-cli-share-content-with-magic-and-style/" class="post-nav-prev">
+        <span class="post-nav-label">&laquo; Previous</span>
+        <span class="post-nav-title">fpaste-cli: Share content with magic and style</span>
+    </a>
+    
+
+    
+    <a href="/blog/how-does-it-work-kubernetes-episode-2-kubernetes-networking/" class="post-nav-next">
+        <span class="post-nav-label">Next &raquo;</span>
+        <span class="post-nav-title">How does it work? Kubernetes! Episode 2 - Kubernetes networking</span>
+    </a>
+    
+</nav>
+
+
+
+        
+        
+
+
+        
+
+        
+        <aside class="author-info">
+    <img src="/images/profile.jpg" alt="Sebiwi" class="author-avatar">
+    <div class="author-details">
+        <h4 class="author-name">Sebiwi</h4>
+        <p class="author-bio">Tech, fun, and cookies</p>
+        <div class="social-links">
+    
+    <a href="https://twitter.com/sebiwicb" target="_blank" rel="noopener" aria-label="Twitter">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+        </svg>
+    </a>
+    
+
+    
+    <a href="https://github.com/sebiwi" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+        </svg>
+    </a>
+    
+
+    
+    <a href="mailto:contact.sebiwi@gmail.com" aria-label="Email">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+        </svg>
+    </a>
+    
+</div>
+
+    </div>
+</aside>
+
+        
+    </div>
+</article>
+
+    </main>
+
+    <footer class="site-footer">
+    <div class="container">
+        <div class="social-links">
+    
+    <a href="https://twitter.com/sebiwicb" target="_blank" rel="noopener" aria-label="Twitter">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+        </svg>
+    </a>
+    
+
+    
+    <a href="https://github.com/sebiwi" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+        </svg>
+    </a>
+    
+
+    
+    <a href="mailto:contact.sebiwi@gmail.com" aria-label="Email">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+        </svg>
+    </a>
+    
+</div>
+
+        <p class="copyright">&copy; 2025 Sebiwi</p>
+    </div>
+</footer>
+
+
+    
+    <script src="/js/animations.js"></script>
+    
+</body>
+</html>

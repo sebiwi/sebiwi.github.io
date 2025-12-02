@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Comics on Sebiwi</title>
+    <link>http://localhost:1313/comics/</link>
+    <description>Recent content in Comics on Sebiwi</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 11 Nov 2019 07:19:02 +0100</lastBuildDate>
+    <atom:link href="http://localhost:1313/comics/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>You are not your code</title>
+      <link>http://localhost:1313/comics/you-are-not-your-code/</link>
+      <pubDate>Mon, 11 Nov 2019 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/you-are-not-your-code/</guid>
+      <description>&lt;p&gt;![You are not your code. This code looks like it&amp;rsquo;s been written by an imbecil. That remark is about your code, not about you.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>DST</title>
+      <link>http://localhost:1313/comics/dst/</link>
+      <pubDate>Mon, 04 Nov 2019 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/dst/</guid>
+      <description>&lt;p&gt;![DST makes my head spin and I often wonder about the reasons we&amp;rsquo;re still using it. It must be hard to tell people that all of their suffering was for nothing.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>ext5</title>
+      <link>http://localhost:1313/comics/ext5/</link>
+      <pubDate>Mon, 28 Oct 2019 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/ext5/</guid>
+      <description>&lt;p&gt;![ext5 will be directly integrated into systemd.]({{ .Params.image }})&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>KPI</title>
+      <link>http://localhost:1313/comics/kpi/</link>
+      <pubDate>Mon, 21 Oct 2019 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/kpi/</guid>
+      <description>&lt;p&gt;![If you want to generate some bugs, always remember to fix your deadline.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Libra</title>
+      <link>http://localhost:1313/comics/libra/</link>
+      <pubDate>Mon, 14 Oct 2019 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/libra/</guid>
+      <description>&lt;p&gt;![If I wanted my financial transaction information to be used for political advertisement, I&amp;rsquo;d give it to Cambridge Analytica myself.]({{ .Params.image }})&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>The Powershell diaries: part 1</title>
+      <link>http://localhost:1313/comics/the-powershell-diaries-part-1/</link>
+      <pubDate>Mon, 07 Oct 2019 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/the-powershell-diaries-part-1/</guid>
+      <description>&lt;p&gt;![I spent 15 minutes trying to figure out how to get my Powershell version. Turns out the syntax is harder than quitting vim.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>42</title>
+      <link>http://localhost:1313/comics/42/</link>
+      <pubDate>Mon, 30 Sep 2019 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/42/</guid>
+      <description>&lt;p&gt;![If she&amp;rsquo;d written the Hitchhiker&amp;rsquo;s guide to the Galaxy, the Answer to the Ultimate Question of Life, the Universe, and Everything would be vim.]({{ .Params.image }})&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Disagreement</title>
+      <link>http://localhost:1313/comics/disagreement/</link>
+      <pubDate>Mon, 23 Sep 2019 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/disagreement/</guid>
+      <description>&lt;p&gt;![Person 1: Truth comes from disagreement, so may I suggest..? Person 2: No. Person 1: Disagreement should be constructive. Person 2: I disagree.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Technical</title>
+      <link>http://localhost:1313/comics/technical/</link>
+      <pubDate>Mon, 16 Sep 2019 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/technical/</guid>
+      <description>&lt;p&gt;![Often, people think all of their problems are technical. Most of the time, they&amp;rsquo;re not.]({{ .Params.image }})&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Planning</title>
+      <link>http://localhost:1313/comics/planning/</link>
+      <pubDate>Mon, 25 Mar 2019 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/planning/</guid>
+      <description>&lt;p&gt;![I love planning meetings. Specially when we&amp;rsquo;re supposed to plan every single aspect of a product&amp;rsquo;s lifetime for the next 25 years]({{ .Params.image }})&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Regex</title>
+      <link>http://localhost:1313/comics/regex/</link>
+      <pubDate>Mon, 18 Mar 2019 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/regex/</guid>
+      <description>&lt;p&gt;![I&amp;rsquo;ve heard people trying to evaluate performance by counting lines of code. That&amp;rsquo;s attributing the same value to a variable assignment and a regular expression.]({{ .Params.image }})&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Datalake</title>
+      <link>http://localhost:1313/comics/datalake/</link>
+      <pubDate>Mon, 11 Mar 2019 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/datalake/</guid>
+      <description>&lt;p&gt;![Everyone talks about datalakes, no one talks about quality data. So almost every datalake looks like a shitpile.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>OOM</title>
+      <link>http://localhost:1313/comics/oom/</link>
+      <pubDate>Mon, 04 Mar 2019 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/oom/</guid>
+      <description>&lt;p&gt;![The OOM killer is supposed to kill processes based on an OOM score. In reality, it just kills the Java application.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Agile says</title>
+      <link>http://localhost:1313/comics/agile-says/</link>
+      <pubDate>Mon, 28 Jan 2019 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/agile-says/</guid>
+      <description>&lt;p&gt;![It&amp;rsquo;s funny to hear people say &amp;ldquo;Agile says&amp;rdquo;. It&amp;rsquo;s like there are rules to follow.]({{ .Params.image }})&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Status feature</title>
+      <link>http://localhost:1313/comics/status-feature/</link>
+      <pubDate>Mon, 21 Jan 2019 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/status-feature/</guid>
+      <description>&lt;p&gt;![Why did they add the status feature to GitHub? What is this, Facebook?]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>ESx</title>
+      <link>http://localhost:1313/comics/esx/</link>
+      <pubDate>Mon, 14 Jan 2019 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/esx/</guid>
+      <description>&lt;p&gt;![You can get a neat mathematical formula to calculate the real name of an ECMAScript. I double dare you to try to get the same thing with Windows.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Reality</title>
+      <link>http://localhost:1313/comics/reality/</link>
+      <pubDate>Mon, 07 Jan 2019 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/reality/</guid>
+      <description>&lt;p&gt;![There&amp;rsquo;s a difference between the planning and our current progress. There must be an issue with reality. Certainly.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Retrospective</title>
+      <link>http://localhost:1313/comics/retrospective/</link>
+      <pubDate>Mon, 31 Dec 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/retrospective/</guid>
+      <description>&lt;p&gt;![It&amp;rsquo;s been a while since I started posting drawings in here. It&amp;rsquo;s been fun. Maybe it&amp;rsquo;s time for a little retrospective]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>You had me at EHLO</title>
+      <link>http://localhost:1313/comics/you-had-me-at-ehlo/</link>
+      <pubDate>Mon, 24 Dec 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/you-had-me-at-ehlo/</guid>
+      <description>&lt;p&gt;![Christmas is about giving. Does giving &amp;ldquo;a hard time&amp;rdquo; count? I&amp;rsquo;m thinkin about a nice Reply Allpocalypse, for instance.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Creativity</title>
+      <link>http://localhost:1313/comics/creativity/</link>
+      <pubDate>Mon, 17 Dec 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/creativity/</guid>
+      <description>&lt;p&gt;![Developers are the most creative being in the whole universe. It would be great to have them consider operation limits within the scope of their creation though.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Random</title>
+      <link>http://localhost:1313/comics/random/</link>
+      <pubDate>Mon, 10 Dec 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/random/</guid>
+      <description>&lt;p&gt;![I like how project managers make accurate estimations by multiplying other estimations by 2. It&amp;rsquo;s almost like multiplying two random numbers straight up.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Experience</title>
+      <link>http://localhost:1313/comics/experience/</link>
+      <pubDate>Mon, 03 Dec 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/experience/</guid>
+      <description>&lt;p&gt;![Experience is a dim lamp which only lights the one who wears it. This isn&amp;rsquo;t my domain of expertise though.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Scrum Man</title>
+      <link>http://localhost:1313/comics/scrum-man/</link>
+      <pubDate>Mon, 26 Nov 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/scrum-man/</guid>
+      <description>&lt;p&gt;![Sometimes I don&amp;rsquo;t even understand why scrum is supposed to be agile. Micro-deadlines, velocity, no backlog modification that would endanger the sprint goal? Da fuck?]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Clipboard</title>
+      <link>http://localhost:1313/comics/clipboard/</link>
+      <pubDate>Mon, 19 Nov 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/clipboard/</guid>
+      <description>&lt;p&gt;![The Mac&amp;rsquo;s clipboard is shared with the iPhone&amp;rsquo;s. By default. I just sent a &lt;code&gt;kubectl get pods -n dev&lt;/code&gt; to my Tinder match.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Stash</title>
+      <link>http://localhost:1313/comics/stash/</link>
+      <pubDate>Mon, 12 Nov 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/stash/</guid>
+      <description>&lt;p&gt;![Wouldn&amp;rsquo;t it be cool if we could use git in real life?]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Typing</title>
+      <link>http://localhost:1313/comics/typing/</link>
+      <pubDate>Mon, 05 Nov 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/typing/</guid>
+      <description>&lt;p&gt;![I wonder how they test static language typing. Probably stress tests?]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Monday news</title>
+      <link>http://localhost:1313/comics/monday-news/</link>
+      <pubDate>Mon, 29 Oct 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/monday-news/</guid>
+      <description>&lt;p&gt;![I guess nobody ever got fired for buying RedHat]({{ .Params.image }})&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Cyclomatic</title>
+      <link>http://localhost:1313/comics/cyclomatic/</link>
+      <pubDate>Mon, 22 Oct 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/cyclomatic/</guid>
+      <description>&lt;p&gt;![Cyclomatic compelxity should not be minimized during conversations. Life would be less funnier.]({{ .Params.image }})&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Bingo</title>
+      <link>http://localhost:1313/comics/bingo/</link>
+      <pubDate>Mon, 15 Oct 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/bingo/</guid>
+      <description>&lt;p&gt;![We try to play bullshit bingo at each conference or presentation we go. It seems slightly nihilistic, in retrospective.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Kernel</title>
+      <link>http://localhost:1313/comics/kernel/</link>
+      <pubDate>Mon, 08 Oct 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/kernel/</guid>
+      <description>&lt;p&gt;![I really like Linus. I just hope he gets his shit together soon, otherwise it&amp;rsquo;s gonna make the community poisonous.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Synced</title>
+      <link>http://localhost:1313/comics/synced/</link>
+      <pubDate>Mon, 01 Oct 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/synced/</guid>
+      <description>&lt;p&gt;![I&amp;rsquo;m having a hard time trusting Chrome nowadays. Specially since all these offers started popping in my email.]({{ .Params.image }})&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Master Branch</title>
+      <link>http://localhost:1313/comics/master-branch/</link>
+      <pubDate>Mon, 24 Sep 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/master-branch/</guid>
+      <description>&lt;p&gt;![It&amp;rsquo;s good that people are starting to notice concepts that should be reconstructed in our line of work. There is still a long road ahead though. With master-slave on the works, people are forgetting some other things. Like the master branch, for example.]({{ .Params.image }})&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Futility</title>
+      <link>http://localhost:1313/comics/futility/</link>
+      <pubDate>Mon, 17 Sep 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/futility/</guid>
+      <description>&lt;p&gt;![I always wondered about the actual definition of an exercice in futility. I looked it up, and a lot of things came into my mind. Like front-end tests, for example]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Distributed monolith</title>
+      <link>http://localhost:1313/comics/distributed-monolith/</link>
+      <pubDate>Mon, 10 Sep 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/distributed-monolith/</guid>
+      <description>&lt;p&gt;![Check Conway&amp;rsquo;s Law before speedboating into microservices please]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Generics</title>
+      <link>http://localhost:1313/comics/generics/</link>
+      <pubDate>Mon, 03 Sep 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/generics/</guid>
+      <description>&lt;p&gt;![Everyone is talking about the necessity of generics in go 2. I wonder if they actually know what generics are used for.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Dashboards</title>
+      <link>http://localhost:1313/comics/dashboards/</link>
+      <pubDate>Mon, 27 Aug 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/dashboards/</guid>
+      <description>&lt;p&gt;![Dashboard metrics are the funniest thing. Most of the time they look like fillers though.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Math</title>
+      <link>http://localhost:1313/comics/math/</link>
+      <pubDate>Mon, 20 Aug 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/math/</guid>
+      <description>&lt;p&gt;![A teacher once told me that if I&amp;rsquo;m having a hard time understanding a subject it&amp;rsquo;s because I don&amp;rsquo;t know enough math. It is not true.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>INVEST</title>
+      <link>http://localhost:1313/comics/invest/</link>
+      <pubDate>Mon, 13 Aug 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/invest/</guid>
+      <description>&lt;p&gt;![I really like INVEST user stories, but some people insist on keeping them rather VAGUE]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Burritos</title>
+      <link>http://localhost:1313/comics/burritos/</link>
+      <pubDate>Mon, 30 Jul 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/burritos/</guid>
+      <description>&lt;p&gt;![I always hear the same explanation from people trying to explain monads. It makes you wonder if they actually understand what it means.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Spacious separations</title>
+      <link>http://localhost:1313/comics/spacious-separations/</link>
+      <pubDate>Mon, 23 Jul 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/spacious-separations/</guid>
+      <description>&lt;p&gt;![I heavily dislike &lt;code&gt;ss&lt;/code&gt; output format. I guess &lt;code&gt;ss&lt;/code&gt; stands for Spacious separations.]({{ .Params.image }})&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Dear Terraform</title>
+      <link>http://localhost:1313/comics/dear-terraform/</link>
+      <pubDate>Mon, 16 Jul 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/dear-terraform/</guid>
+      <description>&lt;p&gt;![I believe one of the worst moments when doing infrastructure as code is when your Terraform apply crashes and then your tfstate file is all fucked up.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>We DevSecOps now</title>
+      <link>http://localhost:1313/comics/we-devsecops-now/</link>
+      <pubDate>Mon, 09 Jul 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/we-devsecops-now/</guid>
+      <description>&lt;p&gt;![Now that I have a DevSecOps team I only need another DevOps team to complete my organisation entity chain]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Features</title>
+      <link>http://localhost:1313/comics/features/</link>
+      <pubDate>Mon, 02 Jul 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/features/</guid>
+      <description>&lt;p&gt;![Programming languages are not chosen based on their features, but rather on their popularity.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Summer thoughts</title>
+      <link>http://localhost:1313/comics/summer-thoughts/</link>
+      <pubDate>Mon, 25 Jun 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/summer-thoughts/</guid>
+      <description>&lt;p&gt;![I aways have multiple threads in my head, thinking about the most random stuff on every single situation.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Trust</title>
+      <link>http://localhost:1313/comics/trust/</link>
+      <pubDate>Mon, 18 Jun 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/trust/</guid>
+      <description>&lt;p&gt;![If you put some images in prodution, it&amp;rsquo;s a good idea to go and see what the image actually does.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Acquisition</title>
+      <link>http://localhost:1313/comics/acquisition/</link>
+      <pubDate>Mon, 11 Jun 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/acquisition/</guid>
+      <description>&lt;p&gt;![If you&amp;rsquo;re excited about Microsoft&amp;rsquo;s acquisition of GitHub, wait until you start seeing Mr. Clippy giving you advice in order to create merge requests.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>GDPR</title>
+      <link>http://localhost:1313/comics/gdpr/</link>
+      <pubDate>Mon, 04 Jun 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/gdpr/</guid>
+      <description>&lt;p&gt;![If you wanna stress an OPS person, ask him how he is going to handle GDPR.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Deadlock</title>
+      <link>http://localhost:1313/comics/deadlock/</link>
+      <pubDate>Mon, 28 May 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/deadlock/</guid>
+      <description>&lt;p&gt;![I happen to think that the hardest moment of the day is deciding what to get for lunch.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Stereotypes</title>
+      <link>http://localhost:1313/comics/stereotypes/</link>
+      <pubDate>Tue, 22 May 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/stereotypes/</guid>
+      <description>&lt;p&gt;![A lot of persons told me that I should make Deb wear a dress and a ribbon. I&amp;rsquo;m not doing it.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Sidecar</title>
+      <link>http://localhost:1313/comics/sidecar/</link>
+      <pubDate>Mon, 30 Apr 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/sidecar/</guid>
+      <description>&lt;p&gt;![I&amp;rsquo;ll probably end up getting a sidecar for human interations one of these days. Like a human service mesh.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>The show must go on</title>
+      <link>http://localhost:1313/comics/the-show-must-go-on/</link>
+      <pubDate>Mon, 23 Apr 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/the-show-must-go-on/</guid>
+      <description>&lt;p&gt;![People will do the dumbest things in order to convince their clients that everything is going alright.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Visage pamphlet</title>
+      <link>http://localhost:1313/comics/visage-pamphlet/</link>
+      <pubDate>Mon, 16 Apr 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/visage-pamphlet/</guid>
+      <description>&lt;p&gt;![Isn&amp;rsquo;t it weird to being asked to delete your data, then not doing it afterwards? It is a technique known as the &amp;ldquo;Oxford Investigativa&amp;rdquo;.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Dear Jenkins</title>
+      <link>http://localhost:1313/comics/dear-jenkins/</link>
+      <pubDate>Mon, 09 Apr 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/dear-jenkins/</guid>
+      <description>&lt;p&gt;![I say that I hate Jenkins, often. It&amp;rsquo;s not true though.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Choices</title>
+      <link>http://localhost:1313/comics/choices/</link>
+      <pubDate>Mon, 02 Apr 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/choices/</guid>
+      <description>&lt;p&gt;![It seems crazy to look like a moron if you&amp;rsquo;re not doing either golang or rust in 2018.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go nuts</title>
+      <link>http://localhost:1313/comics/go-nuts/</link>
+      <pubDate>Mon, 26 Mar 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/go-nuts/</guid>
+      <description>&lt;p&gt;![Fun fact: The #go channel on Freenode is about the board game, not about the programming language.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Jokes</title>
+      <link>http://localhost:1313/comics/jokes/</link>
+      <pubDate>Mon, 19 Mar 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/jokes/</guid>
+      <description>&lt;p&gt;![I like explaining my jokes to people. It&amp;rsquo;s funnier, somehow. They tend to get frustrated. I can&amp;rsquo;t really figure out why yet.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Microservices</title>
+      <link>http://localhost:1313/comics/microservices/</link>
+      <pubDate>Mon, 12 Mar 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/microservices/</guid>
+      <description>&lt;p&gt;![What is the actual size of a microservice? When does it become a miliservice?]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Yoloprotect</title>
+      <link>http://localhost:1313/comics/yoloprotect/</link>
+      <pubDate>Mon, 05 Mar 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/yoloprotect/</guid>
+      <description>&lt;p&gt;![It&amp;rsquo;s funny that bpfilter came out when we haven&amp;rsquo;t even started using nftables, right?]({{ .Params.image }})&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Velocity</title>
+      <link>http://localhost:1313/comics/velocity/</link>
+      <pubDate>Mon, 26 Feb 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/velocity/</guid>
+      <description>&lt;p&gt;![I wonder if managers are going to understand eventually that velocity is not a KPI that should be use to assess teams]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>YAML</title>
+      <link>http://localhost:1313/comics/yaml/</link>
+      <pubDate>Mon, 19 Feb 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/yaml/</guid>
+      <description>&lt;p&gt;![What&amp;rsquo;s with this new YAML sucks trend? Have you ever tried to read a JSON object? What about (not) goot old XML?]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Service Mesh</title>
+      <link>http://localhost:1313/comics/service-mesh/</link>
+      <pubDate>Mon, 12 Feb 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/service-mesh/</guid>
+      <description>&lt;p&gt;![I wonder if Service Mesh is the new Serverless, or the new Blockchain.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Serverless</title>
+      <link>http://localhost:1313/comics/serverless/</link>
+      <pubDate>Mon, 05 Feb 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/serverless/</guid>
+      <description>&lt;p&gt;![How come people keep talking about serverless, when everything underneath it is actually servers?]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Communication</title>
+      <link>http://localhost:1313/comics/communication/</link>
+      <pubDate>Mon, 29 Jan 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/communication/</guid>
+      <description>&lt;p&gt;![DevOps requires communication between development and operations, and it&amp;rsquo;s better if they don&amp;rsquo;t want to each each other.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Estimations</title>
+      <link>http://localhost:1313/comics/estimations/</link>
+      <pubDate>Mon, 22 Jan 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/estimations/</guid>
+      <description>&lt;p&gt;![There are many valid, snarky responses you can use when someone asks you to estimate a user story.]({{ .Params.image }})&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Healthchecks</title>
+      <link>http://localhost:1313/comics/healthchecks/</link>
+      <pubDate>Mon, 15 Jan 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/healthchecks/</guid>
+      <description>&lt;p&gt;![If applications were sentient beings, we would annoy the fuck out of them.]({{ .Params.image }})&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Meltburn and priorities</title>
+      <link>http://localhost:1313/comics/meltburn-and-priorities/</link>
+      <pubDate>Mon, 08 Jan 2018 01:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/meltburn-and-priorities/</guid>
+      <description>&lt;p&gt;![I haven&amp;rsquo;t applied any security patches since 1993, but at least my employees can&amp;rsquo;t open YouTube, right?]({{ .Params.image }})&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Twelve factor</title>
+      <link>http://localhost:1313/comics/twelve-factor/</link>
+      <pubDate>Mon, 01 Jan 2018 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/twelve-factor/</guid>
+      <description>&lt;p&gt;![I need a twelve-factor app, not a twelve factor auth, please.]({{ .Params.image }})&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Haskell goals</title>
+      <link>http://localhost:1313/comics/haskell-goals/</link>
+      <pubDate>Mon, 25 Dec 2017 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/haskell-goals/</guid>
+      <description>&lt;p&gt;![I learnt Haskell. I can fullfill my dreams now. Hi I do Javascr&amp;hellip; HAH! PEASANT!]({{ .Params.image }})&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Containerize everything</title>
+      <link>http://localhost:1313/comics/containerize-everything/</link>
+      <pubDate>Mon, 18 Dec 2017 08:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/containerize-everything/</guid>
+      <description>&lt;p&gt;![Let&amp;rsquo;s put a .doc on a container. Is it a good idea? We&amp;rsquo;ll also need Libreoffice in order to read it.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Beer</title>
+      <link>http://localhost:1313/comics/beer/</link>
+      <pubDate>Mon, 11 Dec 2017 08:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/beer/</guid>
+      <description>&lt;p&gt;![Do you wanna go get a beer? I&amp;rsquo;d rather suffer excruciating pain before doing so.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>We DevOps now</title>
+      <link>http://localhost:1313/comics/we-devops-now/</link>
+      <pubDate>Mon, 04 Dec 2017 08:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/we-devops-now/</guid>
+      <description>&lt;p&gt;![I&amp;rsquo;ll create a new DevOps team between Dev and Ops in order to increase inter-communication.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>High performance computing</title>
+      <link>http://localhost:1313/comics/high-performance-computing/</link>
+      <pubDate>Mon, 27 Nov 2017 08:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/high-performance-computing/</guid>
+      <description>&lt;p&gt;![(Computer burns) Are you compiling the linux kernel? Nah, just running intellij.]({{ .Params.image }}){: class=&amp;ldquo;bigger-image&amp;rdquo; }&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>The endless struggle</title>
+      <link>http://localhost:1313/comics/the-endless-struggle/</link>
+      <pubDate>Tue, 21 Nov 2017 20:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/the-endless-struggle/</guid>
+      <description>&lt;p&gt;![Vim is better than emacs.]({{ .Params.image }})&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Good ideas</title>
+      <link>http://localhost:1313/comics/good-ideas/</link>
+      <pubDate>Thu, 16 Nov 2017 20:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/comics/good-ideas/</guid>
+      <description>&lt;p&gt;![Maybe we should delete /var. Ok.]({{ .Params.image }})&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

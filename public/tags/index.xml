@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Sebiwi</title>
+    <link>http://localhost:1313/tags/</link>
+    <description>Recent content in Tags on Sebiwi</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 11 Nov 2019 07:19:02 +0100</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Comics</title>
+      <link>http://localhost:1313/tags/comics/</link>
+      <pubDate>Mon, 11 Nov 2019 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/tags/comics/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Software Craftsmanship</title>
+      <link>http://localhost:1313/tags/software-craftsmanship/</link>
+      <pubDate>Thu, 17 Jan 2019 07:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/tags/software-craftsmanship/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Infrastructure as Code</title>
+      <link>http://localhost:1313/tags/infrastructure-as-code/</link>
+      <pubDate>Thu, 07 Jun 2018 08:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/tags/infrastructure-as-code/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Docker</title>
+      <link>http://localhost:1313/tags/docker/</link>
+      <pubDate>Tue, 26 Dec 2017 08:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/tags/docker/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Kubernetes</title>
+      <link>http://localhost:1313/tags/kubernetes/</link>
+      <pubDate>Tue, 26 Dec 2017 08:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/tags/kubernetes/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Monitoring</title>
+      <link>http://localhost:1313/tags/monitoring/</link>
+      <pubDate>Mon, 30 Oct 2017 20:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/tags/monitoring/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Architecure</title>
+      <link>http://localhost:1313/tags/architecure/</link>
+      <pubDate>Thu, 21 Sep 2017 20:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/tags/architecure/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Aws</title>
+      <link>http://localhost:1313/tags/aws/</link>
+      <pubDate>Mon, 01 May 2017 20:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/tags/aws/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Python</title>
+      <link>http://localhost:1313/tags/python/</link>
+      <pubDate>Mon, 01 May 2017 20:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/tags/python/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Serverless</title>
+      <link>http://localhost:1313/tags/serverless/</link>
+      <pubDate>Mon, 01 May 2017 20:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/tags/serverless/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Tips and Tricks</title>
+      <link>http://localhost:1313/tags/tips-and-tricks/</link>
+      <pubDate>Sat, 04 Mar 2017 10:50:02 +0100</pubDate>
+      <guid>http://localhost:1313/tags/tips-and-tricks/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

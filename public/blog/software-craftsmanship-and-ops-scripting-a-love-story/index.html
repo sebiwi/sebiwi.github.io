@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Tech, fun and cookies">
+
+    <title>Software Craftsmanship and OPS scripting: a love story - Sebiwi</title>
+
+    
+    <link rel="stylesheet" href="/css/style.css">
+
+    
+    
+    <meta property="og:title" content="Software Craftsmanship and OPS scripting: a love story">
+    <meta property="og:description" content="Tech, fun and cookies">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="http://localhost:1313/blog/software-craftsmanship-and-ops-scripting-a-love-story/">
+    
+
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@sebiwicb">
+    <meta name="twitter:title" content="Software Craftsmanship and OPS scripting: a love story">
+    <meta name="twitter:description" content="Tech, fun and cookies">
+    
+
+    
+    <meta name="color-scheme" content="light dark">
+</head>
+<body>
+    <header class="site-header">
+    <div class="container">
+        <a href="/" class="site-title">Sebiwi</a>
+        <nav class="site-nav">
+            <a href="/blog/">Blog</a>
+            <a href="/comics/">Comics</a>
+            <a href="/tags/">Tags</a>
+        </nav>
+    </div>
+</header>
+
+
+    <main>
+        
+<article class="post">
+    <div class="container">
+        <header class="post-header">
+            
+
+            <h1 class="post-title">Software Craftsmanship and OPS scripting: a love story</h1>
+
+            <div class="post-meta">
+                <time datetime="2018-08-16">
+                    Thursday, August 16, 2018
+                </time>
+
+                
+                <span class="read-time">11 min read</span>
+                
+            </div>
+
+            
+            
+            <div class="post-tags">
+                
+                <a href="/tags/software-craftsmanship" class="tag">software craftsmanship</a>
+                
+            </div>
+            
+            
+        </header>
+
+        <div class="post-content">
+            <p><strong>This article was co-written by the great <a href="https://blog.octo.com/author/tanguy-patte-tpa/">Tanguy Patte</a></strong>.</p>
+<p>Alright, story time fellas.</p>
+<h2 id="tldr">TL;DR;</h2>
+<p>We’re working with Terraform, layering and workspaces. This makes the standard
+<code>terraform workspace select x</code> pretty cumbersome and dangerous. We wrote a Ruby
+wrapper using Test-Driven Development. It allows us to have a tested,
+maintainable and efficient solution to the aforementioned issue.</p>
+<p>You can find the actual project here: <a href="https://github.com/sebiwi/terraform-wrapper">https://github.com/sebiwi/terraform-wrapper</a></p>
+<p>If you keep reading, we’re going to talk about scripting, Test-Driven
+Development, Terraform and Ruby.</p>
+<h2 id="in-depth-workspaces">In depth: Workspaces</h2>
+<p>If you’ve ever worked with Terraform, you will know that it’s quite a
+particular tool. (Not so) recently, they started applying the concept of
+Workspaces. This is pretty interesting, as it helps you maintain many different
+infrastructure sets using the same code.</p>
+<p>Our first impression when we started using Workspaces was that the name itself
+(Workspaces) wasn’t clear enough. If you have the same feeling, please read the
+following paragraph from the Terraform documentation:</p>
+<blockquote>
+<p><em><strong>In the 0.9 line of Terraform releases, this concept was known as
+&ldquo;environment&rdquo;. It was renamed in 0.10 based on feedback about confusion
+caused by the overloading of the word &ldquo;environment&rdquo; both within Terraform
+itself and within organizations that use Terraform.</strong></em></p>
+</blockquote>
+<p>So that’s that (shrug).</p>
+<p>So why should we use Workspaces in real life? Let us take a look at some
+standard Terraform code. Whereas before you would have something like this:</p>
+<pre tabindex="0"><code>environments/
+├── dev
+│   ├── dev.tf
+│   ├── dev.tfvars
+│   └── variables.tf
+├── prod
+│   ├── prod.tf
+│   ├── prod.tfvars
+│   └── variables.tf
+└── uat
+    ├── uat.tf
+    ├── uat.tfvars
+    └── variables.tf
+</code></pre><p>Now, you will have something like this:</p>
+<pre tabindex="0"><code>terraform/
+├── infrastructure.tf
+├── dev.tfvars
+├── prod.tfvars
+├── uat.tfvars
+└── variables.tf
+</code></pre><p>With all the necessary <code>dev</code>, <code>uat</code> and <code>prod</code> Workspaces. You will still need
+to create the Workspaces using Terraform itself, like so:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>tf workspace new &lt;workspace&gt;
+</span></span></code></pre></div><p>You can list all your Workspaces using the <code>terraform workspace list</code> command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ tf workspace list
+</span></span><span style="display:flex;"><span>    default
+</span></span><span style="display:flex;"><span>    dev
+</span></span><span style="display:flex;"><span>    prod
+</span></span><span style="display:flex;"><span>  * uat
+</span></span></code></pre></div><p>For each Workspace, Terraform will create a new tfstate file, adding the
+Workspace name as a suffix for the filename or the key name when using a remote
+backend. If you don’t use Workspaces, you will still be using the <code>default</code>
+Workspace.</p>
+<p>This is phenomenal, as it allows us to reuse most of the code written for a
+single environment, and not to repeat it for every single one of them. In other
+words, it keeps our code <a href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself">DRY</a>. We’re handling many different environments, so
+we’re using this feature heavily.</p>
+<h2 id="layering">Layering</h2>
+<p>Have you ever heard about layering? It’s a Terraform code structuring pattern
+in which you create “layers”, based on logical stacks.</p>
+<p>For example, if you are working on a cloud provider, your first stack will
+probably be the network stack, since most IaaS resources depend on it. Then,
+you will probably create virtual machines that will run on the network layer.
+You could call this the compute layer, for example.  At the end you will have
+many layers in your scaffold, each one containing a specific logical group of
+resources, that depends completely or partially on the previous layer. How?
+Using references to the previous layer, using <a href="https://www.terraform.io/docs/configuration/data-sources.html">Data Sources</a>.</p>
+<p>Once again, from the Terraform documentation:</p>
+<blockquote>
+<p><em><strong>Data sources allow data to be fetched or computed for use elsewhere in
+Terraform configuration. Use of data sources allows a Terraform configuration
+to build on information defined outside of Terraform, or defined by another
+separate Terraform configuration.</strong></em></p>
+</blockquote>
+<p>The use of layering has many advantages:</p>
+<ul>
+<li>Reduced coupling: all your code will not be placed in the same directory. It
+will be separated into different logical groups. This will help you and your
+team understand the code better (as you will know that each layer corresponds
+to an isolated group of resources of your infrastructure), and it will make it
+easier for everyone to contribute to it as well. For example, adding a new
+component to your infrastructure is simple: you verify if the component you
+want to add fits into one of the existing layers, and you add it to it. If it
+doesn’t, you create a new layer. This also reduces the complexity of the
+development workflow when many people are working on the same codebase: each
+person can work on a different layer on different features without destroying
+the other person’s resources due to the fact that the code that allows their
+creation is not on their respective branches.</li>
+<li>Dependency on the previous layer: since each layer depends on the previous
+layer, you will be able to validate both the code of the previous layer
+(since it needs to be valid before the creation of the stack that depends on
+it) and its state (since the infrastructure state needs to be valid in order
+for it to be used as a datasource for the next layer).</li>
+<li>Reduced execution time: since each Terraform execution targets less code, the
+refresh time of the real state of your infrastructure using your cloud
+provider’s APIs diminishes, which means that the execution of the code is
+faster for certain steps.</li>
+<li>Reduced execution perimeter: each Terraform execution becomes atomic to the
+layer you’re executing it into. This creates a relatively isolated blast
+perimeter if something goes wrong.</li>
+</ul>
+<p>Code-wise, we go from this:</p>
+<pre tabindex="0"><code>terraform
+├── README.md
+├── cloud_init.tpl
+├── config.tf
+├── core_storage_gitlab_registry.tf
+├── network.tf
+├── prod.tfvars
+├── resource_group.tf
+├── security.tf
+├── storage_backup.tf
+├── storage_registry.tf
+├── test.tfvars
+├── variables.tf
+├── vm_backup_rotation.tf
+├── vm_bastion.tf
+├── vm_elastic.tf
+├── vm_gitlab.tf
+├── vm_gitlab_runner.tf
+├── vm_jenkins.tf
+├── waf_internal.tf
+├── test.tfvars
+├── dev.tfvars
+└── qa.tfvars
+</code></pre><p>To this:</p>
+<pre tabindex="0"><code>terraform
+├── 00_resource_group
+├── 01_dns
+├── 02_tooling
+├── 03_sandbox
+├── 04_prod
+├── 10_dns_record
+├── prod.tfvars
+├── qa.tfvars
+└── test.tfvars
+</code></pre><p>Each one of the numbered entries on the new directory structure represents a
+different directory, each of which might contain many different files.</p>
+<h2 id="issues">Issues</h2>
+<p>Layering is thus quite useful, it allows you to decouple your code and to keep
+things simple. When combining this technique with Workspaces, it allows you to
+have structured code which you can apply to many different environments. Sweet!</p>
+<p><em>Note: from now on, we will start talking about environments. An environment is
+defined by a distinct Terraform Workspace. Don’t get confused!</em></p>
+<p>Nevertheless, this does not come without a trade-off in complexity. You really
+need to pay attention to the current workspace, on each layer. We can apply
+changes or destroy resources on a layer using the wrong workspace if we are not
+paying attention. In order for this to work, you need to select the right
+workspace in each directory. There is no easy way to be sure on which
+environment you are working when you go from a directory to another one. You
+can do a <code>terraform workspace list</code> each time you change your current
+directory, but this gets dull quite fast, and you will probably forget to do it
+eventually and screw things up.</p>
+<p>The other issue is that in order to apply changes you need to go through every
+single layer and launch Terraform, and Terraform doesn’t know about the
+existence of the different layers: each layer acts as an isolated Terraform
+execution context. Doing this is slow. It is tedious. It can get frustrating
+quite quickly.</p>
+<h2 id="so-solutions">So… Solutions</h2>
+<p>The first solution we tried was to display the current workspace in our prompt.
+This was fairly easy to do, since you can find the current workspace in the
+.terraform/environment file. Using some bash foo, we managed to display it as
+so:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> terraform_env_name <span style="color:#f92672">(){</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span>  <span style="color:#f92672">[</span> -f .terraform/environment <span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>    TERRAFORM_ENV<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>cat .terraform/environment<span style="color:#e6db74">`</span>
+</span></span><span style="display:flex;"><span>    TERRAFORM_MESSAGE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;(</span><span style="color:#e6db74">${</span>TERRAFORM_ENV<span style="color:#e6db74">}</span><span style="color:#e6db74">)&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>    TERRAFORM_MESSAGE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span>  echo -e  <span style="color:#e6db74">&#34;</span>$TERRAFORM_MESSAGE<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>When you add this to your PS1 environment variable, your prompt will start
+looking somewhat like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>~/terraform/00_resource_group <span style="color:#f92672">(</span>development<span style="color:#f92672">)</span> $
+</span></span></code></pre></div><p>But most of the time, this is not enough. It helps you prevent some mistakes
+but it does not prevent you from screwing things up. And it does nothing about
+the cumbersome aspect of going through every single layer of the infrastructure
+and doing <code>terraform apply</code> commands everywhere. You will probably just go from
+one directory to another and run your Terraform command from your bash history
+without checking the selected workspace.</p>
+<p>That is the reason why we wrote a wrapper. One of the purposes of the wrapper
+is to check that we are working on the right workspace on every single layer.
+So we started from what we would have loved to have. We imagined the right tool
+and then we built it.</p>
+<p>If we had an improved Terraform, called <code>tf</code>, and we would want to apply
+changes on every layer, on the development workspace, we would love to have
+something like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>tf development apply
+</span></span></code></pre></div><p>If the workspace does not match in any single one of the layers, <a href="https://github.com/sebiwi/terraform-wrapper/blob/master/terraform_wrapper.rb#L51"><code>tf</code> will stop
+and tell you to select the right workspace before trying to apply your changes</a>.
+Needless to say, it will also provide you with a way to choose the right
+workspace on every single layer, so you won’t have to go and do it manually on
+every directory. In our minds, this would work like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>tf workspace <span style="color:#66d9ef">select</span> &lt;workspace&gt;
+</span></span></code></pre></div><p>And we would also love to have a way of creating new workspaces easily. This
+should come in the form of:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>tf workspace new production
+</span></span></code></pre></div><p>With this somewhat flexible specification, we set our hands into coding!</p>
+<h2 id="implementation-and-test-driven-development">Implementation and Test-Driven Development</h2>
+<p>So how did we do it? First, we had to choose a language. After several
+discussions, we decided to go with Ruby. Why? Because I had never done an
+operations script using it. Most of the time when I have a task like this one,
+I default to Python. So it was basically a “getting out of your comfort zone”
+thing, even though I had already done Ruby on Rails development.</p>
+<p>There are many other benefits of using Ruby. Handling arrays is extremely easy,
+and the test framework ecosystem is pretty evolved.</p>
+<p>Since we were using an interpreted language, doing Test-Driven Development was
+almost an obligation. It allowed us to be sure of what we were building step by
+step, and to have a certain level of confidence on what we were doing.
+Therefore, we completely built the wrapper using it. It’s pretty rad, because
+you can see in our test file how we progressively added features and our whole
+thinking process.</p>
+<p>We had to make some choices. The core functionality of our wrapper was the
+ability to go through a set of folders in a certain order and apply Terraform
+commands inside of each one of them. In order to do this, we had two choices:</p>
+<ul>
+<li>Mock every single directory changing task, knowing beforehand that we
+actually had to run assertions on the order of the visited directories, which
+adds complexity to the mocking procedure.</li>
+<li>Create mock directory structures that correspond to the cases that we’re
+trying to test. With this strategy, we would no longer be doing Unit Tests,
+but rather Integration Tests (which is fine, sometimes), as we would be using
+actual directories on the filesystem.</li>
+</ul>
+<p>First, we started our code using the first strategy, since it seemed cleaner
+and stricter.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span>    subject { wrapper<span style="color:#f92672">.</span>get_layers }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    before <span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>      allow(wrapper)<span style="color:#f92672">.</span>to receive(<span style="color:#e6db74">:list_dirs</span>)<span style="color:#f92672">.</span>and_return(list_dirs)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    context <span style="color:#e6db74">&#39;when current directory is not a terraform dir&#39;</span> <span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>      let(<span style="color:#e6db74">:result</span>) { <span style="color:#f92672">[</span><span style="color:#e6db74">&#39;00_network&#39;</span>, <span style="color:#e6db74">&#39;01_vm&#39;</span>, <span style="color:#e6db74">&#39;02_dns&#39;</span><span style="color:#f92672">]</span> }
+</span></span><span style="display:flex;"><span>      let(<span style="color:#e6db74">:list_dirs</span>) { <span style="color:#f92672">[</span><span style="color:#e6db74">&#39;00_network/.terraform/&#39;</span>, <span style="color:#e6db74">&#39;01_vm/.terraform/&#39;</span>, <span style="color:#e6db74">&#39;02_dns/.terraform/&#39;</span><span style="color:#f92672">]</span> }
+</span></span><span style="display:flex;"><span>      it { is_expected<span style="color:#f92672">.</span>to eq result }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    context <span style="color:#e6db74">&#39;when current directory is a terraform dir&#39;</span> <span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>      let(<span style="color:#e6db74">:result</span>) { <span style="color:#f92672">[</span><span style="color:#e6db74">&#39;.&#39;</span>, <span style="color:#e6db74">&#39;00_network&#39;</span>, <span style="color:#e6db74">&#39;01_vm&#39;</span>, <span style="color:#e6db74">&#39;02_dns&#39;</span><span style="color:#f92672">]</span> }
+</span></span><span style="display:flex;"><span>      let(<span style="color:#e6db74">:list_dirs</span>) { <span style="color:#f92672">[</span><span style="color:#e6db74">&#39;.terraform&#39;</span>, <span style="color:#e6db74">&#39;00_network/.terraform/&#39;</span>, <span style="color:#e6db74">&#39;01_vm/.terraform/&#39;</span>, <span style="color:#e6db74">&#39;02_dns/.terraform/&#39;</span><span style="color:#f92672">]</span> }
+</span></span><span style="display:flex;"><span>      it { is_expected<span style="color:#f92672">.</span>to eq result }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>Over time, we saw that the mock structures were becoming really complex, and
+that it did not allow us to easily understand which case (or directory
+structure) we were testing. Also, we needed to be able to test the order in
+which the directories were being listed, which wasn’t that easy using the first
+method.</p>
+<p>Therefore, we refactored our code and went for the second approach, and created
+different directory structures for different test scenarios. The directory
+structures can be seen in the GitHub repository itself, but they look like
+this:</p>
+<pre tabindex="0"><code>▾ terraform_tests/
+  ▾ test_flat/
+    ▸ .terraform/
+    ▸ modules/
+    ▸ terraform.tfstate.d/
+      config.tf
+      prod.tfvars
+  ▾ test_flat_no_var_file/
+    ▸ .terraform/
+    ▸ terraform.tfstate.d/
+      config.tf
+  ▾ test_layers/
+    ▸ 00_rg/
+    ▸ 01_network/
+    ▸ 02_vms/
+    ▸ modules/
+      dev.tfvars
+      prod.tfvars
+</code></pre><p>Another interesting thing we did, in order to be able to test the order in
+which the different directories were swept through, was that we mocked the
+Terraform binary itself, like so:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Terraform</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">run</span> params
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">File</span><span style="color:#f92672">.</span>open(<span style="color:#e6db74">&#39;/tmp/terraform_mock_output&#39;</span>, <span style="color:#e6db74">&#39;a&#39;</span>) <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>file<span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span>      file<span style="color:#f92672">.</span>puts(<span style="color:#66d9ef">Dir</span><span style="color:#f92672">.</span>getwd)
+</span></span><span style="display:flex;"><span>      file<span style="color:#f92672">.</span>puts(params)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>Needless to say, this mocked binary implementation was tested too. We used it
+to write the directory in which Terraform was launched and the parameters that
+were used when Terraform was called into a temporary file.  We then ran
+assertions on this file in order to test all our use cases. This solution
+allowed us to keep the code simple, and enabled easy scenario additions  by
+simply creating the required directory structure in the <code>terraform_tests</code>
+directory. Maintainability for the win!</p>
+<h2 id="installation">Installation</h2>
+<p>Just <a href="https://github.com/sebiwi/terraform-wrapper">clone the project</a>, and symlink the <code>tf.rb</code> file somewhere in your
+path, like so:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ln -s &lt;terraform_wrapper_directory&gt;/tf.rb /usr/local/bin/tf
+</span></span></code></pre></div><p>Remember to use the full path to your terraform-wrapper’s directory.</p>
+<h2 id="final-thoughts">Final thoughts</h2>
+<p>We had a lot of fun coding this thing. It allowed us to go back to classic
+development for a while, which is something we don’t have the opportunity of
+doing often enough, while working in Operations.</p>
+<p>People usually say that it is impossible to bring Software Craftsmanship
+practices to Operations. This is a common misconception, and we hope that
+people that work in the same domain as us start moving in the same direction as
+we do. Code is code!</p>
+<p>Most people would have written a Bash script. We’ve all done it. The thing is
+that Bash is a quirky language. It has a ton of non-usual behaviors, and it is
+rarely tested, which makes adding features to the script a really painful
+process. This is a problem for maintainability, and we created a critical tool
+for our workflow. We can’t afford to be blocked in its development. That’s why
+we choose not to do Bash anymore. We’re firm believers that we can do better,
+and that we must therefore do better. To do otherwise is to create limitations
+for ourselves.</p>
+<p>I hope you had fun reading this. We sure had fun writing it!</p>
+<p>See you next time!</p>
+
+        </div>
+
+        
+<nav class="post-navigation">
+    
+    <a href="/blog/ansible-container-chronicle-of-a-death-foretold/" class="post-nav-prev">
+        <span class="post-nav-label">&laquo; Previous</span>
+        <span class="post-nav-title">Ansible Container: Chronicle of a death foretold</span>
+    </a>
+    
+
+    
+    <a href="/blog/on-operations-devops-and-soft-skills/" class="post-nav-next">
+        <span class="post-nav-label">Next &raquo;</span>
+        <span class="post-nav-title">On Operations, DevOps and soft skills</span>
+    </a>
+    
+</nav>
+
+
+
+        
+        
+
+<section class="related-posts">
+    <h3>Related Posts</h3>
+    <div class="related-grid">
+        
+        <article class="related-card">
+            <a href="/blog/the-wizard-scenarios/">
+                <h4>The Wizard: Scenarios</h4>
+                <time datetime="2018-06-07">
+                    Jun 07, 2018
+                </time>
+            </a>
+        </article>
+        
+        <article class="related-card">
+            <a href="/blog/the-wizard-side-effects/">
+                <h4>The Wizard: Side effects</h4>
+                <time datetime="2018-02-21">
+                    Feb 21, 2018
+                </time>
+            </a>
+        </article>
+        
+        <article class="related-card">
+            <a href="/blog/the-wizard-ansible-molecule-and-test-driven-development/">
+                <h4>The Wizard: Ansible, Molecule and Test Driven Development</h4>
+                <time datetime="2017-11-20">
+                    Nov 20, 2017
+                </time>
+            </a>
+        </article>
+        
+    </div>
+</section>
+
+
+        
+
+        
+        <aside class="author-info">
+    <img src="/images/profile.jpg" alt="Sebiwi" class="author-avatar">
+    <div class="author-details">
+        <h4 class="author-name">Sebiwi</h4>
+        <p class="author-bio">Tech, fun, and cookies</p>
+        <div class="social-links">
+    
+    <a href="https://twitter.com/sebiwicb" target="_blank" rel="noopener" aria-label="Twitter">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+        </svg>
+    </a>
+    
+
+    
+    <a href="https://github.com/sebiwi" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+        </svg>
+    </a>
+    
+
+    
+    <a href="mailto:contact.sebiwi@gmail.com" aria-label="Email">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+        </svg>
+    </a>
+    
+</div>
+
+    </div>
+</aside>
+
+        
+    </div>
+</article>
+
+    </main>
+
+    <footer class="site-footer">
+    <div class="container">
+        <div class="social-links">
+    
+    <a href="https://twitter.com/sebiwicb" target="_blank" rel="noopener" aria-label="Twitter">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+        </svg>
+    </a>
+    
+
+    
+    <a href="https://github.com/sebiwi" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+        </svg>
+    </a>
+    
+
+    
+    <a href="mailto:contact.sebiwi@gmail.com" aria-label="Email">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+        </svg>
+    </a>
+    
+</div>
+
+        <p class="copyright">&copy; 2025 Sebiwi</p>
+    </div>
+</footer>
+
+
+    
+    <script src="/js/animations.js"></script>
+    
+</body>
+</html>

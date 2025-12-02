@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Aws on Sebiwi</title>
+    <link>http://localhost:1313/tags/aws/</link>
+    <description>Recent content in Aws on Sebiwi</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 01 May 2017 20:19:02 +0100</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/aws/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Enforcing strict EC2 instance tagging policies with Lambda</title>
+      <link>http://localhost:1313/blog/enforcing-strict-ec2-instance-tagging-policies-with-lambda/</link>
+      <pubDate>Mon, 01 May 2017 20:19:02 +0100</pubDate>
+      <guid>http://localhost:1313/blog/enforcing-strict-ec2-instance-tagging-policies-with-lambda/</guid>
+      <description>&lt;h2 id=&#34;tldr&#34;&gt;TL;DR&lt;/h2&gt;&#xA;&lt;p&gt;I coded something in order to enforce strict tagging policies on AWS EC2 instances using&#xA;Python and a bunch of AWS services (Lambda, Cloudtrail, SNS, and S3). &lt;strong&gt;If you keep reading,&#xA;I’m going to talk to you about AWS Lambda and Serverless computing, or FaaS (Function as a service).&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;You can check the source code and permission related template files here:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;https://github.com/sebiwi/broom&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;If you want to use it, create a Cloudtrail trail, activate it on every region, create an S3 bucket&#xA;to store the Cloudtrail logs, create a SNS topic for notifications, create a Lambda function using&#xA;the Python code (adapted to your resources and use case), an IAM role using the policy that comes&#xA;with it, and finally activate events from the S3 bucket to the Lambda function on object creation.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tips and Tricks on Sebiwi</title>
+    <link>http://localhost:1313/tags/tips-and-tricks/</link>
+    <description>Recent content in Tips and Tricks on Sebiwi</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 04 Mar 2017 10:50:02 +0100</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/tips-and-tricks/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>fpaste-cli: Share content with magic and style</title>
+      <link>http://localhost:1313/blog/fpaste-cli-share-content-with-magic-and-style/</link>
+      <pubDate>Sat, 04 Mar 2017 10:50:02 +0100</pubDate>
+      <guid>http://localhost:1313/blog/fpaste-cli-share-content-with-magic-and-style/</guid>
+      <description>&lt;h2 id=&#34;hey-people&#34;&gt;Hey people,&lt;/h2&gt;&#xA;&lt;p&gt;I hacked something together in order to highlight text and send it automatically to fpaste, then&#xA;put the fpaste link in your clipboard automatically.&lt;/p&gt;&#xA;&lt;h2 id=&#34;why&#34;&gt;Why?&lt;/h2&gt;&#xA;&lt;p&gt;Well, I just happen to share a lot of content (code snippets, application or middleware logs, ASCII&#xA;art, you name it!) with other people using both fpaste and pastebin. It makes it easier to read&#xA;text when trying to debug something.&lt;/p&gt;&#xA;&lt;p&gt;Basically, I really dislike this format:&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
