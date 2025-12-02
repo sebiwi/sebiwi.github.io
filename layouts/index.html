@@ -1,0 +1,19 @@
+{{ define "main" }}
+<div class="home-page">
+    <div class="container">
+        <div class="profile">
+            <img src="{{ .Site.Params.picture }}" alt="{{ .Site.Params.name }}" class="profile-image">
+            <h1>{{ .Site.Params.name }}</h1>
+            <p class="bio">{{ .Site.Params.bio }}</p>
+        </div>
+
+        <nav class="home-nav">
+            <a href="/blog/" class="home-nav-link">Blog</a>
+            <a href="/comics/" class="home-nav-link">Comics</a>
+            <a href="/tags/" class="home-nav-link">Tags</a>
+        </nav>
+
+        {{ partial "social-links.html" . }}
+    </div>
+</div>
+{{ end }}
