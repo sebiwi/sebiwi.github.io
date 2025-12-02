@@ -284,11 +284,12 @@ main {
 }
 
 .social-links svg {
-  width: 20px;
-  height: 20px;
+  width: 17px;
+  height: 17px;
   fill: #000;
-  stroke: #000;
+  stroke: none;
   transition: all 0.3s ease;
+  margin: 7px auto;
 }
 
 /* ========================================
@@ -311,27 +312,31 @@ main {
 .profile-image {
   width: 125px;
   height: 125px;
-  border-radius: 50%;
-  margin: 0 auto var(--spacing-md);
+  border-radius: 100%;
+  margin: 0 auto 25px;
   display: block;
+  box-shadow: 0;
+  opacity: 1;
   transition: opacity 0.3s ease, box-shadow 0.3s ease;
 }
 
 .profile-image:hover {
   opacity: 0.8;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0px 4px 0 rgba(0, 0, 0, 0.18), 0 0px 12px 0 rgba(0, 0, 0, 0.15);
 }
 
 .profile-title {
   font-size: var(--font-size-xxlarge);
-  margin-bottom: var(--spacing-xs);
+  margin: 0 0 13px;
   font-weight: 700;
 }
 
 .profile-bio {
   font-size: 1.85rem;
+  font-weight: 300;
   color: #aaa;
-  margin-bottom: var(--spacing-md);
+  width: 70%;
+  margin: 0 auto 30px;
 }
 
 .profile .social-links {
@@ -347,22 +352,24 @@ main {
 }
 
 .breaker::before {
-  content: "•";
+  content: "";
   position: absolute;
-  top: -8px;
+  top: -4px;
   left: 50%;
   transform: translateX(-50%);
-  color: #aaa;
+  width: 7px;
+  height: 7px;
+  border: 1px solid #ededed;
+  border-radius: 3px;
   background-color: var(--color-background);
-  padding: 0 10px;
-  font-size: 1.3rem;
 }
 
 .home-nav {
   display: flex;
   gap: var(--spacing-md);
   justify-content: center;
-  margin: 2.5rem 0;
+  margin-top: 40px;
+  text-align: center;
   flex-wrap: wrap;
 }
 
@@ -388,22 +395,9 @@ main {
   text-align: center;
   font-size: 1.3rem;
   color: #aaa;
-  padding: 2.5rem 0;
-  margin: 2.5rem 0 0;
+  padding: 40px 0;
+  margin: 40px 0 0;
   border-top: 1px solid #ededed;
-  position: relative;
-}
-
-.site-footer-home::before {
-  content: "";
-  position: absolute;
-  top: -5px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background-color: #aaa;
 }
 
 .site-footer-home p {
@@ -411,13 +405,14 @@ main {
 }
 
 .site-footer-home .rss-link {
-  color: var(--color-accent);
-  text-decoration: underline;
-  transition: color 0.2s ease;
+  color: #222;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
 }
 
 .site-footer-home .rss-link:hover {
-  color: var(--color-accent-hover);
+  border-color: #aaa;
 }
 
 /* Staggered fade-in animations */
