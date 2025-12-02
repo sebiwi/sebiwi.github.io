@@ -255,3 +255,42 @@ main {
   font-size: var(--font-size-small);
   margin: 0;
 }
+
+/* ========================================
+   Social Links
+   ======================================== */
+
+.social-links {
+  display: flex;
+  gap: var(--spacing-sm);
+  justify-content: center;
+}
+
+.social-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  transition: all var(--transition-speed) var(--transition-easing);
+}
+
+.social-links a:hover {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  transform: translateY(-2px);
+}
+
+.social-links a:hover svg {
+  stroke: white;
+}
+
+.social-links svg {
+  width: 20px;
+  height: 20px;
+  stroke: var(--color-text);
+  transition: stroke var(--transition-speed) var(--transition-easing);
+}
