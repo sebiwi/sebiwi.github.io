@@ -1,0 +1,23 @@
+{{ define "main" }}
+<div class="list-page">
+    <div class="container">
+        <h1 class="page-title">{{ .Title }}</h1>
+
+        {{ if .Content }}
+        <div class="page-content">
+            {{ .Content }}
+        </div>
+        {{ end }}
+
+        <div class="post-grid">
+            {{ range .Pages }}
+            {{ partial "post-card.html" . }}
+            {{ end }}
+        </div>
+
+        {{ if eq (len .Pages) 0 }}
+        <p class="no-posts">Nothing published yet!</p>
+        {{ end }}
+    </div>
+</div>
+{{ end }}
