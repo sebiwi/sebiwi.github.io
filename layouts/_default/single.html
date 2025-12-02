@@ -1,0 +1,47 @@
+{{ define "main" }}
+<article class="post">
+    <div class="container">
+        <header class="post-header">
+            {{ if and .Params.image (eq .Section "comics") }}
+            <img class="post-image" src="{{ .Params.image }}" alt="{{ .Title }}">
+            {{ end }}
+
+            <h1 class="post-title">{{ .Title }}</h1>
+
+            <div class="post-meta">
+                <time datetime="{{ .Date.Format "2006-01-02" }}">
+                    {{ .Date.Format "Monday, January 02, 2006" }}
+                </time>
+
+                {{ if .Site.Params.showReadTime }}
+                <span class="read-time">{{ math.Round (div (countwords .Content) 220.0) }} min read</span>
+                {{ end }}
+            </div>
+
+            {{ if .Site.Params.showTags }}
+            {{ with .Params.tags }}
+            <div class="post-tags">
+                {{ range . }}
+                <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="tag">{{ . }}</a>
+                {{ end }}
+            </div>
+            {{ end }}
+            {{ end }}
+        </header>
+
+        <div class="post-content">
+            {{ .Content }}
+        </div>
+
+        {{ partial "post-navigation.html" . }}
+
+        {{ if .Site.Params.showRelated }}
+        {{ partial "related.html" . }}
+        {{ end }}
+
+        {{ if .Site.Params.showAuthor }}
+        {{ partial "author.html" . }}
+        {{ end }}
+    </div>
+</article>
+{{ end }}
