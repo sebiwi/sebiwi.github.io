@@ -1,10 +1,18 @@
 {{ if not .IsHome }}
 <header class="site-header">
     <div class="container">
-        <a href="/" class="site-title">{{ .Site.Title }}</a>
-        <nav class="site-nav">
-            <a href="/blog/">Blog</a>
+        <a href="/" class="header-home-link">
+            <img src="{{ .Site.Params.picture }}" alt="{{ .Site.Title }}" class="header-logo">
+            <span class="header-title">{{ .Site.Title }}</span>
+        </a>
+        <nav class="header-nav">
+            <a href="/">Home</a>
+            {{ if ne .Section "comics" }}
             <a href="/comics/">Comics</a>
+            {{ end }}
+            {{ if ne .Section "blog" }}
+            <a href="/blog/">Blog</a>
+            {{ end }}
         </nav>
     </div>
 </header>

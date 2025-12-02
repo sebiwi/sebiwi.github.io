@@ -1,21 +1,16 @@
 {{ define "main" }}
 <div class="list-page">
     <div class="container">
-        <div class="profile">
-            <img src="{{ .Site.Params.picture }}" alt="{{ .Site.Params.name }}" class="profile-image fade-in-element">
-            <h1 class="profile-title fade-in-element">{{ .Site.Params.name }}</h1>
-            <p class="profile-bio fade-in-element">{{ .Site.Params.bio }}</p>
-        </div>
-
-        <div class="profile-social fade-in-element">
+        <div class="profile fade-in-element">
+            <img src="{{ .Site.Params.picture }}" alt="{{ .Site.Params.name }}" class="profile-image">
+            <h1 class="profile-title">{{ .Site.Params.name }}</h1>
+            <p class="profile-bio">{{ .Site.Params.bio }}</p>
             {{ partial "social-links.html" . }}
         </div>
 
-        <hr class="separator fade-in-element">
+        <div class="breaker fade-in-element">• • •</div>
 
-        <h2 class="section-title fade-in-element">{{ .Title }}</h2>
-
-        <div class="post-grid">
+        <div class="post-grid fade-in-element">
             {{ range .Pages }}
             {{ partial "post-card.html" . }}
             {{ end }}
@@ -25,18 +20,10 @@
         <p class="no-posts">Nothing published yet!</p>
         {{ end }}
 
-        <hr class="separator fade-in-element">
+        <div class="breaker fade-in-element">• • •</div>
 
-        <footer class="home-footer fade-in-element">
-            <span class="signature">Sebiwi</span>
-            <span class="copyright">&copy; {{ now.Year }}</span>
-            <a href="/{{ .Section }}/index.xml" class="rss-icon" title="RSS Feed">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M4 11a9 9 0 0 1 9 9"></path>
-                    <path d="M4 4a16 16 0 0 1 16 16"></path>
-                    <circle cx="5" cy="19" r="1"></circle>
-                </svg>
-            </a>
+        <footer class="site-footer-home fade-in-element">
+            <p>Sebiwi &copy; {{ now.Year }} &middot; <a href="/{{ .Section }}/index.xml" class="rss-link">RSS</a></p>
         </footer>
     </div>
 </div>
