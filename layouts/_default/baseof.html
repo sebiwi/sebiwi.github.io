@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+
+    <title>{{ if .IsHome }}{{ .Site.Title }} - {{ .Site.Params.bio }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- RSS -->
+    {{ range .AlternativeOutputFormats -}}
+        {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+    {{ end -}}
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ end }}">
+    <meta property="og:description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+    <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+    <meta property="og:url" content="{{ .Permalink }}">
+    {{ with .Params.image }}<meta property="og:image" content="{{ . | absURL }}">{{ end }}
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@{{ .Site.Params.social.twitter }}">
+    <meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ end }}">
+    <meta name="twitter:description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+    {{ with .Params.image }}<meta name="twitter:image" content="{{ . | absURL }}">{{ end }}
+
+    <!-- Theme -->
+    <meta name="color-scheme" content="light dark">
+</head>
+<body>
+    {{ partial "header.html" . }}
+
+    <main>
+        {{ block "main" . }}{{ end }}
+    </main>
+
+    {{ partial "footer.html" . }}
+
+    {{ if .Site.Params.animations }}
+    <script src="/js/animations.js"></script>
+    {{ end }}
+</body>
+</html>
