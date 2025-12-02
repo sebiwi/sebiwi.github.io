@@ -656,3 +656,53 @@ main {
     grid-template-columns: 1fr;
   }
 }
+
+/* ========================================
+   Author Info
+   ======================================== */
+
+.author-info {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+  padding: var(--spacing-lg);
+  margin: var(--spacing-xl) 0;
+  background-color: var(--color-surface);
+  border-radius: var(--border-radius);
+}
+
+.author-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.author-details {
+  flex: 1;
+}
+
+.author-name {
+  font-size: var(--font-size-large);
+  margin-bottom: var(--spacing-xs);
+}
+
+.author-bio {
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-sm);
+}
+
+.author-info .social-links {
+  justify-content: flex-start;
+}
+
+@media (max-width: 600px) {
+  .author-info {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .author-info .social-links {
+    justify-content: center;
+  }
+}
