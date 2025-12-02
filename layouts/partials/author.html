@@ -1,0 +1,8 @@
+<aside class="author-info">
+    <img src="{{ .Site.Params.picture }}" alt="{{ .Site.Params.name }}" class="author-avatar">
+    <div class="author-details">
+        <h4 class="author-name">{{ .Site.Params.name }}</h4>
+        <p class="author-bio">{{ .Site.Params.bio }}</p>
+        {{ partial "social-links.html" . }}
+    </div>
+</aside>
