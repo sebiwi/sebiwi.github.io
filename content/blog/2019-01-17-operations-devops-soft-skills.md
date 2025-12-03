@@ -6,7 +6,7 @@ tags:
 author: sebiwi
 ---
 
-## Let’s talk about communication for a bit.
+## Let’s talk about communication for a bit
 
 One of the most interesting roles I’ve had to fulfill the last couple of years
 has been the “Operations guy working as a part of a Development team”. This is
@@ -20,7 +20,6 @@ middleware configuration for team B, application deployment for team C), it
 made sense for management to group people into teams using their skillset as
 sorting criteria... you name it. In the end, most interactions between
 Development teams and Operation teams happened through ticketing systems.
-
 
 ![Effective communication](/images/soft-skills/effective-communication.jpg)
 <figcaption class="caption">Effective communication</figcaption>
@@ -124,8 +123,8 @@ doing so.
 More often than not, people on your team will have questions regarding your
 field of expertise.  Discussions will be held on subjects you know in depth. A
 lot of terms will be thrown around: availability, redundancy, stress testing,
-    building and deployment. Once again, **if they know everything there is to know
-    about these subjects, that’s a good thing too**. Either way, you might want to
+building and deployment. Once again, **if they know everything there is to know
+about these subjects, that’s a good thing too**. Either way, you might want to
 step in and catalyze the discussion.
 
 ![Individuals and interactions overs processes and tools](/images/comics/2018-01-29-communication.jpg)

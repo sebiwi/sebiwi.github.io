@@ -7,7 +7,7 @@ tags:
 author: sebiwi
 ---
 
-## I understand the SDN-related issues. Tell me about Infrastructure as Code already!
+## I understand the SDN-related issues. Tell me about Infrastructure as Code already
 
 Alright. Whenever I think about automating the creation of a platform or an application
 using [Infrastructure as Code][1], I think about three different stages: provisioning,
@@ -39,8 +39,7 @@ distribution that uses containers to run applications. This is a game changer if
 standard Linux distributions, in which you install packages using a package manager. This thing
 doesn't even have a package manager.
 
-![CoreOS package manager](/images/how-does-it-work-kube/3/coreos-package-manager.png){: class="bigger-image" }
-<figcaption class="caption">Now what?!</figcaption>
+{{< figure src="/images/how-does-it-work-kube/3/coreos-package-manager.png" class="bigger-image" alt="CoreOS package manager" caption="Now what?!" >}}
 
 It just ships with the basic GNU Core Utilities so you can move around, and then some tools
 that will come in handy for our quest. These include [Kubelet][3], [Docker][4], [etcd][5] and [flannel][6].
@@ -93,7 +92,7 @@ your roles on the newly created infrastructure, and then it destroys the infrast
 also checks for a whole range of other things, like syntax, code quality and impotence,
 so it's pretty well adapted for what we're trying to do here.
 
-![Molecule logo](/images/how-does-it-work-kube/3/molecule-logo.png){: .center-image width="360px" }
+![Molecule logo](/images/how-does-it-work-kube/3/molecule-logo.png)
 <figcaption class="caption">It's an actual molecule!</figcaption>
 
 There are 3 main Molecule drivers: Docker, OpenStack and Vagrant. I usually use the Docker
@@ -108,7 +107,7 @@ The target platform just happens to be Vagrant and VirtualBox. Huh.
 So we're going to test our code on VirtualBox virtual machines launched by Vagrant, which is
 exactly the platform we're using for our project. Great.
 
-## Excellent, just show me the code!
+## Excellent, just show me the code
 
 I could, but I won’t. That’s all for today. I’ll talk to you about the really really fun part in the next article.
 

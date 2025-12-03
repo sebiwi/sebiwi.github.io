@@ -10,7 +10,7 @@ __This article was co-written by the great [Tanguy Patte][1]__.
 
 Alright, story time fellas.
 
-## TL;DR;
+## TL;DR
 
 We’re working with Terraform, layering and workspaces. This makes the standard
 `terraform workspace select x` pretty cumbersome and dangerous. We wrote a Ruby
@@ -33,10 +33,10 @@ Our first impression when we started using Workspaces was that the name itself
 (Workspaces) wasn’t clear enough. If you have the same feeling, please read the
 following paragraph from the Terraform documentation:
 
-> ***In the 0.9 line of Terraform releases, this concept was known as
+> *__In the 0.9 line of Terraform releases, this concept was known as
 > "environment". It was renamed in 0.10 based on feedback about confusion
 > caused by the overloading of the word "environment" both within Terraform
-> itself and within organizations that use Terraform.***
+> itself and within organizations that use Terraform.__*
 
 So that’s that (shrug).
 
@@ -112,10 +112,10 @@ Using references to the previous layer, using [Data Sources][4].
 
 Once again, from the Terraform documentation:
 
-> ***Data sources allow data to be fetched or computed for use elsewhere in
+> *__Data sources allow data to be fetched or computed for use elsewhere in
 > Terraform configuration. Use of data sources allows a Terraform configuration
 > to build on information defined outside of Terraform, or defined by another
-> separate Terraform configuration.***
+> separate Terraform configuration.__*
 
 The use of layering has many advantages:
 
@@ -302,6 +302,7 @@ thinking process.
 We had to make some choices. The core functionality of our wrapper was the
 ability to go through a set of folders in a certain order and apply Terraform
 commands inside of each one of them. In order to do this, we had two choices:
+
 * Mock every single directory changing task, knowing beforehand that we
   actually had to run assertions on the order of the visited directories, which
   adds complexity to the mocking procedure.
@@ -425,7 +426,6 @@ for ourselves.
 I hope you had fun reading this. We sure had fun writing it!
 
 See you next time!
-
 
 [1]: https://blog.octo.com/author/tanguy-patte-tpa/
 [2]: https://github.com/sebiwi/terraform-wrapper

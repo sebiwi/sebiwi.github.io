@@ -9,7 +9,7 @@ author: sebiwi
 
 _This post was co-written by the amazing Pierre-Yves Napoly._
 
-## Hey everybody!
+## Hey everybody
 
 After reading both the Kubernetes and Docker “How does it work?” series, I
 suess you can’t wait to transform your old-school infrastructure and put
@@ -41,17 +41,17 @@ previous situations you should probably take a look at Volumes.
 
 A volume can be defined in many ways. Kubernetes says that:
 
-_“At its core, a volume is just a directory, possibly with some data in it,
-which is accessible to the containers in a pod. How that directory comes to be,
-the medium that backs it, and the contents of it are determined by the
-particular volume type used.”_
+> “At its core, a volume is just a directory, possibly with some data in it,
+> which is accessible to the containers in a pod. How that directory comes to be,
+> the medium that backs it, and the contents of it are determined by the
+> particular volume type used.”
 
 Whereas Docker says that:
 
-_“Volumes are directories that are stored outside of the container’s filesystem
-and which hold reusable and shareable data that can persist even when
-containers are terminated. This data can be reused by the same service on
-redeployment, or shared with other services.”_
+> “Volumes are directories that are stored outside of the container’s filesystem
+> and which hold reusable and shareable data that can persist even when
+> containers are terminated. This data can be reused by the same service on
+> redeployment, or shared with other services.”
 
 Even if Docker and Kubernetes use different words to define them, we can see
 that the two concepts are really similar and in both cases volumes serve the
@@ -257,14 +257,7 @@ From what I’ve seen so far, this is the best way to handle volumes with Swarm.
 Note that you’ll have to implement your own regular backup policy for the
 volume on the storage provider. But this will be outside of Docker Swarm scope.
 
-
-EMBEDED VIDEO: https://asciinema.org/a/NtXVkycNrBhWzfQUjHWUFRDfM
-
-<script type="text/javascript"
-src="https://asciinema.org/a/NtXVkycNrBhWzfQUjHWUFRDfM.js"
-id="asciicast-NtXVkycNrBhWzfQUjHWUFRDfM" async></script>
-
-## Wow, that was great!
+## Wow, that was great
 
 Yeah, it is indeed pretty cool. We got to see what is a volume, how to use it,
 and what should we use them for. We also know now how both Kubernetes and Swarm
@@ -274,7 +267,7 @@ procedure used to mount and use volumes is not exactly the same for the two of
 them, you can see that the abstractions match in a certain way. Great minds
 think alike, don’t they?
 
-### Anyway, TL;DR:
+### Anyway, TL;DR
 
 - Map volumes to you containers to ensure data persistency
 - Use volumes on platform storage such as Amazon EBS or GCE Persistent Disk rather than local volumes

@@ -154,9 +154,11 @@ img {
 code {
   font-family: var(--font-mono);
   font-size: 0.85em;
-  background-color: var(--color-surface);
+  background-color: rgba(187, 154, 247, 0.1);
   padding: 0.2em 0.4em;
   border-radius: 3px;
+  border: 1px solid rgba(187, 154, 247, 0.3);
+  color: #8b7a9a;
 }
 
 .highlight {
@@ -269,12 +271,13 @@ pre code {
 }
 
 blockquote {
-  border-left: 3px solid var(--color-accent);
+  border-left: 3px solid #bb9af7;
   padding-left: var(--spacing-sm);
   margin-left: 0;
   margin-bottom: var(--spacing-sm);
   font-style: italic;
   color: var(--color-text-light);
+  font-size: 0.9em;
 }
 
 /* ========================================
@@ -300,6 +303,23 @@ main {
 
 .bigger-image {
   max-width: 100%;
+  width: 100%;
+}
+
+.post-content .bigger-image {
+  max-width: 170%;
+  width: 170%;
+  margin-left: -35%;
+  margin-right: -35%;
+}
+
+@media (max-width: 768px) {
+  .post-content .bigger-image {
+    max-width: 100%;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
 }
 
 /* ========================================
@@ -641,6 +661,7 @@ main {
 .post-content {
   max-width: 880px;
   margin: 0 auto var(--spacing-md);
+  text-align: justify;
 }
 
 .post-content p {

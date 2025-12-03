@@ -7,7 +7,7 @@ tags:
 author: sebiwi
 ---
 
-## Let’s install our Master node!
+## Let’s install our Master node
 
 Absolutely.
 
@@ -23,12 +23,10 @@ In order to configure Flannel, we just add configuration environment variables u
 `/etc/flannel/options.env`. These specify that the flannel interface is this node's public
 IP, and that the cluster configuration is stocked in etcd cluster:
 
-{% raw %}
-
-    FLANNELD_IFACE={{ ansible_env.COREOS_PUBLIC_IPV4 }}
-    FLANNELD_ETCD_ENDPOINTS={{ etcd_endpoints }}
-
-{% endraw %}
+```
+FLANNELD_IFACE={{ ansible_env.COREOS_PUBLIC_IPV4 }}
+FLANNELD_ETCD_ENDPOINTS={{ etcd_endpoints }}
+```
 
 <figcaption class="caption"><a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/roles/configure/kube-master/templates/etc_flannel_options.env.j2">/etc/flannel/options.env</a></figcaption>
 
@@ -36,8 +34,11 @@ Then, we add a system-drop in (a method for adding or overriding parameters of a
 unit) for flannel, in which we specify that we want to use the configuration specified
 above when the service launches:
 
-    [Service]
-    ExecStartPre=/usr/bin/ln -sf /etc/flannel/options.env /run/flannel/options.env
+```
+
+[Service]
+ExecStartPre=/usr/bin/ln -sf /etc/flannel/options.env /run/flannel/options.env
+```
 
 <figcaption class="caption"><a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/roles/configure/kube-master/templates/etc_systemd_system_flanneld.service.d_40-ExecStartPre-symlink.conf.j2">/etc/systemd/system/flanneld.service.d/40-ExecStartPre-symlink.conf</a></figcaption>
 
@@ -57,8 +58,6 @@ After=flanneld.service
 ```
 
 <figcaption class="caption"><a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/roles/configure/kube-master/templates/etc_systemd_system_flanneld.service.d_40-ExecStartPre-symlink.conf.j2">/etc/systemd/system/docker.service.d/40-flannel.conf</a></figcaption>
-
-
 
 Now that the basic requirements are configured, we're going to configure a whole set of components that are
 necessary in order to run a Kubernetes cluster: the kubelet, the Kubernetes Proxy, the Controller
@@ -140,27 +139,25 @@ to the Calico plugin. This might sound convoluted at first, but it is actually d
 so that Calico knows which IP range to use (which is determined before by flannel).
 It's a pretty short configuration so I'll just put it here:
 
-
-
 {% raw %}
 
-    {
-        "name": "calico",
-        "type": "flannel",
-        "delegate": {
-            "type": "calico",
-            "etcd_endpoints": "{{ etcd_endpoints }}",
-            "log_level": "none",
-            "log_level_stderr": "info",
-            "hostname": "{{ ansible_env.COREOS_PUBLIC_IPV4 }}",
-            "policy": {
-                "type": "k8s",
-                "k8s_api_root": "http://127.0.0.1:8080/api/v1/"
-            }
+```json
+{
+    "name": "calico",
+    "type": "flannel",
+    "delegate": {
+        "type": "calico",
+        "etcd_endpoints": "{{ etcd_endpoints }}",
+        "log_level": "none",
+        "log_level_stderr": "info",
+        "hostname": "{{ ansible_env.COREOS_PUBLIC_IPV4 }}",
+        "policy": {
+            "type": "k8s",
+            "k8s_api_root": "http://127.0.0.1:8080/api/v1/"
         }
     }
-
-{% endraw %}
+}
+```
 
 <figcaption class="caption"><a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/roles/configure/kube-master/templates/etc_kubernetes_cni_net.d_10-calico.conf.j2">Easy</a></figcaption>
 
@@ -233,9 +230,8 @@ time you do a kubectl action. Make sure it is executable, too.
 
 After that you can configure it by specifying the certificates and the Master host's URL:
 
-{% highlight yaml %}
-{% raw %}
-
+```yaml
+---
 - name: Verify if kubectl is already configured
   command: kubectl cluster-info
   register: cluster_info
@@ -265,9 +261,7 @@ After that you can configure it by specifying the certificates and the Master ho
   args:
     chdir: "{{ kube_resource_dir }}/ca"
   when: "'Kubernetes master' not in cluster_info.stdout"
-
-{% endraw %}
-{% endhighlight %}
+```
 
 <figcaption class="caption"><a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/roles/configure/kubectl/tasks/main.yml">There is no kube</a></figcaption>
 
@@ -304,23 +298,21 @@ kubectl port-forward kubernetes-dashboard-v.1.4.1-ID 9090 --namespace=kube-sytem
 
 And now, your Kubernetes Dashboard should be accessible on port 9090.
 
-![Kubernetes dashboard](/images/how-does-it-work-kube/5/kube-dashboard.png){: class="bigger-image" }
-<figcaption class="caption">Show me the money!</figcaption>
+{{< figure src="/images/how-does-it-work-kube/5/kube-dashboard.png" class="bigger-image" alt="Kubernetes dashboard" caption="Show me the money!" >}}
 
 Woot! Almost done. Now we only need to test that it works, and that our code is working as intended.
 
 So, `molecule test` says that:
 
-
-![Molecule infra](/images/how-does-it-work-kube/5/molecule-1.png){: class="bigger-image" }
+{{< figure src="/images/how-does-it-work-kube/5/molecule-1.png" class="bigger-image" alt="Molecule infra" >}}
 
 Our infrastructure is created without any hiccups.
 
-![Molecule playbooks](/images/how-does-it-work-kube/5/molecule-2.png){: class="bigger-image" }
+{{< figure src="/images/how-does-it-work-kube/5/molecule-2.png" class="bigger-image" alt="Molecule playbooks" >}}
 
 The playbook runs as intended.
 
-![Molecule lint](/images/how-does-it-work-kube/5/molecule-3.png){: class="bigger-image" }
+{{< figure src="/images/how-does-it-work-kube/5/molecule-3.png" class="bigger-image" alt="Molecule lint" >}}
 
 And that our code is properly linted, and it is idempotent as well!
 
@@ -341,7 +333,7 @@ kubectl create -f guestbook.yml
 
 We can see that the resources are properly created on the Dashboard:
 
-![Molecule lint](/images/how-does-it-work-kube/5/dashboard-guestbook.png){: class="bigger-image" }
+{{< figure src="/images/how-does-it-work-kube/5/dashboard-guestbook.png" class="bigger-image" alt="Dashboard with guestbook" >}}
 
 And then we can even test the application by port-forwarding to the frontend application:
 
@@ -369,7 +361,7 @@ So what did we learn in the end?
 
 ## Final thoughts
 
-Phew, yeah, that was kinda long. Anyways, I hope you had fun. I know I did. Still, I would have loved to 
+Phew, yeah, that was kinda long. Anyways, I hope you had fun. I know I did. Still, I would have loved to
 work on some other things too:
 
 * Use etcd3 instead of etcd2

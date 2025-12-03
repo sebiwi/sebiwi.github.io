@@ -6,7 +6,7 @@ tags:
 author: sebiwi
 ---
 
-## Hey people,
+## Hey people
 
 I hacked something together in order to highlight text and send it automatically to fpaste, then
 put the fpaste link in your clipboard automatically.
@@ -19,7 +19,7 @@ text when trying to debug something.
 
 Basically, I really dislike this format:
 
-![Awful hangouts message](/images/fpaste-cli/awful-message.png){: .center-image width="220px" }
+![Awful hangouts message](/images/fpaste-cli/awful-message.png)
 <figcaption class="caption">Sigh.</figcaption>
 
 It makes me want to rage quit. And then throw my computer out the window.
@@ -27,7 +27,7 @@ What I’ve realised is that people don't use pastebin/fpaste because it takes a
 seconds to open the website, paste the content, click on post, and then share the URL.
 Everyone knows that 13 seconds is way too long in 2017.
 
-## So I just do this instead:
+## So I just do this instead
 
 I highlight the stuff I want to share, I right click it, and then I click on "Send to fpaste".
 
@@ -39,7 +39,7 @@ This is a pretty cool picture by the way. It has send to fpaste, vim, and zebras
 Then, magically, I have an fpaste link on my clipboard, which contains the content I just
 highlighted:
 
-![Send to fpaste result](/images/fpaste-cli/send-to-fpaste-result.png){: class="bigger-image" }
+{{< figure src="/images/fpaste-cli/send-to-fpaste-result.png" class="bigger-image" alt="Send to fpaste result" >}}
 
 Pretty cool huh? And stylish, while at it.
 
@@ -61,7 +61,7 @@ highlighted text to your script as stdin. You can use the one that's already on 
 but you will have to adapt it depending on the location of fpaste.py in your system. You can create
 a symbolic link in your path if you're really diggin' it.
 
-![Service creation](/images/fpaste-cli/service-creation.png){: class="bigger-image" }
+{{< figure src="/images/fpaste-cli/service-creation.png" class="bigger-image" alt="Service creation" >}}
 
 For the script, I didn't wrap the whole API, since I just wanted to get something working fast.
 Maybe I'll do it sometime in the future. You're free to contribute as well if you feel like it.

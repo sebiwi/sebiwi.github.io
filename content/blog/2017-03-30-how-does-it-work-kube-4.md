@@ -80,8 +80,8 @@ I really like Makefiles. I use them quite often when I have write more than one 
 
 ```
 vagrant:
-	@vagrant up
-	@vagrant ssh-config > ssh.config
+ @vagrant up
+ @vagrant ssh-config > ssh.config
 ```
 
 <figcaption class="caption"><a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/Makefile#L5-L7">make: automating your life since 1977</a></figcaption>
@@ -267,14 +267,12 @@ Anyways, configuration is pretty straightforward on the single-node scenario. I 
 configure it to listen on every interface, and then add the advertise client url to
 the etcd unit using environment variables:
 
-{% raw %}
-
-    [Service]
-    {% if groups ['etcd'] | length == 1 %}
-    Environment=ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379
-    Environment=ETCD_ADVERTISE_CLIENT_URLS=http://{{ ansible_env.COREOS_PUBLIC_IPV4 }}:2379
-
-{% endraw %}
+```service
+[Service]
+{% if groups ['etcd'] | length == 1 %}
+Environment=ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379
+Environment=ETCD_ADVERTISE_CLIENT_URLS=http://{{ ansible_env.COREOS_PUBLIC_IPV4 }}:2379
+```
 
 <figcaption class="caption"><a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/roles/configure/etcd/templates/40-listen-address.conf.j2#L2-L6">Straightforward</a></figcaption>
 
@@ -284,22 +282,20 @@ provide a node name, and a cluster token for everything to work. There are other
 like using an existing etcd cluster as a discovery mechanism (but we don't have one at the moment),
 or a [public etcd discovery system][16].
 
+```service
 
-{% raw %}
+{% else %}
+Environment=ETCD_NAME={{ ansible_hostname }}
+Environment=ETCD_INITIAL_ADVERTISE_PEER_URLS=http://{{ hostvars[ansible_hostname]['ansible_env']['COREOS_PUBLIC_IPV4'] }}:2380
+Environment=ETCD_LISTEN_PEER_URLS=http://{{ hostvars[ansible_hostname]['ansible_env']['COREOS_PUBLIC_IPV4'] }}:2380
+Environment=ETCD_LISTEN_CLIENT_URLS=http://{{ hostvars[ansible_hostname]['ansible_env']['COREOS_PUBLIC_IPV4'] }}:2379,http://127.0.0.1:2379
+Environment=ETCD_ADVERTISE_CLIENT_URLS=http://{{ hostvars[ansible_hostname]['ansible_env']['COREOS_PUBLIC_IPV4'] }}:2379
+Environment=ETCD_INITIAL_CLUSTER_TOKEN=etcd-cluster-1
+Environment=ETCD_INITIAL_CLUSTER={% for host in groups['etcd'] %}{{ host }}=http://{{ hostvars[host]['ansible_env']['COREOS_PUBLIC_IPV4'] }}:2380{% if not loop.last %},{% endif %}{% endfor %}
 
-    {% else %}
-    Environment=ETCD_NAME={{ ansible_hostname }}
-    Environment=ETCD_INITIAL_ADVERTISE_PEER_URLS=http://{{ hostvars[ansible_hostname]['ansible_env']['COREOS_PUBLIC_IPV4'] }}:2380
-    Environment=ETCD_LISTEN_PEER_URLS=http://{{ hostvars[ansible_hostname]['ansible_env']['COREOS_PUBLIC_IPV4'] }}:2380
-    Environment=ETCD_LISTEN_CLIENT_URLS=http://{{ hostvars[ansible_hostname]['ansible_env']['COREOS_PUBLIC_IPV4'] }}:2379,http://127.0.0.1:2379
-    Environment=ETCD_ADVERTISE_CLIENT_URLS=http://{{ hostvars[ansible_hostname]['ansible_env']['COREOS_PUBLIC_IPV4'] }}:2379
-    Environment=ETCD_INITIAL_CLUSTER_TOKEN=etcd-cluster-1
-    Environment=ETCD_INITIAL_CLUSTER={% for host in groups['etcd'] %}{{ host }}=http://{{ hostvars[host]['ansible_env']['COREOS_PUBLIC_IPV4'] }}:2380{% if not loop.last %},{% endif %}{% endfor %}
-
-    Environment=ETCD_INITIAL_CLUSTER_STATE=new
-    {% endif %}
-
-{% endraw %}
+Environment=ETCD_INITIAL_CLUSTER_STATE=new
+{% endif %}
+```
 
 <figcaption class="caption"><a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/roles/configure/etcd/templates/40-listen-address.conf.j2#L6-L16">Less straightforward</a></figcaption>
 

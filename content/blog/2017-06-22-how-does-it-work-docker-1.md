@@ -64,8 +64,7 @@ using a key-value data store for service discovery like you needed to do when
 using Swarm Mode Standalone: it is already included in Swarm Mode.
 
 
-![Swarm logo](/images/how-does-it-work-docker/1/swarm.png){: class="bigger-image" }
-<figcaption class="caption">Swarm me up</figcaption>
+{{< figure src="/images/how-does-it-work-docker/1/swarm.png" class="bigger-image" alt="Swarm logo" caption="Swarm me up" >}}
 
 So there’s two of them. Theoretically, Docker has no plans of deprecating Docker
 Swarm Standalone. From the Docker Swarm’s GitHub page:
@@ -107,8 +106,7 @@ languages, and there is also the standard CLI
 - The command-line interface is the primary and most frequently used way of
 communicating with the server
 
-![Engine components](/images/how-does-it-work-docker/1/engine-components-flow.png){: class="bigger-image" }
-<figcaption class="caption"><a href="https://docs.docker.com/engine/docker-overview/#docker-engine">Not your regular engine</a></figcaption>
+{{< figure src="/images/how-does-it-work-docker/1/engine-components-flow.png" class="bigger-image" alt="Engine components" caption="[Not your regular engine](https://docs.docker.com/engine/docker-overview/#docker-engine)" >}}
 
 Basically, you use the CLI to talk and interact with the Docker daemon, through
 the REST API. The daemon then creates all the necessary resources such as

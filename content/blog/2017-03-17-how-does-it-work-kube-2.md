@@ -15,8 +15,7 @@ hosted on different machines can be a little bit tricky. Docker will create by
 default a virtual bridge called “docker0” on the host machine, and it will assign
 a private network range to it.
 
-![Docker bridge](/images/how-does-it-work-kube/2/docker-bridge.png){: class="bigger-image" }
-<figcaption class="caption">Super bridge (172.17.0.1/16)</figcaption>
+{{< figure src="/images/how-does-it-work-kube/2/docker-bridge.png" class="bigger-image" alt="Docker bridge" caption="Super bridge (172.17.0.1/16)" >}}
 
 For each container that is created, a virtual ethernet device is attached to this bridge,
 which is then mapped to eth0 inside the container, with an ip within the aforementioned network range.
@@ -42,11 +41,11 @@ There are many different networking options that offer these capabilities for Ku
 [Nuage Networks][3], [OVN][5], [Project Calico][6], [Romana][7] and [Weave Net][8].
 For this project, we will use the combination of two of these options: Calico and Flannel, or [Canal][9].
 
-## Show me the Canal!
+## Show me the Canal
 
 Alright. Let’s talk about Flannel and Calico then.
 
-![Flannel and Calico](/images/how-does-it-work-kube/2/flannel-calico.jpg){: .center-image width="360px" }
+![Flannel and Calico](/images/how-does-it-work-kube/2/flannel-calico.jpg)
 <figcaption class="caption">Great logos</figcaption>
 
 Flannel allows inter-pod communication between different hosts by providing an overlay software-defined
@@ -67,8 +66,7 @@ arrives to Host Machine B, the encapsulation is removed and the packet is routed
 inner IP address. The flannel configuration regarding the container/Host Machine mapping is stored in etcd.
 The routing is done by a flannel daemon called flanneld.
 
-![Flannel SDN diagram](/images/how-does-it-work-kube/2/flannel-sdn.png){: class="bigger-image" }
-<figcaption class="caption"><a href="https://github.com/coreos/flannel/blob/master/README.md#theory-of-operation">Like this, see?</a></figcaption>
+{{< figure src="/images/how-does-it-work-kube/2/flannel-sdn.png" class="bigger-image" alt="Flannel SDN diagram" caption="[Like this, see?](https://github.com/coreos/flannel/blob/master/README.md#theory-of-operation)" >}}
 
 Calico secures this overlay network, restricting traffic between the pods based on a fine-grained network policy.
 As I said before, the default Kubernetes behaviour is to allow traffic from all sources inside or outside the
