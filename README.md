@@ -29,7 +29,7 @@ Visit <http://localhost:1313>
 
 ## Deployment
 
-Site automatically deploys to GitHub Pages via GitHub Actions when pushing to the `source` branch.
+Site automatically deploys to GitHub Pages via GitHub Actions when pushing to the `main` branch.
 
 The workflow:
 
