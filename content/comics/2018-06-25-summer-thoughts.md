@@ -5,6 +5,6 @@ tags:
 - comics
 author: sebiwi
 image: /images/comics/2018-06-25-summer-thoughts.jpg
+alt: "I aways have multiple threads in my head, thinking about the most random stuff on every single situation."
 ---
 
-![I aways have multiple threads in my head, thinking about the most random stuff on every single situation.]({{ .Params.image }}){: class="bigger-image" }

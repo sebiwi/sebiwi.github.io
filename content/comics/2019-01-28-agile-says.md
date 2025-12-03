@@ -5,6 +5,6 @@ tags:
 - comics
 author: sebiwi
 image: /images/comics/2019-01-28-agile-says.jpg
+alt: "It's funny to hear people say 'Agile says'. It's like there are rules to follow."
 ---
 
-![It's funny to hear people say "Agile says". It's like there are rules to follow.]({{ .Params.image }})

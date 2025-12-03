@@ -5,6 +5,6 @@ tags:
 - comics
 author: sebiwi
 image: /images/comics/2017-12-04-we-devops-now.jpg
+alt: "I'll create a new DevOps team between Dev and Ops in order to increase inter-communication."
 ---
 
-![I'll create a new DevOps team between Dev and Ops in order to increase inter-communication.]({{ .Params.image }}){: class="bigger-image" }

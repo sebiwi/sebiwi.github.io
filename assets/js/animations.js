@@ -1,7 +1,7 @@
 // Fade-in animations on scroll
 document.addEventListener('DOMContentLoaded', () => {
   // Elements to animate
-  const animateElements = document.querySelectorAll('.post-card, .related-card, .post-content img');
+  const animateElements = document.querySelectorAll('.fade-in-element, .post-card, .post-content img');
 
   // Intersection Observer options
   const options = {

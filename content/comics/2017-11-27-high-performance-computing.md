@@ -5,6 +5,6 @@ tags:
 - comics
 author: sebiwi
 image: /images/comics/2017-11-27-high-performance-computing.jpg
+alt: "(Computer burns) Are you compiling the linux kernel? Nah, just running intellij."
 ---
 
-![(Computer burns) Are you compiling the linux kernel? Nah, just running intellij.]({{ .Params.image }}){: class="bigger-image" }

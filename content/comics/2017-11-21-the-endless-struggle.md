@@ -5,6 +5,6 @@ tags:
 - comics
 author: sebiwi
 image: /images/comics/2017-11-21-the-endless-struggle.jpg
+alt: "Vim is better than emacs."
 ---
 
-![Vim is better than emacs.]({{ .Params.image }})

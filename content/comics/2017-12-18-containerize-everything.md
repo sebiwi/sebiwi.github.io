@@ -5,6 +5,6 @@ tags:
 - comics
 author: sebiwi
 image: /images/comics/2017-12-18-containerize-everything.jpg
+alt: "Let's put a .doc on a container. Is it a good idea? We'll also need Libreoffice in order to read it."
 ---
 
-![Let's put a .doc on a container. Is it a good idea? We'll also need Libreoffice in order to read it.]({{ .Params.image }}){: class="bigger-image" }

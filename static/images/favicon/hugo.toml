@@ -1,0 +1,8 @@
+
+[caches]
+  [caches.getresource]
+    maxAge = "24h"
+  [caches.assets]
+    maxAge = "24h"
+  [caches.images]
+    maxAge = "24h"

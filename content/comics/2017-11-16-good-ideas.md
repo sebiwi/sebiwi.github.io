@@ -5,6 +5,6 @@ tags:
 - comics
 author: sebiwi
 image: /images/comics/2017-11-16-good-ideas.jpg
+alt: "Maybe we should delete /var. Ok."
 ---
 
-![Maybe we should delete /var. Ok.]({{ .Params.image }})

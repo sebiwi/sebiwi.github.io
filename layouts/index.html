@@ -15,9 +15,7 @@
 
         <div class="breaker fade-in-element"></div>
 
-        <footer class="site-footer-home fade-in-element">
-            <p>Sebiwi &copy; {{ now.Year }} &middot; <a href="/index.xml" class="rss-link">RSS</a></p>
-        </footer>
+        {{ partial "footer.html" . }}
     </div>
 </div>
 {{ end }}

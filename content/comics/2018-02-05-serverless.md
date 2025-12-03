@@ -5,6 +5,6 @@ tags:
 - comics
 author: sebiwi
 image: /images/comics/2018-02-05-serverless.jpg
+alt: "How come people keep talking about serverless, when everything underneath it is actually servers?"
 ---
 
-![How come people keep talking about serverless, when everything underneath it is actually servers?]({{ .Params.image }}){: class="bigger-image" }

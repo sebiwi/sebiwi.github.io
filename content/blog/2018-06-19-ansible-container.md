@@ -167,7 +167,7 @@ so on) syntax you’ve been struggling with to build containers.
 
 Sounds pretty good, doesn’t it? Let’s take a look into it.
 
-## Let’s play!
+## Let’s play
 
 In order to play with Ansible Container, we’re going to deploy our own simple
 Scala application which uses ZooKeeper in order to manage its state.
@@ -175,6 +175,7 @@ Scala application which uses ZooKeeper in order to manage its state.
 ### Our application
 
 Our application is dead simple:
+
 - First, it reads its configuration from the /etc/archiver.conf file
 - For each cycle on configured frequency, it looks for files under the
   configured directory. If it finds any, it compresses them and then it deletes
@@ -189,7 +190,7 @@ Curator, which is a Zookeeper library. It provides many utilities we can use in
 order to provide distributed lock policies and leader election.
 
 You can see the code of our application here:
-https://gitlab.octo.com/abesnard/ansible-container-zookeeper-article/tree/provision-virtual-machines/archiver.
+<https://gitlab.octo.com/abesnard/ansible-container-zookeeper-article/tree/provision-virtual-machines/archiver>.
 
 We wanted to create an application that needs Zookeeper because it seemed like
 a coherent test case provided the assumptions stated before: we have an
@@ -199,6 +200,7 @@ container-based approach.
 #### The Ansible Role
 
 The Ansible Role is fairly simple:
+
 - We create a user which will be used in order to run our application
 - We copy the JAR
 - We create the configuration file using some Ansible variables
@@ -295,10 +297,10 @@ time.
 
 Because we do not want to reinvent the wheel, we’re going to use an existing
 Ansible role from the Ansible Galaxy in order to provision ZooKeeper on our
-machines : https://galaxy.ansible.com/AnsibleShipyard/ansible-zookeeper/.
+machines : <https://galaxy.ansible.com/AnsibleShipyard/ansible-zookeeper/>.
 
 It’s a little bit off-topic, but Ansible Galaxy is a great tool which you can
-use to organize and centralize your roles. More information here: https://galaxy.ansible.com/!
+use to organize and centralize your roles. More information here: <https://galaxy.ansible.com/>!
 
 ### End to end
 
@@ -394,12 +396,13 @@ in a Docker context.
 
 Note that Ansible is aware of this problematic and that’s why the notion of
 Container-Enabled Role has been created:
-https://docs.ansible.com/ansible-container/roles/galaxy.html. So when you use
+<https://docs.ansible.com/ansible-container/roles/galaxy.html>. So when you use
 Ansible Galaxy, be aware of that!
 
 ### Second Try
 
 Fine... We’re going to make our role compliant:
+
 - First, add when: ansible_env.ANSIBLE_CONTAINER is not defined in the step
   which are not relevant in a container context (so in our case, everything
   which is related to systemd)
@@ -427,7 +430,7 @@ hood to provision the containers):
 Just for you to know: we lied to you. We actually didn’t use the
 AnsibleShipyard.ansible-zookeeper role as-is: we had to patch it for this
 particular reason in order to continue our trial of Ansible Container:
-https://gitlab.octo.com/abesnard/ansible-container-zookeeper-article/blob/build-containers-after-changes/ansible/roles/AnsibleShipyard.ansible-zookeeper.patch.
+<https://gitlab.octo.com/abesnard/ansible-container-zookeeper-article/blob/build-containers-after-changes/ansible/roles/AnsibleShipyard.ansible-zookeeper.patch>.
 
 Ansible Container even allows us to launch everything it created by creating an
 Ansible playbook which actually starts the containers... Well, let’s do it!
@@ -439,6 +442,7 @@ Pretty neat, right?
 ## Reusage
 
 ### As-Is
+
 We just saw that with a few minor modifications of our role, we’re now capable
 of using Ansible Container in order to produce Docker images instead of
 actually deploying our role to some virtual machines.
@@ -530,19 +534,20 @@ different Layers boughts by Docker provide...
 ### Alternatives
 
 There are multiple ways to bypass this limitation:
+
 - The best way is to update your application in order to make it aware of the
   environment variables (this kind of behavior is native with multiple
   configuration framework, like Spring :
-  https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html
-  or Typesafe Config : https://github.com/lightbend/config) ;
+  <https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html>
+  or Typesafe Config : <https://github.com/lightbend/config>) ;
 - Otherwise, before starting your application in your entrypoint.sh file, you
   can use:
   - The envsubst program which will allow you to replace reference to any
     environment variable by its value when called:
-    https://linux.die.net/man/1/envsubst
+    <https://linux.die.net/man/1/envsubst>
   - The confd program which is also a tool to fill a template using values,
     except this time the values can come from other sources like Consul, etc.:
-    https://github.com/kelseyhightower/confd.
+    <https://github.com/kelseyhightower/confd>.
 
 Please also note that if your Dockerfile is a mess because of the multiple
 scripts it embeds, you still can put all the logic in a clean separate python

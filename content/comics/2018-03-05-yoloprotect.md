@@ -5,6 +5,6 @@ tags:
 - comics
 author: sebiwi
 image: /images/comics/2018-03-05-yoloprotect.jpg
+alt: "It's funny that bpfilter came out when we haven't even started using nftables, right?"
 ---
 
-![It's funny that bpfilter came out when we haven't even started using nftables, right?]({{ .Params.image }})

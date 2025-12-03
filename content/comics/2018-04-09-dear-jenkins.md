@@ -5,6 +5,6 @@ tags:
 - comics
 author: sebiwi
 image: /images/comics/2018-04-09-dear-jenkins.jpg
+alt: "I say that I hate Jenkins, often. It's not true though."
 ---
 
-![I say that I hate Jenkins, often. It's not true though.]({{ .Params.image }}){: class="bigger-image" }

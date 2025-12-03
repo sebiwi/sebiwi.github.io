@@ -1,8 +1,8 @@
 <article class="post-item">
-    <time datetime="{{ .Date.Format "2006-01-02" }}" class="post-item-date">
-        {{ .Date.Format "Jan 02 2006" }}
-    </time>
     <a href="{{ .RelPermalink }}" class="post-item-link">
         {{ .Title }}
     </a>
+    <time datetime="{{ .Date.Format "2006-01-02" }}" class="post-item-date">
+        {{ .Date.Format "Jan 02 2006" }}
+    </time>
 </article>

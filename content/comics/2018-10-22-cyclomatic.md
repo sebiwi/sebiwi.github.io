@@ -5,6 +5,6 @@ tags:
 - comics
 author: sebiwi
 image: /images/comics/2018-10-22-cyclomatic.jpg
+alt: "Cyclomatic compelxity should not be minimized during conversations. Life would be less funnier."
 ---
 
-![Cyclomatic compelxity should not be minimized during conversations. Life would be less funnier.]({{ .Params.image }})

@@ -1,18 +1,11 @@
-{{ $related := .Site.RegularPages.Related . | first 3 }}
+{{ $related := .Site.RegularPages.Related . | first 5 }}
 {{ if $related }}
 <section class="related-posts">
     <h3>Related Posts</h3>
-    <div class="related-grid">
+    <ul>
         {{ range $related }}
-        <article class="related-card">
-            <a href="{{ .RelPermalink }}">
-                <h4>{{ .Title }}</h4>
-                <time datetime="{{ .Date.Format "2006-01-02" }}">
-                    {{ .Date.Format "Jan 02, 2006" }}
-                </time>
-            </a>
-        </article>
+        <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
         {{ end }}
-    </div>
+    </ul>
 </section>
 {{ end }}

@@ -5,6 +5,6 @@ tags:
 - comics
 author: sebiwi
 image: /images/comics/2018-01-29-communication.jpg
+alt: "DevOps requires communication between development and operations, and it's better if they don't want to each each other."
 ---
 
-![DevOps requires communication between development and operations, and it's better if they don't want to each each other.]({{ .Params.image }}){: class="bigger-image" }

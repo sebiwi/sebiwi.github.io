@@ -5,6 +5,6 @@ tags:
 - comics
 author: sebiwi
 image: /images/comics/2018-07-23-spacious-separations.jpg
+alt: "I heavily dislike `ss` output format. I guess `ss` stands for Spacious separations."
 ---
 
-![I heavily dislike `ss` output format. I guess `ss` stands for Spacious separations.]({{ .Params.image }})

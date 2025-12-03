@@ -5,6 +5,6 @@ tags:
 - comics
 author: sebiwi
 image: /images/comics/2018-02-12-service-mesh.jpg
+alt: "I wonder if Service Mesh is the new Serverless, or the new Blockchain."
 ---
 
-![I wonder if Service Mesh is the new Serverless, or the new Blockchain.]({{ .Params.image }}){: class="bigger-image" }

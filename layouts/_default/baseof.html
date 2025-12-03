@@ -5,10 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
 
-    <title>{{ if .IsHome }}{{ .Site.Title }} - {{ .Site.Params.bio }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}</title>
+    <title>{{ if .IsHome }}{{ .Site.Title }} | {{ .Site.Params.bio }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/favicon/apple-touch-icon-152x152.png">
+    <link rel="icon" type="image/png" sizes="196x196" href="/images/favicon/favicon-196x196.png">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ .Permalink }}">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="/css/style.css">
+    {{ $css := resources.Get "css/style.css" | resources.Minify | resources.Fingerprint }}
+    <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
 
     <!-- RSS -->
     {{ range .AlternativeOutputFormats -}}
@@ -20,29 +30,48 @@
     <meta property="og:description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
     <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
     <meta property="og:url" content="{{ .Permalink }}">
-    {{ with .Params.image }}<meta property="og:image" content="{{ . | absURL }}">{{ end }}
+    {{ with .Params.image }}
+    <meta property="og:image" content="{{ . | absURL }}">
+    {{ else }}
+    <meta property="og:image" content="{{ .Site.Params.picture | absURL }}">
+    {{ end }}
 
     <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="{{ if .Params.image }}summary_large_image{{ else }}summary{{ end }}">
     <meta name="twitter:site" content="@{{ .Site.Params.social.twitter }}">
     <meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ end }}">
     <meta name="twitter:description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
-    {{ with .Params.image }}<meta name="twitter:image" content="{{ . | absURL }}">{{ end }}
+    {{ with .Params.image }}
+    <meta name="twitter:image" content="{{ . | absURL }}">
+    {{ else }}
+    <meta name="twitter:image" content="{{ .Site.Params.picture | absURL }}">
+    {{ end }}
 
     <!-- Theme -->
     <meta name="color-scheme" content="light dark">
 </head>
 <body>
-    {{ partial "header.html" . }}
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <main>
+    {{ if not .IsHome }}
+    <nav class="top-nav">
+        <a href="/">Home</a>
+        <a href="/blog/">Blog</a>
+        <a href="/comics/">Comics</a>
+    </nav>
+    {{ end }}
+
+    <main id="main-content">
         {{ block "main" . }}{{ end }}
     </main>
 
-    {{ partial "footer.html" . }}
-
     {{ if .Site.Params.animations }}
-    <script src="/js/animations.js"></script>
+    {{ $animations := resources.Get "js/animations.js" | resources.Minify | resources.Fingerprint }}
+    <script src="{{ $animations.RelPermalink }}" integrity="{{ $animations.Data.Integrity }}" defer></script>
     {{ end }}
+    {{ $codeBlocks := resources.Get "js/code-blocks.js" | resources.Minify | resources.Fingerprint }}
+    {{ $headingAnchors := resources.Get "js/heading-anchors.js" | resources.Minify | resources.Fingerprint }}
+    <script src="{{ $codeBlocks.RelPermalink }}" integrity="{{ $codeBlocks.Data.Integrity }}" defer></script>
+    <script src="{{ $headingAnchors.RelPermalink }}" integrity="{{ $headingAnchors.Data.Integrity }}" defer></script>
 </body>
 </html>

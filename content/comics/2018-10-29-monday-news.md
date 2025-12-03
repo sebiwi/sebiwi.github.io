@@ -5,6 +5,6 @@ tags:
 - comics
 author: sebiwi
 image: /images/comics/2018-10-29-monday-news.jpg
+alt: "I guess nobody ever got fired for buying RedHat"
 ---
 
-![I guess nobody ever got fired for buying RedHat]({{ .Params.image }})

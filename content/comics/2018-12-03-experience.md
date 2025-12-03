@@ -5,6 +5,6 @@ tags:
 - comics
 author: sebiwi
 image: /images/comics/2018-12-03-experience.jpg
+alt: "Experience is a dim lamp which only lights the one who wears it. This isn't my domain of expertise though."
 ---
 
-![Experience is a dim lamp which only lights the one who wears it. This isn't my domain of expertise though.]({{ .Params.image }}){: class="bigger-image" }

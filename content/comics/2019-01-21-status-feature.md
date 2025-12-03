@@ -5,6 +5,6 @@ tags:
 - comics
 author: sebiwi
 image: /images/comics/2019-01-21-status-feature.jpg
+alt: "Why did they add the status feature to GitHub? What is this, Facebook?"
 ---
 
-![Why did they add the status feature to GitHub? What is this, Facebook?]({{ .Params.image }}){: class="bigger-image" }
