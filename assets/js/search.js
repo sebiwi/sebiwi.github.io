@@ -7,6 +7,7 @@
   let selectedIndex = -1;
   let results = [];
   let previousFocus = null;
+  let focusTrapHandler = null;
 
   // DOM elements
   const modal = document.getElementById('search-modal');
@@ -209,6 +210,12 @@
     modal.setAttribute('hidden', '');
     document.body.style.overflow = '';
 
+    // Remove focus trap
+    if (focusTrapHandler) {
+      modal.removeEventListener('keydown', focusTrapHandler);
+      focusTrapHandler = null;
+    }
+
     // Restore focus
     if (previousFocus) {
       previousFocus.focus();
@@ -218,13 +225,18 @@
 
   // Focus trap
   function trapFocus(element) {
+    // Remove previous handler if exists
+    if (focusTrapHandler) {
+      element.removeEventListener('keydown', focusTrapHandler);
+    }
+
     const focusableElements = element.querySelectorAll(
       'input, button, a[href], [tabindex]:not([tabindex="-1"])'
     );
     const firstElement = focusableElements[0];
     const lastElement = focusableElements[focusableElements.length - 1];
 
-    element.addEventListener('keydown', function trapFocusHandler(e) {
+    focusTrapHandler = function(e) {
       if (e.key !== 'Tab') return;
 
       if (e.shiftKey) {
@@ -238,7 +250,9 @@
           firstElement.focus();
         }
       }
-    });
+    };
+
+    element.addEventListener('keydown', focusTrapHandler);
   }
 
   // Screen reader announcements
@@ -271,14 +285,17 @@
 
   // Event listeners
 
-  // Global keyboard shortcut (Cmd/Ctrl + K) and Escape to close
+  // Global keyboard shortcuts
   document.addEventListener('keydown', (e) => {
+    // Open modal with Cmd/Ctrl + K
     if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
       e.preventDefault();
       openModal();
+      return;
     }
+
+    // Close modal with Escape (catches case where modal listener doesn't fire)
     if (e.key === 'Escape' && !modal.hasAttribute('hidden')) {
-      e.preventDefault();
       closeModal();
     }
   });
