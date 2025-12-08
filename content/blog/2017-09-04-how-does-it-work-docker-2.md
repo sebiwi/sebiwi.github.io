@@ -56,7 +56,6 @@ A **Linux bridge** is a virtual implementation of a physical switch inside of th
 Linux kernel. It forwards traffic basing itself on MAC addresses, which are in
 turn discovered dynamically by inspecting traffic.
 
-<script type="text/javascript" src="https://asciinema.org/a/0c2Msy5pcD0lqrXYyM9gPbJw5.js" id="asciicast-0c2Msy5pcD0lqrXYyM9gPbJw5" async height="5"></script>
 
 A **network namespace** is an isolated network stack with its own collection of
 interfaces, routes and firewall rules. Network namespaces are used to provide
@@ -64,7 +63,6 @@ isolation between processes, analog to regular namespaces They ensure that two
 containers, even if they are on the same host, won’t be able to communicate
 with each other unless explicitly configured to do so.
 
-<script type="text/javascript" src="https://asciinema.org/a/zA8WmkS4dkxXcoWY94RXQvT81.js" id="asciicast-zA8WmkS4dkxXcoWY94RXQvT81" async height="5"></script>
 
 **Virtual ethernet** devices or veth are interface that act as connections between
 two network namespaces. They have a single interface in each namespace. When a
@@ -72,14 +70,12 @@ container is attached to a Docker Network, one end of the veth is placed inside
 the container under the name of ethx, and the other is attached to the Docker
 Network.
 
-<script type="text/javascript" src="https://asciinema.org/a/UMJSwnyI9ADRG3Wgi0RPA1a7I.js" id="asciicast-UMJSwnyI9ADRG3Wgi0RPA1a7I" async height="5"></script>
 
 **Iptables** is a package filtering system, which acts as a layer 3/4 firewall and
 provide packet marking, masquerading and dropping features. The native Docker
 Drivers use iptables in heavy amounts in order to do network segmentation, port
 mapping, mark traffic and load balance packets.
 
-<script type="text/javascript" src="https://asciinema.org/a/vSlSCYzz365LJNKufNyxZxz1U.js" id="asciicast-vSlSCYzz365LJNKufNyxZxz1U" async height="5"></script>
 
 Now that you know all that, let’s talk about models.
 
@@ -151,36 +147,30 @@ Engine by default.
 
 Native Drivers include: **Host, Bridge, Overlay, MACVLAN and None**.
 
-<script type="text/javascript" src="https://asciinema.org/a/8tjtYy6K7l5hCAo0Gk9Wg8VtM.js" id="asciicast-8tjtYy6K7l5hCAo0Gk9Wg8VtM" async height="5"></script>
 
 When using the **Host driver**, the container uses the Host’s network stack,
 without any namespace separation, and while sharing all of the host’s
 interfaces.
 
-<script type="text/javascript" src="https://asciinema.org/a/xQwYXKrskPqjbXh5dCuJpnrbI.js" id="asciicast-xQwYXKrskPqjbXh5dCuJpnrbI" async height="5"></script>
 
 The **Bridge driver** creates a Docker-managed Linux bridge on the Docker host. By
 default, all containers created on the same bridge can talk to each other.
 
-<script type="text/javascript" src="https://asciinema.org/a/7D9BlymkNju8qwgTYpPWeCS9u.js" id="asciicast-7D9BlymkNju8qwgTYpPWeCS9u" async height="5"></script>
 
 The **Overlay driver** creates an overlay network that may span over multiple
 Docker hosts. It uses both local Linux bridges and VXLAN to overlay
 inter-container communication over physical networks.
 
-<script type="text/javascript" src="https://asciinema.org/a/xi12J6wrrEM3v3gNoOHJW1Baw.js" id="asciicast-xi12J6wrrEM3v3gNoOHJW1Baw" async height="5"></script>
 
 The **MACVLAN** driver uses the MACVLAN bridge mode to establish connections
 between container interfaces and parent host interfaces. They can be used to
 assign IP addresses that are routable on physical networks to containers.
 
-<script type="text/javascript" src="https://asciinema.org/a/bh7F1lWgFknXoOWuEcADiglsB.js" id="asciicast-bh7F1lWgFknXoOWuEcADiglsB" async height="5"></script>
 
 The **None** driver gives a container its own network stack and namespace, without
 any interfaces. Therefore, it stays isolated from every other Network, and even
 its own host’s network stack.
 
-<script type="text/javascript" src="https://asciinema.org/a/YrMcavMgMDlahlKIHudQyA7YN.js" id="asciicast-YrMcavMgMDlahlKIHudQyA7YN" async height="5"></script>
 
 Remote drivers are created either by vendors or the community. The Remote
 Drivers that are compatible with CNM are [contiv][8], [weave][9], [calico][10] (**which we used

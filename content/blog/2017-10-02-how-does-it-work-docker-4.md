@@ -103,7 +103,6 @@ end
 
 Easy. If you wanna take a look at the Vagrantfile, it’s right here. Moving on.
 
-<script type="text/javascript" src="https://asciinema.org/a/qCbprH0VYRFHDhDhXGvDUXDkE.js" id="asciicast-qCbprH0VYRFHDhDhXGvDUXDkE" async height="5"></script>
 
 Next up, I’ll set up a Makefile with a Vagrant target, which will
 create all the virtual machines, and generate a configuration file

@@ -336,7 +336,6 @@ As you can see, it works great on our two Vagrant boxes (it takes some time
 because of the downloads of Java and ZooKeeper, but if you skip to the end...
 Everything goes fine!) :
 
-<script type="text/javascript" src="https://asciinema.org/a/186568.js" id="asciicast-186568" async></script>
 
 ## The Use-Case
 
@@ -381,7 +380,6 @@ services:
 
 Let’s try it, and see what’s going on!
 
-<script type="text/javascript" src="https://asciinema.org/a/186571.js" id="asciicast-186571" async></script>
 
 It does not work, because we need to add some stuff in our role in order to
 make it Docker compliant: Instead of having systemd to start a daemon, we need
@@ -418,14 +416,12 @@ command: [ "java", "-jar", "/usr/lib/archiver/archiver.jar" ]
 
 And here we go again!
 
-<script type="text/javascript" src="https://asciinema.org/a/186576.js" id="asciicast-186576" async></script>
 
 It’s alive! You can even see the Docker images which have been created by
 Ansible Container (everything is properly named and tagged, which is pretty
 nice) and the Conductor images (which are used by Ansible Container under the
 hood to provision the containers):
 
-<script type="text/javascript" src="https://asciinema.org/a/186578.js" id="asciicast-186578" async></script>
 
 Just for you to know: we lied to you. We actually didn’t use the
 AnsibleShipyard.ansible-zookeeper role as-is: we had to patch it for this
@@ -435,7 +431,6 @@ particular reason in order to continue our trial of Ansible Container:
 Ansible Container even allows us to launch everything it created by creating an
 Ansible playbook which actually starts the containers... Well, let’s do it!
 
-<script type="text/javascript" src="https://asciinema.org/a/186580.js" id="asciicast-186580" async></script>
 
 Pretty neat, right?
 
@@ -473,7 +468,6 @@ possible because of the plug’n’play spirit of these images.
 
 And run start Docker Compose:
 
-<script type="text/javascript" src="https://asciinema.org/a/186582.js" id="asciicast-186582" async></script>
 
 Everything is fine!
 

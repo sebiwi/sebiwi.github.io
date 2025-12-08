@@ -48,7 +48,6 @@ DNS request. The container built-in Resolver forwards the query to the Docker
 Engine’s DNS server. The request to myservice is then resolved to the 10.0.0.3
 virtual IP. This information is then forwarded back to client.
 
-<script type="text/javascript" src="https://asciinema.org/a/Q8lfVLua5NIBsIknhojPaRk4g.js" id="asciicast-Q8lfVLua5NIBsIknhojPaRk4g" async height="5"></script>
 
 What if client requests something that’s not in the internal key-value store?
 For example, if client does a curl request for the sebiwi.github.io domain, the
@@ -109,7 +108,6 @@ which redirects it to one of the actual containers on the cluster for that
 service, using the ingress network and therefore the aforementioned method of
 load balancing. Neat.
 
-<script type="text/javascript" src="https://asciinema.org/a/9gKRhNitM8sS777UWA8cCIlTS.js" id="asciicast-9gKRhNitM8sS777UWA8cCIlTS" async height="5"></script>
 
 Just for the record, when using Docker Enterprise Edition’s Universal Control
 Plane, this Routing Mesh is also capable of routing layer 7 traffic, by

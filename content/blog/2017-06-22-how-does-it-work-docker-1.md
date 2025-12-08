@@ -176,7 +176,6 @@ desired state of the swarm. There may be many Manager nodes on a Swarm, but
 there is only one leader, which is elected by all the other Manager nodes using
 the [Raft algorithm][12] and which performs all the orchestration tasks.
 
-<script type="text/javascript" src="https://asciinema.org/a/GpkVwipWeyutZySkYL7NpXPDs.js" id="asciicast-GpkVwipWeyutZySkYL7NpXPDs" async height="5"></script>
 
 Worker nodes receive and execute tasks from Manager nodes. By default, Manager
 nodes are also Worker nodes, but they can be configured to not accept any

@@ -162,7 +162,6 @@ kubectl create -f mongo.yml
 This will create the pod with the associated AWS EBS volume mounted at the
 specified mount path.
 
-<script type="text/javascript" src="https://asciinema.org/a/F3sLkq1KEPFk9aX3TFmg4WygH.js" id="asciicast-F3sLkq1KEPFk9aX3TFmg4WygH" async></script>
 
 That was simple, right? Let’s see how we can achieve the same thing using
 Swarm.
