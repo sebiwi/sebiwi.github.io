@@ -45,8 +45,7 @@ For this project, we will use the combination of two of these options: Calico an
 
 Alright. Let’s talk about Flannel and Calico then.
 
-![Flannel and Calico](/images/how-does-it-work-kube/2/flannel-calico.jpg)
-<figcaption class="caption">Great logos</figcaption>
+{{< figure src="/images/how-does-it-work-kube/2/flannel-calico.jpg" alt="Flannel and Calico" caption="Great logos" >}}
 
 Flannel allows inter-pod communication between different hosts by providing an overlay software-defined
 network (SDN). This solves the main issue we had the Docker networking model. As I said before, when using

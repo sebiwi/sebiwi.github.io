@@ -337,14 +337,12 @@ ID                         NAME                  IMAGE  NODE             DESIRED
 We can see that they are running on swarm-worker-02 (10.0.0.122) and
 swarm-worker-03 (10.0.0.123). So, if we try to access 10.0.0.122:8080:
 
-![Normal node](/images/how-does-it-work-docker/5/normal-node.png)
-<figcaption class="caption">This isn't that amazing</figcaption>
+{{< figure src="/images/how-does-it-work-docker/5/normal-node.png" alt="Normal node" caption="This isn't that amazing" >}}
 
 Cool, that works. What if we try to access swarm-worker-01
 (10.0.0.121) though?
 
-![Other node](/images/how-does-it-work-docker/5/other-node.png)
-<figcaption class="caption">This is pretty rad</figcaption>
+{{< figure src="/images/how-does-it-work-docker/5/other-node.png" alt="Other node" caption="This is pretty rad" >}}
 
 Now, you still need a reverse-proxy or a load-balancer in order to
 forward requests to the right Swarm node in order to access the right

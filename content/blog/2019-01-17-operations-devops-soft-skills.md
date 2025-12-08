@@ -21,8 +21,7 @@ made sense for management to group people into teams using their skillset as
 sorting criteria... you name it. In the end, most interactions between
 Development teams and Operation teams happened through ticketing systems.
 
-![Effective communication](/images/soft-skills/effective-communication.jpg)
-<figcaption class="caption">Effective communication</figcaption>
+{{< figure src="/images/soft-skills/effective-communication.jpg" alt="Effective communication" caption="Effective communication" >}}
 
 These workflows created and fueled most of the **communication issues** within
 organizations, and by doing so, created **gargantuan bottlenecks** on the
@@ -115,8 +114,7 @@ way up to something that suits your needs. “Simple is better” should be your
 mantra. Once again, apply the knowledge acquired from previous experiences when
 doing so.
 
-![Why do you keep using Jenkins if you hate it?](/images/comics/2018-04-09-dear-jenkins.jpg)
-<figcaption class="caption">Improve, based on your experiences</figcaption>
+{{< figure src="/images/comics/2018-04-09-dear-jenkins.jpg" alt="Why do you keep using Jenkins if you hate it?" caption="Improve, based on your experiences" >}}
 
 ## On facilitating interactions
 
@@ -127,8 +125,7 @@ building and deployment. Once again, **if they know everything there is to know
 about these subjects, that’s a good thing too**. Either way, you might want to
 step in and catalyze the discussion.
 
-![Individuals and interactions overs processes and tools](/images/comics/2018-01-29-communication.jpg)
-<figcaption class="caption">Individuals and interactions over processes and tools</figcaption>
+{{< figure src="/images/comics/2018-01-29-communication.jpg" alt="Individuals and interactions overs processes and tools" caption="Individuals and interactions over processes and tools" >}}
 
 Before doing so, **remember to be kind**. It is a key aspect in human interaction,
 and it will encourage participation, collaboration, and innovation.
@@ -190,8 +187,7 @@ a plug in replacement for you right away, they are already doing something else
 as a full-time job. Still, having enough knowledge to be able to debug common
 issues is already great.
 
-![Fullstack DevOps engineer](/images/soft-skills/fullstack-devops-engineer.jpg)
-<figcaption class="caption">Fullstack DevOps engineer</figcaption>
+{{< figure src="/images/soft-skills/fullstack-devops-engineer.jpg" alt="Fullstack DevOps engineer" caption="Fullstack DevOps engineer" >}}
 
 The most efficient form of knowledge sharing is pair programming. It is
 fundamental that everything that is going on is completely understood. You
@@ -271,8 +267,7 @@ Not knowing is not an issue. It is impossible to know everything. It is a good
 thing to say it. Be honest. People will trust you more, and start doing it
 themselves too.
 
-![I don't know. Say it.](/images/comics/2018-12-03-experience.jpg)
-<figcaption class="caption">"I don't know". Say it.</figcaption>
+{{< figure src="/images/comics/2018-12-03-experience.jpg" alt="I don't know. Say it." caption="&ldquo;I don't know&rdquo;. Say it." >}}
 
 ## There’s no way I’m remembering all those things
 

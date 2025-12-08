@@ -147,8 +147,7 @@ containers) are delegated by the Docker Engine to containerd which uses runC to
 execute all its container-related actions. The Engine still manages
 volumes, networks and builds, but containers are now containerd’s territory.
 
-![Engine components](/images/how-does-it-work-docker/1/runc-containerd.png)
-<figcaption class="caption"><a href="https://medium.com/@tiffanyfayj/docker-1-11-et-plus-engine-is-now-built-on-runc-and-containerd-a6d06d7e80ef">Like a layer cake</a></figcaption>
+{{< figure src="/images/how-does-it-work-docker/1/runc-containerd.png" alt="Engine components" caption="Like a layer cake" >}}
 
 There’s also another component called containerd-shim which sits between
 containerd and runC, acts as the container’s process parent and allow the

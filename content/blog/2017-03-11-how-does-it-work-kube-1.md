@@ -76,8 +76,7 @@ just think of a pod as a container, since we will only have one container inside
 
 A standard Kubernetes installation consists of both Master and Worker nodes:
 
-![Kubernetes general architecture](/images/how-does-it-work-kube/1/kube-general-architecture.png)
-<figcaption class="caption">Kubernetes general architecture, for real</figcaption>
+{{< figure src="/images/how-does-it-work-kube/1/kube-general-architecture.png" alt="Kubernetes general architecture" caption="Kubernetes general architecture, for real" >}}
 
 ## Wait, where is the Master node?
 
@@ -88,8 +87,7 @@ separate component (more on this later).
 
 So the Master node actually becomes everything that is inside the red square:
 
-![Kubernetes master node](/images/how-does-it-work-kube/1/kube-master-node.png)
-<figcaption class="caption">Here, see?</figcaption>
+{{< figure src="/images/how-does-it-work-kube/1/kube-master-node.png" alt="Kubernetes master node" caption="Here, see?" >}}
 
 All these components are part of the Kubernetes control pane. Keep in mind that you can have these
 on one single node, but you can also put them on many different ones. In our case we're putting them
@@ -114,8 +112,7 @@ _Note: This is not actually true in our case, but we will talk about that later,
 The Worker node is composed of a kubelet, and a proxy (kube-proxy). You can see these components
 inside the red square, in the diagram below.
 
-![Kubernetes worker node](/images/how-does-it-work-kube/1/kube-worker-node.png)
-<figcaption class="caption">Right here</figcaption>
+{{< figure src="/images/how-does-it-work-kube/1/kube-worker-node.png" alt="Kubernetes worker node" caption="Right here" >}}
 
 The kubelet is the agent on the worker node that actually starts and stops the pods, and communicates
 with the Docker engine at a host level. This means it also manages the containers, the images and the
@@ -132,8 +129,7 @@ and service discovery. It actually means ["something like etc, distributed on ma
 is a weird name because it is not a filesystem, but a key-value store. They are aware of it though. Just in
 case you missed it in the previous diagrams, it is the black square inside the red square:
 
-![etcd](/images/how-does-it-work-kube/1/etcd.png)
-<figcaption class="caption">You never know</figcaption>
+{{< figure src="/images/how-does-it-work-kube/1/etcd.png" alt="etcd" caption="You never know" >}}
 
 All the persistent master state is stocked in etcd. Since components can actually "watch" components, they are
 able to realise that something has changed rather quickly, and then do something about it.

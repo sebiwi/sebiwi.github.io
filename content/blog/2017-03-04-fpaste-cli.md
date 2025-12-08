@@ -19,8 +19,7 @@ text when trying to debug something.
 
 Basically, I really dislike this format:
 
-![Awful hangouts message](/images/fpaste-cli/awful-message.png)
-<figcaption class="caption">Sigh.</figcaption>
+{{< figure src="/images/fpaste-cli/awful-message.png" alt="Awful hangouts message" caption="Sigh." >}}
 
 It makes me want to rage quit. And then throw my computer out the window.
 What I’ve realised is that people don't use pastebin/fpaste because it takes approximately 13
@@ -31,8 +30,7 @@ Everyone knows that 13 seconds is way too long in 2017.
 
 I highlight the stuff I want to share, I right click it, and then I click on "Send to fpaste".
 
-![Send to fpaste example](/images/fpaste-cli/send-to-fpaste.png)
-<figcaption class="caption">This looks simple, right?</figcaption>
+{{< figure src="/images/fpaste-cli/send-to-fpaste.png" alt="Send to fpaste example" caption="This looks simple, right?" >}}
 
 This is a pretty cool picture by the way. It has send to fpaste, vim, and zebras on it.
 

@@ -36,8 +36,7 @@ DNS entries that belong to networks  in which the node has containers or tasks.
 This means that they will not store information that’s irrelevant to them
 practically, or that other containers do not need to know.
 
-![Service discovery](/images/how-does-it-work-docker/3/service-discovery.png)
-<figcaption class="caption"><a href="https://success.docker.com/Architecture/Docker_Reference_Architecture%3A_Designing_Scalable%2C_Portable_Docker_Container_Networks">Discover what's up</a></figcaption>
+{{< figure src="/images/how-does-it-work-docker/3/service-discovery.png" alt="Service discovery" caption="Discover what's up" >}}
 
 For example, in this image, there is a network called mynet. There are two
 services running on the network: myservice, and client. myservice has two tasks
@@ -95,8 +94,7 @@ network called ingress. This overlay network is only used when transporting
 external traffic to the requested services. In this scope, the same internal
 load balancing strategies described in the previous section are used.
 
-![Load balancing](/images/how-does-it-work-docker/3/load-balancing.png)
-<figcaption class="caption"><a href="https://success.docker.com/Architecture/Docker_Reference_Architecture%3A_Universal_Control_Plane_2.0_Service_Discovery_and_Load_Balancing">Balance that load</a></figcaption>
+{{< figure src="/images/how-does-it-work-docker/3/load-balancing.png" alt="Load balancing" caption="Balance that load" >}}
 
 In this picture, a service is created with two replicas, on the appnet overlay
 network. We can see that the service is exposed on port 8000 on the three
@@ -147,8 +145,7 @@ leaving the source container, and it is decrypted once it arrives to the
 destination container. This guarantees security even when you do not fully
 control the underlying network infrastructure.
 
-![Load balancing](/images/how-does-it-work-docker/3/ipsec.png)
-<figcaption class="caption"><a href="https://success.docker.com/Architecture/Docker_Reference_Architecture%3A_Designing_Scalable%2C_Portable_Docker_Container_Networks">No one will ever know</a></figcaption>
+{{< figure src="/images/how-does-it-work-docker/3/ipsec.png" alt="Load balancing" caption="No one will ever know" >}}
 
 In the picture, when container 1 sends traffic to container 2, everything is
 encrypted on the way out, and then it is decrypted once it arrives to host B,

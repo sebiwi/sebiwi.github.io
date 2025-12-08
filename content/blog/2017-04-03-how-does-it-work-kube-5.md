@@ -28,7 +28,6 @@ FLANNELD_IFACE={{ ansible_env.COREOS_PUBLIC_IPV4 }}
 FLANNELD_ETCD_ENDPOINTS={{ etcd_endpoints }}
 ```
 
-<figcaption class="caption"><a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/roles/configure/kube-master/templates/etc_flannel_options.env.j2">/etc/flannel/options.env</a></figcaption>
 
 Then, we add a system-drop in (a method for adding or overriding parameters of a systemd
 unit) for flannel, in which we specify that we want to use the configuration specified
@@ -40,7 +39,6 @@ above when the service launches:
 ExecStartPre=/usr/bin/ln -sf /etc/flannel/options.env /run/flannel/options.env
 ```
 
-<figcaption class="caption"><a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/roles/configure/kube-master/templates/etc_systemd_system_flanneld.service.d_40-ExecStartPre-symlink.conf.j2">/etc/systemd/system/flanneld.service.d/40-ExecStartPre-symlink.conf</a></figcaption>
 
 System drop-ins are pretty cool because they only modify the specific settings you modified,
 and everything else stays the same.
@@ -57,7 +55,6 @@ Requires=flanneld.service
 After=flanneld.service
 ```
 
-<figcaption class="caption"><a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/roles/configure/kube-master/templates/etc_systemd_system_flanneld.service.d_40-ExecStartPre-symlink.conf.j2">/etc/systemd/system/docker.service.d/40-flannel.conf</a></figcaption>
 
 Now that the basic requirements are configured, we're going to configure a whole set of components that are
 necessary in order to run a Kubernetes cluster: the kubelet, the Kubernetes Proxy, the Controller
@@ -159,7 +156,6 @@ It's a pretty short configuration so I'll just put it here:
 }
 ```
 
-<figcaption class="caption"><a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/roles/configure/kube-master/templates/etc_kubernetes_cni_net.d_10-calico.conf.j2">Easy</a></figcaption>
 
 After that, we'll just start the services and cross our fingers (don't worry, it will work).
 
@@ -263,7 +259,6 @@ After that you can configure it by specifying the certificates and the Master ho
   when: "'Kubernetes master' not in cluster_info.stdout"
 ```
 
-<figcaption class="caption"><a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/roles/configure/kubectl/tasks/main.yml">There is no kube</a></figcaption>
 
 This configuration is only applied when the cluster is not configured, though. That way, we keep
 our idempotence neat and clean.
@@ -344,8 +339,7 @@ kubectl port-forward frontend-ID 8080:80
 
 The application should be accessible on port 8080. You can test it by adding a message to the guestbook:
 
-![Kubernetes dashboard](/images/how-does-it-work-kube/5/guestbook.png)
-<figcaption class="caption">Get it?</figcaption>
+{{< figure src="/images/how-does-it-work-kube/5/guestbook.png" alt="Kubernetes dashboard" caption="Get it?" >}}
 
 Great. It works. Mission accomplished!
 

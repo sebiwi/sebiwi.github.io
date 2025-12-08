@@ -44,8 +44,7 @@ dynamic port-forwarding part. For this, they relied heavily on the existing
 Linux kernel’s networking stack. This is fairly cool, since the existing Linux
 networking features are pretty mature and robust already.
 
-![Docker networking](/images/how-does-it-work-docker/2/networking.png)
-<figcaption class="caption"><a href="https://blog.docker.com/2016/03/docker-networking-design-philosophy/">You there?</a></figcaption>
+{{< figure src="/images/how-does-it-work-docker/2/networking.png" alt="Docker networking" caption="You there?" >}}
 
 In order to provide its networking, Docker uses numerous Linux networking tools
 as building blocks to handle all of its forwarding, segmentation and management
@@ -88,8 +87,7 @@ Container Network Model (CNM) which is implemented by Docker’s libnetwork.
 There are three main components of the CNM model: Sandboxes, Endpoints and
 Networks.
 
-![CNM diagram](/images/how-does-it-work-docker/2/cnm.jpeg)
-<figcaption class="caption">You there?</figcaption>
+{{< figure src="/images/how-does-it-work-docker/2/cnm.jpeg" alt="CNM diagram" caption="You there?" >}}
 
 The **Sandbox** contains the configuration of the container’s network stack, such
 as interface management, IP and MAC addresses, routing tables and DNS settings.
@@ -192,8 +190,6 @@ Network, which is quite cool since it dramatically reduces the amount of
 updates a host receives.
 
 ![Control plane](/images/how-does-it-work-docker/2/control-plane.png)
-<figcaption class="caption"><a
-href="https://success.docker.com/Architecture/Docker_Reference_Architecture%3A_Designing_Scalable%2C_Portable_Docker_Container_Networks">Control that cluster</a></figcaption>
 
 It is built upon many components that work together in order to achieve fast
 convergence, even in large scale clusters and networks.
@@ -217,8 +213,6 @@ tunnel, that exists as point-to-multipoint connections between each host
 participating in the overlay network.
 
 ![Overlay networks](/images/how-does-it-work-docker/2/overlay-network.png)
-<figcaption class="caption"><a
-href="https://success.docker.com/Architecture/Docker_Reference_Architecture%3A_Designing_Scalable%2C_Portable_Docker_Container_Networks">Like this</a></figcaption>
 
 For example, in the previous diagram:
 
@@ -267,8 +261,7 @@ mode of operation is not encouraged by Docker, and it might even be deprecated
 in the future (which further discredits the whole “we’re not deprecating Swarm
 Standalone” argument).
 
-![Overlay networks](/images/how-does-it-work-docker/2/bridge-overlay.png)
-<figcaption class="caption">Cool stuff</figcaption>
+{{< figure src="/images/how-does-it-work-docker/2/bridge-overlay.png" alt="Overlay networks" caption="Cool stuff" >}}
 
 That’s all for the networking part. I’ll talk to you about service discovery,
 load-balancing and security on the next one. Don’t go anywhere!

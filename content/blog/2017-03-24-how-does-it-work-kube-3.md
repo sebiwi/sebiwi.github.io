@@ -47,8 +47,7 @@ I'll explain how these things work and how I'm going to use them in the whole Ku
 later. Just keep in mind that CoreOS (yeah yeah, Container Linux) is an OS specifically
 designed to run containers, and that we're going to take advantage of that in our context.
 
-![CoreOS distribution](/images/how-does-it-work-kube/3/coreos-explanation.png)
-<figcaption class="caption"><a href="https://coreos.com/why/#distro">CoreOS as a distribution</a></figcaption>
+{{< figure src="/images/how-does-it-work-kube/3/coreos-explanation.png" alt="CoreOS distribution" caption="CoreOS as a distribution" >}}
 
 _So we're going to manually create these CoreOS virtual machines before installing Kubernetes, right?_
 
@@ -92,8 +91,7 @@ your roles on the newly created infrastructure, and then it destroys the infrast
 also checks for a whole range of other things, like syntax, code quality and impotence,
 so it's pretty well adapted for what we're trying to do here.
 
-![Molecule logo](/images/how-does-it-work-kube/3/molecule-logo.png)
-<figcaption class="caption">It's an actual molecule!</figcaption>
+{{< figure src="/images/how-does-it-work-kube/3/molecule-logo.png" alt="Molecule logo" caption="It's an actual molecule!" >}}
 
 There are 3 main Molecule drivers: Docker, OpenStack and Vagrant. I usually use the Docker
 driver for testing roles, due to the fact that a container is usually lightweight, easy to

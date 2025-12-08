@@ -26,7 +26,6 @@ $kube_worker_instance_memory = 2048
 $kube_worker_instance_cpus = 1
 ```
 
-<figcaption class="caption"><a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/Vagrantfile#L4-L13">Amazing complexity</a></figcaption>
 
 You can modify the amount of instances you want to create in this part. Be aware that if you
 add hosts, you will also need to add them in the inventory for the Ansible code to target
@@ -57,7 +56,6 @@ worker nodes:
 end
 ```
 
-<figcaption class="caption"><a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/Vagrantfile#L47-L63">Absolute power</a></figcaption>
 
 By the way, you can configure your virtual machines by specifying an Ansible playbook, using
 the Ansible provisioner in your Vagrantfile [like this][1]. I choose not to do so because
@@ -74,7 +72,6 @@ configuration, if you include it in your ansible.cfg file:
 ssh_args = -F ssh.config
 ```
 
-<figcaption class="caption"><a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/ansible.cfg#L7-L8">Like this</a></figcaption>
 
 I really like Makefiles. I use them quite often when I have write more than one long command, or many different ones that are going to take a while. I'm also kinda lazy. So I just did this:
 
@@ -84,7 +81,6 @@ vagrant:
  @vagrant ssh-config > ssh.config
 ```
 
-<figcaption class="caption"><a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/Makefile#L5-L7">make: automating your life since 1977</a></figcaption>
 
 This way, `vagrant up && vagrant ssh-config > ssh.config` becomes `make vagrant`, which saves
 me up to 3,7 seconds every day.
@@ -106,7 +102,6 @@ docker-gc/
 └── templates
 ```
 
-<figcaption class="caption">Like this</figcaption>
 
 The molecule.yml file specifies an infrastructure (I usually use a single Docker container),
 and it also specifies which playbook needs to be used on the previously defined infrastructure.
@@ -198,7 +193,6 @@ I install it using a more raw tasks.
   when: pypy_tar_file | failed
 ```
 
-<figcaption class="caption"><a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/roles/bootstrap/ansible-bootstrap/tasks/configure.yml#L1-L26">Right on</a></figcaption>
 
 Why use the `changed_when: false` flag on the tasks inside the block, you say? The thing is
 that each time you execute a raw task, a change will be made, since the shell command is
@@ -214,8 +208,7 @@ I feel this is slightly better than executing a shell script with every task emb
 It allows me to replay tasks when certain script do not exist, and to have a clear idea of what
 failed when I get an error: I know right away which task failed, which helps in the debugging process.
 
-![Ansible scripts](/images/how-does-it-work-kube/4/ansible-scripts.png)
-<figcaption class="caption"><a href="https://docs.ansible.com/ansible/2.3/script_module.html#notes">Thanks mom</a></figcaption>
+{{< figure src="/images/how-does-it-work-kube/4/ansible-scripts.png" alt="Ansible scripts" caption="Thanks mom" >}}
 
 I did not create [this approach][12], by the way. I just optimised it to make it actually idempotent.
 I guess you need to stand in the shoulders of giants in order to further from time to time, right?
@@ -239,7 +232,6 @@ if possible.
   tags: [ test ]
 ```
 
-<figcaption class="caption"><a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/roles/bootstrap/ansible-bootstrap/tasks/main.yml#L4-L9">Smoke test all the way!</a></figcaption>
 
 By doing this, you will actually test that your infrastructure is running and that it is probably
 properly configured. Then, if you want to run nothing but your tests, you can do it if you specify
@@ -274,7 +266,6 @@ Environment=ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379
 Environment=ETCD_ADVERTISE_CLIENT_URLS=http://{{ ansible_env.COREOS_PUBLIC_IPV4 }}:2379
 ```
 
-<figcaption class="caption"><a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/roles/configure/etcd/templates/40-listen-address.conf.j2#L2-L6">Straightforward</a></figcaption>
 
 And it gets slightly trickier with a multi-node configuration, since the nodes need
 to be aware of each other, using the ETCD_INITIAL_CLUSTER variable. You also need to
@@ -297,7 +288,6 @@ Environment=ETCD_INITIAL_CLUSTER_STATE=new
 {% endif %}
 ```
 
-<figcaption class="caption"><a href="https://github.com/sebiwi/kubernetes-coreos/blob/master/roles/configure/etcd/templates/40-listen-address.conf.j2#L6-L16">Less straightforward</a></figcaption>
 
 All of these configurations can be made either with environment variables or with flags
 when starting the etcd2 service. The `ansible_env.COREOS_PUBLIC_IPV4` variable will be
