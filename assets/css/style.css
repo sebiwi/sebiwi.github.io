@@ -104,7 +104,7 @@ h2 { font-size: var(--font-size-xlarge); }
 h3 { font-size: var(--font-size-large); }
 
 .heading-anchor {
-  color: #999;
+  color: #666;
   text-decoration: none;
   opacity: 0;
   margin-left: 0.5rem;
@@ -622,7 +622,7 @@ main {
   align-items: center;
   font-size: 0.85rem;
   font-weight: 300;
-  color: #999;
+  color: #666;
   text-transform: uppercase;
   margin-bottom: var(--spacing-sm);
 }
@@ -646,7 +646,7 @@ main {
   border: none;
   border-radius: 3px;
   font-size: 0.7rem;
-  color: #888;
+  color: #666;
   text-decoration: none;
   text-transform: uppercase;
   transition: all var(--transition-speed) var(--transition-easing);
