@@ -91,6 +91,24 @@ The site is optimized for speed:
 - ~27 KB initial page load
 - Comprehensive link validation (2,029+ links checked)
 
+## Security
+
+### Content Security Policy
+
+GitHub Pages does not support custom HTTP headers, so Content Security Policy (CSP) cannot be implemented at the server level. However, the site follows security best practices:
+
+- Disabled unsafe HTML rendering in Hugo (`unsafe = false`)
+- No inline scripts (all JavaScript in external files with SRI)
+- No `eval()` or `Function()` usage
+- All external resources loaded over HTTPS
+- Subresource Integrity (SRI) on all CSS/JS assets
+
+For self-hosted deployments, consider adding these CSP headers:
+
+```http
+Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
+```
+
 ## Testing
 
 Run the test suite with:
