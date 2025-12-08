@@ -11,6 +11,10 @@ rm -rf public
 echo "🔨 Building site..."
 hugo --minify
 
+# Build search index
+echo "🔍 Building search index..."
+pagefind --site public
+
 # Check build succeeded
 if [ ! -d "public" ]; then
     echo "❌ Build failed: public/ directory not created"

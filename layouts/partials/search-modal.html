@@ -1,0 +1,39 @@
+<div id="search-modal" class="search-modal" role="dialog" aria-modal="true" aria-labelledby="search-label" hidden>
+  <div class="search-backdrop"></div>
+  <div class="search-container">
+    <div class="search-input-wrapper">
+      <label id="search-label" class="sr-only">Search site content</label>
+      <svg class="search-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM19 19l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <input
+        type="search"
+        id="search-input"
+        placeholder="Search posts and comics..."
+        aria-label="Search posts and comics"
+        aria-describedby="search-instructions"
+        autocomplete="off"
+        spellcheck="false">
+      <kbd class="search-shortcut" aria-hidden="true">
+        <span class="search-shortcut-key">⌘</span>K
+      </kbd>
+    </div>
+    <div id="search-instructions" class="sr-only">
+      Use arrow keys to navigate results, Enter to select, Escape to close
+    </div>
+    <div id="search-results"
+         class="search-results"
+         role="status"
+         aria-live="polite"
+         aria-atomic="false">
+      <div class="search-empty">Start typing to search...</div>
+    </div>
+    <div class="search-footer">
+      <span class="search-hint">
+        <kbd>↑</kbd><kbd>↓</kbd> Navigate
+        <kbd>↵</kbd> Select
+        <kbd>esc</kbd> Close
+      </span>
+    </div>
+  </div>
+</div>

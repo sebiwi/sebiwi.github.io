@@ -19,6 +19,8 @@
     <!-- CSS -->
     {{ $css := resources.Get "css/style.css" | resources.Minify | resources.Fingerprint }}
     <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+    {{ $searchCSS := resources.Get "css/search.css" | resources.Minify | resources.Fingerprint }}
+    <link rel="stylesheet" href="{{ $searchCSS.RelPermalink }}" integrity="{{ $searchCSS.Data.Integrity }}">
 
     <!-- RSS -->
     {{ range .AlternativeOutputFormats -}}
@@ -71,7 +73,11 @@
     {{ end }}
     {{ $codeBlocks := resources.Get "js/code-blocks.js" | resources.Minify | resources.Fingerprint }}
     {{ $headingAnchors := resources.Get "js/heading-anchors.js" | resources.Minify | resources.Fingerprint }}
+    {{ $searchJS := resources.Get "js/search.js" | resources.Minify | resources.Fingerprint }}
     <script src="{{ $codeBlocks.RelPermalink }}" integrity="{{ $codeBlocks.Data.Integrity }}" defer></script>
     <script src="{{ $headingAnchors.RelPermalink }}" integrity="{{ $headingAnchors.Data.Integrity }}" defer></script>
+    <script src="{{ $searchJS.RelPermalink }}" integrity="{{ $searchJS.Data.Integrity }}" defer></script>
+
+    {{- partial "search-modal.html" . -}}
 </body>
 </html>

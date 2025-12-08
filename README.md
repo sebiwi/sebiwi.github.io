@@ -7,6 +7,7 @@ This is my website. Built with [Hugo](https://gohugo.io/). Heavily based on Serg
 ### Prerequisites
 
 - [Hugo Extended](https://gohugo.io/installation/) v0.152.2 or later
+- [Pagefind](https://pagefind.app/) (for search functionality)
 - [lychee](https://github.com/lycheeverse/lychee) (optional, for link checking)
 
 ### Local Development
@@ -52,6 +53,32 @@ static/
 └── images/    # Images (served as-is)
 
 layouts/       # Hugo templates
+```
+
+## Search
+
+The site includes a keyboard-activated search feature:
+
+### Usage
+- Press `Cmd+K` (Mac) or `Ctrl+K` (Windows/Linux) to open search
+- Type to search across all posts and comics
+- Use arrow keys to navigate results
+- Press `Enter` to select a result
+- Press `Escape` to close
+
+### Technical Details
+- Powered by [Pagefind](https://pagefind.app/)
+- ~20KB search index
+- Works offline after first page load
+- Full keyboard navigation
+- Screen reader accessible
+
+### Local Development
+The search index is built automatically when running `./test.sh`. To build manually:
+
+```bash
+hugo --minify
+pagefind --site public
 ```
 
 ## Performance
