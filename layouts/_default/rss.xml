@@ -10,13 +10,13 @@
     {{ with .Site.LanguageCode }}<language>{{ . }}</language>{{ end }}
     {{ with .Site.Params.email }}<managingEditor>{{ . }}{{ with $.Site.Params.name }} ({{ . }}){{ end }}</managingEditor>{{ end }}
     {{ with .Site.Params.email }}<webMaster>{{ . }}{{ with $.Site.Params.name }} ({{ . }}){{ end }}</webMaster>{{ end }}
-    {{ if not .Date.IsZero }}<lastBuildDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</lastBuildDate>{{ end }}
+    {{ if not .Date.IsZero }}<lastBuildDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" }}</lastBuildDate>{{ end }}
     <atom:link href="{{ .Permalink }}index.xml" rel="self" type="application/rss+xml" />
     {{ range $pages }}
     <item>
       <title>{{ .Title }}</title>
       <link>{{ .Permalink }}</link>
-      <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
+      <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" }}</pubDate>
       {{ with .Params.author }}<author>{{ . }}</author>{{ end }}
       <guid>{{ .Permalink }}</guid>
       <description>{{ with .Description }}{{ . }}{{ else }}{{ .Summary | html }}{{ end }}</description>

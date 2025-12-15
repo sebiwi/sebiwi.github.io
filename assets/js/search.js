@@ -2,6 +2,13 @@
 (function() {
   'use strict';
 
+  // Configuration constants
+  const MAX_QUERY_LENGTH = 100;
+  const MAX_RESULTS = 10;
+  const EXCERPT_LENGTH = 15;
+  const SEARCH_DEBOUNCE_MS = 300;
+  const SCREEN_READER_ANNOUNCEMENT_TIMEOUT_MS = 3000;
+
   // State
   let pagefind = null;
   let selectedIndex = -1;
@@ -41,7 +48,7 @@
       showLoading();
       pagefind = await import('/pagefind/pagefind.js');
       await pagefind.options({
-        excerptLength: 15
+        excerptLength: EXCERPT_LENGTH
       });
       return pagefind;
     } catch (error) {
@@ -58,8 +65,8 @@
       return;
     }
 
-    if (query.length > 100) {
-      query = query.substring(0, 100);
+    if (query.length > MAX_QUERY_LENGTH) {
+      query = query.substring(0, MAX_QUERY_LENGTH);
     }
 
     const search = await initSearch();
@@ -89,9 +96,11 @@
   // Render search results
   async function renderResults(results) {
     const html = await Promise.all(
-      results.slice(0, 10).map(async (result, index) => {
+      results.slice(0, MAX_RESULTS).map(async (result, index) => {
         const data = await result.data();
-        const url = data.url;
+        const rawUrl = data.url;
+        // Validate URL to prevent XSS via javascript: URLs
+        const url = (rawUrl && (rawUrl.startsWith('/') || rawUrl.startsWith('http://') || rawUrl.startsWith('https://'))) ? rawUrl : '/';
         const title = data.meta?.title || 'Untitled';
         const excerpt = data.excerpt || '';
         const date = data.meta?.date || '';
@@ -264,7 +273,7 @@
     announcement.textContent = message;
     document.body.appendChild(announcement);
 
-    setTimeout(() => announcement.remove(), 1000);
+    setTimeout(() => announcement.remove(), SCREEN_READER_ANNOUNCEMENT_TIMEOUT_MS);
   }
 
   // Utilities
@@ -327,7 +336,7 @@
   // Search input
   input.addEventListener('input', debounce((e) => {
     performSearch(e.target.value);
-  }, 300));
+  }, SEARCH_DEBOUNCE_MS));
 
   // Backdrop click
   backdrop.addEventListener('click', closeModal);
