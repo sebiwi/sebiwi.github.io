@@ -378,6 +378,10 @@ main {
   position: relative;
 }
 
+.social-links a:hover {
+  transform: translateY(-3px) scale(1.1);
+}
+
 .social-links a::after {
   content: attr(data-tooltip);
   position: absolute;
