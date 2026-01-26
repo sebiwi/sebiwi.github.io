@@ -793,6 +793,10 @@ main {
   .post-nav-link {
     max-width: 100%;
   }
+
+  .post-nav-next {
+    align-self: flex-end;
+  }
 }
 
 /* ========================================
