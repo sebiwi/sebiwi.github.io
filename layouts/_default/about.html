@@ -1,0 +1,37 @@
+{{ define "main" }}
+<div class="about-page">
+    <div class="container">
+        <section class="neofetch fade-in-element" aria-label="about sebiwi">
+            <div class="neofetch-chrome">
+                <span class="search-dot" aria-hidden="true"></span>
+                <span class="search-dot" aria-hidden="true"></span>
+                <span class="search-dot" aria-hidden="true"></span>
+                <span class="neofetch-title">sebiwi@scoreplay: ~</span>
+            </div>
+            <div class="neofetch-body">
+                <div class="neofetch-info">
+                    <div class="nf-host">sebiwi@scoreplay</div>
+                    <div class="nf-rule">--------------------</div>
+                    <div class="nf-row"><span class="nf-key">role</span><span class="nf-val">Head of Engineering @ ScorePlay</span></div>
+                    <div class="nf-row"><span class="nf-key">focus</span><span class="nf-val">technical leadership · business · backend · data · infrastructure · reliability · security</span></div>
+                    <div class="nf-row"><span class="nf-key">stack</span><span class="nf-val">Kubernetes · Cloud (AWS, GCP) · Go · Python · Postgres · Kafka</span></div>
+                    <div class="nf-row"><span class="nf-key">prev</span><span class="nf-val">Gorgias · Jump · AWS · Ultra · OCTO</span></div>
+                    <div class="nf-row"><span class="nf-key">loc</span><span class="nf-val">Barcelona, Spain</span></div>
+                    <div class="nf-row"><span class="nf-key">langs</span><span class="nf-val">EN · ES · FR · CAT</span></div>
+                    <div class="nf-row"><span class="nf-key">writes</span><span class="nf-val"><a href="/blog/">blog</a> · <a href="/comics/">comics</a></span></div>
+                    <div class="nf-row"><span class="nf-key">links</span><span class="nf-val"><a href="https://github.com/{{ .Site.Params.social.github }}" target="_blank" rel="noopener">GitHub</a> · <a href="mailto:{{ .Site.Params.email }}">Email</a></span></div>
+                    <div class="nf-motd">"{{ .Site.Params.bio }}"</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="about-intro fade-in-element">
+            {{ .Content }}
+        </div>
+
+        <div class="breaker fade-in-element"></div>
+
+        {{ partial "footer.html" . }}
+    </div>
+</div>
+{{ end }}

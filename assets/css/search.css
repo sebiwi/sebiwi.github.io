@@ -205,7 +205,7 @@
   text-decoration: underline;
 }
 
-/* Individual result — a TUI line */
+/* Individual result: a TUI line */
 .search-result {
   position: relative;
   display: block;

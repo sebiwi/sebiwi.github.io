@@ -78,6 +78,12 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
 
+    const dots = document.createElement('span');
+    dots.className = 'code-dots';
+    dots.setAttribute('aria-hidden', 'true');
+    dots.innerHTML = '<span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span>';
+
+    header.appendChild(dots);
     header.appendChild(langLabel);
     header.appendChild(copyButton);
 
@@ -165,6 +171,12 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
 
+    const dots = document.createElement('span');
+    dots.className = 'code-dots';
+    dots.setAttribute('aria-hidden', 'true');
+    dots.innerHTML = '<span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span>';
+
+    header.appendChild(dots);
     header.appendChild(langLabel);
     header.appendChild(copyButton);
 

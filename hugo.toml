@@ -43,7 +43,7 @@ title = 'Sebiwi'
     lineNos = false
     lineNumbersInTable = false
     noClasses = true
-    style = "dracula"
+    style = "tokyonight-night"
     tabWidth = 4
   [markup.tableOfContents]
     endLevel = 3

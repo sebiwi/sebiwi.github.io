@@ -335,7 +335,7 @@
     }
   });
 
-  // Click-to-open trigger (search button — the mobile/desktop affordance)
+  // Click-to-open trigger (search button, the mobile/desktop affordance)
   document.addEventListener('click', (e) => {
     const trigger = e.target.closest('[data-search-trigger]');
     if (trigger) {

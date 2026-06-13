@@ -53,7 +53,7 @@
   --transition-easing: ease-in-out;
 }
 
-/* Dark theme — opt-in via [data-theme="dark"] on <html>.
+/* Dark theme: opt-in via [data-theme="dark"] on <html>.
    Code blocks and the search modal stay Tokyo Night in both themes. */
 :root[data-theme="dark"] {
   color-scheme: dark;
@@ -220,37 +220,44 @@ code {
 
 .code-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  background-color: rgba(36, 40, 59, 0.95);
-  color: #a9b1d6;
-  padding: 0.2rem 0.5rem;
+  gap: 7px;
+  background-color: var(--search-input-bg);
+  color: var(--search-text-dim);
+  padding: 8px 12px;
+  border: 1px solid var(--search-border);
   border-radius: var(--border-radius) var(--border-radius) 0 0;
-  font-size: 0.65rem;
   font-family: var(--font-mono);
-  opacity: 0;
-  transition: opacity 0.2s ease;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 10;
-  border: 1px solid #414868;
-  border-bottom: none;
-  min-height: 24px;
+  font-size: 0.7rem;
 }
 
-.highlight:hover .code-header {
-  opacity: 1;
+.code-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
 }
+
+.code-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.code-dot:nth-child(1) { background-color: var(--search-dot-red); }
+.code-dot:nth-child(2) { background-color: var(--search-dot-yellow); }
+.code-dot:nth-child(3) { background-color: var(--search-dot-green); }
 
 .code-language {
   font-weight: 600;
   text-transform: uppercase;
   font-size: 0.6rem;
+  letter-spacing: 0.04em;
+  margin-left: 4px;
 }
 
 .copy-button {
+  margin-left: auto;
   background-color: #1a1b26;
   border: 1px solid #414868;
   color: #a9b1d6;
@@ -282,9 +289,10 @@ code {
   height: 12px;
 }
 
-/* For code blocks with header */
+/* Code blocks with a terminal-chrome header: square the top, header supplies it */
 .highlight.with-header pre {
-  border-radius: var(--border-radius);
+  border-top: none;
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
 }
 
 /* Fallback for pre without highlight wrapper */
@@ -1023,4 +1031,102 @@ main {
   text-align: center;
   color: var(--color-text-light);
   padding: var(--spacing-xxl) 0;
+}
+
+/* ========================================
+   About: neofetch panel
+   (reuses the Tokyo Night --search-* vars from search.css;
+   the panel stays dark in both light and dark themes, like code blocks)
+   ======================================== */
+
+.about-page {
+  padding: var(--spacing-xxl) 0 0;
+}
+
+.neofetch {
+  font-family: var(--font-mono);
+  background: var(--search-bg);
+  border: 1px solid var(--search-border);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+
+.neofetch-chrome {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  background: var(--search-input-bg);
+  border-bottom: 1px solid var(--search-border);
+  font-size: 12px;
+  color: var(--search-text-dim);
+}
+
+.neofetch-title {
+  margin-left: 6px;
+  letter-spacing: 0.04em;
+}
+
+.neofetch-body {
+  padding: var(--spacing-md);
+}
+
+.neofetch-info {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 0.85rem;
+  color: var(--search-text);
+}
+
+.nf-host {
+  color: var(--search-green);
+  font-weight: 700;
+}
+
+.nf-rule {
+  color: var(--search-text-dim);
+  user-select: none;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.nf-row {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.nf-key {
+  color: var(--search-accent);
+  flex-shrink: 0;
+  min-width: 4.5em;
+}
+
+.nf-val {
+  flex: 1;
+  min-width: 0;
+}
+
+.nf-val a {
+  color: var(--search-cyan);
+  text-decoration: none;
+}
+
+.nf-val a:hover {
+  text-decoration: underline;
+}
+
+.nf-motd {
+  margin-top: 6px;
+  color: var(--search-text-dim);
+  font-style: italic;
+}
+
+.about-intro {
+  max-width: 480px;
+  margin: var(--spacing-lg) auto 0;
+  text-align: center;
+  color: var(--color-text);
 }
