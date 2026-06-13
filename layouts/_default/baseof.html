@@ -51,17 +51,24 @@
 
     <!-- Theme -->
     <meta name="color-scheme" content="light dark">
+
+    <!-- No-flash theme init: external + SRI, loaded synchronously so it runs before first paint -->
+    {{ $themeInit := resources.Get "js/theme-init.js" | resources.Minify | resources.Fingerprint }}
+    <script src="{{ $themeInit.RelPermalink }}" integrity="{{ $themeInit.Data.Integrity }}"></script>
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    {{ if not .IsHome }}
-    <nav class="top-nav">
-        <a href="/">Home</a>
-        <a href="/blog/">Blog</a>
-        <a href="/comics/">Comics</a>
-    </nav>
-    {{ end }}
+    <div class="top-bar">
+        {{ if not .IsHome }}
+        <nav class="top-nav">
+            <a href="/">Home</a>
+            <a href="/blog/">Blog</a>
+            <a href="/comics/">Comics</a>
+        </nav>
+        {{ end }}
+        {{ partial "controls.html" . }}
+    </div>
 
     <main id="main-content">
         {{ block "main" . }}{{ end }}
@@ -74,9 +81,11 @@
     {{ $codeBlocks := resources.Get "js/code-blocks.js" | resources.Minify | resources.Fingerprint }}
     {{ $headingAnchors := resources.Get "js/heading-anchors.js" | resources.Minify | resources.Fingerprint }}
     {{ $searchJS := resources.Get "js/search.js" | resources.Minify | resources.Fingerprint }}
+    {{ $themeToggle := resources.Get "js/theme-toggle.js" | resources.Minify | resources.Fingerprint }}
     <script src="{{ $codeBlocks.RelPermalink }}" integrity="{{ $codeBlocks.Data.Integrity }}" defer></script>
     <script src="{{ $headingAnchors.RelPermalink }}" integrity="{{ $headingAnchors.Data.Integrity }}" defer></script>
     <script src="{{ $searchJS.RelPermalink }}" integrity="{{ $searchJS.Data.Integrity }}" defer></script>
+    <script src="{{ $themeToggle.RelPermalink }}" integrity="{{ $themeToggle.Data.Integrity }}" defer></script>
 
     {{- partial "search-modal.html" . -}}
 </body>

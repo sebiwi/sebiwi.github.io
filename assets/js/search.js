@@ -21,6 +21,7 @@
   const backdrop = modal?.querySelector('.search-backdrop');
   const input = document.getElementById('search-input');
   const resultsContainer = document.getElementById('search-results');
+  const statusBar = document.getElementById('search-status');
 
   if (!modal || !input || !resultsContainer) {
     console.warn('Search modal elements not found');
@@ -73,27 +74,33 @@
     if (!search) return;
 
     try {
+      const started = performance.now();
       const searchResults = await search.search(query);
+      const elapsedMs = Math.max(1, Math.round(performance.now() - started));
       results = searchResults.results;
 
       if (results.length === 0) {
         showNoResults(query);
+        updateStatus(query, 0, 0, elapsedMs);
         return;
       }
 
       await renderResults(results);
       selectedIndex = -1;
 
+      const total = results.length;
+      const displayed = Math.min(total, MAX_RESULTS);
+      updateStatus(query, displayed, total, elapsedMs);
+
       // Announce to screen readers
-      const count = results.length;
-      announceToScreenReader(`${count} result${count !== 1 ? 's' : ''} found`);
+      announceToScreenReader(`${total} result${total !== 1 ? 's' : ''} found`);
     } catch (error) {
       console.error('Search error:', error);
       showError('An error occurred during search');
     }
   }
 
-  // Render search results
+  // Render search results as fzf-style TUI lines
   async function renderResults(results) {
     const html = await Promise.all(
       results.slice(0, MAX_RESULTS).map(async (result, index) => {
@@ -103,11 +110,10 @@
         const url = (rawUrl && (rawUrl.startsWith('/') || rawUrl.startsWith('http://') || rawUrl.startsWith('https://'))) ? rawUrl : '/';
         const title = data.meta?.title || 'Untitled';
         const excerpt = data.excerpt || '';
-        const date = data.meta?.date || '';
 
         // Determine content type from URL
-        let type = 'post';
-        if (url.includes('/comics/')) type = 'comic';
+        const isComic = url.includes('/comics/');
+        const type = isComic ? 'comic' : 'post';
 
         return `
           <a href="${url}"
@@ -115,34 +121,49 @@
              data-index="${index}"
              role="option"
              aria-selected="false">
-            <div class="result-title">
-              ${escapeHtml(title)}
-              <span class="result-type">${type}</span>
+            <div class="result-line">
+              <span class="result-path">${escapeHtml(urlToPath(url))}</span>
+              <span class="result-type ${isComic ? 'is-comic' : 'is-post'}">[${type}]</span>
             </div>
+            <div class="result-title">${escapeHtml(title)}</div>
             ${excerpt ? `<div class="result-excerpt">${excerpt}</div>` : ''}
-            ${date ? `<div class="result-meta">${formatDate(date)}</div>` : ''}
           </a>
         `;
       })
     );
 
-    const countHtml = `<div class="result-count">${results.length} result${results.length !== 1 ? 's' : ''}</div>`;
-    resultsContainer.innerHTML = countHtml + html.join('');
+    resultsContainer.innerHTML = html.join('');
+  }
+
+  // Render the fzf-style status line: "10/23 ── 'query' (4ms)"
+  function updateStatus(query, displayed, total, elapsedMs) {
+    if (!statusBar) return;
+    if (!total) {
+      statusBar.innerHTML = `<span class="status-count">0/0</span> ── no match for <span class="status-query">'${escapeHtml(query)}'</span> (${elapsedMs}ms)`;
+      return;
+    }
+    statusBar.innerHTML = `<span class="status-count">${displayed}/${total}</span> ── matched <span class="status-query">'${escapeHtml(query)}'</span> (${elapsedMs}ms)`;
+  }
+
+  function clearStatus() {
+    if (statusBar) statusBar.innerHTML = '';
   }
 
   // Show states
   function showEmpty() {
-    resultsContainer.innerHTML = '<div class="search-empty">Start typing to search...</div>';
+    resultsContainer.innerHTML = '<div class="search-empty">~ awaiting input …</div>';
+    clearStatus();
     results = [];
     selectedIndex = -1;
   }
 
   function showLoading() {
-    resultsContainer.innerHTML = '<div class="search-loading">Loading search...</div>';
+    resultsContainer.innerHTML = '<div class="search-loading">$ loading index…</div>';
   }
 
   function showError(message) {
     resultsContainer.innerHTML = `<div class="search-error">${escapeHtml(message)}</div>`;
+    clearStatus();
     results = [];
     selectedIndex = -1;
   }
@@ -283,13 +304,18 @@
     return div.innerHTML;
   }
 
-  function formatDate(dateString) {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric'
-    });
+  // Turn a result URL into a terminal-style file path:
+  //   /blog/foo/  -> ./blog/foo.md   |   /  -> ./index.md
+  function urlToPath(url) {
+    let path = url;
+    const schemeIndex = path.indexOf('://');
+    if (schemeIndex !== -1) {
+      const slash = path.indexOf('/', schemeIndex + 3);
+      path = slash === -1 ? '/' : path.slice(slash);
+    }
+    path = path.split(/[?#]/)[0].replace(/\/+$/, '');
+    if (!path) return './index.md';
+    return '.' + path + '.md';
   }
 
   // Event listeners
@@ -306,6 +332,15 @@
     // Close modal with Escape (catches case where modal listener doesn't fire)
     if (e.key === 'Escape' && !modal.hasAttribute('hidden')) {
       closeModal();
+    }
+  });
+
+  // Click-to-open trigger (search button — the mobile/desktop affordance)
+  document.addEventListener('click', (e) => {
+    const trigger = e.target.closest('[data-search-trigger]');
+    if (trigger) {
+      e.preventDefault();
+      openModal();
     }
   });
 

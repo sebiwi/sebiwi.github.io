@@ -3,6 +3,8 @@
    ======================================== */
 
 :root {
+  color-scheme: light;
+
   /* Colors - matching original Jekyll theme */
   --color-text: #444;
   --color-text-light: #888;
@@ -11,6 +13,16 @@
   --color-border: #aaa;
   --color-accent: #4b0082;
   --color-accent-hover: #3a0062;
+  --color-accent-bright: #7B68EE;
+  --color-heading: #111;
+  --color-muted: #666;
+  --color-icon: #000;
+  --color-bio: #aaa;
+  --color-tag-bg: #ebebeb;
+  --color-quote-border: #bb9af7;
+  --code-inline-bg: rgba(187, 154, 247, 0.1);
+  --code-inline-border: rgba(187, 154, 247, 0.3);
+  --code-inline-text: #8b7a9a;
 
   /* Typography */
   --font-base: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -41,6 +53,29 @@
   --transition-easing: ease-in-out;
 }
 
+/* Dark theme — opt-in via [data-theme="dark"] on <html>.
+   Code blocks and the search modal stay Tokyo Night in both themes. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-text: #c0caf5;
+  --color-text-light: #787c99;
+  --color-background: #16161e;
+  --color-surface: #1f2335;
+  --color-border: #414868;
+  --color-accent: #bb9af7;
+  --color-accent-hover: #c9a9ff;
+  --color-accent-bright: #c9a9ff;
+  --color-heading: #c0caf5;
+  --color-muted: #9aa5ce;
+  --color-icon: #c0caf5;
+  --color-bio: #787c99;
+  --color-tag-bg: #1f2335;
+  --code-inline-bg: rgba(187, 154, 247, 0.12);
+  --code-inline-border: rgba(187, 154, 247, 0.25);
+  --code-inline-text: #c0a8f0;
+}
+
 /* ========================================
    Accessibility
    ======================================== */
@@ -49,7 +84,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  background: #ebebeb;
+  background: var(--color-surface);
   color: var(--color-text);
   padding: 8px 16px;
   text-decoration: none;
@@ -104,7 +139,7 @@ h2 { font-size: var(--font-size-xlarge); }
 h3 { font-size: var(--font-size-large); }
 
 .heading-anchor {
-  color: #666;
+  color: var(--color-muted);
   text-decoration: none;
   opacity: 0;
   margin-left: 0.5rem;
@@ -122,7 +157,7 @@ h6:hover .heading-anchor {
 }
 
 .heading-anchor:hover {
-  color: #666;
+  color: var(--color-muted);
 }
 
 .heading-anchor:focus {
@@ -154,11 +189,11 @@ img {
 code {
   font-family: var(--font-mono);
   font-size: 0.85em;
-  background-color: rgba(187, 154, 247, 0.1);
+  background-color: var(--code-inline-bg);
   padding: 0.2em 0.4em;
   border-radius: 3px;
-  border: 1px solid rgba(187, 154, 247, 0.3);
-  color: #8b7a9a;
+  border: 1px solid var(--code-inline-border);
+  color: var(--code-inline-text);
 }
 
 .highlight {
@@ -271,7 +306,7 @@ pre code {
 }
 
 blockquote {
-  border-left: 3px solid #bb9af7;
+  border-left: 3px solid var(--color-quote-border);
   padding-left: var(--spacing-sm);
   margin-left: 0;
   margin-bottom: var(--spacing-sm);
@@ -326,31 +361,82 @@ main {
    Header & Top Navigation
    ======================================== */
 
-.top-nav {
+.top-bar {
   position: absolute;
   right: 0;
   top: 0;
-  padding: 20px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 1001;
 }
 
-.top-nav .container {
-  max-width: none;
-  padding: 0;
-  text-align: right;
+.top-nav {
+  display: flex;
+  align-items: center;
 }
 
 .top-nav a {
   font-size: 0.9rem;
   color: var(--color-accent);
   text-decoration: none;
-  margin-left: 15px;
+  margin-left: 6px;
   padding: 10px;
   transition: color 0.3s ease;
 }
 
 .top-nav a:hover {
-  color: #7B68EE;
+  color: var(--color-accent-bright);
 }
+
+/* ========================================
+   Page Controls (search + theme toggle)
+   ======================================== */
+
+.page-controls {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.ctrl-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: var(--color-accent);
+  cursor: pointer;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.ctrl-btn:hover {
+  color: var(--color-accent-bright);
+  background-color: var(--color-surface);
+}
+
+.ctrl-btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.ctrl-btn svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+/* Theme toggle icon swap */
+.theme-toggle .icon-sun { display: none; }
+.theme-toggle .icon-moon { display: block; }
+
+:root[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+:root[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
 
 /* ========================================
    Social Links
@@ -433,7 +519,7 @@ main {
 .social-links svg {
   width: 17px;
   height: 17px;
-  fill: #000;
+  fill: var(--color-icon);
   stroke: none;
   transition: all 0.3s ease;
   margin: 7px auto;
@@ -483,7 +569,7 @@ main {
 .profile-bio {
   font-size: 1.2rem;
   font-weight: 300;
-  color: #aaa;
+  color: var(--color-bio);
   width: 70%;
   margin: 0 auto 30px;
 }
@@ -496,7 +582,7 @@ main {
   height: 1px;
   margin: 2.5rem auto 0;
   width: 100%;
-  background-color: #ededed;
+  background-color: var(--color-surface);
   position: relative;
   z-index: 1;
 }
@@ -509,7 +595,7 @@ main {
   transform: translateX(-50%);
   width: 7px;
   height: 7px;
-  border: 1px solid #ededed;
+  border: 1px solid var(--color-surface);
   border-radius: 3px;
   background-color: var(--color-background);
 }
@@ -532,13 +618,13 @@ main {
 }
 
 .home-nav-link:hover {
-  color: #7B68EE;
+  color: var(--color-accent-bright);
 }
 
 .site-footer-home {
   text-align: center;
   font-size: 0.8rem;
-  color: #aaa;
+  color: var(--color-bio);
   padding: 20px 0;
   margin: 0;
 }
@@ -548,7 +634,7 @@ main {
 }
 
 .site-footer-home .rss-link {
-  color: #aaa;
+  color: var(--color-bio);
   text-decoration: none;
   display: inline-flex;
   align-items: center;
@@ -626,7 +712,7 @@ main {
   align-items: center;
   font-size: 0.85rem;
   font-weight: 300;
-  color: #666;
+  color: var(--color-muted);
   text-transform: uppercase;
   margin-bottom: var(--spacing-sm);
 }
@@ -646,11 +732,11 @@ main {
 .tag {
   display: inline-block;
   padding: 0.15rem 0.4rem;
-  background-color: #ebebeb;
+  background-color: var(--color-tag-bg);
   border: none;
   border-radius: 3px;
   font-size: 0.7rem;
-  color: #666;
+  color: var(--color-muted);
   text-decoration: none;
   text-transform: uppercase;
   transition: all var(--transition-speed) var(--transition-easing);
@@ -733,7 +819,7 @@ main {
 }
 
 .post-item-link {
-  color: #111;
+  color: var(--color-heading);
   font-size: 1.3rem;
   text-decoration: none;
   flex: 1;
@@ -777,7 +863,7 @@ main {
 }
 
 .post-nav-link:hover {
-  color: #7B68EE;
+  color: var(--color-accent-bright);
 }
 
 .post-nav-next:only-child {
@@ -810,7 +896,7 @@ main {
 .related-posts h3 {
   margin-bottom: var(--spacing-md);
   font-weight: 700;
-  color: #000;
+  color: var(--color-heading);
 }
 
 .related-posts ul {
