@@ -6,7 +6,7 @@ This is my website. Built with [Hugo](https://gohugo.io/). Heavily based on Serg
 
 ### Prerequisites
 
-- [Hugo Extended](https://gohugo.io/installation/) v0.152.2 or later
+- [Hugo Extended](https://gohugo.io/installation/) v0.163.1 or later
 - [Pagefind](https://pagefind.app/) (for search functionality)
 - [lychee](https://github.com/lycheeverse/lychee) (optional, for link checking)
 
