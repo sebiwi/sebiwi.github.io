@@ -1,0 +1,26 @@
+{{ define "main" }}
+<div class="notfound-page">
+    <div class="container">
+        <section class="neofetch terminal-404 fade-in-element" aria-label="404 — page not found">
+            <div class="neofetch-chrome">
+                <span class="search-dot" aria-hidden="true"></span>
+                <span class="search-dot" aria-hidden="true"></span>
+                <span class="search-dot" aria-hidden="true"></span>
+                <span class="neofetch-title">sebiwi@scoreplay: ~</span>
+            </div>
+            <div class="neofetch-body">
+                <pre class="term-404"><span class="term-prompt">$</span> cd <span class="term-path" data-404-path>/the/page/you/wanted</span>
+<span class="term-err">cd: no such file or directory</span>
+<span class="term-prompt">$</span> ls ~/
+<a href="/" class="term-link">home/</a>  <a href="/blog/" class="term-link">blog/</a>  <a href="/comics/" class="term-link">comics/</a>  <a href="/about/" class="term-link">about.md</a>
+<span class="term-prompt">$</span> <span class="term-cursor" aria-hidden="true">&#9608;</span></pre>
+            </div>
+        </section>
+
+        <p class="about-intro">404, that page doesn't exist (or moved). Try the search (⌘K) or <a href="/">head home</a>.</p>
+    </div>
+</div>
+
+{{ $notFound := resources.Get "js/notfound.js" | resources.Minify | resources.Fingerprint }}
+<script src="{{ $notFound.RelPermalink }}" integrity="{{ $notFound.Data.Integrity }}" defer></script>
+{{ end }}

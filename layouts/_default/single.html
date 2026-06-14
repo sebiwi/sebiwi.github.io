@@ -46,9 +46,16 @@
             {{ end }}
 
             {{ if and .Params.image (eq .Section "comics") }}
-            <img class="post-image" src="{{ .Params.image }}" alt="{{ .Params.alt | default .Title }}" loading="lazy" decoding="async">
+            {{ partial "responsive-img.html" (dict "src" .Params.image "alt" (.Params.alt | default .Title) "class" "post-image" "sizes" "(max-width: 600px) 92vw, 528px" "widths" (slice 560 1120) "loading" "eager") }}
             {{ end }}
         </header>
+
+        {{ if and (eq .Section "blog") (gt (len .Fragments.Headings) 0) }}
+        <details class="post-toc" open>
+            <summary class="post-toc-summary">Contents</summary>
+            {{ .TableOfContents }}
+        </details>
+        {{ end }}
 
         <div class="post-content">
             {{ .Content }}

@@ -1,0 +1,19 @@
+{{/* Compact terminal-style pager. Context: a paginator object. */}}
+{{ $p := . }}
+{{ if gt $p.TotalPages 1 }}
+<nav class="pager" aria-label="Pagination">
+    {{ if $p.HasPrev }}
+    <a href="{{ $p.Prev.URL }}" class="pager-link pager-prev" rel="prev">&laquo;&nbsp;prev</a>
+    {{ else }}
+    <span class="pager-link is-disabled" aria-hidden="true">&laquo;&nbsp;prev</span>
+    {{ end }}
+
+    <span class="pager-status">{{ $p.PageNumber }}<span class="pager-sep">/</span>{{ $p.TotalPages }}</span>
+
+    {{ if $p.HasNext }}
+    <a href="{{ $p.Next.URL }}" class="pager-link pager-next" rel="next">next&nbsp;&raquo;</a>
+    {{ else }}
+    <span class="pager-link is-disabled" aria-hidden="true">next&nbsp;&raquo;</span>
+    {{ end }}
+</nav>
+{{ end }}

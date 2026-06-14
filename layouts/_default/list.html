@@ -10,8 +10,9 @@
 
         <div class="breaker fade-in-element"></div>
 
+        {{ $paginator := .Paginate .Pages }}
         <div class="post-grid fade-in-element">
-            {{ range .Pages }}
+            {{ range $paginator.Pages }}
             {{ partial "post-card.html" . }}
             {{ end }}
         </div>
@@ -19,6 +20,8 @@
         {{ if eq (len .Pages) 0 }}
         <p class="no-posts">Nothing published yet!</p>
         {{ end }}
+
+        {{ partial "pagination.html" $paginator }}
 
         <div class="breaker fade-in-element"></div>
 

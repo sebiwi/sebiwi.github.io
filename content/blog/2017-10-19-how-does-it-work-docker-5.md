@@ -204,7 +204,7 @@ tasks (containers) of a service. This means that the tasks will be
 updated one at the time, with a 10 second delay between them. You can
 then list your services using the `ls` command:
 
-```
+```bash
 core@swarm-manager-01 ~ $ docker service ls
 ID            NAME   REPLICAS  IMAGE        COMMAND
 09j27f6ehaq6  redis  0/1       redis:3.0.6
@@ -213,7 +213,7 @@ ID            NAME   REPLICAS  IMAGE        COMMAND
 And see information regarding the different tasks of the service using
 the `ps` command, with the service name:
 
-```
+```bash
 core@swarm-manager-01 ~ $ docker service ps redis
 ID                         NAME     IMAGE        NODE             DESIRED STATE  CURRENT STATE           ERROR
 06cj3g824k8r0jjpoew0uip7z  redis.1  redis:3.0.6  swarm-worker-03  Running        Running 42 seconds ago
@@ -224,14 +224,14 @@ node in which the container is running.
 
 You can also scale up/down your services, using the `scale` command:
 
-```
+```bash
 core@swarm-manager-01 ~ $ docker service scale redis=11
 redis scaled to 11
 ```
 
 [This scales your nodes up to 11][1]. Sick!
 
-```
+```bash
 core@swarm-manager-01 ~ $ docker service ps redis
 ID                         NAME          IMAGE        NODE             DESIRED STATE  CURRENT STATE            ERROR
 06cj3g824k8r0jjpoew0uip7z  redis.1       redis:3.0.6  swarm-worker-03  Running        Running 8 minutes ago
@@ -257,7 +257,7 @@ This will launch the rolling update process. It will take some time
 due to the update delay we set before. If you launch a `ps` command on
 the service, you should be able to see your containers updating:
 
-```
+```bash
 core@swarm-manager-01 ~ $ docker service ps redis
 ID                         NAME          IMAGE        NODE             DESIRED STATE  CURRENT STATE            ERROR
 ...
@@ -272,7 +272,7 @@ e8lf3q9ic8674fba8a863ciwh  redis.5       redis:3.0.7  swarm-worker-02  Running  
 This should happens with every node eventually. You can see the
 service status if you use the `inspect` command on it:
 
-```
+```bash
 core@swarm-manager-01 ~ $ docker service inspect --pretty redis
 ID:             buye01j0ofdmt32lqplgvknic
 Name:           redis
@@ -327,7 +327,7 @@ By doing this, we will map the 8080 port on all nodes to the 80 port
 inside the containers. Let us then see where our containers are
 running:
 
-```
+```bash
 core@swarm-manager-01 ~ $ docker service ps amazing-web-server
 ID                         NAME                  IMAGE  NODE             DESIRED STATE  CURRENT STATE                   ERROR
 6viw0duiqjobqwlajs8flrbk1  amazing-web-server.1  nginx  swarm-worker-03  Running        Running less than a second ago
@@ -359,7 +359,7 @@ vagrant destroy swarm-manager-01 --force
 
 No more Leader. Access the second manager node and see what’s going on:
 
-```
+```bash
 vagrant ssh swarm-manager-02
 core@swarm-manager-02 ~ $ docker node ls
 ID                           HOSTNAME          STATUS   AVAILABILITY  MANAGER STATUS
@@ -383,7 +383,7 @@ vagrant destroy swarm-worker-02 swarm-worker-03 --force
 
 If we check the service status:
 
-```
+```bash
 core@swarm-manager-02 ~ $ docker service ps amazing-web-server
 ID                         NAME                      IMAGE  NODE             DESIRED STATE  CURRENT STATE                ERROR
 95u3ndb01onpx6ki5daohuwf1  amazing-web-server.1      nginx  swarm-worker-01  Running        Running about a minute ago

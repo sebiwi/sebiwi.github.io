@@ -1,0 +1,33 @@
+{{/*
+  Generates a per-post Open Graph card (1200x630) by drawing the post title
+  over the branded og-base.png background. Returns the absolute URL of the
+  generated image. Intended for blog posts.
+*/}}
+{{ $base := resources.Get "images/og-base.png" }}
+{{ $bold := resources.Get "fonts/JetBrainsMono-Bold.ttf" }}
+{{ $regular := resources.Get "fonts/JetBrainsMono-Regular.ttf" }}
+
+{{/* Word-wrap the title to ~24 chars per line (mono font, ~28 fit at size 64). */}}
+{{ $maxChars := 24 }}
+{{ $words := split .Title " " }}
+{{ $lines := slice }}
+{{ $current := "" }}
+{{ range $words }}
+  {{ $candidate := cond (eq $current "") . (printf "%s %s" $current .) }}
+  {{ if gt (len $candidate) $maxChars }}
+    {{ if ne $current "" }}{{ $lines = $lines | append $current }}{{ end }}
+    {{ $current = . }}
+  {{ else }}
+    {{ $current = $candidate }}
+  {{ end }}
+{{ end }}
+{{ if ne $current "" }}{{ $lines = $lines | append $current }}{{ end }}
+{{ $titleText := delimit $lines "\n" }}
+
+{{/* Draw: top prompt (green), title (bold light), footer (dim). */}}
+{{ $img := $base.Filter
+  (images.Text "~/ sebiwi.github.io" (dict "color" "#9ece6a" "size" 30 "x" 212 "y" 52 "font" $regular))
+  (images.Text $titleText (dict "color" "#c0caf5" "size" 64 "x" 60 "y" 200 "linespacing" 16 "font" $bold))
+  (images.Text "Tech, fun, and cookies" (dict "color" "#787c99" "size" 28 "x" 60 "y" 576 "font" $regular))
+}}
+{{ return $img.Permalink }}

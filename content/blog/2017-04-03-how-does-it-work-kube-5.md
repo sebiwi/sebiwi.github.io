@@ -23,7 +23,7 @@ In order to configure Flannel, we just add configuration environment variables u
 `/etc/flannel/options.env`. These specify that the flannel interface is this node's public
 IP, and that the cluster configuration is stocked in etcd cluster:
 
-```
+```ini
 FLANNELD_IFACE={{ ansible_env.COREOS_PUBLIC_IPV4 }}
 FLANNELD_ETCD_ENDPOINTS={{ etcd_endpoints }}
 ```
@@ -33,7 +33,7 @@ Then, we add a system-drop in (a method for adding or overriding parameters of a
 unit) for flannel, in which we specify that we want to use the configuration specified
 above when the service launches:
 
-```
+```ini
 
 [Service]
 ExecStartPre=/usr/bin/ln -sf /etc/flannel/options.env /run/flannel/options.env
@@ -49,7 +49,7 @@ namespace using a simple [uri task][1].
 After that, we gotta configure Docker on the virtual machine. Actually, the only thing we need is to
 be sure that flannel is used for networking. Basically, flanneld needs to be running when Docker starts:
 
-```
+```ini
 [Unit]
 Requires=flanneld.service
 After=flanneld.service

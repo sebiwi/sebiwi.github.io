@@ -75,7 +75,7 @@ ssh_args = -F ssh.config
 
 I really like Makefiles. I use them quite often when I have write more than one long command, or many different ones that are going to take a while. I'm also kinda lazy. So I just did this:
 
-```
+```makefile
 vagrant:
  @vagrant up
  @vagrant ssh-config > ssh.config

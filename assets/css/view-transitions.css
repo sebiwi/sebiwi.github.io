@@ -1,0 +1,8 @@
+/* Opt into smooth cross-document view transitions (a crossfade between page
+   navigations). Progressive enhancement: supporting browsers animate, others
+   navigate normally. Kept in its own file because Hugo's CSS minifier strips
+   the `navigation` descriptor of this at-rule, so this file is served
+   un-minified. The reduced-motion opt-out lives in style.css. */
+@view-transition {
+  navigation: auto;
+}

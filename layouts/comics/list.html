@@ -1,0 +1,46 @@
+{{ define "main" }}
+<div class="list-page">
+    <div class="container">
+        <div class="profile fade-in-element">
+            <img src="{{ .Site.Params.picture }}" alt="{{ .Site.Params.name }}" class="profile-image">
+            <h1 class="profile-title">{{ .Site.Params.name }}</h1>
+            <p class="profile-bio">{{ .Site.Params.bio }}</p>
+            {{ partial "social-links.html" . }}
+        </div>
+
+        <div class="breaker fade-in-element"></div>
+    </div>
+
+    {{ $paginator := .Paginate .Pages 24 }}
+    <div class="comics-wrap">
+        <div class="comics-grid fade-in-element">
+            {{ range $paginator.Pages }}
+            {{ $alt := .Params.alt | default .Title }}
+            <a href="{{ .RelPermalink }}" class="comic-card" aria-label="{{ .Title }}">
+                {{ with .Params.image }}
+                <span class="comic-thumb">
+                    {{ partial "responsive-img.html" (dict "src" . "alt" $alt "sizes" "(max-width: 600px) 45vw, 240px" "widths" (slice 240 480)) }}
+                </span>
+                {{ end }}
+                <span class="comic-card-meta">
+                    <span class="comic-card-title">{{ .Title }}</span>
+                    <time datetime="{{ .Date.Format "2006-01-02" }}" class="comic-card-date">{{ .Date.Format "Jan 02 2006" }}</time>
+                </span>
+            </a>
+            {{ end }}
+        </div>
+
+        {{ if eq (len .Pages) 0 }}
+        <p class="no-posts">Nothing published yet!</p>
+        {{ end }}
+
+        {{ partial "pagination.html" $paginator }}
+    </div>
+
+    <div class="container">
+        <div class="breaker fade-in-element"></div>
+
+        {{ partial "footer.html" . }}
+    </div>
+</div>
+{{ end }}

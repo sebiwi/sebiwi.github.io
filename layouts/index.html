@@ -14,6 +14,50 @@
             <a href="/about/" class="home-nav-link">About</a>
         </nav>
 
+        {{ if .Site.Params.showHomeLatest }}
+        <div class="breaker fade-in-element"></div>
+
+        {{ $blog := first 5 (where .Site.RegularPages "Section" "blog") }}
+        {{ with $blog }}
+        <section class="home-section fade-in-element">
+            <div class="home-section-head">
+                <h2 class="home-section-title">Latest writing</h2>
+                <a href="/blog/" class="home-section-more">all posts&nbsp;&raquo;</a>
+            </div>
+            <div class="post-grid">
+                {{ range . }}
+                {{ partial "post-card.html" . }}
+                {{ end }}
+            </div>
+        </section>
+        {{ end }}
+
+        {{ $comics := first 4 (where .Site.RegularPages "Section" "comics") }}
+        {{ with $comics }}
+        <section class="home-section fade-in-element">
+            <div class="home-section-head">
+                <h2 class="home-section-title">Recent comics</h2>
+                <a href="/comics/" class="home-section-more">all comics&nbsp;&raquo;</a>
+            </div>
+            <div class="comics-grid home-comics-strip">
+                {{ range . }}
+                {{ $alt := .Params.alt | default .Title }}
+                <a href="{{ .RelPermalink }}" class="comic-card" aria-label="{{ .Title }}">
+                    {{ with .Params.image }}
+                    <span class="comic-thumb">
+                        {{ partial "responsive-img.html" (dict "src" . "alt" $alt "sizes" "(max-width: 600px) 30vw, 170px" "widths" (slice 180 360)) }}
+                    </span>
+                    {{ end }}
+                    <span class="comic-card-meta">
+                        <span class="comic-card-title">{{ .Title }}</span>
+                    </span>
+                </a>
+                {{ end }}
+            </div>
+        </section>
+        {{ end }}
+        {{ end }}
+
         <div class="breaker fade-in-element"></div>
 
         {{ partial "footer.html" . }}

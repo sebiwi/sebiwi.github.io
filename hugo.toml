@@ -14,12 +14,37 @@ title = 'Sebiwi'
   showTags = true
   showRelated = true
   showAuthor = true
+  showHomeLatest = true
+  hyphenatePosts = false    # auto-hyphenate justified post body text (tighter spacing)
   animations = true
 
   # Social links
   [params.social]
     twitter = 'sebiwicb'
     github = 'sebiwi'
+
+[pagination]
+  pagerSize = 10
+
+# Custom mounts replace Hugo's defaults, so the standard dirs are re-declared.
+# The extra mount exposes static/images to the asset pipeline so those images
+# can be processed (responsive resize / WebP) while still being served raw.
+[module]
+  [[module.mounts]]
+    source = 'content'
+    target = 'content'
+  [[module.mounts]]
+    source = 'layouts'
+    target = 'layouts'
+  [[module.mounts]]
+    source = 'assets'
+    target = 'assets'
+  [[module.mounts]]
+    source = 'static'
+    target = 'static'
+  [[module.mounts]]
+    source = 'static/images'
+    target = 'assets/images'
 
 [permalinks]
   blog = '/blog/:title/'
@@ -39,7 +64,7 @@ title = 'Sebiwi'
   [markup.highlight]
     anchorLineNos = false
     codeFences = true
-    guessSyntax = true
+    guessSyntax = false
     lineNos = false
     lineNumbersInTable = false
     noClasses = true

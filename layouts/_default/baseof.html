@@ -21,33 +21,44 @@
     <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
     {{ $searchCSS := resources.Get "css/search.css" | resources.Minify | resources.Fingerprint }}
     <link rel="stylesheet" href="{{ $searchCSS.RelPermalink }}" integrity="{{ $searchCSS.Data.Integrity }}">
+    {{/* Not minified: Hugo's CSS minifier strips the @view-transition descriptor. */}}
+    {{ $viewTransitions := resources.Get "css/view-transitions.css" | resources.Fingerprint }}
+    <link rel="stylesheet" href="{{ $viewTransitions.RelPermalink }}" integrity="{{ $viewTransitions.Data.Integrity }}">
 
     <!-- RSS -->
     {{ range .AlternativeOutputFormats -}}
         <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink }}" title="{{ $.Site.Title }}">
     {{ end -}}
 
+    {{/* Resolve the social-card image: blog posts get an auto-generated card,
+         comics use their own image, everything else falls back to the profile. */}}
+    {{ $ogImage := "" }}
+    {{ $largeCard := false }}
+    {{ if and .IsPage (eq .Section "blog") }}
+        {{ $ogImage = partial "og-image.html" . }}
+        {{ $largeCard = true }}
+    {{ else }}
+        {{ with .Params.image }}
+            {{ $ogImage = . | absURL }}
+            {{ $largeCard = true }}
+        {{ else }}
+            {{ $ogImage = $.Site.Params.picture | absURL }}
+        {{ end }}
+    {{ end }}
+
     <!-- Open Graph -->
     <meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ end }}">
     <meta property="og:description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
     <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
     <meta property="og:url" content="{{ .Permalink }}">
-    {{ with .Params.image }}
-    <meta property="og:image" content="{{ . | absURL }}">
-    {{ else }}
-    <meta property="og:image" content="{{ .Site.Params.picture | absURL }}">
-    {{ end }}
+    <meta property="og:image" content="{{ $ogImage }}">
 
     <!-- Twitter Card -->
-    <meta name="twitter:card" content="{{ if .Params.image }}summary_large_image{{ else }}summary{{ end }}">
+    <meta name="twitter:card" content="{{ if $largeCard }}summary_large_image{{ else }}summary{{ end }}">
     <meta name="twitter:site" content="@{{ .Site.Params.social.twitter }}">
     <meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ end }}">
     <meta name="twitter:description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
-    {{ with .Params.image }}
-    <meta name="twitter:image" content="{{ . | absURL }}">
-    {{ else }}
-    <meta name="twitter:image" content="{{ .Site.Params.picture | absURL }}">
-    {{ end }}
+    <meta name="twitter:image" content="{{ $ogImage }}">
 
     <!-- Theme -->
     <meta name="color-scheme" content="light dark">
@@ -56,7 +67,7 @@
     {{ $themeInit := resources.Get "js/theme-init.js" | resources.Minify | resources.Fingerprint }}
     <script src="{{ $themeInit.RelPermalink }}" integrity="{{ $themeInit.Data.Integrity }}"></script>
 </head>
-<body>
+<body{{ if .Site.Params.hyphenatePosts }} class="hyphenate"{{ end }}>
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
     <div class="top-bar">
@@ -87,6 +98,16 @@
     <script src="{{ $headingAnchors.RelPermalink }}" integrity="{{ $headingAnchors.Data.Integrity }}" defer></script>
     <script src="{{ $searchJS.RelPermalink }}" integrity="{{ $searchJS.Data.Integrity }}" defer></script>
     <script src="{{ $themeToggle.RelPermalink }}" integrity="{{ $themeToggle.Data.Integrity }}" defer></script>
+
+    {{ if and .IsPage (eq .Section "comics") }}
+    {{ $comicNav := resources.Get "js/comic-nav.js" | resources.Minify | resources.Fingerprint }}
+    <script src="{{ $comicNav.RelPermalink }}" integrity="{{ $comicNav.Data.Integrity }}" defer></script>
+    {{ end }}
+
+    {{ if and .IsPage (eq .Section "blog") }}
+    {{ $readingProgress := resources.Get "js/reading-progress.js" | resources.Minify | resources.Fingerprint }}
+    <script src="{{ $readingProgress.RelPermalink }}" integrity="{{ $readingProgress.Data.Integrity }}" defer></script>
+    {{ end }}
 
     {{- partial "search-modal.html" . -}}
 </body>

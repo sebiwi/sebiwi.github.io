@@ -129,7 +129,7 @@ We’ve got the virtual machines, and the SSH configuration. For the
 Ansible part, we’ll start by creating an inventory with all our six
 nodes in it, separated by groups:
 
-```
+```ini
 [swarm-leader]
 swarm-manager-01
 
@@ -334,7 +334,7 @@ interested.
 
 And with that, I also get to add two new (phony) Makefile target:
 
-```
+```makefile
 smoketest:
     @ansible-playbook -i inventories/vagrant.ini swarm.yml --tags test
 

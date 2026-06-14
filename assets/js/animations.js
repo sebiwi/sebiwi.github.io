@@ -1,7 +1,15 @@
-// Fade-in animations on scroll
+// Scroll-reveal for post-body images.
+// (The staggered page entrance for .fade-in-element is handled purely in CSS
+// via the fadeInUp keyframe + nth-child delays — this JS intentionally does
+// NOT touch those, to avoid double-handling.)
 document.addEventListener('DOMContentLoaded', () => {
-  // Elements to animate
-  const animateElements = document.querySelectorAll('.fade-in-element, .post-card, .post-content img');
+  // Honor reduced-motion: don't hide anything, skip the scroll animations.
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    return;
+  }
+
+  // Elements to animate: images inside post content, revealed as they scroll in.
+  const animateElements = document.querySelectorAll('.post-content img');
 
   // Intersection Observer options
   const options = {

@@ -1,0 +1,40 @@
+{{/*
+  Responsive image helper. Processes an image from the asset pipeline into
+  WebP variants at the given widths, emitting srcset + width/height (to avoid
+  layout shift). Falls back to a plain <img> if the source can't be processed.
+
+  Params (dict):
+    src     - image path (e.g. "/images/comics/x.jpg" or "images/comics/x.jpg")
+    alt     - alt text
+    class   - optional class for the <img>
+    sizes   - optional sizes attribute
+    widths  - optional slice of target widths (default: 400 800)
+    loading - optional loading attr (default: "lazy")
+*/}}
+{{ $src := .src }}
+{{ $alt := .alt | default "" }}
+{{ $class := .class | default "" }}
+{{ $sizes := .sizes | default "" }}
+{{ $loading := .loading | default "lazy" }}
+{{ $widths := .widths | default (slice 400 800) }}
+
+{{ $path := strings.TrimPrefix "/" $src }}
+{{ $res := resources.Get $path }}
+
+{{ if $res }}
+  {{ $sorted := sort $widths }}
+  {{ $largestWanted := index $sorted (sub (len $sorted) 1) }}
+  {{/* Never upscale past the original. */}}
+  {{ $maxW := math.Min $largestWanted $res.Width }}
+  {{ $srcset := slice }}
+  {{ $main := "" }}
+  {{ range $sorted }}
+    {{ $w := math.Min . $res.Width }}
+    {{ $v := $res.Resize (printf "%dx webp q82" (int $w)) }}
+    {{ $srcset = $srcset | append (printf "%s %dw" $v.RelPermalink (int $v.Width)) }}
+    {{ $main = $v }}
+  {{ end }}
+  <img src="{{ $main.RelPermalink }}" srcset="{{ delimit $srcset ", " }}"{{ with $sizes }} sizes="{{ . }}"{{ end }} width="{{ $main.Width }}" height="{{ $main.Height }}" alt="{{ $alt }}" loading="{{ $loading }}" decoding="async"{{ with $class }} class="{{ . }}"{{ end }}>
+{{ else }}
+  <img src="{{ $src }}" alt="{{ $alt }}" loading="{{ $loading }}" decoding="async"{{ with $class }} class="{{ . }}"{{ end }}>
+{{ end }}
