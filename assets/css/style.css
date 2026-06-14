@@ -216,6 +216,8 @@ code {
   background-color: transparent;
   padding: 0;
   color: inherit;
+  border: none;
+  border-radius: 0;
 }
 
 .code-header {
@@ -311,6 +313,8 @@ pre code {
   background-color: transparent;
   padding: 0;
   color: inherit;
+  border: none;
+  border-radius: 0;
 }
 
 blockquote {
