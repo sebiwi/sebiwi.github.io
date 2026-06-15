@@ -1,8 +1,10 @@
 ---
 title:  "How does it work? Kubernetes! Episode 2 - Kubernetes networking"
+description: "How Kubernetes networking works: pod-to-pod communication across hosts, virtual bridges, overlays and the CNI model."
+series: "How does it work? Kubernetes"
 date:   2017-03-17 20:19:02 +0100
 tags:
-- architecure
+- architecture
 - kubernetes
 - infrastructure as code
 author: sebiwi

@@ -55,10 +55,10 @@ Create file at project root:
 ```toml
 baseURL = 'https://sebiwi.github.io/'
 languageCode = 'en-us'
-title = 'Sebiwi'
+title = 'sebiwi'
 
 [params]
-  name = 'Sebiwi'
+  name = 'sebiwi'
   bio = 'Tech, fun, and cookies'
   description = 'Tech, fun and cookies'
   picture = '/images/profile.jpg'

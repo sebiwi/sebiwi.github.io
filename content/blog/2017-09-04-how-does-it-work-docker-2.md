@@ -1,8 +1,10 @@
 ---
 title:  "How does it work? Docker! Episode 2 - Swarm networking"
+description: "How Docker Swarm networking works: overlay networks, the routing mesh and how containers talk to each other across nodes."
+series: "How does it work? Docker"
 date:   2017-09-04 20:19:02 +0100
 tags:
-- architecure
+- architecture
 - docker
 - infrastructure as code
 author: sebiwi

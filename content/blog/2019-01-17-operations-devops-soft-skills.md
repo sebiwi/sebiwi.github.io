@@ -1,5 +1,6 @@
 ---
 title:  "On Operations, DevOps and soft skills"
+description: "Lessons from being the ops person embedded in a dev team, why DevOps is as much about communication and soft skills as tooling."
 date:   2019-01-17 07:19:02 +0100
 tags:
 - software craftsmanship

@@ -1,5 +1,7 @@
 ---
 title:  "How does it work? Kubernetes! Episode 3 - Infrastructure as code: the tools of the trade"
+description: "The tools of Infrastructure as Code, split into three stages, provisioning, configuration and deployment, and where each one fits."
+series: "How does it work? Kubernetes"
 date:   2017-03-24 20:19:02 +0100
 tags:
 - kubernetes

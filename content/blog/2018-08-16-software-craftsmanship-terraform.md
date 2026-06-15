@@ -1,5 +1,6 @@
 ---
 title:  "Software Craftsmanship and OPS scripting: a love story"
+description: "Applying software craftsmanship to ops scripting: a tested Ruby wrapper that makes Terraform workspaces safer. Co-written with Tanguy Patte."
 date:   2018-08-16 07:19:02 +0100
 tags:
 - software craftsmanship

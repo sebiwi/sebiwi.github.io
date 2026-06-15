@@ -1,5 +1,7 @@
 ---
 title:  "How does it work? Kubernetes! Episode 5 - Master and worker, at last!"
+description: "Wiring up the Kubernetes master (API server, scheduler, controller manager) and worker nodes, TLS and all."
+series: "How does it work? Kubernetes"
 date:   2017-04-03 20:19:02 +0100
 tags:
 - kubernetes

@@ -10,6 +10,7 @@
     sizes   - optional sizes attribute
     widths  - optional slice of target widths (default: 400 800)
     loading - optional loading attr (default: "lazy")
+    quality - optional WebP quality 1-100 (default: 82)
 */}}
 {{ $src := .src }}
 {{ $alt := .alt | default "" }}
@@ -17,20 +18,23 @@
 {{ $sizes := .sizes | default "" }}
 {{ $loading := .loading | default "lazy" }}
 {{ $widths := .widths | default (slice 400 800) }}
+{{ $quality := .quality | default 82 }}
 
 {{ $path := strings.TrimPrefix "/" $src }}
 {{ $res := resources.Get $path }}
 
 {{ if $res }}
-  {{ $sorted := sort $widths }}
-  {{ $largestWanted := index $sorted (sub (len $sorted) 1) }}
-  {{/* Never upscale past the original. */}}
-  {{ $maxW := math.Min $largestWanted $res.Width }}
+  {{/* Cap every target at the original width (never upscale), then dedupe so
+       small originals don't emit duplicate srcset entries. */}}
+  {{ $targets := slice }}
+  {{ range (sort $widths) }}
+    {{ $targets = $targets | append (int (math.Min . $res.Width)) }}
+  {{ end }}
+  {{ $targets = uniq $targets }}
   {{ $srcset := slice }}
   {{ $main := "" }}
-  {{ range $sorted }}
-    {{ $w := math.Min . $res.Width }}
-    {{ $v := $res.Resize (printf "%dx webp q82" (int $w)) }}
+  {{ range $targets }}
+    {{ $v := $res.Resize (printf "%dx webp q%d" . $quality) }}
     {{ $srcset = $srcset | append (printf "%s %dw" $v.RelPermalink (int $v.Width)) }}
     {{ $main = $v }}
   {{ end }}

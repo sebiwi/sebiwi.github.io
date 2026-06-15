@@ -1,0 +1,26 @@
+{{/* Series navigation: lists every post in the current post's series,
+     ordered oldest-first, with the current part highlighted. */}}
+{{ with .Params.series }}
+{{ $series := . }}
+{{ $parts := sort (where (where site.RegularPages "Section" "blog") "Params.series" $series) "Date" "asc" }}
+{{ if gt (len $parts) 1 }}
+<details class="series-nav" open aria-label="Series navigation">
+    <summary class="series-nav-summary">
+        <span class="series-nav-label">Series</span>
+        <span class="series-nav-name">{{ $series }}</span>
+        <span class="series-nav-count">{{ len $parts }} parts</span>
+    </summary>
+    <ol class="series-nav-list">
+        {{ range $i, $p := $parts }}
+        <li class="series-nav-item{{ if eq $p.RelPermalink $.RelPermalink }} is-current{{ end }}">
+            {{ if eq $p.RelPermalink $.RelPermalink }}
+            <span aria-current="true"><span class="series-nav-num">{{ add $i 1 }}.</span> {{ $p.LinkTitle }}</span>
+            {{ else }}
+            <a href="{{ $p.RelPermalink }}"><span class="series-nav-num">{{ add $i 1 }}.</span> {{ $p.LinkTitle }}</a>
+            {{ end }}
+        </li>
+        {{ end }}
+    </ol>
+</details>
+{{ end }}
+{{ end }}

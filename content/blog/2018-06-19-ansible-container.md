@@ -1,5 +1,6 @@
 ---
 title:  "Ansible Container: Chronicle of a death foretold"
+description: "Why we tried Ansible Container and went back to Dockerfiles, building images and provisioning servers are two different jobs. Co-written with Adrien Besnard."
 date:   2018-06-07 08:19:02 +0100
 tags:
 - infrastructure as code

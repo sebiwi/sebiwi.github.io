@@ -21,13 +21,16 @@ Complete rewrite of sebiwi.github.io from Jekyll to Hugo while maintaining featu
 ## Site Architecture & Structure
 
 ### Content Organization
+
 Hugo's section-based structure maps directly to URLs:
+
 - `content/blog/` → `/blog/` section with all blog posts
 - `content/comics/` → `/comics/` section with all comic posts
 - `content/_index.md` → Home page content
 - `content/about.md` → About page (optional)
 
 ### Layouts
+
 - `layouts/_default/baseof.html` - Base template with HTML structure, CSS, meta tags
 - `layouts/_default/single.html` - Individual post template (blog & comics)
 - `layouts/_default/list.html` - Section listing pages (blog index, comics index)
@@ -35,16 +38,19 @@ Hugo's section-based structure maps directly to URLs:
 - `layouts/partials/` - Reusable components (header, footer, nav, post-card, etc.)
 
 ### Static Assets
+
 - `static/images/` - All images (comics, blog assets, profile)
 - `static/css/style.css` - Single vanilla CSS file
 - Hugo copies these directly to output without processing
 
 ### Configuration
+
 Single `hugo.toml` file handles all site config (title, author, social links, feature toggles).
 
 ## Styling with Vanilla CSS
 
 ### CSS Organization
+
 Single `static/css/style.css` with logical sections:
 
 ```css
@@ -66,6 +72,7 @@ Single `static/css/style.css` with logical sections:
 ```
 
 ### Modern CSS Features
+
 - Native CSS nesting for component scoping
 - CSS custom properties for theming
 - Container queries for responsive components
@@ -73,6 +80,7 @@ Single `static/css/style.css` with logical sections:
 - `color-scheme` meta tag for system preferences
 
 ### Performance Benefits
+
 - Single CSS file = one HTTP request
 - No build step or preprocessing needed
 - Minification only in production (via Hugo's asset pipeline)
@@ -81,30 +89,39 @@ Single `static/css/style.css` with logical sections:
 ## Features Implementation
 
 ### Next/Previous Navigation
+
 Use Hugo's built-in `.NextInSection` and `.PrevInSection` methods for within-section navigation. No custom code needed - this is native Hugo functionality that replicates the Jekyll plugin behavior.
 
 ### Tags
+
 Hugo's taxonomy system handles tags automatically:
+
 - Clean tag cloud on `/tags/`
 - Individual tag pages showing all posts with that tag
 - Much simpler than Jekyll's approach
 
 ### Related Posts
+
 Hugo's `.Site.RegularPages.Related` uses tags and content similarity:
+
 - Limit to 3 related posts
 - Display as simple cards below each post
 - Automatic based on content similarity
 
 ### Read Time
+
 Calculate with template function: `{{ div (countwords .Content) 220 }}` (average reading speed). No plugin needed.
 
 ### Author Info
+
 Simplified author card at end of posts:
+
 - Data from `hugo.toml`
 - Avatar, bio, social links
 - Minimal design since single author
 
 ### Animations
+
 - Subtle CSS transitions
 - Intersection observer for fade-in on scroll
 - Small vanilla JS snippet
@@ -113,24 +130,29 @@ Simplified author card at end of posts:
 ## Modern Best Practices (New Features)
 
 ### RSS Feeds
+
 Hugo generates RSS automatically:
+
 - `/index.xml` - All content (blog + comics)
 - `/blog/index.xml` - Blog posts only
 - `/comics/index.xml` - Comics only
 
 ### SEO & Social Sharing
+
 - Open Graph tags for Facebook/LinkedIn previews
 - Twitter Card meta tags for rich Twitter previews
 - Structured data (JSON-LD) for search engines
 - Automatic image optimization and responsive images
 
 ### Performance Optimizations
+
 - Lazy loading for images (native `loading="lazy"`)
 - Modern image formats (WebP with fallbacks)
 - Minimal JavaScript (only for animations and interactions)
 - Optimized font loading with `font-display: swap`
 
 ### Accessibility
+
 - Semantic HTML5 elements (`<article>`, `<nav>`, `<aside>`)
 - Proper heading hierarchy
 - Alt text requirements for images
@@ -138,6 +160,7 @@ Hugo generates RSS automatically:
 - Keyboard navigation support
 
 ### Mobile Experience
+
 - Mobile-first responsive design
 - Touch-friendly tap targets (minimum 44px)
 - Optimized typography for smaller screens
@@ -146,7 +169,9 @@ Hugo generates RSS automatically:
 ## GitHub Actions & Deployment
 
 ### Build Process
+
 `.github/workflows/hugo.yml`:
+
 1. Triggers on pushes to `main` branch
 2. Checks out code
 3. Sets up Hugo (latest version)
@@ -154,16 +179,20 @@ Hugo generates RSS automatically:
 5. Deploys to GitHub Pages service directly
 
 ### Branch Structure
+
 - Single `main` branch for source and deployment
 - No separate branch for built site
 - Built site never pollutes git history
 - Configure GitHub Pages to deploy from "GitHub Actions"
 
 ### Build Speed
+
 Hugo builds in under 1 second (vs Jekyll's 10-30 seconds). Much faster development loop.
 
 ### Local Development
+
 Simple commands:
+
 - `hugo server -D` - Live reload dev server at localhost:1313
 - `hugo` - Build production site to `public/`
 
@@ -174,6 +203,7 @@ No Ruby dependencies, no bundle install, no gem updates. Just Hugo binary.
 ### Front Matter Changes
 
 **Blog posts:**
+
 ```yaml
 # Jekyll (current)
 ---
@@ -197,6 +227,7 @@ author: sebiwi
 ```
 
 **Comics posts:**
+
 ```yaml
 # Jekyll (current)
 ---
@@ -222,6 +253,7 @@ image: /images/comics/2017-11-16-good-ideas.jpg
 ```
 
 ### Key Changes
+
 - Remove `layout` (Hugo infers from location)
 - Remove `category` (Hugo uses section folders)
 - Change `tag:` to `tags:`
@@ -229,11 +261,13 @@ image: /images/comics/2017-11-16-good-ideas.jpg
 - Update image paths from `/assets/images/` to `/images/`
 
 ### File Organization
+
 - Move `blog/_posts/*.markdown` → `content/blog/*.md`
 - Move `comics/_posts/*.markdown` → `content/comics/*.md`
 - Keep date-prefixed filenames or use front matter dates
 
 ### Automated Migration
+
 Write a script to batch-convert all front matter and update image paths automatically.
 
 ## Configuration (hugo.toml)
@@ -241,10 +275,10 @@ Write a script to batch-convert all front matter and update image paths automati
 ```toml
 baseURL = 'https://sebiwi.github.io/'
 languageCode = 'en-us'
-title = 'Sebiwi'
+title = 'sebiwi'
 
 [params]
-  name = 'Sebiwi'
+  name = 'sebiwi'
   bio = 'Tech, fun, and cookies'
   description = 'Tech, fun and cookies'
   picture = '/images/profile.jpg'
@@ -275,6 +309,7 @@ title = 'Sebiwi'
 ```
 
 ### Benefits
+
 - Type-safe (TOML catches errors)
 - Cleaner nested structure
 - Feature toggles easily accessible in templates
@@ -284,20 +319,25 @@ title = 'Sebiwi'
 ## Visual Design & Layout
 
 ### Design Philosophy
+
 Keep clean, minimalist aesthetic with modern refinements:
+
 - More whitespace and breathing room
 - Better typography hierarchy
 - Smoother, subtler animations
 - Cleaner component styling
 
 ### Home Page
+
 - Centered layout with avatar and bio
 - Clean navigation to Blog, Comics, Tags
 - Social links with simple icon set
 - Minimal, focused introduction
 
 ### List Pages (Blog/Comics Index)
+
 Card-based post previews:
+
 - Title, date, read time, tags
 - Short excerpt (blog) or comic thumbnail (comics)
 - Clean hover states
@@ -305,6 +345,7 @@ Card-based post previews:
 - Responsive grid (1 column mobile, 2-3 desktop)
 
 ### Single Post Pages
+
 - Generous line length for readability (~65-75 characters)
 - Clear visual hierarchy for headings
 - Next/Previous navigation as minimal arrows with post titles
@@ -313,12 +354,15 @@ Card-based post previews:
 - Clean tag badges
 
 ### Navigation
+
 Sticky header with minimal design:
+
 - Site name
 - Main sections
 - Theme awareness for system dark mode
 
 ### Modernizations
+
 - Rounded corners (subtle, 4-8px)
 - Soft shadows for depth
 - Better mobile typography

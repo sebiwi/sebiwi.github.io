@@ -1,15 +1,29 @@
 {{ define "main" }}
-<div class="tags-page">
+<div class="archive-page">
     <div class="container">
-        <h1 class="page-title">Tags</h1>
+        {{/* Blog-only tag cloud: count each tag's blog posts, weight by that. */}}
+        {{ $terms := slice }}
+        {{ range .Data.Terms.ByCount }}
+            {{ if gt (len (where .Pages "Section" "blog")) 0 }}{{ $terms = $terms | append . }}{{ end }}
+        {{ end }}
 
-        <div class="tags-cloud">
-            {{ range .Data.Terms.Alphabetical }}
-            <a href="{{ .Page.RelPermalink }}" class="tag-cloud-item">
-                {{ .Page.Title }} <span class="tag-count">({{ .Count }})</span>
+        <header class="archive-header">
+            <h1 class="archive-title">Tags</h1>
+            <p class="archive-sub">{{ len $terms }} topics</p>
+        </header>
+
+        <div class="tag-list">
+            {{ range $terms }}
+            {{ $n := len (where .Pages "Section" "blog") }}
+            <a href="{{ .Page.RelPermalink }}" class="tag-token" style="--tag-weight: {{ $n }}">
+                {{ .Page.Title }}<span class="tag-token-count">{{ $n }}</span>
             </a>
             {{ end }}
         </div>
+
+        <div class="breaker"></div>
+
+        {{ partial "footer.html" . }}
     </div>
 </div>
 {{ end }}

@@ -30,38 +30,66 @@
         <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink }}" title="{{ $.Site.Title }}">
     {{ end -}}
 
-    {{/* Resolve the social-card image: blog posts get an auto-generated card,
-         comics use their own image, everything else falls back to the profile. */}}
+    {{/* Resolve the social-card image (+ its dimensions): blog posts get an
+         auto-generated 1200x630 card, comics use their own image, everything
+         else falls back to the profile. */}}
     {{ $ogImage := "" }}
+    {{ $ogW := 0 }}
+    {{ $ogH := 0 }}
     {{ $largeCard := false }}
     {{ if and .IsPage (eq .Section "blog") }}
         {{ $ogImage = partial "og-image.html" . }}
+        {{ $ogW = 1200 }}
+        {{ $ogH = 630 }}
         {{ $largeCard = true }}
     {{ else }}
         {{ with .Params.image }}
             {{ $ogImage = . | absURL }}
             {{ $largeCard = true }}
+            {{ with resources.Get (strings.TrimPrefix "/" .) }}{{ $ogW = .Width }}{{ $ogH = .Height }}{{ end }}
         {{ else }}
             {{ $ogImage = $.Site.Params.picture | absURL }}
+            {{ with resources.Get (strings.TrimPrefix "/" $.Site.Params.picture) }}{{ $ogW = .Width }}{{ $ogH = .Height }}{{ end }}
         {{ end }}
     {{ end }}
+    {{ $ogTitle := cond .IsHome .Site.Title .Title }}
+    {{ $ogDesc := cond (ne .Description "") .Description .Site.Params.description }}
 
     <!-- Open Graph -->
-    <meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ end }}">
-    <meta property="og:description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+    <meta property="og:title" content="{{ $ogTitle }}">
+    <meta property="og:description" content="{{ $ogDesc }}">
     <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
     <meta property="og:url" content="{{ .Permalink }}">
+    <meta property="og:site_name" content="{{ .Site.Title }}">
+    <meta property="og:locale" content="en_US">
     <meta property="og:image" content="{{ $ogImage }}">
+    <meta property="og:image:alt" content="{{ $ogTitle }}">
+    {{ if and (gt $ogW 0) (gt $ogH 0) }}
+    <meta property="og:image:width" content="{{ $ogW }}">
+    <meta property="og:image:height" content="{{ $ogH }}">
+    {{ end }}
+    {{ if and .IsPage (eq .Section "blog") }}
+    <meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+    {{ with .Lastmod }}<meta property="article:modified_time" content="{{ .Format "2006-01-02T15:04:05Z07:00" }}">{{ end }}
+    <meta property="article:author" content="{{ .Site.Params.name }}">
+    {{ range .Params.tags }}<meta property="article:tag" content="{{ . }}">
+    {{ end }}
+    {{ end }}
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="{{ if $largeCard }}summary_large_image{{ else }}summary{{ end }}">
     <meta name="twitter:site" content="@{{ .Site.Params.social.twitter }}">
-    <meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ end }}">
-    <meta name="twitter:description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+    <meta name="twitter:creator" content="@{{ .Site.Params.social.twitter }}">
+    <meta name="twitter:title" content="{{ $ogTitle }}">
+    <meta name="twitter:description" content="{{ $ogDesc }}">
     <meta name="twitter:image" content="{{ $ogImage }}">
+    <meta name="twitter:image:alt" content="{{ $ogTitle }}">
 
     <!-- Theme -->
+    <meta name="author" content="{{ .Site.Params.name }}">
     <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#16161e" media="(prefers-color-scheme: dark)">
 
     <!-- No-flash theme init: external + SRI, loaded synchronously so it runs before first paint -->
     {{ $themeInit := resources.Get "js/theme-init.js" | resources.Minify | resources.Fingerprint }}
@@ -73,10 +101,7 @@
     <div class="top-bar">
         {{ if not .IsHome }}
         <nav class="top-nav">
-            <a href="/">Home</a>
-            <a href="/blog/">Blog</a>
-            <a href="/comics/">Comics</a>
-            <a href="/about/">About</a>
+            {{ partial "nav.html" (dict "linkClass" "") }}
         </nav>
         {{ end }}
         {{ partial "controls.html" . }}

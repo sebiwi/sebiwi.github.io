@@ -42,6 +42,18 @@ jobs:
           submodules: recursive
           fetch-depth: 0
 
+      - name: Cache Hugo generated resources
+        uses: actions/cache@v4
+        with:
+          # Hugo's processed-image cache (OG cards + responsive WebP variants).
+          # Regenerating these from scratch dominates the build; Hugo keys each
+          # variant by its processing spec internally, so a stale restore is
+          # safe — unchanged images are reused, changed ones are regenerated.
+          path: resources/_gen
+          key: hugo-resources-${{ hashFiles('static/images/**', 'assets/**', 'hugo.toml') }}
+          restore-keys: |
+            hugo-resources-
+
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v4

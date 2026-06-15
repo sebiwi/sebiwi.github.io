@@ -1,9 +1,9 @@
 baseURL = 'https://sebiwi.github.io/'
 locale = 'en-us'
-title = 'Sebiwi'
+title = 'sebiwi'
 
 [params]
-  name = 'Sebiwi'
+  name = 'sebiwi'
   bio = 'Tech, fun, and cookies'
   description = 'Tech, fun and cookies'
   picture = '/images/profile.jpg'
@@ -52,6 +52,26 @@ title = 'Sebiwi'
 
 [taxonomies]
   tag = 'tags'
+
+# Primary navigation, rendered by partials/nav.html (used in both the top bar
+# and the home page). Add/remove/reorder links here — one source of truth.
+[menu]
+  [[menu.main]]
+    name = 'Home'
+    url = '/'
+    weight = 1
+  [[menu.main]]
+    name = 'Blog'
+    url = '/blog/'
+    weight = 2
+  [[menu.main]]
+    name = 'Comics'
+    url = '/comics/'
+    weight = 3
+  [[menu.main]]
+    name = 'About'
+    url = '/about/'
+    weight = 4
 
 [outputs]
   home = ['HTML', 'RSS']

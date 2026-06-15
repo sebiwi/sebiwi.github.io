@@ -145,6 +145,12 @@
   background: var(--search-bg);
 }
 
+/* Visible focus indicator for the (borderless) search input. */
+.search-input-wrapper:focus-within {
+  border-bottom-color: var(--search-accent);
+  box-shadow: inset 0 -1px 0 var(--search-accent);
+}
+
 .search-prompt {
   flex-shrink: 0;
   color: var(--search-green);
@@ -230,6 +236,11 @@
 .search-result.selected {
   background: var(--search-highlight);
   outline: none;
+}
+
+/* Clear keyboard-focus marker (an accent bar), distinct from hover. */
+.search-result:focus-visible {
+  box-shadow: inset 3px 0 0 var(--search-accent);
 }
 
 .search-result.selected::before {

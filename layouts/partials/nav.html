@@ -1,0 +1,10 @@
+{{/* Renders the main menu (configured in hugo.toml [menu]).
+     Params (dict):
+       linkClass - optional class for each <a>
+       skip      - optional menu URL to omit (e.g. "/" on the home page) */}}
+{{ $linkClass := .linkClass | default "" }}
+{{ $skip := .skip | default "" }}
+{{ range site.Menus.main }}
+{{ if ne .URL $skip }}<a href="{{ .URL }}"{{ with $linkClass }} class="{{ . }}"{{ end }}>{{ .Name }}</a>
+{{ end }}
+{{- end }}

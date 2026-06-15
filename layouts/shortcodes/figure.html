@@ -1,0 +1,16 @@
+{{/* Overrides Hugo's built-in figure shortcode so content images go through
+     the responsive pipeline (WebP + srcset + width/height). Keeps the
+     src/alt/caption/class params the posts already use. */}}
+{{ $class := .Get "class" }}
+<figure{{ with $class }} class="{{ . }}"{{ end }}>
+    {{ partial "responsive-img.html" (dict
+        "src" (.Get "src")
+        "alt" (.Get "alt")
+        "sizes" "(max-width: 880px) 92vw, 880px"
+        "widths" (slice 480 960 1440)
+        "quality" 86
+        "loading" "lazy") }}
+    {{ with .Get "caption" }}
+    <figcaption>{{ . | markdownify }}</figcaption>
+    {{ end }}
+</figure>

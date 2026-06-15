@@ -9,9 +9,7 @@
         </div>
 
         <nav class="home-nav fade-in-element">
-            <a href="/blog/" class="home-nav-link">Blog</a>
-            <a href="/comics/" class="home-nav-link">Comics</a>
-            <a href="/about/" class="home-nav-link">About</a>
+            {{ partial "nav.html" (dict "linkClass" "home-nav-link" "skip" "/") }}
         </nav>
 
         {{ if .Site.Params.showHomeLatest }}

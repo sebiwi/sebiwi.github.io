@@ -1,5 +1,7 @@
 ---
 title:  "How does it work? Kubernetes! Episode 4 - How to Ansible your CoreOS, and etc(d)!"
+description: "Provisioning CoreOS VMs with Vagrant and bringing up etcd and the cluster with tested Ansible roles."
+series: "How does it work? Kubernetes"
 date:   2017-03-30 20:19:02 +0100
 tags:
 - kubernetes

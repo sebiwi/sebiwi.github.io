@@ -1,0 +1,38 @@
+{{ define "main" }}
+<div class="archive-page">
+    <div class="container">
+        {{ $seriesNames := slice }}
+        {{ range where site.RegularPages "Section" "blog" }}
+            {{ with .Params.series }}{{ $seriesNames = $seriesNames | append . }}{{ end }}
+        {{ end }}
+        {{ $seriesNames = uniq $seriesNames }}
+
+        <header class="archive-header">
+            <h1 class="archive-title">Series</h1>
+            <p class="archive-sub">{{ len $seriesNames }} series</p>
+        </header>
+
+        <div class="browse-series">
+            {{ range $seriesNames }}
+            {{ $name := . }}
+            {{ $parts := sort (where (where site.RegularPages "Section" "blog") "Params.series" $name) "Date" "asc" }}
+            <details class="browse-series-item" open>
+                <summary class="browse-series-summary">
+                    <span class="browse-series-name">{{ $name }}</span>
+                    <span class="browse-series-count">{{ len $parts }} parts</span>
+                </summary>
+                <ol class="browse-series-list">
+                    {{ range $i, $p := $parts }}
+                    <li><a href="{{ $p.RelPermalink }}"><span class="series-nav-num">{{ add $i 1 }}.</span> {{ $p.LinkTitle }}</a></li>
+                    {{ end }}
+                </ol>
+            </details>
+            {{ end }}
+        </div>
+
+        <div class="breaker"></div>
+
+        {{ partial "footer.html" . }}
+    </div>
+</div>
+{{ end }}

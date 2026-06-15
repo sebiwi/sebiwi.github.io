@@ -1,8 +1,10 @@
 ---
 title:  "How does it work? Kubernetes! Episode 1 - Kubernetes general architecture"
+description: "Building a highly-available Kubernetes cluster on CoreOS with Vagrant and Ansible, a tour of etcd, flannel, Calico and the overall architecture."
+series: "How does it work? Kubernetes"
 date:   2017-03-11 20:19:02 +0100
 tags:
-- architecure
+- architecture
 - kubernetes
 - infrastructure as code
 author: sebiwi

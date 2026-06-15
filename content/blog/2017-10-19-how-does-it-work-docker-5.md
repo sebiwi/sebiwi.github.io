@@ -1,5 +1,7 @@
 ---
 title:  "How does it work? Docker! Episode 5 - Get some work(ers) done!"
+description: "Adding and configuring Swarm worker nodes with tested Ansible roles, then scaling and rolling-updating services."
+series: "How does it work? Docker"
 date:   2017-10-16 20:19:02 +0100
 tags:
 - docker

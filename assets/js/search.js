@@ -253,21 +253,24 @@
     }
   }
 
-  // Focus trap
+  // Focus trap. Recomputes focusable elements on every Tab so that search
+  // results (added to the DOM after the modal opens) are included — otherwise
+  // Tab stays stuck on the input.
   function trapFocus(element) {
     // Remove previous handler if exists
     if (focusTrapHandler) {
       element.removeEventListener('keydown', focusTrapHandler);
     }
 
-    const focusableElements = element.querySelectorAll(
-      'input, button, a[href], [tabindex]:not([tabindex="-1"])'
-    );
-    const firstElement = focusableElements[0];
-    const lastElement = focusableElements[focusableElements.length - 1];
-
     focusTrapHandler = function(e) {
       if (e.key !== 'Tab') return;
+
+      const focusable = element.querySelectorAll(
+        'input, button, a[href], [tabindex]:not([tabindex="-1"])'
+      );
+      if (!focusable.length) return;
+      const firstElement = focusable[0];
+      const lastElement = focusable[focusable.length - 1];
 
       if (e.shiftKey) {
         if (document.activeElement === firstElement) {

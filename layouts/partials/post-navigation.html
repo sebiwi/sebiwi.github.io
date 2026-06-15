@@ -7,4 +7,7 @@
     <a href="{{ .RelPermalink }}" class="post-nav-link post-nav-next">{{ .Title }}&nbsp;&raquo;</a>
     {{ end }}
 </nav>
+{{ if eq .Section "comics" }}
+<p class="nav-hint">Flip with <kbd>&larr;</kbd> <kbd>&rarr;</kbd></p>
+{{ end }}
 {{ end }}

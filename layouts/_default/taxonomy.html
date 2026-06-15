@@ -1,13 +1,20 @@
 {{ define "main" }}
-<div class="taxonomy-page">
+<div class="archive-page">
     <div class="container">
-        <h1 class="page-title">Posts tagged: {{ .Title }}</h1>
+        <header class="archive-header">
+            <h1 class="archive-title"><span class="archive-hash">#</span>{{ .Title }}</h1>
+            <p class="archive-sub">{{ len .Pages }} post{{ if ne (len .Pages) 1 }}s{{ end }}</p>
+        </header>
 
         <div class="post-grid">
             {{ range .Pages }}
             {{ partial "post-card.html" . }}
             {{ end }}
         </div>
+
+        <div class="breaker"></div>
+
+        {{ partial "footer.html" . }}
     </div>
 </div>
 {{ end }}

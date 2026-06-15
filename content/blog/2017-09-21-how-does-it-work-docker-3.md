@@ -1,8 +1,10 @@
 ---
 title:  "How does it work? Docker! Episode 3 - Swarm load balancing, service discovery and security"
+description: "Swarm load balancing, service discovery and security, how the routing mesh and built-in DNS keep services reachable."
+series: "How does it work? Docker"
 date:   2017-09-21 20:19:02 +0100
 tags:
-- architecure
+- architecture
 - docker
 - infrastructure as code
 author: sebiwi

@@ -10,6 +10,13 @@
 
         <div class="breaker fade-in-element"></div>
 
+        {{ if eq .Section "blog" }}
+        <div class="list-browse fade-in-element">
+            <a href="/series/" class="list-browse-link">Browse by series&nbsp;&raquo;</a>
+            <a href="/tags/" class="list-browse-link">Browse by tag&nbsp;&raquo;</a>
+        </div>
+        {{ end }}
+
         {{ $paginator := .Paginate .Pages }}
         <div class="post-grid fade-in-element">
             {{ range $paginator.Pages }}

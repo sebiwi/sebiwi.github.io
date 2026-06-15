@@ -1,5 +1,6 @@
 ---
 title:  "Kubernetes vs Docker: Volumes!"
+description: "Comparing how Kubernetes and Docker handle storage and volumes, and what it means for stateful containers. Co-written with Pierre-Yves Napoly."
 date:   2017-12-26 08:19:02 +0100
 tags:
 - docker

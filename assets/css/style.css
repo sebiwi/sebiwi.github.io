@@ -302,6 +302,11 @@ code {
   background-color: #24283b;
 }
 
+.copy-button:focus-visible {
+  outline: 2px solid var(--color-accent-bright);
+  outline-offset: 2px;
+}
+
 .copy-button:active {
   transform: scale(0.95);
 }
@@ -858,6 +863,149 @@ main {
 }
 
 /* ========================================
+   Breadcrumbs
+   ======================================== */
+
+.breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: var(--spacing-md);
+  font-size: 0.8rem;
+  color: var(--color-text-light);
+}
+
+.breadcrumbs a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.breadcrumbs a:hover {
+  color: var(--color-accent-bright);
+}
+
+.breadcrumb-sep {
+  color: var(--color-text-light);
+}
+
+.breadcrumb-current {
+  color: var(--color-muted);
+  max-width: 60%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ========================================
+   Series Navigation
+   ======================================== */
+
+.series-nav {
+  max-width: var(--container-width);
+  margin: 0 auto var(--spacing-lg);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--color-surface);
+  border-radius: var(--border-radius);
+  border-left: 3px solid var(--color-accent);
+  font-size: 0.9rem;
+}
+
+.series-nav-summary {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-xs);
+  cursor: pointer;
+  list-style: none;
+}
+
+.series-nav-summary::-webkit-details-marker {
+  display: none;
+}
+
+.series-nav-summary::before {
+  content: "▸";
+  align-self: center;
+  color: var(--color-accent);
+  transition: transform 0.2s ease;
+}
+
+.series-nav[open] .series-nav-summary::before {
+  transform: rotate(90deg);
+}
+
+/* Animate open/close like the TOC (max-height is engine-portable;
+   allow-discrete keeps the closing frame rendered). */
+@media (prefers-reduced-motion: no-preference) {
+  .series-nav::details-content {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, opacity 0.3s ease-out,
+                content-visibility 0.3s ease-out;
+    transition-behavior: allow-discrete;
+  }
+
+  .series-nav[open]::details-content {
+    max-height: 1000px;
+    opacity: 1;
+  }
+}
+
+.series-nav-label {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.series-nav-name {
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.series-nav-count {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: var(--color-text-light);
+  white-space: nowrap;
+}
+
+.series-nav-list {
+  list-style: none;
+  margin: var(--spacing-sm) 0 0;
+  padding: 0;
+}
+
+.series-nav-item {
+  margin: 0.2rem 0;
+  line-height: 1.4;
+}
+
+.series-nav-item a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.series-nav-item a:hover {
+  text-decoration: underline;
+  color: var(--color-accent-bright);
+}
+
+.series-nav-item.is-current > span {
+  color: var(--color-heading);
+  font-weight: 600;
+}
+
+.series-nav-num {
+  display: inline-block;
+  min-width: 1.4em;
+  color: var(--color-text-light);
+}
+
+/* ========================================
    Table of Contents
    ======================================== */
 
@@ -1212,6 +1360,21 @@ main {
   }
 }
 
+/* Keyboard hint under comic navigation */
+.nav-hint {
+  text-align: center;
+  margin: var(--spacing-xs) 0 0;
+  font-size: 0.75rem;
+  color: var(--color-text-light);
+}
+
+.nav-hint kbd {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  padding: 0 0.2rem;
+  color: var(--color-muted);
+}
+
 /* ========================================
    Related Posts
    ======================================== */
@@ -1246,104 +1409,180 @@ main {
 }
 
 /* ========================================
-   Author Info
-   ======================================== */
-
-.author-info {
-  display: flex;
-  gap: var(--spacing-md);
-  align-items: center;
-  padding: var(--spacing-lg);
-  margin: var(--spacing-xl) 0;
-  background-color: var(--color-surface);
-  border-radius: var(--border-radius);
-}
-
-.author-avatar {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.author-details {
-  flex: 1;
-}
-
-.author-name {
-  font-size: var(--font-size-large);
-  margin-bottom: var(--spacing-xs);
-}
-
-.author-bio {
-  color: var(--color-text-light);
-  margin-bottom: var(--spacing-sm);
-}
-
-.author-info .social-links {
-  justify-content: flex-start;
-}
-
-@media (max-width: 600px) {
-  .author-info {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .author-info .social-links {
-    justify-content: center;
-  }
-}
-
-/* ========================================
    Tags Page
    ======================================== */
 
 .tags-page,
 .taxonomy-page,
+.archive-page,
 .list-page {
   padding: var(--spacing-xl) 0;
 }
 
-.page-title {
-  font-size: var(--font-size-xxlarge);
+/* Slick, compact header for archive pages (tags, a tag, series) */
+.archive-header {
   text-align: center;
   margin-bottom: var(--spacing-xl);
 }
 
-.tags-cloud {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-sm);
-  justify-content: center;
-  padding: var(--spacing-lg) 0;
+.archive-title {
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--color-heading);
+  margin: 0;
 }
 
-.tag-cloud-item {
-  display: inline-block;
-  padding: var(--spacing-xs) var(--spacing-md);
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: 999px;
-  font-size: var(--font-size-base);
-  color: var(--color-text);
-  transition: all var(--transition-speed) var(--transition-easing);
+.archive-hash {
+  color: var(--color-accent);
 }
 
-.tag-cloud-item:hover {
-  background-color: var(--color-accent);
-  border-color: var(--color-accent);
-  color: white;
-  transform: translateY(-2px);
-}
-
-.tag-count {
-  font-size: var(--font-size-small);
+.archive-sub {
+  margin: 0.4rem 0 0;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
   color: var(--color-text-light);
 }
 
-.tag-cloud-item:hover .tag-count {
-  color: rgba(255, 255, 255, 0.8);
+/* Browse page: Series + Tags */
+.browse-section {
+  max-width: var(--container-wide);
+  margin: 0 auto var(--spacing-xl);
+}
+
+.browse-heading {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-accent);
+  margin-bottom: var(--spacing-md);
+  padding-bottom: var(--spacing-xs);
+  border-bottom: 1px solid var(--color-surface);
+}
+
+.browse-series {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.browse-series-item {
+  background-color: var(--color-surface);
+  border-radius: var(--border-radius);
+  border-left: 3px solid var(--color-accent);
+  padding: var(--spacing-xs) var(--spacing-md);
+}
+
+.browse-series-summary {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-xs);
+  cursor: pointer;
+  list-style: none;
+}
+
+.browse-series-summary::-webkit-details-marker { display: none; }
+
+.browse-series-summary::before {
+  content: "▸";
+  align-self: center;
+  color: var(--color-accent);
+  transition: transform 0.2s ease;
+}
+
+.browse-series-item[open] .browse-series-summary::before {
+  transform: rotate(90deg);
+}
+
+.browse-series-name {
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.browse-series-count {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: var(--color-text-light);
+  white-space: nowrap;
+}
+
+.browse-series-list {
+  list-style: none;
+  margin: var(--spacing-sm) 0 var(--spacing-xs);
+  padding: 0;
+}
+
+.browse-series-list li {
+  margin: 0.2rem 0;
+  line-height: 1.4;
+}
+
+.browse-series-list a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.browse-series-list a:hover {
+  text-decoration: underline;
+  color: var(--color-accent-bright);
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-xs) var(--spacing-sm);
+  max-width: var(--container-wide);
+  margin: 0 auto;
+}
+
+/* Chips that match the per-post .tag look, lightly weighted by post count. */
+.tag-token {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.2rem 0.6rem;
+  background-color: var(--color-tag-bg);
+  border-radius: 3px;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  /* Subtle size weighting; stays within the site's type scale. */
+  font-size: clamp(0.7rem, calc(0.68rem + var(--tag-weight, 1) * 0.025rem), 1.05rem);
+  transition: all var(--transition-speed) var(--transition-easing);
+}
+
+.tag-token:hover {
+  background-color: var(--color-accent);
+  color: #fff;
+}
+
+.tag-token-count {
+  font-size: 0.8em;
+  opacity: 0.65;
+}
+
+/* "Browse by …" links on the blog index */
+.list-browse {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--spacing-md);
+  max-width: var(--container-wide);
+  margin: var(--spacing-md) auto 0;
+}
+
+.list-browse-link {
+  font-size: 0.85rem;
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.list-browse-link:hover {
+  color: var(--color-accent-bright);
 }
 
 .no-posts {

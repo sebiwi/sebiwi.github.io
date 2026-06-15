@@ -1,0 +1,10 @@
+{{/* Markdown image render hook: routes ![alt](src) images through the
+     responsive pipeline (WebP + srcset + width/height), same as the figure
+     shortcode. Falls back to a plain <img> for sources it can't process. */}}
+{{ partial "responsive-img.html" (dict
+    "src" .Destination
+    "alt" .PlainText
+    "sizes" "(max-width: 880px) 92vw, 880px"
+    "widths" (slice 480 960 1440)
+    "quality" 86
+    "loading" "lazy") }}

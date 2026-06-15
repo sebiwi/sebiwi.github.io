@@ -1,5 +1,6 @@
 ---
 title:  "fpaste-cli: Share content with magic and style"
+description: "A small CLI that highlights text, sends it to fpaste, and drops the resulting link straight into your clipboard."
 date:   2017-03-04 10:50:02 +0100
 tags:
 - tips and tricks

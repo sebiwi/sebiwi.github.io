@@ -1,5 +1,7 @@
 ---
 title:  "How does it work? Docker! Episode 4 - Control your Swarm!"
+description: "Standing up the Swarm cluster VMs with Vagrant and managing the cluster with tested, idempotent Ansible roles."
+series: "How does it work? Docker"
 date:   2017-10-02 20:19:02 +0100
 tags:
 - docker
