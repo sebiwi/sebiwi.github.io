@@ -1,4 +1,15 @@
 {{ define "main" }}
+{{/* Site identity: WebSite + Person (no SearchAction — search is a client-side
+     modal with no URL-addressable results page). */}}
+{{ $base := .Site.BaseURL }}
+{{ $website := dict "@type" "WebSite" "name" .Site.Title "url" $base "description" .Site.Params.description "inLanguage" .Site.Language.Locale }}
+{{ $sameAs := slice }}
+{{ with .Site.Params.social.github }}{{ $sameAs = $sameAs | append (printf "https://github.com/%s" .) }}{{ end }}
+{{ with .Site.Params.social.twitter }}{{ $sameAs = $sameAs | append (printf "https://twitter.com/%s" .) }}{{ end }}
+{{ $person := dict "@type" "Person" "name" .Site.Params.name "url" $base "image" (.Site.Params.picture | absURL) "sameAs" $sameAs }}
+{{ with .Site.Params.email }}{{ $person = merge $person (dict "email" (printf "mailto:%s" .)) }}{{ end }}
+{{ $graph := dict "@context" "https://schema.org" "@graph" (slice $website $person) }}
+<script type="application/ld+json">{{ $graph | jsonify | safeJS }}</script>
 <div class="home-page">
     <div class="container">
         <div class="profile fade-in-element">

@@ -7,7 +7,7 @@
 
   /* Colors - matching original Jekyll theme */
   --color-text: #444;
-  --color-text-light: #888;
+  --color-text-light: #717171;
   --color-background: #ffffff;
   --color-surface: #ededed;
   --color-border: #aaa;
@@ -17,7 +17,7 @@
   --color-heading: #111;
   --color-muted: #666;
   --color-icon: #000;
-  --color-bio: #aaa;
+  --color-bio: #767676;
   --color-tag-bg: #ebebeb;
   --color-quote-border: #bb9af7;
   --code-inline-bg: rgba(187, 154, 247, 0.1);
@@ -59,7 +59,7 @@
   color-scheme: dark;
 
   --color-text: #c0caf5;
-  --color-text-light: #787c99;
+  --color-text-light: #8a8fb3;
   --color-background: #16161e;
   --color-surface: #1f2335;
   --color-border: #414868;
@@ -69,7 +69,7 @@
   --color-heading: #c0caf5;
   --color-muted: #9aa5ce;
   --color-icon: #c0caf5;
-  --color-bio: #787c99;
+  --color-bio: #8a8fb3;
   --color-tag-bg: #1f2335;
   --code-inline-bg: rgba(187, 154, 247, 0.12);
   --code-inline-border: rgba(187, 154, 247, 0.25);
@@ -1444,23 +1444,7 @@ main {
   color: var(--color-text-light);
 }
 
-/* Browse page: Series + Tags */
-.browse-section {
-  max-width: var(--container-wide);
-  margin: 0 auto var(--spacing-xl);
-}
-
-.browse-heading {
-  font-size: 0.8rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--color-accent);
-  margin-bottom: var(--spacing-md);
-  padding-bottom: var(--spacing-xs);
-  border-bottom: 1px solid var(--color-surface);
-}
-
+/* Series list (used on /series/) */
 .browse-series {
   display: flex;
   flex-direction: column;

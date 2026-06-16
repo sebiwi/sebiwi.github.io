@@ -7,6 +7,10 @@
   "headline": "{{ .Title }}",
   "datePublished": "{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}",
   {{ with .Lastmod }}"dateModified": "{{ .Format "2006-01-02T15:04:05Z07:00" }}",{{ end }}
+  "wordCount": {{ .WordCount }},
+  "inLanguage": "{{ .Site.Language.Locale }}",
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "{{ .Permalink }}" },
+  {{ with .Params.tags }}"keywords": [{{ range $i, $t := . }}{{ if $i }}, {{ end }}"{{ $t }}"{{ end }}],{{ end }}
   "author": {
     "@type": "Person",
     "name": "{{ .Site.Params.name }}"
@@ -69,7 +73,7 @@
 
         {{ partial "post-navigation.html" . }}
 
-        {{ if .Site.Params.showRelated }}
+        {{ if and .Site.Params.showRelated (eq .Section "blog") }}
         {{ partial "related.html" . }}
         {{ end }}
 
