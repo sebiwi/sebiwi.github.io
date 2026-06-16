@@ -723,6 +723,16 @@ main {
   }
 }
 
+/* Arrived via a cross-document view transition? The crossfade already reveals
+   the page, so skip the entrance animation — running both double-rendered the
+   profile image on Safari. The .vt-nav class is set in pagereveal before first
+   paint (view-transition-init.js) and left on for the page's lifetime. */
+html.vt-nav .fade-in-element {
+  animation: none;
+  opacity: 1;
+  transform: none;
+}
+
 /* ========================================
    Single Post
    ======================================== */

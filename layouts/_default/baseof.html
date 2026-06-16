@@ -96,6 +96,11 @@
     <!-- No-flash theme init: external + SRI, loaded synchronously so it runs before first paint -->
     {{ $themeInit := resources.Get "js/theme-init.js" | resources.Minify | resources.Fingerprint }}
     <script src="{{ $themeInit.RelPermalink }}" integrity="{{ $themeInit.Data.Integrity }}"></script>
+
+    <!-- Skip the entrance animation on view-transition navigations (the crossfade
+         reveals the page). Synchronous so the pagereveal listener beats first paint. -->
+    {{ $vtInit := resources.Get "js/view-transition-init.js" | resources.Minify | resources.Fingerprint }}
+    <script src="{{ $vtInit.RelPermalink }}" integrity="{{ $vtInit.Data.Integrity }}"></script>
 </head>
 <body{{ if .Site.Params.hyphenatePosts }} class="hyphenate"{{ end }}>
     <a href="#main-content" class="skip-link">Skip to main content</a>
