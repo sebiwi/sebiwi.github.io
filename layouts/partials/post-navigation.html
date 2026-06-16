@@ -1,4 +1,5 @@
 {{ if or .NextInSection .PrevInSection }}
+{{ if eq .Section "blog" }}<p class="post-nav-kicker">More from the blog</p>{{ end }}
 <nav class="post-navigation">
     {{ with .PrevInSection }}
     <a href="{{ .RelPermalink }}" class="post-nav-link">&laquo;&nbsp;{{ .Title }}</a>

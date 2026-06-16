@@ -11,9 +11,13 @@ rm -rf public
 echo "🔨 Building site..."
 hugo --minify
 
-# Build search index
+# Build search index (use the installed binary if present, else npx)
 echo "🔍 Building search index..."
-pagefind --site public
+if command -v pagefind >/dev/null 2>&1; then
+    pagefind --site public
+else
+    npx -y pagefind --site public
+fi
 
 # Check build succeeded
 if [ ! -d "public" ]; then

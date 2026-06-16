@@ -29,10 +29,7 @@
         {{ $blog := first 5 (where .Site.RegularPages "Section" "blog") }}
         {{ with $blog }}
         <section class="home-section fade-in-element">
-            <div class="home-section-head">
-                <h2 class="home-section-title">Latest writing</h2>
-                <a href="/blog/" class="home-section-more">all posts&nbsp;&raquo;</a>
-            </div>
+            <h2 class="home-section-title">Latest writing</h2>
             <div class="post-grid">
                 {{ range . }}
                 {{ partial "post-card.html" . }}
@@ -44,10 +41,7 @@
         {{ $comics := first 4 (where .Site.RegularPages "Section" "comics") }}
         {{ with $comics }}
         <section class="home-section fade-in-element">
-            <div class="home-section-head">
-                <h2 class="home-section-title">Recent comics</h2>
-                <a href="/comics/" class="home-section-more">all comics&nbsp;&raquo;</a>
-            </div>
+            <h2 class="home-section-title">Recent comics</h2>
             <div class="comics-grid home-comics-strip">
                 {{ range . }}
                 {{ $alt := .Params.alt | default .Title }}

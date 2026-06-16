@@ -1006,6 +1006,47 @@ main {
 }
 
 /* ========================================
+   Series CTA (end-of-post "continue the series")
+   ======================================== */
+
+.series-cta {
+  max-width: var(--container-width);
+  margin: var(--spacing-lg) auto;
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--color-surface);
+}
+
+.series-cta-kicker {
+  margin: 0 0 0.3rem;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-light);
+}
+
+.series-cta-link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.series-cta-link:hover {
+  color: var(--color-accent-bright);
+}
+
+.series-cta-arrow {
+  transition: transform 0.2s ease;
+}
+
+.series-cta-link:hover .series-cta-arrow {
+  transform: translateX(3px);
+}
+
+/* ========================================
    Table of Contents
    ======================================== */
 
@@ -1232,33 +1273,13 @@ main {
   text-align: left;
 }
 
-.home-section-head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--spacing-sm);
-  margin-bottom: var(--spacing-xs);
-}
-
 .home-section-title {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--color-heading);
-  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-light);
+  margin: 0 0 var(--spacing-xs);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.home-section-more {
-  font-size: 0.85rem;
-  color: var(--color-accent);
-  text-decoration: none;
-  white-space: nowrap;
-  transition: color 0.2s ease;
-}
-
-.home-section-more:hover {
-  color: var(--color-accent-bright);
+  letter-spacing: 0.06em;
 }
 
 .home-section .post-grid {
@@ -1320,6 +1341,15 @@ main {
 /* ========================================
    Post Navigation
    ======================================== */
+
+.post-nav-kicker {
+  text-align: center;
+  margin: 0 0 var(--spacing-xs);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-light);
+}
 
 .post-navigation {
   margin: var(--spacing-md) 0;

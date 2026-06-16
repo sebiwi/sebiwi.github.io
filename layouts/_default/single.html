@@ -71,6 +71,10 @@
             {{ .Content }}
         </div>
 
+        {{ if and (eq .Section "blog") .Site.Params.showSeriesCta }}
+        {{ partial "series-cta.html" . }}
+        {{ end }}
+
         {{ partial "post-navigation.html" . }}
 
         {{ if and .Site.Params.showRelated (eq .Section "blog") }}

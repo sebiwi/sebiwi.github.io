@@ -1,0 +1,25 @@
+{{/* End-of-post nudge to the next part of a series. Single, focused action
+     (back-navigation is covered by the series box + chronological footer). */}}
+{{ with .Params.series }}
+{{ $series := . }}
+{{ $parts := sort (where (where site.RegularPages "Section" "blog") "Params.series" $series) "Date" "asc" }}
+{{ if gt (len $parts) 1 }}
+{{ $next := false }}
+{{ $pos := 0 }}
+{{ range $i, $p := $parts }}
+    {{ if eq $p.RelPermalink $.RelPermalink }}
+        {{ $pos = add $i 1 }}
+        {{ if lt (add $i 1) (len $parts) }}{{ $next = index $parts (add $i 1) }}{{ end }}
+    {{ end }}
+{{ end }}
+<aside class="series-cta" aria-label="Continue the series">
+    {{ if $next }}
+    <p class="series-cta-kicker">Next in the series · part {{ $pos }} of {{ len $parts }}</p>
+    <a class="series-cta-link" href="{{ $next.RelPermalink }}">{{ $next.Title }}<span class="series-cta-arrow" aria-hidden="true">&rarr;</span></a>
+    {{ else }}
+    <p class="series-cta-kicker">End of the series · part {{ $pos }} of {{ len $parts }}</p>
+    <a class="series-cta-link" href="/series/">All parts of {{ $series }}<span class="series-cta-arrow" aria-hidden="true">&rarr;</span></a>
+    {{ end }}
+</aside>
+{{ end }}
+{{ end }}

@@ -16,6 +16,8 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="{{ .Permalink }}">
 
+    {{ if eq .Kind "404" }}<meta name="robots" content="noindex">{{ end }}
+
     <!-- CSS -->
     {{ $css := resources.Get "css/style.css" | resources.Minify | resources.Fingerprint }}
     <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
