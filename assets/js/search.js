@@ -126,7 +126,14 @@
               <span class="result-type ${isComic ? 'is-comic' : 'is-post'}">[${type}]</span>
             </div>
             <div class="result-title">${escapeHtml(title)}</div>
-            ${excerpt ? `<div class="result-excerpt">${excerpt}</div>` : ''}
+            ${excerpt ? `<div class="result-excerpt">${
+              // Excerpt is the one field inserted as raw HTML: Pagefind highlights
+              // matched terms by wrapping them in <mark>, so escaping here would
+              // render literal tags. Safe because the index is built from our own
+              // first-party content and Pagefind controls the excerpt markup —
+              // every other field above is escapeHtml'd.
+              excerpt
+            }</div>` : ''}
           </a>
         `;
       })

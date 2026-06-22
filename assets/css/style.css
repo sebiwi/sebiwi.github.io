@@ -592,7 +592,7 @@ main {
   border-radius: 100%;
   margin: 0 auto 25px;
   display: block;
-  box-shadow: 0;
+  box-shadow: none;
   opacity: 1;
   transition: opacity 0.3s ease, box-shadow 0.3s ease;
 }

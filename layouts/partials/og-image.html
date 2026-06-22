@@ -28,6 +28,6 @@
 {{ $img := $base.Filter
   (images.Text "~/ sebiwi.github.io" (dict "color" "#9ece6a" "size" 30 "x" 212 "y" 52 "font" $regular))
   (images.Text $titleText (dict "color" "#c0caf5" "size" 64 "x" 60 "y" 200 "linespacing" 16 "font" $bold))
-  (images.Text "Tech, fun, and cookies" (dict "color" "#787c99" "size" 28 "x" 60 "y" 576 "font" $regular))
+  (images.Text .Site.Params.bio (dict "color" "#787c99" "size" 28 "x" 60 "y" 576 "font" $regular))
 }}
 {{ return $img.Permalink }}

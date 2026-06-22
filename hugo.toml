@@ -13,7 +13,6 @@ title = 'sebiwi'
   showReadTime = true
   showTags = true
   showRelated = false
-  showAuthor = true
   showHomeLatest = true
   showSeriesCta = true      # "continue the series" CTA at the end of series posts
   hyphenatePosts = false    # auto-hyphenate justified post body text (tighter spacing)
