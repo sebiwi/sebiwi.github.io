@@ -1653,6 +1653,12 @@ html.vt-nav .fade-in-element {
 .neofetch-body {
   padding: var(--spacing-md);
   display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.neofetch-output {
+  display: flex;
   align-items: center;
   gap: var(--spacing-lg);
 }
@@ -1678,7 +1684,7 @@ html.vt-nav .fade-in-element {
     display: none;
   }
 
-  .neofetch-body {
+  .neofetch-output {
     gap: 0;
   }
 }
@@ -1748,6 +1754,46 @@ html.vt-nav .fade-in-element {
   margin: var(--spacing-lg) auto 0;
   text-align: center;
   color: var(--color-text);
+}
+
+/* Boot sequence: the panel "decodes" on page load. `html.about-booting` is set
+   before first paint by a guard in the about layout (skipped under reduced
+   motion / with JS off), so the lines start invisible — but still occupy their
+   final space (opacity, not display), so nothing reflows. about-boot.js swaps
+   each monospace glyph for noise and resolves it to the real character.
+   With JS off, the class is never set and the panel renders fully. */
+html.about-booting .boot-line {
+  opacity: 0;
+}
+
+html.about-booting .boot-line.is-on {
+  opacity: 1;
+}
+
+/* Glyphs glow faintly while still scrambling, then settle to normal. */
+html.about-booting .boot-line.is-decoding {
+  color: var(--search-accent);
+  text-shadow: 0 0 8px var(--search-accent);
+}
+
+html.about-booting .neofetch-logo {
+  visibility: hidden;
+}
+
+/* Figure pops in on completion. */
+.neofetch-logo.is-waking {
+  animation: nf-logo-wake 0.3s ease-out;
+}
+
+@keyframes nf-logo-wake {
+  from { opacity: 0; transform: translateY(3px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .neofetch-logo.is-waking {
+    animation: none;
+  }
 }
 
 /* ========================================
