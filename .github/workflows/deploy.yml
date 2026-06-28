@@ -37,13 +37,13 @@ jobs:
           sudo chmod +x /usr/local/bin/pagefind
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           submodules: recursive
           fetch-depth: 0
 
       - name: Cache Hugo generated resources
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           # Hugo's processed-image cache (OG cards + responsive WebP variants).
           # Regenerating these from scratch dominates the build; Hugo keys each
@@ -56,7 +56,7 @@ jobs:
 
       - name: Setup Pages
         id: pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v6
 
       - name: Install lychee (link checker)
         run: |
@@ -80,7 +80,7 @@ jobs:
         run: pagefind --site public
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: ./public
 
@@ -93,4 +93,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
