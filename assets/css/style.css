@@ -100,6 +100,20 @@
   outline-offset: 2px;
 }
 
+/* Visually hidden but available to screen readers and search engines. Used for
+   the section <h1> on list pages, where the visible profile name is not a heading. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* Respect users who ask for less motion: near-instant animations/transitions,
    no smooth scroll. Decorative motion (fade-ins, hover lifts, TOC slide, 404
    cursor blink) effectively stops; content stays fully visible. */
@@ -797,7 +811,7 @@ html.vt-nav .fade-in-element {
 .tag:hover {
   background-color: var(--color-accent);
   border-color: var(--color-accent);
-  color: white;
+  color: #fff;
 }
 
 .post-content {
@@ -1248,11 +1262,12 @@ html.vt-nav .fade-in-element {
 }
 
 /* In dark mode the comics' white backgrounds make the thumbs read as glaring
-   white tiles. Dimming the whole thumb takes the glare off: brightness(0.9)
-   scales the white down to a soft off-white but leaves the black line art
-   (0 × 0.9 = 0) untouched, so legibility is preserved. */
+   white tiles. Dimming the whole thumb takes the glare off: brightness(0.8)
+   scales the white down to a light grey (#fff → ~#ccc) but leaves the black
+   line art (0 × 0.8 = 0) untouched, so legibility is preserved. (0.9 was too
+   subtle to perceive against the dark page.) */
 :root[data-theme="dark"] .comic-thumb {
-  filter: brightness(0.9);
+  filter: brightness(0.8);
 }
 
 .comic-card-meta {
@@ -1590,6 +1605,14 @@ html.vt-nav .fade-in-element {
 .tag-token:hover {
   background-color: var(--color-accent);
   color: #fff;
+}
+
+/* Dark-mode accent is a light purple, so white hover text on it is only ~2:1.
+   Use a dark text color in dark mode instead. (A custom property would be
+   inlined by the CSS minifier and lose this override, so set it per-theme.) */
+:root[data-theme="dark"] .tag:hover,
+:root[data-theme="dark"] .tag-token:hover {
+  color: #16161e;
 }
 
 .tag-token-count {

@@ -16,7 +16,10 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="{{ .Permalink }}">
 
-    {{ if eq .Kind "404" }}<meta name="robots" content="noindex">{{ end }}
+    {{/* noindex the 404, and any taxonomy term with no blog posts (e.g. the
+         section-only "comics" tag, an image-less duplicate of /comics/). These
+         terms are already hidden from the /tags/ cloud. */}}
+    {{ if or (eq .Kind "404") (and (eq .Kind "term") (eq (len (where .Pages "Section" "blog")) 0)) }}<meta name="robots" content="noindex">{{ end }}
 
     <!-- CSS -->
     {{ $css := resources.Get "css/style.css" | resources.Minify | resources.Fingerprint }}
@@ -118,18 +121,21 @@
         {{ block "main" . }}{{ end }}
     </main>
 
+    {{/* Bundle the scripts that run on every page into a single deferred request.
+         All are either IIFE-wrapped or only attach a DOMContentLoaded listener,
+         so concatenation is collision-free. Page-specific scripts (comic-nav,
+         reading-progress, about-boot) stay separate — they have side effects that
+         must not load site-wide. */}}
+    {{ $siteScripts := slice
+        (resources.Get "js/code-blocks.js")
+        (resources.Get "js/heading-anchors.js")
+        (resources.Get "js/search.js")
+        (resources.Get "js/theme-toggle.js") }}
     {{ if .Site.Params.animations }}
-    {{ $animations := resources.Get "js/animations.js" | resources.Minify | resources.Fingerprint }}
-    <script src="{{ $animations.RelPermalink }}" integrity="{{ $animations.Data.Integrity }}" defer></script>
+    {{ $siteScripts = $siteScripts | append (resources.Get "js/animations.js") }}
     {{ end }}
-    {{ $codeBlocks := resources.Get "js/code-blocks.js" | resources.Minify | resources.Fingerprint }}
-    {{ $headingAnchors := resources.Get "js/heading-anchors.js" | resources.Minify | resources.Fingerprint }}
-    {{ $searchJS := resources.Get "js/search.js" | resources.Minify | resources.Fingerprint }}
-    {{ $themeToggle := resources.Get "js/theme-toggle.js" | resources.Minify | resources.Fingerprint }}
-    <script src="{{ $codeBlocks.RelPermalink }}" integrity="{{ $codeBlocks.Data.Integrity }}" defer></script>
-    <script src="{{ $headingAnchors.RelPermalink }}" integrity="{{ $headingAnchors.Data.Integrity }}" defer></script>
-    <script src="{{ $searchJS.RelPermalink }}" integrity="{{ $searchJS.Data.Integrity }}" defer></script>
-    <script src="{{ $themeToggle.RelPermalink }}" integrity="{{ $themeToggle.Data.Integrity }}" defer></script>
+    {{ $bundle := $siteScripts | resources.Concat "js/site.bundle.js" | resources.Minify | resources.Fingerprint }}
+    <script src="{{ $bundle.RelPermalink }}" integrity="{{ $bundle.Data.Integrity }}" defer></script>
 
     {{ if and .IsPage (eq .Section "comics") }}
     {{ $comicNav := resources.Get "js/comic-nav.js" | resources.Minify | resources.Fingerprint }}

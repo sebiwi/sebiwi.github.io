@@ -1,12 +1,8 @@
 {{ define "main" }}
 <div class="list-page">
     <div class="container">
-        <div class="profile fade-in-element">
-            <img src="{{ .Site.Params.picture }}" alt="{{ .Site.Params.name }}" class="profile-image">
-            <h1 class="profile-title">{{ .Site.Params.name }}</h1>
-            <p class="profile-bio">{{ .Site.Params.bio }}</p>
-            {{ partial "social-links.html" . }}
-        </div>
+        <h1 class="visually-hidden">{{ .Title }}</h1>
+        {{ partial "profile.html" (dict "page" . "headingName" false) }}
 
         <div class="breaker fade-in-element"></div>
     </div>

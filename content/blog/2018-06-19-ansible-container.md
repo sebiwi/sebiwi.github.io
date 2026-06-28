@@ -1,29 +1,35 @@
 ---
-title:  "Ansible Container: Chronicle of a death foretold"
-description: "Why we tried Ansible Container and went back to Dockerfiles, building images and provisioning servers are two different jobs. Co-written with Adrien Besnard."
-date:   2018-06-07 08:19:02 +0100
+title: "Ansible Container: Chronicle of a death foretold"
+description:
+  "Why we tried Ansible Container and went back to Dockerfiles, building images
+  and provisioning servers are two different jobs. Co-written with Adrien
+  Besnard."
+date: 2018-06-07 08:19:02 +0100
 tags:
-- infrastructure as code
+  - infrastructure as code
 author: sebiwi
 ---
 
-__This article was co-written by the great [Adrien Besnard][1]__.
+> **Editor's note:** This post is from 2018. **Ansible Container** has since
+> been retired, and some links it referenced (its documentation, Octo's internal
+> repository) are no longer available, they have been removed.
+
+**This article was co-written by the great [Adrien Besnard][1]**.
 
 Alright, here’s what’s up:
 
 ## TL;DR
 
-We tried Ansible Container. We’d rather keep using Dockerfiles for image
-builds: creating a Docker image and provisioning servers with Ansible are two
-very different things. Different in terms of lifecycle, philosophy and
-workflow. So different, that in our opinion, they’re not compatible.
+We tried Ansible Container. We’d rather keep using Dockerfiles for image builds:
+creating a Docker image and provisioning servers with Ansible are two very
+different things. Different in terms of lifecycle, philosophy and workflow. So
+different, that in our opinion, they’re not compatible.
 
 Wanna know why? Read on.
 
-Disclaimer! While the current status of Ansible Container is not clear, it
-seems that during the writing of this article the tool has [been deprecated][2].
-After the limitations we noticed, we won't say that we didn't see that
-coming...
+Disclaimer! While the current status of Ansible Container is not clear, it seems
+that during the writing of this article the tool has [been deprecated][2]. After
+the limitations we noticed, we won't say that we didn't see that coming...
 
 ## Friendly reminders (because we’re friendly)
 
@@ -42,9 +48,9 @@ such as Jenkins) which connects to the other servers using SSH in order to
 execute actions (most of the time, that means running Python code). Simple,
 easy, efficient.
 
-One of the cool abstraction of Ansible are the Roles which are a way to
-describe how to setup an application without knowing the target host in
-advance, in a reusable way.
+One of the cool abstraction of Ansible are the Roles which are a way to describe
+how to setup an application without knowing the target host in advance, in a
+reusable way.
 
 ### Docker
 
@@ -128,19 +134,18 @@ CMD ["elasticsearch"]
 
 It makes you want to die, doesn’t it? It’s complex, verbose and hard to
 interpret. What are the logic steps involved in the construction of this image?
-If you spend some (a lot) of time reading this Dockerfile in order to
-understand what it does, you will realize that it starts from an openjdk image,
-it installs gosu, and then it does a lot of things in order to install
-Elasticsearch.
+If you spend some (a lot) of time reading this Dockerfile in order to understand
+what it does, you will realize that it starts from an openjdk image, it installs
+gosu, and then it does a lot of things in order to install Elasticsearch.
 
 ### Ansible Container
 
 Now imagine this: you work with your infrastructure in the cloud, and you
 configure and deploy everything using Ansible. You have a huge galaxy of roles
 that allow you to do many things related to your application (like installing
-Java and Zookeeper, to name a few). You want to transform your workflow in
-order to start using a container-based approach, but you don’t want to lose all
-your Ansible resources.
+Java and Zookeeper, to name a few). You want to transform your workflow in order
+to start using a container-based approach, but you don’t want to lose all your
+Ansible resources.
 
 What if instead of doing all that, you do this:
 
@@ -148,8 +153,8 @@ What if instead of doing all that, you do this:
 ---
 - host: container
   roles:
-  - gosu
-  - elasticsearch
+    - gosu
+    - elasticsearch
 ```
 
 Wouldn’t that be great? Wouldn’t it? Yes it would.
@@ -190,11 +195,8 @@ In order to make the application communicate with Zookeeper, we use Apache
 Curator, which is a Zookeeper library. It provides many utilities we can use in
 order to provide distributed lock policies and leader election.
 
-You can see the code of our application here:
-<https://gitlab.octo.com/abesnard/ansible-container-zookeeper-article/tree/provision-virtual-machines/archiver>.
-
-We wanted to create an application that needs Zookeeper because it seemed like
-a coherent test case provided the assumptions stated before: we have an
+We wanted to create an application that needs Zookeeper because it seemed like a
+coherent test case provided the assumptions stated before: we have an
 Ansible-managed workflow, on virtual machines, and we’re moving towards a
 container-based approach.
 
@@ -301,7 +303,8 @@ Ansible role from the Ansible Galaxy in order to provision ZooKeeper on our
 machines : <https://galaxy.ansible.com/AnsibleShipyard/ansible-zookeeper/>.
 
 It’s a little bit off-topic, but Ansible Galaxy is a great tool which you can
-use to organize and centralize your roles. More information here: <https://galaxy.ansible.com/>!
+use to organize and centralize your roles. More information here:
+<https://galaxy.ansible.com/>!
 
 ### End to end
 
@@ -337,13 +340,12 @@ As you can see, it works great on our two Vagrant boxes (it takes some time
 because of the downloads of Java and ZooKeeper, but if you skip to the end...
 Everything goes fine!) :
 
-
 ## The Use-Case
 
 ### First Try
 
-As we said before, a perfect use-case of Ansible Container is to leverage on
-all the roles which have already been created in order to Dockerize existing
+As we said before, a perfect use-case of Ansible Container is to leverage on all
+the roles which have already been created in order to Dockerize existing
 applications. So let’s do it: we’re going to containerize ZooKeeper and our
 Archiver application...
 
@@ -381,10 +383,9 @@ services:
 
 Let’s try it, and see what’s going on!
 
-
-It does not work, because we need to add some stuff in our role in order to
-make it Docker compliant: Instead of having systemd to start a daemon, we need
-to provide a Docker CMD.
+It does not work, because we need to add some stuff in our role in order to make
+it Docker compliant: Instead of having systemd to start a daemon, we need to
+provide a Docker CMD.
 
 If we take a step back, it’s easy to say that most of your roles are not ready
 to be used as-is in a container using Ansible Container: multiple tasks are
@@ -394,9 +395,8 @@ applications: it goes way beyond this simple use case... which is not relevant
 in a Docker context.
 
 Note that Ansible is aware of this problematic and that’s why the notion of
-Container-Enabled Role has been created:
-<https://docs.ansible.com/ansible-container/roles/galaxy.html>. So when you use
-Ansible Galaxy, be aware of that!
+Container-Enabled Role has been created. So when you use Ansible Galaxy, be
+aware of that!
 
 ### Second Try
 
@@ -412,26 +412,18 @@ Fine... We’re going to make our role compliant:
 ---
 from: "ubuntu:xenial"
 user: "archiver"
-command: [ "java", "-jar", "/usr/lib/archiver/archiver.jar" ]
+command: ["java", "-jar", "/usr/lib/archiver/archiver.jar"]
 ```
 
 And here we go again!
-
 
 It’s alive! You can even see the Docker images which have been created by
 Ansible Container (everything is properly named and tagged, which is pretty
 nice) and the Conductor images (which are used by Ansible Container under the
 hood to provision the containers):
 
-
-Just for you to know: we lied to you. We actually didn’t use the
-AnsibleShipyard.ansible-zookeeper role as-is: we had to patch it for this
-particular reason in order to continue our trial of Ansible Container:
-<https://gitlab.octo.com/abesnard/ansible-container-zookeeper-article/blob/build-containers-after-changes/ansible/roles/AnsibleShipyard.ansible-zookeeper.patch>.
-
 Ansible Container even allows us to launch everything it created by creating an
 Ansible playbook which actually starts the containers... Well, let’s do it!
-
 
 Pretty neat, right?
 
@@ -440,8 +432,8 @@ Pretty neat, right?
 ### As-Is
 
 We just saw that with a few minor modifications of our role, we’re now capable
-of using Ansible Container in order to produce Docker images instead of
-actually deploying our role to some virtual machines.
+of using Ansible Container in order to produce Docker images instead of actually
+deploying our role to some virtual machines.
 
 Before going straight ahead to a Kubernetes cluster, we want to be sure that we
 can reuse our newly created Docker image using Docker Compose. Easy, let’s
@@ -454,13 +446,13 @@ services:
   zookeeper:
     image: "zookeeper:latest"
     ports:
-    - 2181:2181
+      - 2181:2181
   archiver:
     image: "ansible-container-blog-archiver"
     depends_on:
-    - "zookeeper"
+      - "zookeeper"
     volumes:
-    - "/tmp/shared:/shared:rw"
+      - "/tmp/shared:/shared:rw"
 ```
 
 You can see that instead of leveraging of the ansible-container-blog-zookeeper
@@ -468,7 +460,6 @@ image, we’re going to use the official Docker image of ZooKeeper: it’s total
 possible because of the plug’n’play spirit of these images.
 
 And run start Docker Compose:
-
 
 Everything is fine!
 
@@ -483,8 +474,8 @@ Ansible role is fundamentally different from a Dockerfile.
 #### Build Time V.S. Run Time
 
 And here we are... using our role (which heavily leverages Ansible’s template
-module), we created a Docker image that is designed in order to work only in
-the context of the architecture described in the container.yml file: the Docker
+module), we created a Docker image that is designed in order to work only in the
+context of the architecture described in the container.yml file: the Docker
 image we created cannot be used in a plug’n’play fashion. You cannot easily
 reuse a Docker image which have been created with Ansible Container.
 
@@ -514,9 +505,9 @@ override properties.
 
 ### Limitations
 
-Ansible Container is not a bad tool and we actually think that it’s a good
-idea: writing a Dockerfile is often a pain, and leveraging on Ansible could
-have been a good idea.
+Ansible Container is not a bad tool and we actually think that it’s a good idea:
+writing a Dockerfile is often a pain, and leveraging on Ansible could have been
+a good idea.
 
 But provisioning with Ansible heavily rely on the template module which sets the
 properties during the provisioning, but do not permit to modify them afterward.
@@ -549,4 +540,5 @@ scripts it embeds, you still can put all the logic in a clean separate python
 file... maybe this simple solution can also be a good start.
 
 [1]: https://blog.octo.com/author/adrien-besnard-bes/
-[2]: https://github.com/ansible/ansible-container/commit/2fa778a7c8d1699672314ac0b89c53554f435cb7
+[2]:
+  https://github.com/ansible/ansible-container/commit/2fa778a7c8d1699672314ac0b89c53554f435cb7

@@ -302,7 +302,7 @@ relational rollup won on simplicity.
 
 You still wanna know what a florb is? Why? Some mysteries are load-bearing.
 
-[1]: https://www.postgresql.org/docs/current/brin-intro.html
+[1]: https://www.postgresql.org/docs/current/brin.html
 [2]: https://clickhouse.com/docs/optimize/skipping-indexes#minmax
 [3]:
   https://www.postgresql.org/docs/current/explicit-locking.html#ADVISORY-LOCKS

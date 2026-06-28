@@ -8,3 +8,5 @@ vendor
 .worktrees/
 public/
 resources/
+.lycheecache
+docs/

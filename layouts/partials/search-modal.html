@@ -23,11 +23,10 @@
     <div id="search-instructions" class="sr-only">
       Use arrow keys to navigate results, Enter to select, Escape to close
     </div>
-    <div id="search-results"
-         class="search-results"
-         role="status"
-         aria-live="polite"
-         aria-atomic="false">
+    {{/* Not a live region: announcing the whole result list on every keystroke
+         is noisy. A concise "N results found" is announced from search.js via a
+         dedicated visually-hidden live region instead. */}}
+    <div id="search-results" class="search-results">
       <div class="search-empty">~ awaiting input …</div>
     </div>
     <div id="search-status" class="search-status" aria-hidden="true"></div>

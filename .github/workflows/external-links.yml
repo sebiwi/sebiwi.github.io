@@ -1,0 +1,53 @@
+name: External link check
+
+# Advisory weekly check for external link rot. Kept OUT of the deploy pipeline
+# on purpose: it hits the network and can fail for reasons unrelated to a change
+# (a third-party site being down), so it must never block a deploy. It runs on a
+# schedule and surfaces rot via a failed run / notification instead.
+
+on:
+  schedule:
+    # Every Sunday at 06:00 UTC.
+    - cron: "0 6 * * 0"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  external-links:
+    runs-on: ubuntu-latest
+    env:
+      HUGO_VERSION: 0.163.1
+    steps:
+      - name: Install Hugo CLI
+        run: |
+          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb \
+          && sudo dpkg -i ${{ runner.temp }}/hugo.deb
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Cache Hugo generated resources
+        uses: actions/cache@v4
+        with:
+          path: resources/_gen
+          key: hugo-resources-${{ hashFiles('static/images/**', 'assets/**', 'hugo.toml') }}
+          restore-keys: |
+            hugo-resources-
+
+      - name: Install lychee (link checker)
+        run: |
+          curl -sL https://github.com/lycheeverse/lychee/releases/download/lychee-v0.21.0/lychee-x86_64-unknown-linux-gnu.tar.gz | tar xz
+          sudo mv lychee /usr/local/bin/
+          chmod +x /usr/local/bin/lychee
+
+      - name: Check external links
+        run: ./test/test-external-links.sh

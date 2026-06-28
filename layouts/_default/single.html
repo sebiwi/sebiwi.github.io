@@ -37,7 +37,7 @@
                 </time>
 
                 {{ if and .Site.Params.showReadTime (ne .Section "comics") }}
-                <span class="read-time">{{ math.Round (div (countwords .Content) 220.0) }} min</span>
+                <span class="read-time">{{ math.Max 1 (math.Round (div (countwords .Content) 220.0)) }} min</span>
                 {{ end }}
             </div>
 

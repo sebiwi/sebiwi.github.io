@@ -1,15 +1,21 @@
 #!/usr/bin/env bash
 set -e # halt script on error
 
+# Always run from the repo root, regardless of where the script is invoked from
+# (it lives in test/ but operates on paths relative to the repo root).
+cd "$(dirname "$0")/.."
+
 echo "🧪 Testing Hugo build..."
 
 # Clean previous build
 echo "📦 Cleaning previous build..."
 rm -rf public
 
-# Build site with minification
+# Build site with minification.
+# --panicOnWarning turns template/render warnings (e.g. a broken RSS template,
+# a missing resource) into hard build failures so they can't ship silently.
 echo "🔨 Building site..."
-hugo --minify
+hugo --minify --panicOnWarning
 
 # Build search index (use the installed binary if present, else npx)
 echo "🔍 Building search index..."
@@ -49,6 +55,27 @@ if ! ls public/js/*.min.*.js >/dev/null 2>&1; then
     exit 1
 fi
 echo "✓ JS minified and fingerprinted"
+
+# Check generated feeds and sitemap exist (the RSS template is custom, so a
+# template error there wouldn't necessarily fail the build hard).
+echo "✅ Checking feeds and sitemap..."
+feeds=("public/sitemap.xml" "public/index.xml" "public/blog/index.xml" "public/comics/index.xml")
+for feed in "${feeds[@]}"; do
+    if [ ! -f "$feed" ]; then
+        echo "❌ Missing: $feed"
+        exit 1
+    fi
+    echo "✓ Found: $feed"
+done
+
+# Check the responsive-image pipeline actually produced WebP variants (a
+# regression to a raw <img> fallback would otherwise pass silently).
+echo "✅ Checking image pipeline..."
+if [ "$(find public -name '*.webp' | head -1)" = "" ]; then
+    echo "❌ No WebP variants generated — responsive-img pipeline may be broken"
+    exit 1
+fi
+echo "✓ WebP variants generated"
 
 # Count pages
 page_count=$(find public -name "*.html" | wc -l | tr -d ' ')

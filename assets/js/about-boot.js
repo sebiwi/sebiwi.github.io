@@ -96,24 +96,41 @@ document.addEventListener('DOMContentLoaded', () => {
     logo.textContent = LOGO_REST;
   }
 
+  let decodeIntervalId = null;
+  let failsafeId = null;
+
+  // Reveal the real text and drop all boot state. Idempotent and safe to call
+  // at any point — it also cancels the in-flight decode loop and failsafe, so a
+  // partially-decoded panel can never be left frozen or hidden.
   function cleanup() {
+    if (decodeIntervalId !== null) { clearInterval(decodeIntervalId); decodeIntervalId = null; }
+    if (failsafeId !== null) { clearTimeout(failsafeId); failsafeId = null; }
     render(maxFrame + 1);
     decodeLines.forEach((l) => l.classList.remove('is-decoding'));
     root.classList.remove('about-booting');
   }
 
   // Failsafe: never leave the panel hidden if something goes wrong.
-  const failsafe = setTimeout(cleanup, 4000);
+  failsafeId = setTimeout(cleanup, 4000);
+
+  // Back/forward cache: a restore does NOT re-fire DOMContentLoaded and the
+  // restored DOM may be frozen mid-decode (scrambled glyphs, lines still hidden).
+  // The closure survives bfcache, so this listener — registered on first load —
+  // still fires and cleans up to the final state.
+  window.addEventListener('pageshow', (e) => {
+    if (e.persisted) cleanup();
+  });
 
   function decode() {
     return new Promise((resolve) => {
       let frame = 0;
       render(0);                                       // first paint = scrambled, not real
       decodeLines.forEach((l) => l.classList.add('is-on', 'is-decoding'));
-      const id = setInterval(() => {
+      decodeIntervalId = setInterval(() => {
         frame++;
         if (frame > maxFrame) {
-          clearInterval(id);
+          clearInterval(decodeIntervalId);
+          decodeIntervalId = null;
           render(maxFrame + 1);
           decodeLines.forEach((l) => l.classList.remove('is-decoding'));
           resolve();
@@ -130,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
       await decode();
       await waveLogo();
     } finally {
-      clearTimeout(failsafe);
+      if (failsafeId !== null) { clearTimeout(failsafeId); failsafeId = null; }
       root.classList.remove('about-booting');
     }
   })();

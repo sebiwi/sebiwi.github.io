@@ -1,11 +1,17 @@
-{{- $pages := where .Site.RegularPages "Type" "in" (slice "blog" "comics") -}}
+{{- /* Home gets the combined site feed; section feeds (blog, comics) and
+       taxonomy term feeds (tags) scope to their own pages. */ -}}
+{{- $pages := .RegularPages -}}
+{{- if .IsHome -}}
+{{- $pages = where .Site.RegularPages "Type" "in" (slice "blog" "comics") -}}
+{{- end -}}
 {{- $pages = first 20 $pages -}}
+{{- $title := cond .IsHome .Site.Title (printf "%s · %s" .Title .Site.Title) -}}
 {{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>{{ .Site.Title }}</title>
+    <title>{{ $title }}</title>
     <link>{{ .Permalink }}</link>
-    <description>Recent content from {{ .Site.Title }}</description>
+    <description>Recent content from {{ $title }}</description>
     <generator>Hugo -- gohugo.io</generator>
     {{ with .Site.Language.Locale }}<language>{{ . }}</language>{{ end }}
     {{ with .Site.Params.email }}<managingEditor>{{ . }}{{ with $.Site.Params.name }} ({{ . }}){{ end }}</managingEditor>{{ end }}
@@ -23,7 +29,18 @@
       <description>{{ with .Description }}{{ . }}{{ else }}{{ with .Params.alt }}{{ . }}{{ else }}{{ $.Summary | html }}{{ end }}{{ end }}</description>
       {{/* content:encoded = full post (blog) or the comic image, what readers render. */}}
       {{ if eq .Section "comics" }}
-      {{ with .Params.image }}<content:encoded>{{ printf "<img src=\"%s\" />" (. | absURL) | transform.XMLEscape | safeHTML }}</content:encoded>{{ end }}
+      {{ with .Params.image }}
+      {{- /* Serve a resized variant (keep source format — JPEG/PNG — since feed
+             readers' WebP support is spotty), not the multi-MB original. */ -}}
+      {{- $res := resources.Get (strings.TrimPrefix "/" .) -}}
+      {{- if $res -}}
+        {{- $img := $res -}}
+        {{- if gt $res.Width 800 }}{{ $img = $res.Resize "800x q85" }}{{ end -}}
+        <content:encoded>{{ printf "<img src=\"%s\" />" $img.Permalink | transform.XMLEscape | safeHTML }}</content:encoded>
+      {{- else -}}
+        <content:encoded>{{ printf "<img src=\"%s\" />" (. | absURL) | transform.XMLEscape | safeHTML }}</content:encoded>
+      {{- end -}}
+      {{ end }}
       {{ else }}
       <content:encoded>{{ .Content | transform.XMLEscape | safeHTML }}</content:encoded>
       {{ end }}

@@ -12,12 +12,7 @@
 <script type="application/ld+json">{{ $graph | jsonify | safeJS }}</script>
 <div class="home-page">
     <div class="container">
-        <div class="profile fade-in-element">
-            <img src="{{ .Site.Params.picture }}" alt="{{ .Site.Params.name }}" class="profile-image">
-            <h1 class="profile-title">{{ .Site.Params.name }}</h1>
-            <p class="profile-bio">{{ .Site.Params.bio }}</p>
-            {{ partial "social-links.html" . }}
-        </div>
+        {{ partial "profile.html" (dict "page" . "headingName" true) }}
 
         <nav class="home-nav fade-in-element">
             {{ partial "nav.html" (dict "linkClass" "home-nav-link" "skip" "/") }}

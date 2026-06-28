@@ -53,6 +53,20 @@ document.addEventListener('DOMContentLoaded', function () {
       var code = pre.querySelector('code');
       var text = code ? code.textContent : pre.textContent;
 
+      function showError() {
+        copyButton.innerHTML = ICONS.error;
+        setTimeout(function () {
+          copyButton.innerHTML = ICONS.copy;
+        }, 2000);
+      }
+
+      // The Clipboard API is undefined on insecure origins / old browsers;
+      // calling it would throw synchronously and skip the .catch below.
+      if (!navigator.clipboard || !navigator.clipboard.writeText) {
+        showError();
+        return;
+      }
+
       navigator.clipboard.writeText(text).then(function () {
         copyButton.innerHTML = ICONS.check;
         copyButton.classList.add('copied');
@@ -60,12 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
           copyButton.innerHTML = ICONS.copy;
           copyButton.classList.remove('copied');
         }, 2000);
-      }).catch(function () {
-        copyButton.innerHTML = ICONS.error;
-        setTimeout(function () {
-          copyButton.innerHTML = ICONS.copy;
-        }, 2000);
-      });
+      }).catch(showError);
     });
 
     header.appendChild(dots);

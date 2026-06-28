@@ -10,6 +10,19 @@
 {{/* Word-wrap the title to ~24 chars per line (mono font, ~28 fit at size 64). */}}
 {{ $maxChars := 24 }}
 {{ $words := split .Title " " }}
+{{/* Hard-split any single word longer than the line width, so it can't run off
+     the card edge (the space-based wrap below would otherwise leave it intact). */}}
+{{ $chunked := slice }}
+{{ range $w := $words }}
+  {{ if gt (len $w) $maxChars }}
+    {{ range $i := (seq 0 $maxChars (sub (len $w) 1)) }}
+      {{ $chunked = $chunked | append (substr $w $i $maxChars) }}
+    {{ end }}
+  {{ else }}
+    {{ $chunked = $chunked | append $w }}
+  {{ end }}
+{{ end }}
+{{ $words = $chunked }}
 {{ $lines := slice }}
 {{ $current := "" }}
 {{ range $words }}

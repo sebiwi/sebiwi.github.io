@@ -65,7 +65,7 @@ jobs:
           chmod +x /usr/local/bin/lychee
 
       - name: Run tests
-        run: ./test.sh
+        run: ./test/test.sh
 
       - name: Build with Hugo
         env:

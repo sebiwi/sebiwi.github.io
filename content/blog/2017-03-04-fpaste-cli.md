@@ -31,7 +31,7 @@ Everyone knows that 13 seconds is way too long in 2017.
 
 I highlight the stuff I want to share, I right click it, and then I click on "Send to fpaste".
 
-{{< figure src="/images/fpaste-cli/send-to-fpaste.png" alt="Send to fpaste example" caption="This looks simple, right?" >}}
+{{< figure src="/images/fpaste-cli/send-to-fpaste.jpg" alt="Send to fpaste example" caption="This looks simple, right?" >}}
 
 This is a pretty cool picture by the way. It has send to fpaste, vim, and zebras on it.
 

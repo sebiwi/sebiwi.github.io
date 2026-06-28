@@ -13,6 +13,7 @@
   let pagefind = null;
   let selectedIndex = -1;
   let results = [];
+  let searchSeq = 0; // monotonic token; a query whose token is stale drops its results
   let previousFocus = null;
   let focusTrapHandler = null;
 
@@ -70,22 +71,30 @@
       query = query.substring(0, MAX_QUERY_LENGTH);
     }
 
+    // Claim a sequence token. After every await we bail if a newer query has
+    // started, so a slow earlier search can't overwrite a newer one's results.
+    const seq = ++searchSeq;
+
     const search = await initSearch();
     if (!search) return;
+    if (seq !== searchSeq) return;
 
     try {
       const started = performance.now();
       const searchResults = await search.search(query);
+      if (seq !== searchSeq) return;
       const elapsedMs = Math.max(1, Math.round(performance.now() - started));
       results = searchResults.results;
 
       if (results.length === 0) {
         showNoResults(query);
         updateStatus(query, 0, 0, elapsedMs);
+        announceToScreenReader('No results found');
         return;
       }
 
-      await renderResults(results);
+      await renderResults(results, seq);
+      if (seq !== searchSeq) return;
       selectedIndex = -1;
 
       const total = results.length;
@@ -101,7 +110,7 @@
   }
 
   // Render search results as fzf-style TUI lines
-  async function renderResults(results) {
+  async function renderResults(results, seq) {
     const html = await Promise.all(
       results.slice(0, MAX_RESULTS).map(async (result, index) => {
         const data = await result.data();
@@ -139,6 +148,8 @@
       })
     );
 
+    // Dropped if a newer query started while we awaited the per-result data().
+    if (seq !== undefined && seq !== searchSeq) return;
     resultsContainer.innerHTML = html.join('');
   }
 
@@ -173,6 +184,7 @@
     clearStatus();
     results = [];
     selectedIndex = -1;
+    announceToScreenReader(message);
   }
 
   function showNoResults(query) {
@@ -383,8 +395,9 @@
     performSearch(e.target.value);
   }, SEARCH_DEBOUNCE_MS));
 
-  // Backdrop click
-  backdrop.addEventListener('click', closeModal);
+  // Backdrop click (optional element — guard so a missing backdrop can't abort
+  // the rest of the listener setup, e.g. Cmd/K and Escape).
+  backdrop?.addEventListener('click', closeModal);
 
   // Result clicks
   resultsContainer.addEventListener('click', (e) => {

@@ -1,5 +1,5 @@
 baseURL = 'https://sebiwi.github.io/'
-locale = 'en-us'
+locale = 'en-US'
 title = 'sebiwi'
 
 [params]

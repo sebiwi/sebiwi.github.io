@@ -23,7 +23,7 @@ hugo
 hugo --minify
 
 # Run tests
-./test.sh
+./test/test.sh
 ```
 
 Visit <http://localhost:1313>
@@ -74,7 +74,7 @@ The site includes a keyboard-activated search feature:
 - Screen reader accessible
 
 ### Local Development
-The search index is built automatically when running `./test.sh`. To build manually:
+The search index is built automatically when running `./test/test.sh`. To build manually:
 
 ```bash
 hugo --minify
@@ -114,15 +114,25 @@ Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'
 Run the test suite with:
 
 ```bash
-./test.sh
+./test/test.sh
 ```
 
 Tests include:
 
-- Build validation
+- Build validation (fails on Hugo warnings)
 - Critical file verification
 - Asset minification/fingerprinting checks
-- Link validation with lychee
+- Feed, sitemap and WebP-pipeline checks
+- Internal link validation with lychee (offline)
+
+External links are checked separately (online) by:
+
+```bash
+./test/test-external-links.sh
+```
+
+This runs weekly in CI rather than on every push, since it depends on
+third-party sites being up.
 
 ## License
 
