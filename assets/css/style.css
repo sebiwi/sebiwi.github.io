@@ -100,6 +100,14 @@
   outline-offset: 2px;
 }
 
+/* Keyboard focus ring for links (tags, pager, series nav, body links), matching
+   the styled focus states the buttons already have. */
+a:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
 /* Visually hidden but available to screen readers and search engines. Used for
    the section <h1> on list pages, where the visible profile name is not a heading. */
 .visually-hidden {
@@ -170,7 +178,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
   line-height: var(--line-height-heading);
   margin-bottom: var(--spacing-sm);
-  color: var(--color-text);
+  color: var(--color-heading);
 }
 
 h1 { font-size: var(--font-size-xxlarge); }
@@ -567,6 +575,18 @@ main {
   transform: translateX(-50%) translateY(11px) rotate(45deg);
 }
 
+/* The black tooltip bubble is invisible against the dark background, so invert
+   it in dark mode. (A custom property would be inlined by the CSS minifier and
+   lose this override, so set it per-theme.) */
+:root[data-theme="dark"] .social-links a::after {
+  background-color: #c0caf5;
+  color: #16161e;
+}
+
+:root[data-theme="dark"] .social-links a::before {
+  background-color: #c0caf5;
+}
+
 .social-links a:hover svg {
   fill: var(--color-accent);
   stroke: var(--color-accent);
@@ -636,7 +656,7 @@ main {
 
 .breaker {
   height: 1px;
-  margin: 2.5rem auto 0;
+  margin: var(--spacing-lg) auto 0;
   width: 100%;
   background-color: var(--color-surface);
   position: relative;
@@ -660,14 +680,14 @@ main {
   display: flex;
   gap: var(--spacing-md);
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 1.25rem;
   text-align: center;
   flex-wrap: wrap;
 }
 
 .home-nav-link {
   font-size: 1.3rem;
-  padding: 20px 10px;
+  padding: 1.25rem 0.625rem;
   text-decoration: none;
   color: var(--color-accent);
   transition: color 0.3s ease;
@@ -681,7 +701,7 @@ main {
   text-align: center;
   font-size: 0.8rem;
   color: var(--color-bio);
-  padding: 20px 0;
+  padding: 1.25rem 0;
   margin: 0;
 }
 
@@ -1437,39 +1457,6 @@ html.vt-nav .fade-in-element {
   font-size: 0.8rem;
   padding: 0 0.2rem;
   color: var(--color-muted);
-}
-
-/* ========================================
-   Related Posts
-   ======================================== */
-
-.related-posts {
-  margin: var(--spacing-md) 0;
-}
-
-.related-posts h3 {
-  margin-bottom: var(--spacing-md);
-  font-weight: 700;
-  color: var(--color-heading);
-}
-
-.related-posts ul {
-  list-style: disc;
-  padding-left: 2rem;
-}
-
-.related-posts li {
-  margin-bottom: 0.25rem;
-}
-
-.related-posts a {
-  color: var(--color-accent);
-  text-decoration: none;
-  font-size: 0.95rem;
-}
-
-.related-posts a:hover {
-  text-decoration: underline;
 }
 
 /* ========================================

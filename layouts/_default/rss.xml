@@ -2,7 +2,7 @@
        taxonomy term feeds (tags) scope to their own pages. */ -}}
 {{- $pages := .RegularPages -}}
 {{- if .IsHome -}}
-{{- $pages = where .Site.RegularPages "Type" "in" (slice "blog" "comics") -}}
+{{- $pages = where site.RegularPages "Type" "in" (slice "blog" "comics") -}}
 {{- end -}}
 {{- $pages = first 20 $pages -}}
 {{- $title := cond .IsHome .Site.Title (printf "%s · %s" .Title .Site.Title) -}}

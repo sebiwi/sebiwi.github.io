@@ -5,14 +5,13 @@ title = 'sebiwi'
 [params]
   name = 'sebiwi'
   bio = 'Tech, fun, and cookies'
-  description = 'Tech, fun and cookies'
+  description = 'Tech, fun, and cookies'
   picture = '/images/profile.jpg'
   email = 'contact.sebiwi@gmail.com'
 
   # Feature toggles
   showReadTime = true
   showTags = true
-  showRelated = false
   showHomeLatest = true
   showSeriesCta = true      # "continue the series" CTA at the end of series posts
   hyphenatePosts = false    # auto-hyphenate justified post body text (tighter spacing)

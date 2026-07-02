@@ -77,10 +77,6 @@
 
         {{ partial "post-navigation.html" . }}
 
-        {{ if and .Site.Params.showRelated (eq .Section "blog") }}
-        {{ partial "related.html" . }}
-        {{ end }}
-
         <div class="breaker"></div>
 
         {{ partial "footer.html" . }}
