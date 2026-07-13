@@ -414,7 +414,9 @@ main {
   margin-right: -35%;
 }
 
-@media (max-width: 768px) {
+/* The 170% bleed is 952px wide (170% of the 560px column), so it only fits
+   once the viewport can hold it. Below that, fall back to column width. */
+@media (max-width: 951px) {
   .post-content .bigger-image {
     max-width: 100%;
     width: 100%;
@@ -454,6 +456,21 @@ main {
 
 .top-nav a:hover {
   color: var(--color-accent-bright);
+}
+
+/* At phone-SE widths (320px) the fixed paddings/gaps overflow the viewport
+   and clip the leftmost link off-screen; tighten until everything fits. */
+@media (max-width: 360px) {
+  .top-bar {
+    padding: 10px 6px;
+    gap: 2px;
+  }
+
+  .top-nav a {
+    font-size: 0.8rem;
+    margin-left: 0;
+    padding: 10px 6px;
+  }
 }
 
 /* ========================================
@@ -611,10 +628,6 @@ main {
   padding: var(--spacing-xxl) 0 0;
 }
 
-.list-page {
-  padding: var(--spacing-xxl) 0 0;
-}
-
 .profile {
   text-align: center;
   margin-bottom: var(--spacing-md);
@@ -636,6 +649,11 @@ main {
 .profile-image:hover {
   opacity: 0.8;
   box-shadow: 0 0px 4px 0 rgba(0, 0, 0, 0.18), 0 0px 12px 0 rgba(0, 0, 0, 0.15);
+}
+
+/* Black shadows vanish on the near-black background; use a light glow. */
+:root[data-theme="dark"] .profile-image:hover {
+  box-shadow: 0 0px 4px 0 rgba(255, 255, 255, 0.12), 0 0px 12px 0 rgba(255, 255, 255, 0.1);
 }
 
 .profile-title {
@@ -1262,6 +1280,11 @@ html.vt-nav .fade-in-element {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
 }
 
+/* Black shadows vanish on the near-black background; add a faint edge glow. */
+:root[data-theme="dark"] .comic-card:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
 .comic-thumb {
   display: block;
   aspect-ratio: 3 / 2;
@@ -1465,8 +1488,6 @@ html.vt-nav .fade-in-element {
    Tags Page
    ======================================== */
 
-.tags-page,
-.taxonomy-page,
 .archive-page,
 .list-page {
   padding: var(--spacing-xl) 0;
@@ -1876,4 +1897,34 @@ html.about-booting .neofetch-logo {
   @keyframes term-blink {
     50% { opacity: 0; }
   }
+}
+
+/* Easter egg: the prompt line hosts a real input so the terminal can be
+   typed into (notfound.js). It must stay invisible yet focusable —
+   display:none would kill focus and the mobile keyboard — and at least
+   1rem-sized so iOS doesn't zoom in on focus. */
+.term-live {
+  position: relative;
+}
+
+.term-input {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  border: 0;
+  opacity: 0;
+  font-size: 1rem;
+}
+
+/* Parting line after `rm -rf /` has wiped the page. */
+.term-shutdown {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: var(--spacing-xxl) var(--spacing-sm) 0;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--color-text-light);
 }

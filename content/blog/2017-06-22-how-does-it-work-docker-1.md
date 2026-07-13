@@ -2,7 +2,7 @@
 title:  "How does it work? Docker! Episode 1 - Swarm general architecture"
 description: "Installing a highly-available Docker Swarm cluster on CoreOS with Ansible, and how Swarm's architecture fits together."
 series: "How does it work? Docker"
-date:   2017-06-08 20:19:02 +0100
+date:   2017-06-22 20:19:02 +0100
 tags:
 - architecture
 - docker
@@ -205,7 +205,7 @@ you about Docker (and Swarm’s) networking model.
 
 Stay tuned!
 
-[1]: https://sebiwi.github.io/blog/how-does-it-work-kube-1/
+[1]: /blog/how-does-it-work-kubernetes-episode-1-kubernetes-general-architecture/
 [2]: https://www.consul.io/
 [3]: https://coreos.com/etcd/
 [4]: https://zookeeper.apache.org/

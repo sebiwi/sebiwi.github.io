@@ -11,11 +11,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // Elements to animate: images inside post content, revealed as they scroll in.
   const animateElements = document.querySelectorAll('.post-content img');
 
-  // Intersection Observer options
+  // Intersection Observer options. threshold 0 + a negative bottom margin
+  // (fire once the element pokes 10% of the viewport in) instead of
+  // threshold 0.1: a ratio threshold is unsatisfiable for an image taller
+  // than ~10 viewports, which would stay at opacity 0 forever.
   const options = {
     root: null,
-    rootMargin: '0px',
-    threshold: 0.1
+    rootMargin: '0px 0px -10% 0px',
+    threshold: 0
   };
 
   // Intersection Observer callback

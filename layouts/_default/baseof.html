@@ -3,7 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+    {{/* Comics have no description; their alt transcript beats the generic
+         site line for search snippets (same fallback the RSS feed uses). */}}
+    <meta name="description" content="{{ .Description | default .Params.alt | default .Site.Params.description }}">
 
     <title>{{ if .IsHome }}{{ .Site.Title }} | {{ .Site.Params.bio }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
 
@@ -14,7 +16,18 @@
     <link rel="icon" type="image/png" sizes="196x196" href="/images/favicon/favicon-196x196.png">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="{{ .Permalink }}">
+    {{/* Paginated list pages must self-canonicalize (/comics/page/2/), not
+         point at page 1. The .Paginate args here MUST match the list
+         templates' calls (Hugo errors on repeat calls with different args). */}}
+    {{ $canonical := .Permalink }}
+    {{ if eq .Kind "section" }}
+        {{ if eq .Section "comics" }}
+            {{ $canonical = (.Paginate .Pages 24).URL | absURL }}
+        {{ else }}
+            {{ $canonical = (.Paginate .Pages).URL | absURL }}
+        {{ end }}
+    {{ end }}
+    <link rel="canonical" href="{{ $canonical }}">
 
     {{/* noindex the 404, and any taxonomy term with no blog posts (e.g. the
          section-only "comics" tag, an image-less duplicate of /comics/). These
@@ -58,13 +71,13 @@
         {{ end }}
     {{ end }}
     {{ $ogTitle := cond .IsHome .Site.Title .Title }}
-    {{ $ogDesc := cond (ne .Description "") .Description .Site.Params.description }}
+    {{ $ogDesc := .Description | default .Params.alt | default .Site.Params.description }}
 
     <!-- Open Graph -->
     <meta property="og:title" content="{{ $ogTitle }}">
     <meta property="og:description" content="{{ $ogDesc }}">
     <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
-    <meta property="og:url" content="{{ .Permalink }}">
+    <meta property="og:url" content="{{ $canonical }}">
     <meta property="og:site_name" content="{{ .Site.Title }}">
     <meta property="og:locale" content="en_US">
     <meta property="og:image" content="{{ $ogImage }}">
@@ -92,9 +105,10 @@
 
     <!-- Theme -->
     <meta name="author" content="{{ .Site.Params.name }}">
-    <meta name="color-scheme" content="light dark">
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="#16161e" media="(prefers-color-scheme: dark)">
+    {{/* Tracks the applied theme (light default), not prefers-color-scheme:
+         theme-init.js and theme-toggle.js update it when dark is applied.
+         color-scheme itself is declared in CSS per [data-theme]. */}}
+    <meta name="theme-color" content="#ffffff">
 
     <!-- No-flash theme init: external + SRI, loaded synchronously so it runs before first paint -->
     {{ $themeInit := resources.Get "js/theme-init.js" | resources.Minify | resources.Fingerprint }}

@@ -7,6 +7,8 @@ tags:
 - kubernetes
 - infrastructure as code
 author: sebiwi
+aliases:
+- /blog/how-does-it-work-kube-5/
 ---
 
 ## Let’s install our Master node
@@ -137,8 +139,6 @@ to be called on startup. This creates the flannel plugin, but then delegates con
 to the Calico plugin. This might sound convoluted at first, but it is actually done
 so that Calico knows which IP range to use (which is determined before by flannel).
 It's a pretty short configuration so I'll just put it here:
-
-{% raw %}
 
 ```json
 {

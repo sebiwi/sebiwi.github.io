@@ -49,15 +49,24 @@ document.addEventListener('DOMContentLoaded', function () {
     copyButton.className = 'copy-button';
     copyButton.innerHTML = ICONS.copy;
     copyButton.setAttribute('aria-label', 'Copy code to clipboard');
+    var feedbackTimer = null; // pending icon revert; cleared on re-click so rapid copies don't flicker
+
     copyButton.addEventListener('click', function () {
       var code = pre.querySelector('code');
       var text = code ? code.textContent : pre.textContent;
 
-      function showError() {
-        copyButton.innerHTML = ICONS.error;
-        setTimeout(function () {
+      function showFeedback(iconHTML, copied) {
+        clearTimeout(feedbackTimer);
+        copyButton.innerHTML = iconHTML;
+        copyButton.classList.toggle('copied', copied);
+        feedbackTimer = setTimeout(function () {
           copyButton.innerHTML = ICONS.copy;
+          copyButton.classList.remove('copied');
         }, 2000);
+      }
+
+      function showError() {
+        showFeedback(ICONS.error, false);
       }
 
       // The Clipboard API is undefined on insecure origins / old browsers;
@@ -68,12 +77,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       navigator.clipboard.writeText(text).then(function () {
-        copyButton.innerHTML = ICONS.check;
-        copyButton.classList.add('copied');
-        setTimeout(function () {
-          copyButton.innerHTML = ICONS.copy;
-          copyButton.classList.remove('copied');
-        }, 2000);
+        showFeedback(ICONS.check, true);
       }).catch(showError);
     });
 

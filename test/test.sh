@@ -7,15 +7,13 @@ cd "$(dirname "$0")/.."
 
 echo "🧪 Testing Hugo build..."
 
-# Clean previous build
-echo "📦 Cleaning previous build..."
-rm -rf public
-
-# Build site with minification.
+# Build site with minification, cleaning stale files from previous builds.
+# --cleanDestinationDir (instead of rm -rf public) removes the window where
+# public/ doesn't exist, which matters if anything is serving it.
 # --panicOnWarning turns template/render warnings (e.g. a broken RSS template,
 # a missing resource) into hard build failures so they can't ship silently.
 echo "🔨 Building site..."
-hugo --minify --panicOnWarning
+hugo --minify --panicOnWarning --cleanDestinationDir
 
 # Build search index (use the installed binary if present, else npx)
 echo "🔍 Building search index..."
@@ -33,7 +31,7 @@ fi
 
 # Check critical files exist
 echo "✅ Checking critical files..."
-files=("public/index.html" "public/blog/index.html" "public/comics/index.html")
+files=("public/index.html" "public/blog/index.html" "public/comics/index.html" "public/404.html" "public/pagefind/pagefind.js")
 for file in "${files[@]}"; do
     if [ ! -f "$file" ]; then
         echo "❌ Missing: $file"
@@ -50,11 +48,13 @@ if ! ls public/css/style.min.*.css >/dev/null 2>&1; then
 fi
 echo "✓ CSS minified and fingerprinted"
 
-if ! ls public/js/*.min.*.js >/dev/null 2>&1; then
-    echo "❌ JS not minified/fingerprinted"
+# The site bundle specifically (search, theme toggle, animations): a generic
+# *.min.*.js glob would still pass if only a page-specific script survived.
+if ! ls public/js/site.bundle.min.*.js >/dev/null 2>&1; then
+    echo "❌ Site JS bundle not built/minified/fingerprinted"
     exit 1
 fi
-echo "✓ JS minified and fingerprinted"
+echo "✓ Site JS bundle minified and fingerprinted"
 
 # Check generated feeds and sitemap exist (the RSS template is custom, so a
 # template error there wouldn't necessarily fail the build hard).

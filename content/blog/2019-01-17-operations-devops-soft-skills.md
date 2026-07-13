@@ -285,5 +285,5 @@ And most importantly, have fun. If it’s not fun, it’s probably not worth it.
 
 [1]: https://en.wikipedia.org/wiki/RTFM
 [2]: https://github.com/sebiwi/terraform-wrapper
-[3]: https://sebiwi.github.io/blog/the-wizard-1/
-[4]: https://sebiwi.github.io/blog/ara/
+[3]: /blog/the-wizard-ansible-molecule-and-test-driven-development/
+[4]: /blog/ansible-reporting-with-ara-ansible-run-analysis/

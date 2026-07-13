@@ -15,6 +15,10 @@
         type="search"
         id="search-input"
         placeholder="type to fuzzy-find posts and comics…"
+        role="combobox"
+        aria-expanded="false"
+        aria-controls="search-results"
+        aria-autocomplete="list"
         aria-label="Search posts and comics"
         aria-describedby="search-instructions"
         autocomplete="off"
@@ -26,7 +30,7 @@
     {{/* Not a live region: announcing the whole result list on every keystroke
          is noisy. A concise "N results found" is announced from search.js via a
          dedicated visually-hidden live region instead. */}}
-    <div id="search-results" class="search-results">
+    <div id="search-results" class="search-results" role="listbox" aria-label="Search results">
       <div class="search-empty">~ awaiting input …</div>
     </div>
     <div id="search-status" class="search-status" aria-hidden="true"></div>

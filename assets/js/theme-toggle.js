@@ -19,6 +19,8 @@
     } else {
       delete root.dataset.theme;
     }
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', goingDark ? '#16161e' : '#ffffff');
     try {
       localStorage.setItem('theme', goingDark ? 'dark' : 'light');
     } catch (e) { /* ignore storage errors */ }

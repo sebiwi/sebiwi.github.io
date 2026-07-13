@@ -7,6 +7,7 @@
         <div class="breaker fade-in-element"></div>
     </div>
 
+    {{/* Args must match the canonical-URL .Paginate call in baseof.html. */}}
     {{ $paginator := .Paginate .Pages 24 }}
     <div class="comics-wrap">
         <div class="comics-grid fade-in-element">

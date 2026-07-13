@@ -4,7 +4,7 @@ description:
   "Why we tried Ansible Container and went back to Dockerfiles, building images
   and provisioning servers are two different jobs. Co-written with Adrien
   Besnard."
-date: 2018-06-07 08:19:02 +0100
+date: 2018-06-19 08:19:02 +0100
 tags:
   - infrastructure as code
 author: sebiwi
@@ -243,11 +243,9 @@ The Ansible Role is fairly simple:
         tick-period = {{ archiver_tick_period_in_seconds }} seconds
     }
 
-{% raw %}
     zookeeper.servers = [
         {{ archiver_zookeeper_servers | map('quote') | join(', ') }}
     ]
-{% endraw %}
 
     lock.timeout = {{ archiver_lock_timeout_in_seconds }} seconds
 
@@ -311,7 +309,6 @@ use to organize and centralize your roles. More information here:
 Our playbook looks quite simple :
 
 ```yaml
-{% raw %}
 ---
 - name: install ZooKeeper
   become: yes
@@ -333,7 +330,6 @@ Our playbook looks quite simple :
     archiver_output_folder_path: "/shared/archived"
     archiver_tick_period_in_seconds: 10
     archiver_lock_timeout_in_seconds: 1
-{% endraw %}
 ```
 
 As you can see, it works great on our two Vagrant boxes (it takes some time

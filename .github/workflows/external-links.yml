@@ -23,29 +23,43 @@ jobs:
     runs-on: ubuntu-latest
     env:
       HUGO_VERSION: 0.163.1
+      # Checksum of hugo_extended_0.163.1_linux-amd64.deb, from the release's
+      # official checksums.txt. Update together with HUGO_VERSION.
+      HUGO_DEB_SHA256: 8e219ed8813ab127b31be4a1efe863389abe96f69106637e5d7019ca72c41a26
     steps:
       - name: Install Hugo CLI
         run: |
-          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb \
-          && sudo dpkg -i ${{ runner.temp }}/hugo.deb
+          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb
+          echo "${HUGO_DEB_SHA256}  ${{ runner.temp }}/hugo.deb" | sha256sum -c -
+          sudo dpkg -i ${{ runner.temp }}/hugo.deb
 
       - name: Checkout
-        uses: actions/checkout@v7
-        with:
-          submodules: recursive
-          fetch-depth: 0
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
 
       - name: Cache Hugo generated resources
-        uses: actions/cache@v6
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
         with:
           path: resources/_gen
           key: hugo-resources-${{ hashFiles('static/images/**', 'assets/**', 'hugo.toml') }}
           restore-keys: |
             hugo-resources-
 
+      - name: Cache lychee results
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
+        with:
+          # lychee's --cache in test-external-links.sh reads/writes this file;
+          # restoring the last run's cache lets known-good URLs be skipped.
+          # The per-run key + restore-keys pattern always saves a fresh copy.
+          path: .lycheecache
+          key: lychee-cache-${{ github.run_id }}
+          restore-keys: |
+            lychee-cache-
+
       - name: Install lychee (link checker)
         run: |
-          curl -sL https://github.com/lycheeverse/lychee/releases/download/lychee-v0.21.0/lychee-x86_64-unknown-linux-gnu.tar.gz | tar xz
+          curl -sL -o lychee.tar.gz https://github.com/lycheeverse/lychee/releases/download/lychee-v0.21.0/lychee-x86_64-unknown-linux-gnu.tar.gz
+          echo "a06547250f10021dcafc6ed5bb20fca75835b65711745b63cfdda34c29ff6a73  lychee.tar.gz" | sha256sum -c -
+          tar xzf lychee.tar.gz
           sudo mv lychee /usr/local/bin/
           chmod +x /usr/local/bin/lychee
 

@@ -3,10 +3,17 @@
     <div class="container">
         {{ if .Site.Params.animations }}
         {{/* Hide the panel before first paint (no flash) so about-boot.js can
-             reveal it. Skipped under reduced motion / when JS is off. */}}
+             reveal it. Skipped under reduced motion / when JS is off. The
+             failsafe lives HERE, next to the hide: if about-boot.js never
+             loads (blocked, network failure), nothing else could unhide the
+             panel. When the script runs normally it removes the class within
+             ~1s and this timer no-ops. */}}
         <script>
           if (!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
             document.documentElement.classList.add('about-booting');
+            setTimeout(function () {
+              document.documentElement.classList.remove('about-booting');
+            }, 4000);
           }
         </script>
         {{ end }}

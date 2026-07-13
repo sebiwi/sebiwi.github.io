@@ -13,6 +13,7 @@
         </div>
         {{ end }}
 
+        {{/* Args must match the canonical-URL .Paginate call in baseof.html. */}}
         {{ $paginator := .Paginate .Pages }}
         <div class="post-grid fade-in-element">
             {{ range $paginator.Pages }}

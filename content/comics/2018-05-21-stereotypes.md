@@ -1,6 +1,6 @@
 ---
 title:  "Stereotypes"
-date:   2018-05-22 07:19:02 +0100
+date:   2018-05-21 07:19:02 +0100
 tags:
 - comics
 author: sebiwi

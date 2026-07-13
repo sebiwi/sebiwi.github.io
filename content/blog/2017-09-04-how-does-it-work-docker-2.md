@@ -261,10 +261,10 @@ deprecating Swarm Standalone” argument).
 That’s all for the networking part. I’ll talk to you about service discovery,
 load-balancing and security on the next one. Don’t go anywhere!
 
-[1]: https://sebiwi.github.io/blog/how-does-it-work-kube-2/
-[2]: https://sebiwi.github.io/blog/how-does-it-work-kube-5/
+[1]: /blog/how-does-it-work-kubernetes-episode-2-kubernetes-networking/
+[2]: /blog/how-does-it-work-kubernetes-episode-5-master-and-worker-at-last/
 [3]: https://en.wikipedia.org/wiki/Virtual_Extensible_LAN
-[4]: https://sebiwi.github.io/blog/how-does-it-work-kube-2/
+[4]: /blog/how-does-it-work-kubernetes-episode-2-kubernetes-networking/
 [5]: https://coreos.com/etcd
 [6]: https://www.consul.io/
 [7]: https://zookeeper.apache.org/

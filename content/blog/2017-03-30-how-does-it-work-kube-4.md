@@ -7,6 +7,8 @@ tags:
 - kubernetes
 - infrastructure as code
 author: sebiwi
+aliases:
+- /blog/how-does-it-work-kube-4/
 ---
 
 ## Can I see the code now?

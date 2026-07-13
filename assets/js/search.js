@@ -7,7 +7,6 @@
   const MAX_RESULTS = 10;
   const EXCERPT_LENGTH = 15;
   const SEARCH_DEBOUNCE_MS = 300;
-  const SCREEN_READER_ANNOUNCEMENT_TIMEOUT_MS = 3000;
 
   // State
   let pagefind = null;
@@ -127,6 +126,7 @@
         return `
           <a href="${url}"
              class="search-result"
+             id="search-result-${index}"
              data-index="${index}"
              role="option"
              aria-selected="false">
@@ -151,6 +151,19 @@
     // Dropped if a newer query started while we awaited the per-result data().
     if (seq !== undefined && seq !== searchSeq) return;
     resultsContainer.innerHTML = html.join('');
+    setExpanded(true);
+    // If the user had Tabbed onto a result, replacing the list just destroyed
+    // the focused element and dropped focus to <body> — outside the trap.
+    if (!modal.contains(document.activeElement)) {
+      input.focus({ preventScroll: true });
+    }
+  }
+
+  // Combobox state: tells AT whether the listbox currently holds options.
+  // Also clears the active-descendant pointer whenever the list (re)renders.
+  function setExpanded(expanded) {
+    input.setAttribute('aria-expanded', String(expanded));
+    input.removeAttribute('aria-activedescendant');
   }
 
   // Render the fzf-style status line: "10/23 ── 'query' (4ms)"
@@ -173,10 +186,12 @@
     clearStatus();
     results = [];
     selectedIndex = -1;
+    setExpanded(false);
   }
 
   function showLoading() {
     resultsContainer.innerHTML = '<div class="search-loading">$ loading index…</div>';
+    setExpanded(false);
   }
 
   function showError(message) {
@@ -184,6 +199,7 @@
     clearStatus();
     results = [];
     selectedIndex = -1;
+    setExpanded(false);
     announceToScreenReader(message);
   }
 
@@ -196,6 +212,7 @@
     `;
     results = [];
     selectedIndex = -1;
+    setExpanded(false);
   }
 
   // Keyboard navigation
@@ -215,6 +232,10 @@
       resultElements[selectedIndex].classList.add('selected');
       resultElements[selectedIndex].setAttribute('aria-selected', 'true');
       resultElements[selectedIndex].scrollIntoView({ block: 'nearest' });
+      // The input keeps DOM focus; this tells AT which option is current.
+      input.setAttribute('aria-activedescendant', resultElements[selectedIndex].id);
+    } else {
+      input.removeAttribute('aria-activedescendant');
     }
   }
 
@@ -307,16 +328,21 @@
     element.addEventListener('keydown', focusTrapHandler);
   }
 
-  // Screen reader announcements
-  function announceToScreenReader(message) {
-    const announcement = document.createElement('div');
-    announcement.setAttribute('role', 'status');
-    announcement.setAttribute('aria-live', 'polite');
-    announcement.className = 'sr-only';
-    announcement.textContent = message;
-    document.body.appendChild(announcement);
+  // Screen reader announcements. One persistent live region, updated in
+  // place: regions inserted already containing text are not reliably
+  // announced (VoiceOver notably). The clear-then-set dance lets the same
+  // message announce twice in a row.
+  const announcer = document.createElement('div');
+  announcer.setAttribute('role', 'status');
+  announcer.setAttribute('aria-live', 'polite');
+  announcer.className = 'sr-only';
+  document.body.appendChild(announcer);
+  let announceTimer = null;
 
-    setTimeout(() => announcement.remove(), SCREEN_READER_ANNOUNCEMENT_TIMEOUT_MS);
+  function announceToScreenReader(message) {
+    announcer.textContent = '';
+    clearTimeout(announceTimer);
+    announceTimer = setTimeout(() => { announcer.textContent = message; }, 50);
   }
 
   // Utilities
@@ -344,8 +370,11 @@
 
   // Global keyboard shortcuts
   document.addEventListener('keydown', (e) => {
-    // Open modal with Cmd/Ctrl + K
-    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+    if (e.isComposing) return; // mid-IME keystrokes belong to the composition
+
+    // Open modal with Cmd/Ctrl + K. Case-insensitive ('K' with CapsLock on);
+    // Shift/Alt excluded so browser shortcuts like Cmd+Shift+K stay intact.
+    if ((e.metaKey || e.ctrlKey) && !e.shiftKey && !e.altKey && e.key.toLowerCase() === 'k') {
       e.preventDefault();
       openModal();
       return;
@@ -368,6 +397,9 @@
 
   // Modal keyboard navigation
   modal.addEventListener('keydown', (e) => {
+    // During IME composition, Escape cancels the composition and Enter commits
+    // it — those keystrokes must not close the modal or select a result.
+    if (e.isComposing) return;
     switch (e.key) {
       case 'Escape':
         e.preventDefault();

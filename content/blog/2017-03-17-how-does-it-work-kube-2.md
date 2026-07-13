@@ -10,6 +10,8 @@ tags:
   - kubernetes
   - infrastructure as code
 author: sebiwi
+aliases:
+  - /blog/how-does-it-work-kube-2/
 ---
 
 > **Editor's note:** This post is from 2017. Since then some of the networking

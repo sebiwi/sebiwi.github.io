@@ -540,5 +540,5 @@ you about that on the next article though.
 
 Stay in touch!
 
-[1]: https://sebiwi.github.io/blog/how-does-it-work-kube-3/
-[2]: https://sebiwi.github.io/blog/how-does-it-work-kube-4/
+[1]: /blog/how-does-it-work-kubernetes-episode-3-infrastructure-as-code-the-tools-of-the-trade/
+[2]: /blog/how-does-it-work-kubernetes-episode-4-how-to-ansible-your-coreos-and-etcd/

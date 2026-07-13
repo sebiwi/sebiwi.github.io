@@ -88,8 +88,9 @@ The site is optimized for speed:
 - All CSS/JS minified and fingerprinted
 - Subresource Integrity (SRI) enabled
 - Deferred JavaScript loading
-- ~27 KB initial page load
-- Comprehensive link validation (2,029+ links checked)
+- ~15 KB gzipped initial payload (HTML + CSS + JS, before fonts and images)
+- Comprehensive link validation (3,800+ links checked offline on every deploy,
+  external links weekly)
 
 ## Security
 

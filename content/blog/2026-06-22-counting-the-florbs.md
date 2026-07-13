@@ -3,7 +3,8 @@ title: "Counting the florbs: BRIN indexes, rollup tables, and a 90-second query"
 description:
   "A story about counting fifteen million of something, fast. What a BRIN index
   is and why it’s great, why it failed at volume, and how a daily rollup table
-  fixed it, proven with query plans."
+  fixed it, proven with query plans. Now with a sequel: how update churn
+  quietly killed the BRIN, and the boring B-tree that replaced it."
 date: 2026-06-22 09:00:00 +0200
 tags:
   - databases
@@ -24,6 +25,11 @@ seconds to a handful of milliseconds.
 **If you keep reading, I’m going to tell you what a BRIN index is, why it’s
 great, why it wasn’t enough, how a rollup table works, and how to use it for big
 counts.**
+
+**Update, July 2026:** this post now has a sequel baked in. The BRIN quietly
+died of update churn, the refresh became the single most expensive query on the
+cluster, and the fix was the boring B-tree after all. The original story is
+still below as written; the plot twist starts at “One month later”.
 
 ## The florbs
 
@@ -166,7 +172,8 @@ CREATE TABLE florbs (
 );
 ```
 
-Step one, the BRIN index, for the narrow windows:
+Step one, the BRIN index, for the narrow windows (foreshadowing: this exact
+index is the villain of the sequel below, so read to the end before copying):
 
 ```sql
 CREATE INDEX CONCURRENTLY idx_florbs_created_at_brin
@@ -280,6 +287,89 @@ while reading around 1,750 times fewer pages.
 
 Same numbers out, three orders of magnitude less work to get them.
 
+## One month later: the BRIN betrayal
+
+This post originally ended right below this section, lessons learned and all. I
+published it, felt pretty good about it, and moved on. A month later I opened
+the database monitoring page and found a single query eating between three
+quarters and nine tenths of all query time on the cluster. Not a dashboard
+query. The refresh. The one I described up there as “a quick, BRIN-assisted
+scan of recent rows”.
+
+It was neither quick nor BRIN-assisted. The plan showed a full sequential scan
+of what had grown to twenty-four million florbs: eleven and a half gigabytes
+read off disk, nine minutes on average, thirteen on bad days, every fifteen
+minutes, to produce roughly a thousand rollup rows. The refresh loop was
+spending 60% of its life re-reading the entire table, and the buffer cache hit
+ratio was 2.5%, which for a query that touches everything is less a metric and
+more a cry for help.
+
+The whole setup rested on one sentence from earlier: “florbs are append-mostly,
+and they arrive roughly in time order.” Half of that is true. They do arrive in
+time order. But every florb also mutates at least once in its life, when it
+stops florbing: the status flips to a final verdict, and the duration gets
+filled in. And in Postgres, an UPDATE never modifies a row in place. It writes
+a brand new row version wherever there happens to be free space, which is often
+a different page entirely. There is an optimization ([HOT updates][4]) that
+tries to keep the new version on the same page, but it’s off the table the
+moment the update touches any indexed column, and status was indexed. So every
+florb that finished, teleported. A row created in March now physically lives
+between two rows created in June.
+
+Do that a few million times and the BRIN’s little min/max summaries stop
+summarizing. Every block range holds a mix of ancient and fresh florbs, so
+every range’s min/max stretches to cover months, so no range can ever be
+skipped, so the index is decoration. Postgres even keeps a number for this,
+[`pg_stats.correlation`][5]: 1.0 means the column’s values are laid out on disk
+in perfect order, 0 means confetti. Mine was confetti. The planner looked at
+the lossy index, looked at the table, correctly computed that the index would
+skip nothing, and fell back to the crawl. Every fifteen minutes. For a month.
+
+The BRIN was never wrong. My mental model of my own table was.
+
+There was a supporting act too: with default settings, autovacuum on a table
+this size doesn’t bother showing up until almost five million rows are dead.
+Mine was sitting on well over a million dead tuples, a day and a half behind
+schedule, and all that scattered free space is exactly where updated florbs
+love to teleport into.
+
+## The boring fix
+
+The final thoughts below, kept intact from the original post, spend a whole
+paragraph explaining why I didn’t want a B-tree. The fix is a B-tree:
+
+```sql
+-- One entry per row, keyed by value. Doesn't care where rows live on disk.
+CREATE INDEX CONCURRENTLY idx_florbs_created_at ON florbs (created_at);
+
+-- Goodbye, sweet prince.
+DROP INDEX CONCURRENTLY idx_florbs_created_at_brin;
+
+-- Vacuum at ~250k dead florbs instead of ~5M.
+ALTER TABLE florbs SET (
+    autovacuum_vacuum_scale_factor  = 0.01,
+    autovacuum_vacuum_threshold     = 10000,
+    autovacuum_analyze_scale_factor = 0.01,
+    autovacuum_analyze_threshold    = 10000
+);
+```
+
+In fairness to past me, the B-tree I rejected back then was a different beast:
+a big covering index meant to make wide-window aggregation index-only, which
+would still scale with the number of rows matched. This one is plain and
+narrow. It serves the refresh and the narrow live windows, where a three-day
+slice of twenty-four million rows is exactly the selective range scan B-trees
+are good at, and physical row order is irrelevant because each index entry
+points at its row wherever it happens to live. The rollup still owns the wide
+windows. The architecture survived; the index underneath it didn’t.
+
+The refresh goes from crawling the whole table to an index range scan over a
+few days of florbs, and everything else on the cluster breathes easier too,
+because a nine-minute full-table scan every fifteen minutes was flushing the
+buffer cache for everyone. All three statements are online, by the way:
+`CONCURRENTLY` builds and drops take no blocking locks, and the autovacuum
+change is a metadata flip.
+
 ## Final thoughts
 
 I did consider other options before reaching for a second table. A big covering
@@ -293,12 +383,23 @@ have been modeled differently in this scenario, but it still implied adding an
 extra infrastructure component, with its operational overhead. The boring
 relational rollup won on simplicity.
 
-**Lessons learned**:
+**Lessons learned** (now with sequel-flavored additions):
 
 - Match the index to how you query the data, and when no index can save you,
   stop querying the raw data and pre-aggregate it.
 - BRIN was the right tool for small windows and a trap for large ones, and
   knowing the difference is most of the job.
+- “Append-mostly” is not “append-only”. BRIN doesn’t just need rows to arrive
+  in time order, it needs them to _stay_ where they landed. If your rows mutate
+  after insert, check `pg_stats.correlation` before trusting a BRIN with
+  anything you care about.
+- An index is not a contract. The planner re-decides on every single query and
+  will quietly stop using an index that stopped making sense, especially inside
+  a background job nobody watches. Read the plans of the queries you _don’t_
+  see, not just the ones users complain about.
+- Autovacuum’s default thresholds are percentages, and percentages of
+  twenty-four million are enormous numbers. Big churny tables deserve their own
+  settings.
 
 You still wanna know what a florb is? Why? Some mysteries are load-bearing.
 
@@ -306,3 +407,5 @@ You still wanna know what a florb is? Why? Some mysteries are load-bearing.
 [2]: https://clickhouse.com/docs/optimize/skipping-indexes#minmax
 [3]:
   https://www.postgresql.org/docs/current/explicit-locking.html#ADVISORY-LOCKS
+[4]: https://www.postgresql.org/docs/current/storage-hot.html
+[5]: https://www.postgresql.org/docs/current/view-pg-stats.html

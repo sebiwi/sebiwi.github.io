@@ -11,6 +11,8 @@ tags:
   - kubernetes
   - infrastructure as code
 author: sebiwi
+aliases:
+  - /blog/how-does-it-work-kube-3/
 ---
 
 > **Editor's note:** This post is from 2017. Some tools have since moved or

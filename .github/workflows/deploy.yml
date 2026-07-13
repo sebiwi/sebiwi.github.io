@@ -6,10 +6,10 @@ on:
       - main
   workflow_dispatch:
 
+# Deploy credentials are scoped to the deploy job below; the build job (which
+# runs fetched third-party binaries) only ever holds read tokens.
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
   group: "pages"
@@ -22,28 +22,34 @@ defaults:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: read
     env:
       HUGO_VERSION: 0.163.1
+      # Checksum of hugo_extended_0.163.1_linux-amd64.deb, from the release's
+      # official checksums.txt. Update together with HUGO_VERSION.
+      HUGO_DEB_SHA256: 8e219ed8813ab127b31be4a1efe863389abe96f69106637e5d7019ca72c41a26
     steps:
       - name: Install Hugo CLI
         run: |
-          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb \
-          && sudo dpkg -i ${{ runner.temp }}/hugo.deb
+          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb
+          echo "${HUGO_DEB_SHA256}  ${{ runner.temp }}/hugo.deb" | sha256sum -c -
+          sudo dpkg -i ${{ runner.temp }}/hugo.deb
 
       - name: Install Pagefind
         run: |
-          curl -sL https://github.com/CloudCannon/pagefind/releases/download/v1.4.0/pagefind-v1.4.0-x86_64-unknown-linux-musl.tar.gz | tar xz
+          curl -sL -o pagefind.tar.gz https://github.com/CloudCannon/pagefind/releases/download/v1.4.0/pagefind-v1.4.0-x86_64-unknown-linux-musl.tar.gz
+          echo "8737736d3450c3e0a497233324716e95e4d0119c4aacac9361f339968b24dc79  pagefind.tar.gz" | sha256sum -c -
+          tar xzf pagefind.tar.gz
           sudo mv pagefind /usr/local/bin/
           sudo chmod +x /usr/local/bin/pagefind
 
       - name: Checkout
-        uses: actions/checkout@v7
-        with:
-          submodules: recursive
-          fetch-depth: 0
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
 
       - name: Cache Hugo generated resources
-        uses: actions/cache@v6
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
         with:
           # Hugo's processed-image cache (OG cards + responsive WebP variants).
           # Regenerating these from scratch dominates the build; Hugo keys each
@@ -56,11 +62,13 @@ jobs:
 
       - name: Setup Pages
         id: pages
-        uses: actions/configure-pages@v6
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6
 
       - name: Install lychee (link checker)
         run: |
-          curl -sL https://github.com/lycheeverse/lychee/releases/download/lychee-v0.21.0/lychee-x86_64-unknown-linux-gnu.tar.gz | tar xz
+          curl -sL -o lychee.tar.gz https://github.com/lycheeverse/lychee/releases/download/lychee-v0.21.0/lychee-x86_64-unknown-linux-gnu.tar.gz
+          echo "a06547250f10021dcafc6ed5bb20fca75835b65711745b63cfdda34c29ff6a73  lychee.tar.gz" | sha256sum -c -
+          tar xzf lychee.tar.gz
           sudo mv lychee /usr/local/bin/
           chmod +x /usr/local/bin/lychee
 
@@ -80,7 +88,7 @@ jobs:
         run: pagefind --site public
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v5
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5
         with:
           path: ./public
 
@@ -90,7 +98,10 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
+    permissions:
+      pages: write
+      id-token: write
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v5
+        uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5
