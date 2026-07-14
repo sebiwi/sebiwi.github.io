@@ -17,5 +17,10 @@ Third-party material that appears in posts (for example upstream project
 diagrams and product screenshots) belongs to its respective owners and is
 covered by neither license.
 
-The site's code and configuration (templates, stylesheets, scripts, and the
-build and CI setup) are covered by the MIT license in the LICENSE file.
+The site's code and configuration (templates, stylesheets, scripts, site
+assets such as the social-card background, and the build and CI setup) are
+covered by the MIT license in the LICENSE file.
+
+The bundled JetBrains Mono font files (`assets/fonts/`) are neither content
+nor site code: they are redistributed under their own license, the SIL Open
+Font License 1.1, included alongside them as `assets/fonts/OFL.txt`.

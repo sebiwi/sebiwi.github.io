@@ -46,7 +46,10 @@
       {{- end -}}
       {{ end }}
       {{ else }}
-      <content:encoded>{{ .Content | transform.XMLEscape | safeHTML }}</content:encoded>
+      {{- /* Strip the search-index hint attribute that responsive-img.html
+             puts on in-content images: it only means something to Pagefind
+             on the HTML pages, and is dead weight in a feed. */}}
+      <content:encoded>{{ .Content | replaceRE ` data-pagefind-index-attrs="alt"` "" | transform.XMLEscape | safeHTML }}</content:encoded>
       {{ end }}
     </item>
     {{ end }}
