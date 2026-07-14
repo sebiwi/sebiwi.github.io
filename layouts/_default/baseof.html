@@ -139,7 +139,7 @@
 
     <header class="top-bar">
         {{ if not .IsHome }}
-        <nav class="top-nav">
+        <nav class="top-nav" aria-label="Main">
             {{ partial "nav.html" (dict "linkClass" "" "page" . "pageNum" $pageNum) }}
         </nav>
         {{ end }}

@@ -90,7 +90,9 @@
         {{ if and (eq .Section "blog") (findRE `<a` .TableOfContents 1) }}
         <details class="post-toc" open>
             <summary class="post-toc-summary">Contents</summary>
-            {{ .TableOfContents }}
+            {{/* Hugo's TOC markup is fixed, so the landmark label (required:
+                 several nav landmarks share these pages) is injected here. */}}
+            {{ .TableOfContents | replaceRE `<nav id="TableOfContents">` `<nav id="TableOfContents" aria-label="Table of contents">` | safeHTML }}
         </details>
         {{ end }}
 

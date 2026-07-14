@@ -265,9 +265,9 @@ load-balancing and security on the next one. Don’t go anywhere!
 [2]: /blog/how-does-it-work-kubernetes-episode-5-master-and-worker-at-last/
 [3]: https://en.wikipedia.org/wiki/Virtual_Extensible_LAN
 [4]: /blog/how-does-it-work-kubernetes-episode-2-kubernetes-networking/
-[5]: https://coreos.com/etcd
-[6]: https://www.consul.io/
+[5]: https://etcd.io
+[6]: https://developer.hashicorp.com/consul
 [7]: https://zookeeper.apache.org/
 [8]: http://contiv.github.io/
-[10]: https://www.projectcalico.org/
+[10]: https://www.tigera.io/project-calico/
 [11]: https://github.com/openstack/kuryr

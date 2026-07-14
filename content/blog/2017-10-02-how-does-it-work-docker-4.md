@@ -40,7 +40,7 @@ $swarm_worker_instance_memory = 2048
 $swarm_worker_instance_cpus = 1
 ```
 
-Afterwards, I’ll specify that I want to use the CoreOs (Contaner
+Afterwards, I’ll specify that I want to use the CoreOS (Container
 Linux) Vagrant box, from an URL:
 
 ```ruby

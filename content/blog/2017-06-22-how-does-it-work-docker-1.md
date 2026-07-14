@@ -206,14 +206,14 @@ you about Docker (and Swarm’s) networking model.
 Stay tuned!
 
 [1]: /blog/how-does-it-work-kubernetes-episode-1-kubernetes-general-architecture/
-[2]: https://www.consul.io/
-[3]: https://coreos.com/etcd/
+[2]: https://developer.hashicorp.com/consul
+[3]: https://etcd.io/
 [4]: https://zookeeper.apache.org/
-[5]: https://github.com/docker/swarmkit
+[5]: https://github.com/moby/swarmkit
 [6]: https://blog.docker.com/2015/06/runc/
-[7]: https://runc.io/
+[7]: https://github.com/opencontainers/runc
 [8]: https://containerd.io/
 [9]: https://linuxcontainers.org/
 [10]: https://github.com/opencontainers/runc/tree/master/libcontainer
-[11]: https://www.opencontainers.org/
+[11]: https://opencontainers.org/
 [12]: https://en.wikipedia.org/wiki/Raft_(computer_science)

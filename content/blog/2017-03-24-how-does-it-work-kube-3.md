@@ -144,8 +144,8 @@ Stay tuned!
 [1]: https://en.wikipedia.org/wiki/Infrastructure_as_Code
 [2]: https://en.wikipedia.org/wiki/KISS_principle
 [3]: https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/
-[4]: https://www.docker.com/what-docker
-[5]: https://github.com/coreos/etcd
-[6]: https://github.com/coreos/flannel
-[7]: https://www.vagrantup.com/docs/providers/
+[4]: https://www.docker.com/resources/what-container/
+[5]: https://github.com/etcd-io/etcd
+[6]: https://github.com/flannel-io/flannel
+[7]: https://developer.hashicorp.com/vagrant/docs/providers
 [8]: https://docs.ansible.com/projects/molecule/

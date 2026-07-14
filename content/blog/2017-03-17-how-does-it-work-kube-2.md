@@ -70,7 +70,7 @@ overlay software-defined network (SDN). This solves the main issue we had the
 Docker networking model. As I said before, when using Docker, each container has
 an IP address that allows it to communicate with other containers **on the same
 host**. When pods are placed in different hosts, they rely on their host IP
-address. Therefore, communication between between them is possible by
+address. Therefore, communication between them is possible by
 port-mapping. This is fine at a container-level, but applications running inside
 these containers can have a hard time if they need to advertise their external
 IP and port to everyone else.
@@ -90,7 +90,7 @@ inner IP address. The flannel configuration regarding the container/Host Machine
 mapping is stored in etcd. The routing is done by a flannel daemon called
 flanneld.
 
-{{< figure src="/images/how-does-it-work-kube/2/flannel-sdn.png" class="bigger-image" alt="Flannel SDN diagram" caption="[Like this, see?](https://github.com/coreos/flannel/blob/master/README.md#theory-of-operation)" >}}
+{{< figure src="/images/how-does-it-work-kube/2/flannel-sdn.png" class="bigger-image" alt="Flannel SDN diagram" caption="[Like this, see?](https://github.com/flannel-io/flannel/blob/v0.7.0/README.md#theory-of-operation)" >}}
 
 Calico secures this overlay network, restricting traffic between the pods based
 on a fine-grained network policy. As I said before, the default Kubernetes
@@ -134,8 +134,8 @@ starts in the next article.
 Stay tuned!
 
 [1]: https://github.com/contiv/netplugin
-[2]: https://github.com/coreos/flannel#flannel
-[5]: https://github.com/openvswitch/ovn-kubernetes
-[6]: http://docs.projectcalico.org/v2.0/introduction/
+[2]: https://github.com/flannel-io/flannel#flannel
+[5]: https://github.com/ovn-kubernetes/ovn-kubernetes
+[6]: https://docs.tigera.io/archive/v2.0/introduction/
 [7]: http://romana.io/
 [9]: https://github.com/projectcalico/canal

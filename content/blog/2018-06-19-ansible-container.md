@@ -511,7 +511,7 @@ There is no such thing as Run Time with Ansible.
 
 We didn’t cover that in this article, but Ansible Container is also bad at
 caching stuff, which is a shame because it’s one of the best things that the
-different Layers boughts by Docker provide...
+different Layers brought by Docker provide...
 
 ### Alternatives
 
@@ -520,7 +520,7 @@ There are multiple ways to bypass this limitation:
 - The best way is to update your application in order to make it aware of the
   environment variables (this kind of behavior is native with multiple
   configuration framework, like Spring :
-  <https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html>
+  <https://docs.spring.io/spring-boot/reference/features/external-config.html>
   or Typesafe Config : <https://github.com/lightbend/config>) ;
 - Otherwise, before starting your application in your entrypoint.sh file, you
   can use:

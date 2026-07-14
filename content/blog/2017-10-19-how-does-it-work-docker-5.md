@@ -64,7 +64,7 @@ part:
 ```
 
 This is quite similar to the previous test, in the way that first,
-information is collected form the Leader node. Then, the assertions
+information is collected from the Leader node. Then, the assertions
 are slightly different: we will test that the node is not a Leader nor
 a non-Leader manager node, therefore asserting that it is a Worker
 node, and then we will test if the node is Active, since we want our
@@ -245,7 +245,7 @@ ID                         NAME          IMAGE        NODE             DESIRED S
 
 
 You can use the same command with a different number in order to scale
-down (to 1, for exampe).
+down (to 1, for example).
 
 Let’s try to update a service in order to see the rolling updates
 work. We’re going to go from redis version 3.0.6 to 3.0.7. Exciting,

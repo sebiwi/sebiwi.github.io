@@ -195,7 +195,7 @@ configuration if you want to check it out.
 
 We're going to tell the kubelet to call flannel as a CNI plugin, and then to delegate the control
 to Calico, the same way we did it on the master node. We'll need to specify the master node's IP
-on the configuration here instead of localhost, since the the configuration needs to access the
+on the configuration here instead of localhost, since the configuration needs to access the
 API server. The configuration template can be seen in [the Calico CNI configuration][15].
 
 As we said before, there's a kube-proxy instance in each node. That means there's one on the
@@ -270,8 +270,8 @@ That was easy, kinda. Now what? Oh yeah, cool stuff on our cluster.
 ## Add-ons
 
 Add-ons are... well... things you add-on to your Kubernetes cluster in order to have improved
-functionality. They are created using Kuberntetes native resources. Most of the time they will
-be pods, so we can juste create a manifest for them and then create them using the API server (through kubectl).
+functionality. They are created using Kubernetes native resources. Most of the time they will
+be pods, so we can just create a manifest for them and then create them using the API server (through kubectl).
 
 There are two add-ons that are commonly used on almost every standard Kubernetes installation: the
 DNS add-on, and the Kubernetes Dashboard add-on.
@@ -290,7 +290,7 @@ You can access the Kubernetes Dashboard by using the port forwarding functionali
 
 ```bash
 kubectl get pods --namespace=kube-system
-kubectl port-forward kubernetes-dashboard-v.1.4.1-ID 9090 --namespace=kube-sytem
+kubectl port-forward kubernetes-dashboard-v.1.4.1-ID 9090 --namespace=kube-system
 ```
 
 And now, your Kubernetes Dashboard should be accessible on port 9090.
@@ -378,7 +378,7 @@ I might work on these things in the future. Anyways, see you on the next adventu
 [9]: https://github.com/sebiwi/kubernetes-coreos/blob/master/roles/configure/kube-master/tasks/main.yml#L11-L12
 [10]: https://github.com/sebiwi/kubernetes-coreos/blob/master/roles/configure/kube-master/templates/manifests/policy-controller.yaml.j2#L6
 [11]: https://github.com/sebiwi/kubernetes-coreos/blob/master/roles/configure/kube-master/tasks/namespaces.yml#L23
-[12]: http://www.keepalived.org/
+[12]: https://www.keepalived.org/
 [13]: https://github.com/coreos/fleet
 [14]: https://github.com/sebiwi/kubernetes-coreos/blob/master/roles/configure/kube-worker/templates/services/kubelet.service.j2
 [15]: https://github.com/sebiwi/kubernetes-coreos/blob/master/roles/configure/kube-worker/templates/etc_kubernetes_cni_net.d_10-calico.conf.j2#L4-L5

@@ -431,5 +431,5 @@ See you next time!
 [1]: https://blog.octo.com/author/tanguy-patte-tpa/
 [2]: https://github.com/sebiwi/terraform-wrapper
 [3]: https://github.com/sebiwi/terraform-wrapper/blob/master/terraform_wrapper.rb#L51
-[4]: https://www.terraform.io/docs/configuration/data-sources.html
+[4]: https://developer.hashicorp.com/terraform/language/data-sources
 [5]: https://en.wikipedia.org/wiki/Don%27t_repeat_yourself

@@ -14,7 +14,7 @@
     <div class="container">
         {{ partial "profile.html" (dict "page" . "headingName" true) }}
 
-        <nav class="home-nav fade-in-element">
+        <nav class="home-nav fade-in-element" aria-label="Main">
             {{ partial "nav.html" (dict "linkClass" "home-nav-link" "skip" "/" "page" .) }}
         </nav>
 

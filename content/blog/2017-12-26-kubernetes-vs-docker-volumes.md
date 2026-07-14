@@ -13,7 +13,7 @@ _This post was co-written by the amazing Pierre-Yves Napoly._
 ## Hey everybody
 
 After reading both the Kubernetes and Docker “How does it work?” series, I
-suess you can’t wait to transform your old-school infrastructure and put
+guess you can’t wait to transform your old-school infrastructure and put
 all your applications inside containers. Indeed, containers are a great way to
 make your applications portable and easy to deploy. Nevertheless, there is a
 subject we have not discussed yet: data persistence.

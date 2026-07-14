@@ -77,7 +77,7 @@ ssh_args = -F ssh.config
 ```
 
 
-I really like Makefiles. I use them quite often when I have write more than one long command, or many different ones that are going to take a while. I'm also kinda lazy. So I just did this:
+I really like Makefiles. I use them quite often when I have to write more than one long command, or many different ones that are going to take a while. I'm also kinda lazy. So I just did this:
 
 ```makefile
 vagrant:
@@ -311,18 +311,18 @@ the really really fun part in the next article.
 
 Stay tuned!
 
-[1]: https://www.vagrantup.com/docs/provisioning/ansible.html
+[1]: https://developer.hashicorp.com/vagrant/docs/provisioning/ansible
 [2]: https://github.com/sebiwi/kubernetes-coreos/blob/master/Vagrantfile
 [3]: https://github.com/sebiwi/kubernetes-coreos/blob/master/ansible.cfg
 [4]: https://github.com/sebiwi/kubernetes-coreos/blob/master/Makefile
 [5]: https://github.com/sebiwi/kubernetes-coreos/blob/master/molecule.yml
-[7]: http://www.popsci.com/science/article/2013-02/fyi-which-came-first-chicken-or-egg
+[7]: https://www.popsci.com/science/article/2013-02/fyi-which-came-first-chicken-or-egg/
 [8]: https://docs.ansible.com/ansible/2.3/raw_module.html
 [9]: https://docs.ansible.com/ansible/2.3/script_module.html
 [10]: http://docs.ansible.com/ansible/2.3/synchronize_module.html
-[11]: http://pypy.org/
+[11]: https://pypy.org/
 [12]: https://coreos.com/blog/managing-coreos-with-ansible.html
 [13]: https://github.com/sebiwi/kubernetes-coreos/blob/master/kubernetes.yml#L8
 [14]: https://www.openssl.org/news/changelog.html#x85
-[15]: https://coreos.com/etcd/docs/latest/v2/admin_guide.html#optimal-cluster-size
+[15]: https://etcd.io/docs/v2.3/admin_guide/#optimal-cluster-size
 [16]: https://coreos.com/os/docs/latest/cluster-discovery.html
