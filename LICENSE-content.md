@@ -15,7 +15,7 @@ license, and indicate if changes were made.
 
 Third-party material that appears in posts (for example upstream project
 diagrams and product screenshots) belongs to its respective owners and is
-covered by neither license.
+not covered by any of the licenses described in this repository.
 
 The site's code and configuration (templates, stylesheets, scripts, site
 assets such as the social-card background, and the build and CI setup) are

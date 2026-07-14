@@ -1,6 +1,7 @@
 // Dark-mode toggle. Default is light; the choice is remembered in localStorage.
-// The no-flash <head> script applies the stored theme before paint; this just
-// handles clicks and keeps the button's pressed state in sync.
+// The no-flash <head> script applies the stored theme before paint; this
+// handles clicks, keeps the button's pressed state in sync, and re-applies
+// the stored theme on bfcache restores (which skip the head script).
 (function () {
   'use strict';
 
