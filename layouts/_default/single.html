@@ -8,6 +8,7 @@
   "datePublished": "{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}",
   {{ with .Lastmod }}"dateModified": "{{ .Format "2006-01-02T15:04:05Z07:00" }}",{{ end }}
   "wordCount": {{ .WordCount }},
+  "license": "https://creativecommons.org/licenses/by-nc/4.0/",
   "inLanguage": "{{ .Site.Language.Locale }}",
   "mainEntityOfPage": { "@type": "WebPage", "@id": "{{ .Permalink }}" },
   {{ with .Params.tags }}"keywords": [{{ range $i, $t := . }}{{ if $i }}, {{ end }}"{{ $t }}"{{ end }}],{{ end }}

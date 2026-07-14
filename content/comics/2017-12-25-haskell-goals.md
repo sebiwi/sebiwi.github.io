@@ -5,6 +5,6 @@ tags:
 - comics
 author: sebiwi
 image: /images/comics/2017-12-25-haskell-goals.jpg
-alt: "I learnt Haskell. I can fullfill my dreams now. Hi I do Javascr... HAH! PEASANT!"
+alt: "I learnt Haskell. I can fulfill my dreams now. Hi I do Javascr... HAH! PEASANT!"
 ---
 

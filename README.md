@@ -137,4 +137,9 @@ third-party sites being up.
 
 ## License
 
-See LICENSE file.
+Code and configuration (templates, styles, scripts, workflows) are MIT
+licensed: see the LICENSE file.
+
+Blog posts and comic artwork are licensed under
+[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/): share and
+adapt with attribution, no commercial use. See LICENSE-content.md.

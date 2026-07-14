@@ -763,6 +763,22 @@ main {
   fill: var(--color-accent);
 }
 
+/* Content-license line: a quieter second row under the copyright. */
+.site-footer-home .footer-license {
+  margin-top: 2px;
+  font-size: 0.7rem;
+}
+
+.site-footer-home .license-link {
+  color: var(--color-bio);
+  text-decoration: none;
+}
+
+.site-footer-home .license-link:hover {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+
 /* Staggered fade-in animations */
 .fade-in-element {
   opacity: 0;
@@ -1957,8 +1973,17 @@ html.about-booting .neofetch-logo {
   .top-bar,
   .reading-progress,
   .search-modal,
-  .skip-link {
+  .skip-link,
+  .copy-button {
     display: none !important;
+  }
+
+  /* The terminal-chrome bar above code blocks uses light-on-dark colors that
+     vanish on paper. */
+  .code-header {
+    color: #000 !important;
+    background: #fff !important;
+    border-color: #888 !important;
   }
 
   pre,
