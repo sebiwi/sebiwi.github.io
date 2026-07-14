@@ -21,6 +21,7 @@ defaults:
 jobs:
   external-links:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     env:
       HUGO_VERSION: 0.163.1
       # Checksum of hugo_extended_0.163.1_linux-amd64.deb, from the release's
@@ -39,17 +40,21 @@ jobs:
       - name: Cache Hugo generated resources
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
         with:
+          # Key must stay in sync with deploy.yml so the two workflows share
+          # the same cache entries.
           path: resources/_gen
-          key: hugo-resources-${{ hashFiles('static/images/**', 'assets/**', 'hugo.toml') }}
+          key: hugo-resources-${{ hashFiles('static/images/**', 'assets/**', 'content/**', 'hugo.toml') }}
           restore-keys: |
             hugo-resources-
 
-      - name: Cache lychee results
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
+      - name: Restore lychee cache
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
         with:
           # lychee's --cache in test-external-links.sh reads/writes this file;
           # restoring the last run's cache lets known-good URLs be skipped.
-          # The per-run key + restore-keys pattern always saves a fresh copy.
+          # Restore and save are split (instead of the plain cache action)
+          # because the plain action skips its post-job save when the job
+          # fails, and failing on link rot is this workflow's normal outcome.
           path: .lycheecache
           key: lychee-cache-${{ github.run_id }}
           restore-keys: |
@@ -65,3 +70,12 @@ jobs:
 
       - name: Check external links
         run: ./test/test-external-links.sh
+
+      - name: Save lychee cache
+        # always(): save the cache even when the link check just failed, so
+        # the next run only re-checks the URLs that actually rotted.
+        if: always()
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
+        with:
+          path: .lycheecache
+          key: lychee-cache-${{ github.run_id }}

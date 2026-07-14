@@ -12,7 +12,7 @@
 
   document.addEventListener('keydown', function (e) {
     // Leave modified shortcuts and form fields alone.
-    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
     var t = e.target;
     if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
 

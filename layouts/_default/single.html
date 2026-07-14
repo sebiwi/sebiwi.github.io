@@ -42,10 +42,10 @@
             </div>
 
             {{ if and .Site.Params.showTags (ne .Section "comics") }}
-            {{ with .Params.tags }}
+            {{ with .GetTerms "tags" }}
             <div class="post-tags">
                 {{ range . }}
-                <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="tag">{{ . }}</a>
+                <a href="{{ .RelPermalink }}" class="tag">{{ .LinkTitle }}</a>
                 {{ end }}
             </div>
             {{ end }}
@@ -60,7 +60,10 @@
         {{ partial "series-nav.html" . }}
         {{ end }}
 
-        {{ if and (eq .Section "blog") (gt (len .Fragments.Headings) 0) }}
+        {{/* Gate on the rendered TOC having entries: .Fragments.Headings counts
+             all levels, but the TOC only includes the levels configured in
+             markup.tableOfContents, so they can disagree. */}}
+        {{ if and (eq .Section "blog") (findRE `<li` .TableOfContents 1) }}
         <details class="post-toc" open>
             <summary class="post-toc-summary">Contents</summary>
             {{ .TableOfContents }}

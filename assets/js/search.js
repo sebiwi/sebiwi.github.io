@@ -62,6 +62,9 @@
   // Perform search
   async function performSearch(query) {
     if (!query.trim()) {
+      // Invalidate any in-flight search so its results can't land after the
+      // input was cleared (or the modal reopened on an empty query).
+      searchSeq++;
       showEmpty();
       return;
     }

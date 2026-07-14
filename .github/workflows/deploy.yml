@@ -22,6 +22,7 @@ defaults:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     permissions:
       contents: read
       pages: read
@@ -55,8 +56,12 @@ jobs:
           # Regenerating these from scratch dominates the build; Hugo keys each
           # variant by its processing spec internally, so a stale restore is
           # safe — unchanged images are reused, changed ones are regenerated.
+          # content/** is in the key because per-post OG cards live here too:
+          # without it, a content-only change (a new post) is an exact cache
+          # hit, the save is skipped, and that post's card is regenerated on
+          # every subsequent run.
           path: resources/_gen
-          key: hugo-resources-${{ hashFiles('static/images/**', 'assets/**', 'hugo.toml') }}
+          key: hugo-resources-${{ hashFiles('static/images/**', 'assets/**', 'content/**', 'hugo.toml') }}
           restore-keys: |
             hugo-resources-
 
@@ -79,10 +84,13 @@ jobs:
         env:
           HUGO_ENVIRONMENT: production
           HUGO_ENV: production
+          # Passed through the environment rather than interpolated into the
+          # script so the shell never parses workflow-expression output.
+          BASE_URL: ${{ steps.pages.outputs.base_url }}
         run: |
           hugo \
             --minify \
-            --baseURL "${{ steps.pages.outputs.base_url }}/"
+            --baseURL "${BASE_URL}/"
 
       - name: Build search index
         run: pagefind --site public
@@ -97,6 +105,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     needs: build
     permissions:
       pages: write
