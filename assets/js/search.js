@@ -377,7 +377,14 @@
   // glyph — swap them on non-Apple platforms.
   if (!/Mac|iPhone|iPad|iPod/i.test(navigator.platform || navigator.userAgent)) {
     document.querySelectorAll('[data-shortcut-hint]').forEach((el) => {
-      el.textContent = 'Ctrl+K';
+      // Keep the styled key span (13px glyph) when the hint has one.
+      const key = el.querySelector('.search-shortcut-key');
+      if (key && key.nextSibling) {
+        key.textContent = 'Ctrl';
+        key.nextSibling.textContent = '+K';
+      } else {
+        el.textContent = 'Ctrl+K';
+      }
     });
     document.querySelectorAll('[data-search-trigger]').forEach((el) => {
       if (el.title) el.title = 'Search (Ctrl+K)';

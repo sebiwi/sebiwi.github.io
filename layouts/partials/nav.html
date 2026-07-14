@@ -2,11 +2,16 @@
      Params (dict):
        linkClass - optional class for each <a>
        skip      - optional menu URL to omit (e.g. "/" on the home page)
-       page      - the calling page, for aria-current on the active link */}}
+       page      - the calling page, for aria-current on the active link
+       pageNum   - the paginator page number: on page 2+ the section link is
+                   the current *section*, not the current page, so it gets
+                   aria-current="true" instead of "page" (paginator pages
+                   share the section page object, so RelPermalink matches) */}}
 {{ $linkClass := .linkClass | default "" }}
 {{ $skip := .skip | default "" }}
 {{ $page := .page }}
+{{ $current := cond (gt (.pageNum | default 1) 1) "true" "page" }}
 {{ range site.Menus.main }}
-{{ if ne .URL $skip }}<a href="{{ .URL }}"{{ with $linkClass }} class="{{ . }}"{{ end }}{{ if and $page (eq $page.RelPermalink .URL) }} aria-current="page"{{ end }}>{{ .Name }}</a>
+{{ if ne .URL $skip }}<a href="{{ .URL }}"{{ with $linkClass }} class="{{ . }}"{{ end }}{{ if and $page (eq $page.RelPermalink .URL) }} aria-current="{{ $current }}"{{ end }}>{{ .Name }}</a>
 {{ end }}
 {{- end }}

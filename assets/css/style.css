@@ -22,7 +22,7 @@
   --color-quote-border: #bb9af7;
   --code-inline-bg: rgba(187, 154, 247, 0.1);
   --code-inline-border: rgba(187, 154, 247, 0.3);
-  --code-inline-text: #8b7a9a;
+  --code-inline-text: #6e5a87; /* 5.6:1 on the lavender inline-code bg (AA) */
 
   /* Typography */
   --font-base: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -259,6 +259,8 @@ code {
   margin: 0;
   border: 1px solid #414868;
   font-size: 0.85em;
+  /* Always-dark surface: keep native scrollbars dark even in light theme. */
+  color-scheme: dark;
 }
 
 .highlight pre code {
@@ -267,6 +269,8 @@ code {
   color: inherit;
   border: none;
   border-radius: 0;
+  /* Don't compound with the 0.85em on `code`: the pre already sets it. */
+  font-size: 1em;
 }
 
 .code-header {
@@ -361,6 +365,8 @@ pre {
   margin-bottom: var(--spacing-md);
   border: 1px solid #414868;
   font-size: 0.85em;
+  /* Always-dark surface: keep native scrollbars dark even in light theme. */
+  color-scheme: dark;
 }
 
 pre code {
@@ -369,6 +375,8 @@ pre code {
   color: inherit;
   border: none;
   border-radius: 0;
+  /* Don't compound with the 0.85em on `code`: the pre already sets it. */
+  font-size: 1em;
 }
 
 blockquote {
@@ -769,6 +777,10 @@ main {
 .fade-in-element:nth-child(5) { animation-delay: 0.5s; }
 .fade-in-element:nth-child(6) { animation-delay: 0.6s; }
 .fade-in-element:nth-child(7) { animation-delay: 0.7s; }
+
+/* The footer sits outside <main> (own container, always nth-child 1), so the
+   stagger above never delays it — pin it to the end of the sequence. */
+.site-footer-home.fade-in-element { animation-delay: 0.7s; }
 
 @keyframes fadeInUp {
   to {
@@ -1674,6 +1686,7 @@ html.vt-nav .fade-in-element {
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  color-scheme: dark; /* always-dark surface, keep native scrollbars dark */
 }
 
 .neofetch-chrome {
@@ -1716,6 +1729,7 @@ html.vt-nav .fade-in-element {
   font-size: 1.1rem;
   line-height: 1.25;
   white-space: pre;
+  -webkit-user-select: none; /* Safari still needs the prefix */
   user-select: none;
   text-shadow: 0 0 12px rgba(187, 154, 247, 0.35);
 }
@@ -1755,6 +1769,7 @@ html.vt-nav .fade-in-element {
 
 .nf-rule {
   color: var(--search-text-dim);
+  -webkit-user-select: none; /* Safari still needs the prefix */
   user-select: none;
   overflow: hidden;
   white-space: nowrap;
@@ -1852,6 +1867,7 @@ html.about-booting .neofetch-logo {
   padding: 0;
   border: none;
   background: transparent;
+  color-scheme: dark; /* always-dark surface, keep native scrollbars dark */
   color: var(--search-text);
   font-family: var(--font-mono);
   font-size: 0.9rem;
@@ -1864,6 +1880,7 @@ html.about-booting .neofetch-logo {
 .term-prompt {
   color: var(--search-green);
   font-weight: 700;
+  -webkit-user-select: none; /* Safari still needs the prefix */
   user-select: none;
 }
 
@@ -1927,4 +1944,33 @@ html.about-booting .neofetch-logo {
   font-family: var(--font-mono);
   font-size: 0.9rem;
   color: var(--color-text-light);
+}
+
+/* ========================================
+   Print
+   (Chroma inlines light-on-dark span colors and browsers don't print
+   backgrounds by default, so code would print near-invisible without the
+   forced colors below. !important outranks the inline span styles.)
+   ======================================== */
+
+@media print {
+  .top-bar,
+  .reading-progress,
+  .search-modal,
+  .skip-link {
+    display: none !important;
+  }
+
+  pre,
+  pre span,
+  code {
+    color: #000 !important;
+    background: #fff !important;
+    text-shadow: none !important;
+  }
+
+  pre {
+    border: 1px solid #888;
+    white-space: pre-wrap;
+  }
 }

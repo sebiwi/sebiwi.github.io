@@ -11,12 +11,15 @@
     {{ $paginator := .Paginate .Pages 24 }}
     <div class="comics-wrap">
         <div class="comics-grid fade-in-element">
-            {{ range $paginator.Pages }}
+            {{ range $i, $comic := $paginator.Pages }}
             {{ $alt := .Params.alt | default .Title }}
+            {{/* The top row is above the fold (and likely the LCP): load it
+                 eagerly; everything below stays lazy. */}}
+            {{ $loading := cond (lt $i 4) "eager" "lazy" }}
             <a href="{{ .RelPermalink }}" class="comic-card" aria-label="{{ .Title }}">
                 {{ with .Params.image }}
                 <span class="comic-thumb">
-                    {{ partial "responsive-img.html" (dict "src" . "alt" $alt "sizes" "(max-width: 600px) 45vw, 240px" "widths" (slice 240 480)) }}
+                    {{ partial "responsive-img.html" (dict "src" . "alt" $alt "sizes" "(max-width: 600px) 45vw, 240px" "widths" (slice 240 480) "loading" $loading) }}
                 </span>
                 {{ end }}
                 <span class="comic-card-meta">
@@ -36,8 +39,6 @@
 
     <div class="container">
         <div class="breaker fade-in-element"></div>
-
-        {{ partial "footer.html" . }}
     </div>
 </div>
 {{ end }}

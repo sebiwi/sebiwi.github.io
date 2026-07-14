@@ -68,6 +68,10 @@
   position: relative;
   width: 90%;
   max-width: 640px;
+  /* Always-dark surface even in light theme: without this, light-scheme
+     native widgets (scrollbars, the search input's clear button) render
+     as white slabs on the dark panel. */
+  color-scheme: dark;
   background: var(--search-bg);
   border: 1px solid var(--search-border);
   border-radius: 10px;

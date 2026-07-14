@@ -52,7 +52,7 @@
             {{ end }}
 
             {{ if and .Params.image (eq .Section "comics") }}
-            {{ partial "responsive-img.html" (dict "src" .Params.image "alt" (.Params.alt | default .Title) "class" "post-image" "sizes" "(max-width: 600px) 92vw, 528px" "widths" (slice 560 1120) "loading" "eager") }}
+            {{ partial "responsive-img.html" (dict "src" .Params.image "alt" (.Params.alt | default .Title) "class" "post-image" "sizes" "(max-width: 600px) 92vw, 528px" "widths" (slice 560 1120) "loading" "eager" "fetchpriority" "high") }}
             {{ end }}
         </header>
 
@@ -82,8 +82,6 @@
         {{ partial "post-navigation.html" . }}
 
         <div class="breaker"></div>
-
-        {{ partial "footer.html" . }}
     </div>
 </article>
 {{ end }}

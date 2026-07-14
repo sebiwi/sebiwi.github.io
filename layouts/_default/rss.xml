@@ -4,7 +4,9 @@
 {{- if .IsHome -}}
 {{- $pages = where site.RegularPages "Type" "in" (slice "blog" "comics") -}}
 {{- end -}}
-{{- $pages = first 20 $pages -}}
+{{- /* 10, not more: items carry full content:encoded, so the blog feed grows
+       ~30 KB per item. */ -}}
+{{- $pages = first 10 $pages -}}
 {{- $title := cond .IsHome .Site.Title (printf "%s · %s" .Title .Site.Title) -}}
 {{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">

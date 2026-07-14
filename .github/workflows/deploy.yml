@@ -95,6 +95,17 @@ jobs:
       - name: Build search index
         run: pagefind --site public
 
+      - name: Prune unused Pagefind UI bundles
+        # search.js dynamic-imports only /pagefind/pagefind.js (plus the index
+        # chunks and fragments it fetches itself); the prebuilt UI bundles are
+        # ~400 KB of never-requested deploy weight. wasm.unknown is kept as a
+        # fallback for pages whose language can't be detected.
+        run: |
+          rm -f public/pagefind/pagefind-ui.* \
+                public/pagefind/pagefind-modular-ui.* \
+                public/pagefind/pagefind-highlight.js \
+                public/pagefind/pagefind-component-ui.*
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5
         with:

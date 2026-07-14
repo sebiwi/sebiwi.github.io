@@ -26,8 +26,13 @@
     {{ end }}
 
     {{/* "(tag)" disambiguates term pages from same-named content (the comic
-         and tag both called "Serverless" would otherwise share a title). */}}
-    <title>{{ if .IsHome }}{{ .Site.Title }} | {{ .Site.Params.bio }}{{ else }}{{ .Title }}{{ if eq .Kind "term" }} (tag){{ end }}{{ if gt $pageNum 1 }} (page {{ $pageNum }}){{ end }} | {{ .Site.Title }}{{ end }}</title>
+         and tag both called "Serverless" would otherwise share a title);
+         "(page N)" keeps paginator pages distinct. Shared with og/twitter
+         titles below. */}}
+    {{ $titleSuffix := "" }}
+    {{ if eq .Kind "term" }}{{ $titleSuffix = " (tag)" }}{{ end }}
+    {{ if gt $pageNum 1 }}{{ $titleSuffix = printf "%s (page %d)" $titleSuffix $pageNum }}{{ end }}
+    <title>{{ if .IsHome }}{{ .Site.Title }} | {{ .Site.Params.bio }}{{ else }}{{ .Title }}{{ $titleSuffix }} | {{ .Site.Title }}{{ end }}</title>
 
     <!-- Favicons -->
     <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
@@ -48,9 +53,10 @@
     <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
     {{ $searchCSS := resources.Get "css/search.css" | resources.Minify | resources.Fingerprint }}
     <link rel="stylesheet" href="{{ $searchCSS.RelPermalink }}" integrity="{{ $searchCSS.Data.Integrity }}">
-    {{/* Not minified: Hugo's CSS minifier strips the @view-transition descriptor. */}}
-    {{ $viewTransitions := resources.Get "css/view-transitions.css" | resources.Fingerprint }}
-    <link rel="stylesheet" href="{{ $viewTransitions.RelPermalink }}" integrity="{{ $viewTransitions.Data.Integrity }}">
+    {{/* Inlined, not linked: it's ~400 bytes and can't join the main bundle
+         anyway (Hugo's CSS minifier strips the @view-transition descriptor),
+         so inlining saves a render-blocking request. */}}
+    {{ with resources.Get "css/view-transitions.css" }}<style>{{ .Content | safeCSS }}</style>{{ end }}
 
     <!-- RSS -->
     {{ range .AlternativeOutputFormats -}}
@@ -79,7 +85,7 @@
             {{ with resources.Get (strings.TrimPrefix "/" $.Site.Params.picture) }}{{ $ogW = .Width }}{{ $ogH = .Height }}{{ end }}
         {{ end }}
     {{ end }}
-    {{ $ogTitle := cond .IsHome .Site.Title .Title }}
+    {{ $ogTitle := cond .IsHome .Site.Title (printf "%s%s" .Title $titleSuffix) }}
     {{ $ogDesc := .Description | default .Params.alt | default .Site.Params.description }}
 
     <!-- Open Graph -->
@@ -134,7 +140,7 @@
     <header class="top-bar">
         {{ if not .IsHome }}
         <nav class="top-nav">
-            {{ partial "nav.html" (dict "linkClass" "" "page" .) }}
+            {{ partial "nav.html" (dict "linkClass" "" "page" . "pageNum" $pageNum) }}
         </nav>
         {{ end }}
         {{ partial "controls.html" . }}
@@ -143,6 +149,15 @@
     <main id="main-content">
         {{ block "main" . }}{{ end }}
     </main>
+
+    {{/* Outside <main> so the footer is a top-level contentinfo landmark
+         (a footer nested inside main loses that role). The 404 keeps its
+         bare terminal layout, footer-less as before. */}}
+    {{ if ne .Kind "404" }}
+    <div class="container">
+        {{ partial "footer.html" . }}
+    </div>
+    {{ end }}
 
     {{/* Bundle the scripts that run on every page into a single deferred request.
          All are either IIFE-wrapped or only attach a DOMContentLoaded listener,

@@ -10,6 +10,7 @@
     sizes   - optional sizes attribute
     widths  - optional slice of target widths (default: 400 800)
     loading - optional loading attr (default: "lazy")
+    fetchpriority - optional fetchpriority attr (e.g. "high" for the LCP image)
     quality - optional WebP quality 1-100 (default: 82)
 */}}
 {{ $src := .src }}
@@ -17,6 +18,7 @@
 {{ $class := .class | default "" }}
 {{ $sizes := .sizes | default "" }}
 {{ $loading := .loading | default "lazy" }}
+{{ $fetchpriority := .fetchpriority | default "" }}
 {{ $widths := .widths | default (slice 400 800) }}
 {{ $quality := .quality | default 82 }}
 
@@ -38,7 +40,7 @@
     {{ $srcset = $srcset | append (printf "%s %dw" $v.RelPermalink (int $v.Width)) }}
     {{ $main = $v }}
   {{ end }}
-  <img src="{{ $main.RelPermalink }}" srcset="{{ delimit $srcset ", " }}"{{ with $sizes }} sizes="{{ . }}"{{ end }} width="{{ $main.Width }}" height="{{ $main.Height }}" alt="{{ $alt }}" loading="{{ $loading }}" decoding="async"{{ with $class }} class="{{ . }}"{{ end }}>
+  <img src="{{ $main.RelPermalink }}" srcset="{{ delimit $srcset ", " }}"{{ with $sizes }} sizes="{{ . }}"{{ end }} width="{{ $main.Width }}" height="{{ $main.Height }}" alt="{{ $alt }}" loading="{{ $loading }}"{{ with $fetchpriority }} fetchpriority="{{ . }}"{{ end }} decoding="async"{{ with $class }} class="{{ . }}"{{ end }}>
 {{ else }}
-  <img src="{{ $src }}" alt="{{ $alt }}" loading="{{ $loading }}" decoding="async"{{ with $class }} class="{{ . }}"{{ end }}>
+  <img src="{{ $src }}" alt="{{ $alt }}" loading="{{ $loading }}"{{ with $fetchpriority }} fetchpriority="{{ . }}"{{ end }} decoding="async"{{ with $class }} class="{{ . }}"{{ end }}>
 {{ end }}
