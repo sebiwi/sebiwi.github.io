@@ -27,5 +27,24 @@
     sync();
   });
 
+  // bfcache restores skip the <head> init script, so navigating Back to this
+  // page could resurrect a theme that was changed on another page (or in
+  // another tab) in the meantime. Re-apply the stored choice.
+  window.addEventListener('pageshow', (e) => {
+    if (!e.persisted) return;
+    let dark = false;
+    try {
+      dark = localStorage.getItem('theme') === 'dark';
+    } catch (err) { /* ignore storage errors */ }
+    if (dark) {
+      root.dataset.theme = 'dark';
+    } else {
+      delete root.dataset.theme;
+    }
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', dark ? '#16161e' : '#ffffff');
+    sync();
+  });
+
   sync();
 })();

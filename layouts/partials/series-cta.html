@@ -14,7 +14,7 @@
 {{ end }}
 <aside class="series-cta" aria-label="Continue the series">
     {{ if $next }}
-    <p class="series-cta-kicker">Next in the series · part {{ $pos }} of {{ len $parts }}</p>
+    <p class="series-cta-kicker">Next in the series · part {{ add $pos 1 }} of {{ len $parts }}</p>
     <a class="series-cta-link" href="{{ $next.RelPermalink }}">{{ $next.Title }}<span class="series-cta-arrow" aria-hidden="true">&rarr;</span></a>
     {{ else }}
     <p class="series-cta-kicker">End of the series · part {{ $pos }} of {{ len $parts }}</p>

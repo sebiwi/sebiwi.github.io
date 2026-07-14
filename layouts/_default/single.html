@@ -25,11 +25,33 @@
 }
 </script>
 {{ end }}
+{{ if eq .Section "comics" }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ImageObject",
+  "name": "{{ .Title }}",
+  {{ with .Params.image }}"contentUrl": "{{ . | absURL }}",{{ end }}
+  {{ with .Params.alt }}"description": "{{ . }}",{{ end }}
+  "datePublished": "{{ .Date.Format "2006-01-02" }}",
+  "license": "https://creativecommons.org/licenses/by-nc/4.0/",
+  "creator": {
+    "@type": "Person",
+    "name": "{{ .Site.Params.name }}"
+  }
+}
+</script>
+{{ end }}
 <article class="post">
     <div class="container">
         {{ partial "breadcrumbs.html" . }}
 
-        <header class="post-header">
+        {{/* data-pagefind-body scopes the search index to the post header
+             (title, tags, comic image alt) and content: pages without any
+             marked region (lists, about, 404) drop out of the index, and
+             chrome like the search modal's own help text stops matching
+             every query. */}}
+        <header class="post-header" data-pagefind-body>
             <h1 class="post-title">{{ .Title }}</h1>
 
             <div class="post-meta">
@@ -72,7 +94,7 @@
         </details>
         {{ end }}
 
-        <div class="post-content">
+        <div class="post-content" data-pagefind-body>
             {{ .Content }}
         </div>
 

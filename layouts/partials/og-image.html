@@ -35,6 +35,13 @@
   {{ end }}
 {{ end }}
 {{ if ne $current "" }}{{ $lines = $lines | append $current }}{{ end }}
+{{/* Cap at 4 lines: the title starts at y=200 with ~80px per line, and the
+     footer sits at y=576, so a 5th line would collide with it. The last kept
+     line gets an ellipsis to signal the cut. */}}
+{{ if gt (len $lines) 4 }}
+  {{ $lines = first 4 $lines }}
+  {{ $lines = (first 3 $lines) | append (printf "%s…" (index $lines 3)) }}
+{{ end }}
 {{ $titleText := delimit $lines "\n" }}
 
 {{/* Draw: top prompt (green), title (bold light), footer (dim). */}}

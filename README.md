@@ -140,6 +140,8 @@ third-party sites being up.
 Code and configuration (templates, styles, scripts, workflows) are MIT
 licensed: see the LICENSE file.
 
-Blog posts and comic artwork are licensed under
+Original content (blog posts, comics, and the hand-drawn artwork that
+accompanies them) is licensed under
 [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/): share and
-adapt with attribution, no commercial use. See LICENSE-content.md.
+adapt with attribution, no commercial use. Third-party material shown in
+posts belongs to its owners. See LICENSE-content.md.

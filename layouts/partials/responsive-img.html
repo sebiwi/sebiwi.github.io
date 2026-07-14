@@ -40,7 +40,10 @@
     {{ $srcset = $srcset | append (printf "%s %dw" $v.RelPermalink (int $v.Width)) }}
     {{ $main = $v }}
   {{ end }}
-  <img src="{{ $main.RelPermalink }}" srcset="{{ delimit $srcset ", " }}"{{ with $sizes }} sizes="{{ . }}"{{ end }} width="{{ $main.Width }}" height="{{ $main.Height }}" alt="{{ $alt }}" loading="{{ $loading }}"{{ with $fetchpriority }} fetchpriority="{{ . }}"{{ end }} decoding="async"{{ with $class }} class="{{ . }}"{{ end }}>
+  {{/* data-pagefind-index-attrs: inside a data-pagefind-body region, the alt
+       text joins the search index (this is how comic transcripts are
+       searchable); outside one it's inert. */}}
+  <img src="{{ $main.RelPermalink }}" srcset="{{ delimit $srcset ", " }}"{{ with $sizes }} sizes="{{ . }}"{{ end }} width="{{ $main.Width }}" height="{{ $main.Height }}" alt="{{ $alt }}" data-pagefind-index-attrs="alt" loading="{{ $loading }}"{{ with $fetchpriority }} fetchpriority="{{ . }}"{{ end }} decoding="async"{{ with $class }} class="{{ . }}"{{ end }}>
 {{ else }}
-  <img src="{{ $src }}" alt="{{ $alt }}" loading="{{ $loading }}"{{ with $fetchpriority }} fetchpriority="{{ . }}"{{ end }} decoding="async"{{ with $class }} class="{{ . }}"{{ end }}>
+  <img src="{{ $src }}" alt="{{ $alt }}" data-pagefind-index-attrs="alt" loading="{{ $loading }}"{{ with $fetchpriority }} fetchpriority="{{ . }}"{{ end }} decoding="async"{{ with $class }} class="{{ . }}"{{ end }}>
 {{ end }}

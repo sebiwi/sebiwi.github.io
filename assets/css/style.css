@@ -770,7 +770,9 @@ main {
 }
 
 .site-footer-home .license-link {
-  color: var(--color-bio);
+  /* --color-muted, not --color-bio: the bio gray sits at 4.54:1 on white,
+     a 0.04 margin over WCAG AA; this one clears it comfortably (5.7:1). */
+  color: var(--color-muted);
   text-decoration: none;
 }
 
