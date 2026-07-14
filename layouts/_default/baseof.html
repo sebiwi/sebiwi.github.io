@@ -7,7 +7,27 @@
          site line for search snippets (same fallback the RSS feed uses). */}}
     <meta name="description" content="{{ .Description | default .Params.alt | default .Site.Params.description }}">
 
-    <title>{{ if .IsHome }}{{ .Site.Title }} | {{ .Site.Params.bio }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+    {{/* Paginated list pages must self-canonicalize (/comics/page/2/), not
+         point at page 1, and need the page number in their <title> so pages
+         2+ don't all share page 1's. The .Paginate args here MUST match the
+         list templates' calls (Hugo errors on repeat calls with different
+         args). */}}
+    {{ $canonical := .Permalink }}
+    {{ $pageNum := 1 }}
+    {{ if eq .Kind "section" }}
+        {{ $pager := "" }}
+        {{ if eq .Section "comics" }}
+            {{ $pager = .Paginate .Pages 24 }}
+        {{ else }}
+            {{ $pager = .Paginate .Pages }}
+        {{ end }}
+        {{ $canonical = $pager.URL | absURL }}
+        {{ $pageNum = $pager.PageNumber }}
+    {{ end }}
+
+    {{/* "(tag)" disambiguates term pages from same-named content (the comic
+         and tag both called "Serverless" would otherwise share a title). */}}
+    <title>{{ if .IsHome }}{{ .Site.Title }} | {{ .Site.Params.bio }}{{ else }}{{ .Title }}{{ if eq .Kind "term" }} (tag){{ end }}{{ if gt $pageNum 1 }} (page {{ $pageNum }}){{ end }} | {{ .Site.Title }}{{ end }}</title>
 
     <!-- Favicons -->
     <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
@@ -16,23 +36,12 @@
     <link rel="icon" type="image/png" sizes="196x196" href="/images/favicon/favicon-196x196.png">
 
     <!-- Canonical URL -->
-    {{/* Paginated list pages must self-canonicalize (/comics/page/2/), not
-         point at page 1. The .Paginate args here MUST match the list
-         templates' calls (Hugo errors on repeat calls with different args). */}}
-    {{ $canonical := .Permalink }}
-    {{ if eq .Kind "section" }}
-        {{ if eq .Section "comics" }}
-            {{ $canonical = (.Paginate .Pages 24).URL | absURL }}
-        {{ else }}
-            {{ $canonical = (.Paginate .Pages).URL | absURL }}
-        {{ end }}
-    {{ end }}
     <link rel="canonical" href="{{ $canonical }}">
 
-    {{/* noindex the 404, and any taxonomy term with no blog posts (e.g. the
-         section-only "comics" tag, an image-less duplicate of /comics/). These
-         terms are already hidden from the /tags/ cloud. */}}
-    {{ if or (eq .Kind "404") (and (eq .Kind "term") (eq (len (where .Pages "Section" "blog")) 0)) }}<meta name="robots" content="noindex">{{ end }}
+    {{/* The noindex rule lives in partials/is-noindexed.html so the sitemap
+         template can apply the same filter (a URL both submitted in the
+         sitemap and marked noindex is a Search Console error). */}}
+    {{ if partial "is-noindexed.html" . }}<meta name="robots" content="noindex">{{ end }}
 
     <!-- CSS -->
     {{ $css := resources.Get "css/style.css" | resources.Minify | resources.Fingerprint }}
@@ -122,14 +131,14 @@
 <body{{ if .Site.Params.hyphenatePosts }} class="hyphenate"{{ end }}>
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <div class="top-bar">
+    <header class="top-bar">
         {{ if not .IsHome }}
         <nav class="top-nav">
-            {{ partial "nav.html" (dict "linkClass" "") }}
+            {{ partial "nav.html" (dict "linkClass" "" "page" .) }}
         </nav>
         {{ end }}
         {{ partial "controls.html" . }}
-    </div>
+    </header>
 
     <main id="main-content">
         {{ block "main" . }}{{ end }}

@@ -60,10 +60,11 @@
         {{ partial "series-nav.html" . }}
         {{ end }}
 
-        {{/* Gate on the rendered TOC having entries: .Fragments.Headings counts
-             all levels, but the TOC only includes the levels configured in
-             markup.tableOfContents, so they can disagree. */}}
-        {{ if and (eq .Section "blog") (findRE `<li` .TableOfContents 1) }}
+        {{/* Gate on the rendered TOC having actual links: .Fragments.Headings
+             counts all levels, but the TOC only includes the levels configured
+             in markup.tableOfContents, so they can disagree — and headings
+             below endLevel produce a linkless <li> skeleton. */}}
+        {{ if and (eq .Section "blog") (findRE `<a` .TableOfContents 1) }}
         <details class="post-toc" open>
             <summary class="post-toc-summary">Contents</summary>
             {{ .TableOfContents }}

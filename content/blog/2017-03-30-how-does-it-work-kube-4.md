@@ -123,7 +123,7 @@ So instead of creating a molecule.yml file for each role, we're going to create 
 root of the project, that is going to test our master playbook. Inside of it, we're going
 to specify a sample test architecture, which is going to be the same one we defined in our
 Vagrantfile. We're also going to specify the playbook that we want to test. We're going to
-name it kubernetes.yml (creative right?). You can see the molecule.yml file [here][5].
+name it kubernetes.yml (creative right?). You can see [the molecule.yml file][5].
 
 You can test the roles using the `molecule test` command. This will:
 

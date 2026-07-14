@@ -1,0 +1,6 @@
+{{/* Single source of truth for pages that must not be indexed: the 404, and
+     any taxonomy term with no blog posts (e.g. the section-only "comics" tag,
+     an image-less duplicate of /comics/ — already hidden from the /tags/
+     cloud). baseof.html turns this into a robots noindex meta; sitemap.xml
+     drops the page from the sitemap. */}}
+{{ return or (eq .Kind "404") (and (eq .Kind "term") (eq (len (where .Pages "Section" "blog")) 0)) }}

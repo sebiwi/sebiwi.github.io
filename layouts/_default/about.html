@@ -1,6 +1,7 @@
 {{ define "main" }}
 <div class="about-page">
     <div class="container">
+        <h1 class="visually-hidden">{{ .Title }}</h1>
         {{ if .Site.Params.animations }}
         {{/* Hide the panel before first paint (no flash) so about-boot.js can
              reveal it. Skipped under reduced motion / when JS is off. The

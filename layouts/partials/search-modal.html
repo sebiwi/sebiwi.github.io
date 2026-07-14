@@ -6,10 +6,13 @@
       <span class="search-dot" aria-hidden="true"></span>
       <span class="search-dot" aria-hidden="true"></span>
       <span class="search-chrome-title">search · fzf</span>
-      <kbd class="search-shortcut" aria-hidden="true"><span class="search-shortcut-key">⌘</span>K</kbd>
+      <kbd class="search-shortcut" aria-hidden="true" data-shortcut-hint><span class="search-shortcut-key">⌘</span>K</kbd>
     </div>
     <div class="search-input-wrapper">
-      <label id="search-label" class="sr-only">Search site content</label>
+      {{/* A <span>, not a <label>: it names the dialog via aria-labelledby
+           (the input has its own aria-label), and a label associated with no
+           control is an HTML-validity violation. */}}
+      <span id="search-label" class="sr-only">Search site content</span>
       <span class="search-prompt" aria-hidden="true">❯</span>
       <input
         type="search"
@@ -30,8 +33,10 @@
     {{/* Not a live region: announcing the whole result list on every keystroke
          is noisy. A concise "N results found" is announced from search.js via a
          dedicated visually-hidden live region instead. */}}
+    {{/* State messages (empty/loading/error, here and in search.js) carry
+         role="presentation": a listbox may only expose option children. */}}
     <div id="search-results" class="search-results" role="listbox" aria-label="Search results">
-      <div class="search-empty">~ awaiting input …</div>
+      <div class="search-empty" role="presentation">~ awaiting input …</div>
     </div>
     <div id="search-status" class="search-status" aria-hidden="true"></div>
     <div class="search-footer">

@@ -15,7 +15,7 @@
         {{ partial "profile.html" (dict "page" . "headingName" true) }}
 
         <nav class="home-nav fade-in-element">
-            {{ partial "nav.html" (dict "linkClass" "home-nav-link" "skip" "/") }}
+            {{ partial "nav.html" (dict "linkClass" "home-nav-link" "skip" "/" "page" .) }}
         </nav>
 
         {{ if .Site.Params.showHomeLatest }}

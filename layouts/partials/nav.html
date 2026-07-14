@@ -1,10 +1,12 @@
 {{/* Renders the main menu (configured in hugo.toml [menu]).
      Params (dict):
        linkClass - optional class for each <a>
-       skip      - optional menu URL to omit (e.g. "/" on the home page) */}}
+       skip      - optional menu URL to omit (e.g. "/" on the home page)
+       page      - the calling page, for aria-current on the active link */}}
 {{ $linkClass := .linkClass | default "" }}
 {{ $skip := .skip | default "" }}
+{{ $page := .page }}
 {{ range site.Menus.main }}
-{{ if ne .URL $skip }}<a href="{{ .URL }}"{{ with $linkClass }} class="{{ . }}"{{ end }}>{{ .Name }}</a>
+{{ if ne .URL $skip }}<a href="{{ .URL }}"{{ with $linkClass }} class="{{ . }}"{{ end }}{{ if and $page (eq $page.RelPermalink .URL) }} aria-current="page"{{ end }}>{{ .Name }}</a>
 {{ end }}
 {{- end }}

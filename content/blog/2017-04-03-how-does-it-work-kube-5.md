@@ -81,7 +81,7 @@ So when using Calico, the kubelet uses CNI for networking. Calico is aware of ea
 created, and it allows them into the flannel SDN. Both flannel and Calico communicate using
 CNI interfaces to ensure that the correct IP range is used for each node.
 
-The kubelet configuration can be seen [here][2]. As of this moment configuration files start to
+The kubelet configuration can be seen in [the kubelet service template][2]. As of this moment configuration files start to
 get really verbose so I'll just mention the most important parts. This one specifies the
 address of the API server, the network plugin to use, the DNS service address and general
 kubelet configuration, like log files location and configuration directories. The
@@ -109,29 +109,29 @@ Between many other things, it needs to:
 * Be aware of the service range we're going to use for service IPs
 * Access the SSL certificates we created earlier
 
-And so on. If you want to take a look at the configuration, the template is right [here][3].
+And so on. If you want to take a look at the configuration, check out [the API server manifest template][3].
 
 Then, there's the Kube Proxy. It redirects traffic directed to specific services and pods
 to their destination. It talks to the API server frequently. In this case, it is used in
-order to access the API server from the outside. It's configuration can be found [here][4].
+order to access the API server from the outside. It's configuration can be found in [the kube-proxy manifest template][4].
 
 Let's take on the Controller manager. This component basically applies the necessary
 changes based on the Replication Controllers. When you increase or decrease the replica
 count of a pod, it sends a scale up/down event to the API server, and then new containers
-are scheduled by the Scheduler. It's configuration can be found [here][5].
+are scheduled by the Scheduler. It's configuration can be found in [the Controller manager manifest template][5].
 
 Last but not least, we need to add the [Scheduler][6] configuration. This component
 watches the API for unscheduled Pods, then he finds a machine for them to run and
 informs the API server of the best choice.
 
 We haven’t configured Calico yet, have we? Let's add it as a service. We will create
-the "/etc/systemd/system/calico-node.service" file. It's configuration can be found [here][7].
+the "/etc/systemd/system/calico-node.service" file. It's configuration can be found in [the calico-node service template][7].
 Basically, it talks with etcd in order to store information. Now every container launched
 will be able to connect itself to the flannel network with its own IP address, and
 policies created using the policy API will be enforced. Calico also needs a
 policy-controller in order to work. This component will watch the API and look
 for changes in the network policy, in order to implement them on Calico. It's
-configuration can be found [here][8].
+configuration can be found in [the policy-controller manifest template][8].
 
 Finally, (yes, this time it's true) the kubelet service configuration specified a
 cni configuration file we need to create. This file specifies which CNI plugin needs
@@ -163,7 +163,7 @@ After that, we'll just start the services and cross our fingers (don't worry, it
 
 You can see that this role actually has [another yaml file embedded into the main.yml file][9].
 It is called namespaces.yml.  It is included because we need to create a Kubernetes
-namespace for the Calico policy-controller to run (we specified that [here][10]). And that
+namespace for the Calico policy-controller to run (we specified that in [the policy-controller manifest][10]). And that
 needs to be done after the API server starts responding, since it is a Kubernetes
 functionality. So we just [create the calico-system namespace if it doesn't exist already][11].
 
@@ -196,18 +196,18 @@ configuration if you want to check it out.
 We're going to tell the kubelet to call flannel as a CNI plugin, and then to delegate the control
 to Calico, the same way we did it on the master node. We'll need to specify the master node's IP
 on the configuration here instead of localhost, since the the configuration needs to access the
-API server. The configuration template can be seen [here][15].
+API server. The configuration template can be seen in [the Calico CNI configuration][15].
 
 As we said before, there's a kube-proxy instance in each node. That means there's one on the
 worker nodes too. It's configuration specifies the master nod. Nothing fancy.
-It's configuration can be found [here][16].
+It's configuration can be found in [the worker kube-proxy manifest template][16].
 
 We're going to add a kube-config configuration, in order to specify the TLS resources that
 are necessary for secure communication between the different Kubernetes components.
-It can be seen [here][17].
+It can be seen in [the worker kubeconfig template][17].
 
 Finally, we need a Calico Node Container too, that will fulfil the same role it did on
-the Master node. It's configuration can be found [here][18]. After that, we start every service,
+the Master node. It's configuration can be found in [the worker calico-node service template][18]. After that, we start every service,
 and we should have our full Kubernetes up and running. It might take a while, depending
 on your internet connection.
 
@@ -280,7 +280,7 @@ The first enables service discovery for your containers. They can have a DNS nam
 can be reached by other containers with it. The manifest is huge. It's because we're creating
 a Service, which provides DNS lookups over port 53 to every resource that demands it, and
 also a replication controller, which makes sure that there is one replica of the pod at all
-times. The configuration can be seen [here][19].
+times. The configuration can be seen in [the DNS add-on template][19].
 
 The Dashboard allows you to see general information about your cluster. That means Pods,
 Services, Replication Controllers, and all that under different namespaces. It's a pretty

@@ -55,8 +55,10 @@ jobs:
           # Restore and save are split (instead of the plain cache action)
           # because the plain action skips its post-job save when the job
           # fails, and failing on link rot is this workflow's normal outcome.
+          # run_attempt is in the key so a re-run of a failed run (same
+          # run_id) can still save its updated cache.
           path: .lycheecache
-          key: lychee-cache-${{ github.run_id }}
+          key: lychee-cache-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
             lychee-cache-
 
@@ -78,4 +80,4 @@ jobs:
         uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
         with:
           path: .lycheecache
-          key: lychee-cache-${{ github.run_id }}
+          key: lychee-cache-${{ github.run_id }}-${{ github.run_attempt }}

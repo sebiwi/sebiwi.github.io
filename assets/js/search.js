@@ -62,9 +62,6 @@
   // Perform search
   async function performSearch(query) {
     if (!query.trim()) {
-      // Invalidate any in-flight search so its results can't land after the
-      // input was cleared (or the modal reopened on an empty query).
-      searchSeq++;
       showEmpty();
       return;
     }
@@ -185,7 +182,11 @@
 
   // Show states
   function showEmpty() {
-    resultsContainer.innerHTML = '<div class="search-empty">~ awaiting input …</div>';
+    // Entering the empty state invalidates any in-flight search, so its late
+    // results can't render under an empty input (covers both clearing the
+    // query and reopening the modal).
+    searchSeq++;
+    resultsContainer.innerHTML = '<div class="search-empty" role="presentation">~ awaiting input …</div>';
     clearStatus();
     results = [];
     selectedIndex = -1;
@@ -193,12 +194,12 @@
   }
 
   function showLoading() {
-    resultsContainer.innerHTML = '<div class="search-loading">$ loading index…</div>';
+    resultsContainer.innerHTML = '<div class="search-loading" role="presentation">$ loading index…</div>';
     setExpanded(false);
   }
 
   function showError(message) {
-    resultsContainer.innerHTML = `<div class="search-error">${escapeHtml(message)}</div>`;
+    resultsContainer.innerHTML = `<div class="search-error" role="presentation">${escapeHtml(message)}</div>`;
     clearStatus();
     results = [];
     selectedIndex = -1;
@@ -208,7 +209,7 @@
 
   function showNoResults(query) {
     resultsContainer.innerHTML = `
-      <div class="no-results">
+      <div class="no-results" role="presentation">
         <p>No results found for "<strong>${escapeHtml(query)}</strong>"</p>
         <p class="suggestion">Try different keywords or browse <a href="/blog/">all posts</a></p>
       </div>
@@ -280,6 +281,8 @@
   function closeModal() {
     if (modal.hasAttribute('hidden')) return;
 
+    // Drop any in-flight search; its results must not appear on reopen.
+    searchSeq++;
     modal.setAttribute('hidden', '');
     document.body.style.overflow = '';
 
@@ -367,6 +370,18 @@
     path = path.split(/[?#]/)[0].replace(/\/+$/, '');
     if (!path) return './index.md';
     return '.' + path + '.md';
+  }
+
+  // The Cmd/Ctrl+K handler below accepts both, but every rendered hint
+  // (modal badge, search-button tooltip, 404 copy) defaults to the Mac
+  // glyph — swap them on non-Apple platforms.
+  if (!/Mac|iPhone|iPad|iPod/i.test(navigator.platform || navigator.userAgent)) {
+    document.querySelectorAll('[data-shortcut-hint]').forEach((el) => {
+      el.textContent = 'Ctrl+K';
+    });
+    document.querySelectorAll('[data-search-trigger]').forEach((el) => {
+      if (el.title) el.title = 'Search (Ctrl+K)';
+    });
   }
 
   // Event listeners
