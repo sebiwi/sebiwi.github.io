@@ -103,6 +103,9 @@
       // Announce to screen readers
       announceToScreenReader(`${total} result${total !== 1 ? 's' : ''} found`);
     } catch (error) {
+      // A stale query that rejects late must not clobber a newer query's
+      // rendered results with an error state.
+      if (seq !== searchSeq) return;
       console.error('Search error:', error);
       showError('An error occurred during search');
     }
@@ -124,7 +127,7 @@
         const type = isComic ? 'comic' : 'post';
 
         return `
-          <a href="${url}"
+          <a href="${escapeHtml(url)}"
              class="search-result"
              id="search-result-${index}"
              data-index="${index}"
@@ -341,7 +344,7 @@
   const announcer = document.createElement('div');
   announcer.setAttribute('role', 'status');
   announcer.setAttribute('aria-live', 'polite');
-  announcer.className = 'sr-only';
+  announcer.className = 'visually-hidden';
   document.body.appendChild(announcer);
   let announceTimer = null;
 

@@ -49,10 +49,15 @@
     {{ if partial "is-noindexed.html" . }}<meta name="robots" content="noindex">{{ end }}
 
     <!-- CSS -->
-    {{ $css := resources.Get "css/style.css" | resources.Minify | resources.Fingerprint }}
+    {{/* style.css and search.css both load on every page (the search modal is
+         global), so concatenate them into one fingerprinted, SRI-protected
+         request instead of two render-blocking ones. Custom-property order is
+         irrelevant across the two :root blocks, so concat order is safe. */}}
+    {{ $css := slice
+        (resources.Get "css/style.css")
+        (resources.Get "css/search.css")
+        | resources.Concat "css/bundle.css" | resources.Minify | resources.Fingerprint }}
     <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
-    {{ $searchCSS := resources.Get "css/search.css" | resources.Minify | resources.Fingerprint }}
-    <link rel="stylesheet" href="{{ $searchCSS.RelPermalink }}" integrity="{{ $searchCSS.Data.Integrity }}">
     {{/* Inlined, not linked: it's ~400 bytes and can't join the main bundle
          anyway (Hugo's CSS minifier strips the @view-transition descriptor),
          so inlining saves a render-blocking request. */}}
@@ -87,6 +92,10 @@
     {{ end }}
     {{ $ogTitle := cond .IsHome .Site.Title (printf "%s%s" .Title $titleSuffix) }}
     {{ $ogDesc := .Description | default .Params.alt | default .Site.Params.description }}
+    {{/* Comics carry a real transcript in .Params.alt that describes the card
+         image; prefer it as the image's alt so shared cards aren't announced
+         as just the title. */}}
+    {{ $ogImageAlt := cond (and .IsPage (eq .Section "comics")) (.Params.alt | default $ogTitle) $ogTitle }}
 
     <!-- Open Graph -->
     <meta property="og:title" content="{{ $ogTitle }}">
@@ -96,7 +105,7 @@
     <meta property="og:site_name" content="{{ .Site.Title }}">
     <meta property="og:locale" content="en_US">
     <meta property="og:image" content="{{ $ogImage }}">
-    <meta property="og:image:alt" content="{{ $ogTitle }}">
+    <meta property="og:image:alt" content="{{ $ogImageAlt }}">
     {{ if and (gt $ogW 0) (gt $ogH 0) }}
     <meta property="og:image:width" content="{{ $ogW }}">
     <meta property="og:image:height" content="{{ $ogH }}">
@@ -116,7 +125,7 @@
     <meta name="twitter:title" content="{{ $ogTitle }}">
     <meta name="twitter:description" content="{{ $ogDesc }}">
     <meta name="twitter:image" content="{{ $ogImage }}">
-    <meta name="twitter:image:alt" content="{{ $ogTitle }}">
+    <meta name="twitter:image:alt" content="{{ $ogImageAlt }}">
 
     <!-- Theme -->
     <meta name="author" content="{{ .Site.Params.name }}">

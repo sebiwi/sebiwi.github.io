@@ -9,7 +9,7 @@
 
         <header class="archive-header">
             <h1 class="archive-title">Tags</h1>
-            <p class="archive-sub">{{ len $terms }} topics</p>
+            <p class="archive-sub">{{ len $terms }} topic{{ if ne (len $terms) 1 }}s{{ end }}</p>
         </header>
 
         <div class="tag-list">

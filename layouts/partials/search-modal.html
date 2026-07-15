@@ -12,7 +12,7 @@
       {{/* A <span>, not a <label>: it names the dialog via aria-labelledby
            (the input has its own aria-label), and a label associated with no
            control is an HTML-validity violation. */}}
-      <span id="search-label" class="sr-only">Search site content</span>
+      <span id="search-label" class="visually-hidden">Search site content</span>
       <span class="search-prompt" aria-hidden="true">❯</span>
       <input
         type="search"
@@ -27,7 +27,7 @@
         autocomplete="off"
         spellcheck="false">
     </div>
-    <div id="search-instructions" class="sr-only">
+    <div id="search-instructions" class="visually-hidden">
       Use arrow keys to navigate results, Enter to select, Escape to close
     </div>
     {{/* Not a live region: announcing the whole result list on every keystroke

@@ -45,5 +45,9 @@
        searchable); outside one it's inert. rss.xml strips it from feeds. */}}
   <img src="{{ $main.RelPermalink }}" srcset="{{ delimit $srcset ", " }}"{{ with $sizes }} sizes="{{ . }}"{{ end }} width="{{ $main.Width }}" height="{{ $main.Height }}" alt="{{ $alt }}" data-pagefind-index-attrs="alt" loading="{{ $loading }}"{{ with $fetchpriority }} fetchpriority="{{ . }}"{{ end }} decoding="async"{{ with $class }} class="{{ . }}"{{ end }}>
 {{ else }}
-  <img src="{{ $src }}" alt="{{ $alt }}" data-pagefind-index-attrs="alt" loading="{{ $loading }}"{{ with $fetchpriority }} fetchpriority="{{ . }}"{{ end }} decoding="async"{{ with $class }} class="{{ . }}"{{ end }}>
+  {{/* Fallback for a src that isn't in the asset pipeline (e.g. a bare
+       "images/x.jpg" per the docstring): resolve it against the site root via
+       relURL so it can't 404 as a page-relative URL. Dimensions are unknown
+       here, so this path can't prevent layout shift. */}}
+  <img src="{{ $src | relURL }}" alt="{{ $alt }}" data-pagefind-index-attrs="alt" loading="{{ $loading }}"{{ with $fetchpriority }} fetchpriority="{{ . }}"{{ end }} decoding="async"{{ with $class }} class="{{ . }}"{{ end }}>
 {{ end }}

@@ -16,7 +16,10 @@
             {{/* The top row is above the fold (and likely the LCP): load it
                  eagerly; everything below stays lazy. */}}
             {{ $loading := cond (lt $i 4) "eager" "lazy" }}
-            <a href="{{ .RelPermalink }}" class="comic-card" aria-label="{{ .Title }}">
+            {{/* Include the date in the accessible name: aria-label overrides
+                 the link's computed name, so the visible <time> below would
+                 otherwise never be announced. */}}
+            <a href="{{ .RelPermalink }}" class="comic-card" aria-label="{{ .Title }}, {{ .Date.Format "January 2, 2006" }}">
                 {{ with .Params.image }}
                 <span class="comic-thumb">
                     {{ partial "responsive-img.html" (dict "src" . "alt" $alt "sizes" "(max-width: 600px) 45vw, 240px" "widths" (slice 240 480) "loading" $loading) }}

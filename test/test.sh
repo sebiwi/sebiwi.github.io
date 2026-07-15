@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e # halt script on error
+set -euo pipefail # halt on error, unset var, or failed pipe stage
 
 # Always run from the repo root, regardless of where the script is invoked from
 # (it lives in test/ but operates on paths relative to the repo root).
@@ -42,7 +42,7 @@ done
 
 # Check CSS and JS are minified and fingerprinted
 echo "✅ Checking assets..."
-if ! ls public/css/style.min.*.css >/dev/null 2>&1; then
+if ! ls public/css/bundle.min.*.css >/dev/null 2>&1; then
     echo "❌ CSS not minified/fingerprinted"
     exit 1
 fi
@@ -86,7 +86,7 @@ echo "🔗 Checking for broken links..."
 if command -v lychee >/dev/null 2>&1; then
     echo "Running lychee..."
     lychee --offline --root-dir "$(pwd)/public" --no-progress public/ \
-        || (echo "⚠️  Some links are broken" && exit 1)
+        || { echo "⚠️  Some links are broken"; exit 1; }
     echo "✓ No broken internal links"
 else
     echo "⚠️  lychee not installed. Skipping link check."

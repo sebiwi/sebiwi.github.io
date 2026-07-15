@@ -10,7 +10,6 @@
   --color-text-light: #717171;
   --color-background: #ffffff;
   --color-surface: #ededed;
-  --color-border: #aaa;
   --color-accent: #4b0082;
   --color-accent-hover: #3a0062;
   --color-accent-bright: #7B68EE;
@@ -62,7 +61,6 @@
   --color-text-light: #8a8fb3;
   --color-background: #16161e;
   --color-surface: #1f2335;
-  --color-border: #414868;
   --color-accent: #bb9af7;
   --color-accent-hover: #c9a9ff;
   --color-accent-bright: #c9a9ff;
@@ -909,6 +907,15 @@ html.vt-nav .fade-in-element {
 
 .post-content li {
   margin-bottom: 0.5rem;
+}
+
+/* Body-level `# ` headings (used by a handful of older posts) must not inherit
+   the global 4rem h1: that dwarfs the post title. Keep it above h2 (1.5rem)
+   but within the narrow reading column. */
+.post-content h1 {
+  font-size: 2rem;
+  margin-top: var(--spacing-lg);
+  margin-bottom: var(--spacing-sm);
 }
 
 .post-content h2 {

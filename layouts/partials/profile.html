@@ -6,7 +6,9 @@
                                list pages where the section name is the <h1>. */ -}}
 {{- $p := .page -}}
 <div class="profile fade-in-element">
-    {{ partial "responsive-img.html" (dict "src" $p.Site.Params.picture "alt" $p.Site.Params.name "class" "profile-image" "sizes" "125px" "widths" (slice 125 250) "loading" "eager") }}
+    {{/* Decorative: the name is repeated as the adjacent profile-title, so an
+         empty alt avoids screen readers announcing it twice in a row. */}}
+    {{ partial "responsive-img.html" (dict "src" $p.Site.Params.picture "alt" "" "class" "profile-image" "sizes" "125px" "widths" (slice 125 250) "loading" "eager") }}
     {{- if .headingName }}
     <h1 class="profile-title">{{ $p.Site.Params.name }}</h1>
     {{- else }}

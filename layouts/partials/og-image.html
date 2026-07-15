@@ -14,8 +14,10 @@
      the card edge (the space-based wrap below would otherwise leave it intact). */}}
 {{ $chunked := slice }}
 {{ range $w := $words }}
-  {{ if gt (len $w) $maxChars }}
-    {{ range $i := (seq 0 $maxChars (sub (len $w) 1)) }}
+  {{/* Count runes, not bytes: substr below indexes by rune, so a byte-based
+       length would over-count multibyte titles and mis-split long words. */}}
+  {{ if gt (strings.RuneCount $w) $maxChars }}
+    {{ range $i := (seq 0 $maxChars (sub (strings.RuneCount $w) 1)) }}
       {{ $chunked = $chunked | append (substr $w $i $maxChars) }}
     {{ end }}
   {{ else }}
@@ -27,7 +29,7 @@
 {{ $current := "" }}
 {{ range $words }}
   {{ $candidate := cond (eq $current "") . (printf "%s %s" $current .) }}
-  {{ if gt (len $candidate) $maxChars }}
+  {{ if gt (strings.RuneCount $candidate) $maxChars }}
     {{ if ne $current "" }}{{ $lines = $lines | append $current }}{{ end }}
     {{ $current = . }}
   {{ else }}

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e # halt script on error
+set -euo pipefail # halt on error, unset var, or failed pipe stage
 
 # Always run from the repo root, regardless of where the script is invoked from
 # (it lives in test/ but operates on paths relative to the repo root).

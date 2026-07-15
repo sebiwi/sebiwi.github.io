@@ -27,10 +27,10 @@ jobs:
       contents: read
       pages: read
     env:
-      HUGO_VERSION: 0.163.1
-      # Checksum of hugo_extended_0.163.1_linux-amd64.deb, from the release's
+      HUGO_VERSION: 0.164.0
+      # Checksum of hugo_extended_0.164.0_linux-amd64.deb, from the release's
       # official checksums.txt. Update together with HUGO_VERSION.
-      HUGO_DEB_SHA256: 8e219ed8813ab127b31be4a1efe863389abe96f69106637e5d7019ca72c41a26
+      HUGO_DEB_SHA256: 8325f3653032d0fc536503691f4833dc4eb6c6be02ee62466758f3f37a7f2fcd
     steps:
       - name: Install Hugo CLI
         run: |
@@ -90,6 +90,7 @@ jobs:
         run: |
           hugo \
             --minify \
+            --panicOnWarning \
             --baseURL "${BASE_URL}/"
 
       - name: Build search index

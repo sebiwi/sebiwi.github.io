@@ -145,3 +145,6 @@ accompanies them) is licensed under
 [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/): share and
 adapt with attribution, no commercial use. Third-party material shown in
 posts belongs to its owners. See LICENSE-content.md.
+
+The bundled JetBrains Mono fonts (`assets/fonts/`) are licensed separately
+under the SIL Open Font License 1.1: see `assets/fonts/OFL.txt`.
