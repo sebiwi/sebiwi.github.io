@@ -834,6 +834,25 @@ html.vt-nav .fade-in-element {
   border-radius: var(--border-radius);
 }
 
+/* Landscape comics bleed past the column so the panels stay legible. The
+   130% bleed is 728px wide (130% of the 560px column), so it only fits once
+   the viewport can hold it. Below that, fall back to column width. */
+.post-header .post-image-wide {
+  width: 130%;
+  max-width: 130%;
+  margin-left: -15%;
+  margin-right: -15%;
+}
+
+@media (max-width: 727px) {
+  .post-header .post-image-wide {
+    width: 100%;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
 .post-title {
   font-size: 1.75rem;
   margin-bottom: var(--spacing-sm);

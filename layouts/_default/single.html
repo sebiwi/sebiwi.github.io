@@ -75,7 +75,10 @@
             {{ end }}
 
             {{ if and .Params.image (eq .Section "comics") }}
-            {{ partial "responsive-img.html" (dict "src" .Params.image "alt" (.Params.alt | default .Title) "class" "post-image" "sizes" "(max-width: 600px) 92vw, 528px" "widths" (slice 560 1120) "loading" "eager" "fetchpriority" "high") }}
+            {{/* Landscape strips set `wide: true` in front matter to bleed
+                 past the column on desktop (see .post-image-wide). */}}
+            {{ $wide := .Params.wide | default false }}
+            {{ partial "responsive-img.html" (dict "src" .Params.image "alt" (.Params.alt | default .Title) "class" (cond $wide "post-image post-image-wide" "post-image") "sizes" (cond $wide "(max-width: 727px) 92vw, 728px" "(max-width: 600px) 92vw, 528px") "widths" (cond $wide (slice 728 1456) (slice 560 1120)) "loading" "eager" "fetchpriority" "high") }}
             {{ end }}
         </header>
 
