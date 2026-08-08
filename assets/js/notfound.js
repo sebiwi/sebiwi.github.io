@@ -2,7 +2,10 @@
 // easter egg — the terminal prompt is real. A tiny shell supports help, ls,
 // cd, clear and rm, and rm genuinely deletes things: page elements vanish
 // from the page, directories take their navbar link with them, and rm -rf /
-// wipes everything. Nothing persists: reloading restores the page.
+// wipes everything, then the whole site powers off like an old CRT.
+// There are also toys: uname (this is sebiwiOS), ifconfig/ip/ping (there is
+// no network, only sebiwi), and package managers that question your judgment.
+// Nothing persists: reloading restores the page.
 (function () {
   'use strict';
 
@@ -143,10 +146,36 @@
     (document.querySelector('main') || document.body).appendChild(line);
   }
 
+  // rm -rf / ends with the site powering off like an old CRT: white flash,
+  // collapse to a scanline, then a dot, then black. The styles are injected
+  // here — not in style.css — so no page pays for them until the moment the
+  // effect runs. Reduced motion cuts straight to black.
+  var TV_CSS =
+    '.tv-off{position:fixed;inset:0;z-index:2147483647;background:#000}' +
+    '.tv-off::after{content:"";position:absolute;inset:0;background:#fff;' +
+    'animation:tv-collapse .6s cubic-bezier(.23,1,.32,1) forwards}' +
+    '@keyframes tv-collapse{' +
+    '0%{transform:scale(1,1);opacity:1}' +
+    '55%{transform:scale(1,.004)}' +
+    '85%{transform:scale(.001,.004);opacity:1}' +
+    '100%{transform:scale(.001,.004);opacity:0}}' +
+    '@media (prefers-reduced-motion:reduce){.tv-off::after{animation:none;opacity:0}}';
+
+  function tvOff() {
+    var style = document.createElement('style');
+    style.textContent = TV_CSS;
+    document.head.appendChild(style);
+    var screen = document.createElement('div');
+    screen.className = 'tv-off';
+    screen.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(screen);
+  }
+
   var wiping = false;
 
   // rm -rf /: everything goes — bottom up, terminal last — then the parting
-  // line on the bare page. A reload brings it all back.
+  // line on the bare page, then the TV switches off. A reload brings it all
+  // back.
   function wipeEverything() {
     if (wiping) return;
     wiping = true;
@@ -161,6 +190,8 @@
     (function step(index) {
       if (index >= doomed.length) {
         farewell();
+        // A beat to read the farewell line before the screen goes dark.
+        window.setTimeout(tvOff, reducedMotion ? 0 : 1200);
         return;
       }
       vaporize(doomed[index], function () {
@@ -209,6 +240,38 @@
     var meta = mode + ' 1 sebiwi sebiwi ' + pad(String(file.size), 5) + ' Jul 13 07:19 ';
     return file.url ? [textNode(meta), fileLink(file)] : [textNode(meta + file.name)];
   }
+
+  // uname fields, keyed by flag letter. -a prints them in this order.
+  var UNAME = [
+    ['s', 'sebiwiOS'],
+    ['n', 'scoreplay'],
+    ['r', '4.0.4-comic'],
+    ['v', '#1 SMP PREEMPT_HANDDRAWN Sun Jul 13 07:19:00 UTC 2026'],
+    ['m', 'pencil64'],
+    ['o', 'sebiwiOS']
+  ];
+
+  // Typing another distro's package manager gets you corrected. Rudely.
+  var packageManagers = {
+    apt: 'Ubuntu',
+    'apt-get': 'Ubuntu',
+    aptitude: 'Ubuntu',
+    dpkg: 'Debian',
+    snap: 'Ubuntu',
+    yum: 'CentOS',
+    dnf: 'Fedora',
+    rpm: 'Fedora',
+    flatpak: 'Fedora',
+    pacman: 'Arch Linux',
+    yay: 'Arch Linux',
+    apk: 'Alpine',
+    zypper: 'openSUSE',
+    emerge: 'Gentoo',
+    nix: 'NixOS',
+    'nix-env': 'NixOS',
+    brew: 'macOS',
+    port: 'macOS'
+  };
 
   var commands = {
     help: function () {
@@ -266,6 +329,89 @@
       }
     },
 
+    uname: function (args) {
+      var picked = {};
+      var any = false;
+      for (var i = 0; i < args.length; i++) {
+        if (args[i].charAt(0) !== '-') {
+          printText("uname: extra operand '" + args[i] + "'");
+          return;
+        }
+        var flags = args[i] === '--all' ? 'a' : args[i].slice(1);
+        for (var j = 0; j < flags.length; j++) {
+          var c = flags.charAt(j);
+          if (c === 'a') {
+            for (var k = 0; k < UNAME.length; k++) picked[UNAME[k][0]] = true;
+          } else if (c === 'p' || c === 'i') {
+            picked.m = true; // processor and hardware platform: also pencil64
+          } else {
+            var known = false;
+            for (var m = 0; m < UNAME.length; m++) {
+              if (UNAME[m][0] === c) known = true;
+            }
+            if (!known) {
+              printText("uname: invalid option -- '" + c + "'");
+              return;
+            }
+            picked[c] = true;
+          }
+        }
+        any = true;
+      }
+      if (!any) picked.s = true;
+      var parts = [];
+      for (var n = 0; n < UNAME.length; n++) {
+        if (picked[UNAME[n][0]]) parts.push(UNAME[n][1]);
+      }
+      printText(parts.join(' '));
+    },
+
+    ifconfig: function () {
+      printText('lo0: flags=73<UP,LOOPBACK,COMFY> mtu 16384');
+      printText('        inet 127.0.0.1 netmask 0xff000000');
+      printText("        status: there's no place like it");
+      printText('pen0: flags=8863<UP,BROADCAST,SMUDGED> mtu 1500');
+      printText('        inet 10.0.4.4 netmask 0xffffff00 broadcast 10.0.4.255');
+      printText('        ether 5e:b1:w1:00:04:04 (hand-lettered)');
+      printText('        status: drawing packets by hand');
+    },
+
+    ip: function (args) {
+      var sub = args[0] || '';
+      if (sub === 'a' || sub === 'addr' || sub === 'address') {
+        printText('1: lo0: <LOOPBACK,UP,COMFY> mtu 16384');
+        printText('    inet 127.0.0.1/8 scope host');
+        printText('2: pen0: <BROADCAST,UP,SMUDGED> mtu 1500');
+        printText('    inet 10.0.4.4/24 scope global pen0');
+        return;
+      }
+      if (sub === 'r' || sub === 'route') {
+        printText('default via the-couch dev pen0 metric 42');
+        return;
+      }
+      printText('Usage: ip { addr | route }   (this is a very small ip)');
+    },
+
+    ping: function (args) {
+      var host = null;
+      for (var i = 0; i < args.length; i++) {
+        if (args[i].charAt(0) !== '-') {
+          host = args[i];
+          break;
+        }
+      }
+      if (!host) {
+        printText('ping: usage error: Destination address required');
+        return;
+      }
+      printText('PING ' + host + ' (127.0.0.1): 56 data bytes');
+      printText('64 bytes from ' + host + ': icmp_seq=0 ttl=42 time=0.004 ms');
+      printText('64 bytes from ' + host + ': icmp_seq=1 ttl=42 time=0.003 ms (hand-delivered)');
+      printText('--- ' + host + ' ping statistics ---');
+      printText('2 packets transmitted, 2 packets received, 0.0% packet loss');
+      printText("(everything here resolves to 127.0.0.1. it's cozy that way.)");
+    },
+
     rm: function (args) {
       var flags = '';
       var targets = [];
@@ -297,6 +443,9 @@
       commands[name](argv.slice(1));
     } else {
       printText(name + ': command not found');
+      if (Object.prototype.hasOwnProperty.call(packageManagers, name)) {
+        printLine([styled('term-err', "This isn't " + packageManagers[name] + ', genius.')]);
+      }
     }
   }
 

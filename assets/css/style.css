@@ -1967,7 +1967,8 @@ html.about-booting .neofetch-logo {
   margin: 0 auto;
   padding: var(--spacing-xxl) var(--spacing-sm) 0;
   font-family: var(--font-mono);
-  font-size: 0.9rem;
+  font-size: 1.4rem;
+  text-align: center;
   color: var(--color-text-light);
 }
 
