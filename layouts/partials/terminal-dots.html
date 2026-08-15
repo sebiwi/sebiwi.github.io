@@ -1,0 +1,9 @@
+{{- /*
+  The three traffic-light dots of a terminal chrome bar (search modal,
+  neofetch panel, 404 terminal). Explicit color classes, not :nth-child, so
+  inserting a sibling can't recolor them. code-blocks.js builds the same
+  markup client-side for code-block headers; keep the two in sync.
+*/ -}}
+<span class="term-dot term-dot-red" aria-hidden="true"></span>
+<span class="term-dot term-dot-yellow" aria-hidden="true"></span>
+<span class="term-dot term-dot-green" aria-hidden="true"></span>

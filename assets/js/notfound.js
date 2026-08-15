@@ -27,20 +27,31 @@
 
   var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // What the shell can see. Directories and about.md mirror the static
-  // `ls ~/` line above the prompt (navSelector points at their navbar link);
-  // "element" entries map rm targets to parts of this page. Sizes are for
-  // ls -l flavor only.
-  var files = [
-    { name: 'home/', kind: 'dir', url: '/', size: 4096, navSelector: '.top-nav a[href="/"]' },
-    { name: 'blog/', kind: 'dir', url: '/blog/', size: 4096, navSelector: '.top-nav a[href="/blog/"]' },
-    { name: 'comics/', kind: 'dir', url: '/comics/', size: 4096, navSelector: '.top-nav a[href="/comics/"]' },
-    { name: 'about.md', kind: 'page', url: '/about/', size: 1998, navSelector: '.top-nav a[href="/about/"]' },
+  // What the shell can see. Directories and about.md are read off the links
+  // of the static `ls ~/` line above the prompt (a trailing slash in the
+  // link text means directory), so the shell can't drift from what the page
+  // shows; "element" entries map rm targets to parts of this page. Sizes are
+  // for ls -l flavor only.
+  var files = [];
+  var lsLinks = pre.querySelectorAll('a.term-link');
+  for (var li = 0; li < lsLinks.length; li++) {
+    var lsName = (lsLinks[li].textContent || '').trim();
+    var lsUrl = lsLinks[li].getAttribute('href');
+    var isDir = lsName.slice(-1) === '/';
+    files.push({
+      name: lsName,
+      kind: isDir ? 'dir' : 'page',
+      url: lsUrl,
+      size: isDir ? 4096 : 1998,
+      navSelector: '.top-nav a[href="' + lsUrl + '"]'
+    });
+  }
+  files.push(
     { name: 'nav', kind: 'element', selector: '.top-nav', size: 512 },
     { name: 'controls', kind: 'element', selector: '.page-controls', size: 256 },
-    { name: 'hint.txt', kind: 'element', selector: '.about-intro', size: 42 },
+    { name: 'hint.txt', kind: 'element', selector: '[data-404-hint]', size: 42 },
     { name: 'terminal', kind: 'element', selector: '.terminal-404', size: 8192 }
-  ];
+  );
 
   function elementOf(file) {
     return file.kind === 'element' ? document.querySelector(file.selector) : null;

@@ -1,7 +1,7 @@
 // Dark-mode toggle. Default is light; the choice is remembered in localStorage.
-// The no-flash <head> script applies the stored theme before paint; this
-// handles clicks, keeps the button's pressed state in sync, and re-applies
-// the stored theme on bfcache restores (which skip the head script).
+// The no-flash <head> script (theme-init.js) applies the stored theme before
+// paint and owns window.__theme; this wires the button, persists clicks, and
+// re-applies the stored theme on bfcache restores (which skip the head script).
 (function () {
   'use strict';
 
@@ -15,13 +15,7 @@
 
   toggle.addEventListener('click', () => {
     const goingDark = root.dataset.theme !== 'dark';
-    if (goingDark) {
-      root.dataset.theme = 'dark';
-    } else {
-      delete root.dataset.theme;
-    }
-    const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', goingDark ? '#16161e' : '#ffffff');
+    window.__theme.apply(goingDark);
     try {
       localStorage.setItem('theme', goingDark ? 'dark' : 'light');
     } catch (e) { /* ignore storage errors */ }
@@ -33,17 +27,7 @@
   // another tab) in the meantime. Re-apply the stored choice.
   window.addEventListener('pageshow', (e) => {
     if (!e.persisted) return;
-    let dark = false;
-    try {
-      dark = localStorage.getItem('theme') === 'dark';
-    } catch (err) { /* ignore storage errors */ }
-    if (dark) {
-      root.dataset.theme = 'dark';
-    } else {
-      delete root.dataset.theme;
-    }
-    const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', dark ? '#16161e' : '#ffffff');
+    window.__theme.apply(window.__theme.storedDark());
     sync();
   });
 

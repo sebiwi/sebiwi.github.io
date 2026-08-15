@@ -1,0 +1,36 @@
+{{- /*
+  Comic Card: the grid representation of a comic (see CONTEXT.md).
+
+  Params (dict):
+    page    - the comic page
+    compact - optional (default false). The home-strip variant: smaller image
+              tier, no visible date. The full variant is the comics index.
+    eager   - optional (default false). Eager-load the thumbnail; pass true
+              for above-the-fold cards.
+
+  Everything else is implementation: the alt fallback, the image size tiers,
+  the accessible-name format, and missing-image handling (a comic without an
+  image renders as a text-only card).
+*/ -}}
+{{- $page := .page -}}
+{{- $compact := .compact | default false -}}
+{{- $alt := $page.Params.alt | default $page.Title -}}
+{{- $sizes := cond $compact "(max-width: 600px) 30vw, 170px" "(max-width: 600px) 45vw, 240px" -}}
+{{- $widths := cond $compact (slice 180 360) (slice 240 480) -}}
+{{- $loading := cond (.eager | default false) "eager" "lazy" -}}
+{{/* Include the date in the accessible name: aria-label overrides the link's
+     computed name, so a visible <time> alone would never be announced. Both
+     variants announce it, even when the compact variant doesn't show it. */}}
+<a href="{{ $page.RelPermalink }}" class="comic-card" aria-label="{{ $page.Title }}, {{ $page.Date.Format "January 2, 2006" }}">
+    {{ with $page.Params.image }}
+    <span class="comic-thumb">
+        {{ partial "responsive-img.html" (dict "src" . "alt" $alt "sizes" $sizes "widths" $widths "loading" $loading) }}
+    </span>
+    {{ end }}
+    <span class="comic-card-meta">
+        <span class="comic-card-title">{{ $page.Title }}</span>
+        {{ if not $compact }}
+        <time datetime="{{ $page.Date.Format "2006-01-02" }}" class="comic-card-date">{{ $page.Date.Format "Jan 02 2006" }}</time>
+        {{ end }}
+    </span>
+</a>

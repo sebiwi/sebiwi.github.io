@@ -75,6 +75,52 @@
 }
 
 /* ========================================
+   Terminal palette (Tokyonight)
+   ======================================== */
+/* Shared by every terminal-styled surface: the search modal (search.css),
+   code-block headers, the about page's neofetch panel, and the 404 terminal.
+   Always-dark, theme-independent. JS never sees these values: anything
+   applying terminal colors reads them from here (see the palette-ownership
+   check in test.sh). */
+:root {
+  --term-bg: #1a1b26;
+  --term-overlay: rgba(0, 0, 0, 0.6);
+  --term-border: #414868;
+  --term-text: #a9b1d6;
+  --term-text-dim: #787c99;
+  --term-accent: #bb9af7;
+  --term-accent-hover: #c9a9ff;
+  --term-muted: #565f89;
+  --term-highlight: rgba(187, 154, 247, 0.2);
+  --term-input-bg: #24283b;
+  --term-green: #9ece6a;
+  --term-cyan: #7dcfff;
+  --term-dot-red: #e06c75;
+  --term-dot-yellow: #e5c07b;
+  --term-dot-green: #98c379;
+}
+
+/* Terminal window dots (markup in partials/terminal-dots.html; code-blocks.js
+   builds the same markup client-side for code headers). Explicit color
+   classes, not :nth-child: inserting a sibling must not recolor the dots. */
+.term-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.term-dot-red { background-color: var(--term-dot-red); }
+.term-dot-yellow { background-color: var(--term-dot-yellow); }
+.term-dot-green { background-color: var(--term-dot-green); }
+
+/* Code-block headers use slightly smaller dots. */
+.code-dots .term-dot {
+  width: 10px;
+  height: 10px;
+}
+
+/* ========================================
    Accessibility
    ======================================== */
 
@@ -275,10 +321,10 @@ code {
   display: flex;
   align-items: center;
   gap: 7px;
-  background-color: var(--search-input-bg);
-  color: var(--search-text-dim);
+  background-color: var(--term-input-bg);
+  color: var(--term-text-dim);
   padding: 8px 12px;
-  border: 1px solid var(--search-border);
+  border: 1px solid var(--term-border);
   border-radius: var(--border-radius) var(--border-radius) 0 0;
   font-family: var(--font-mono);
   font-size: 0.7rem;
@@ -290,16 +336,6 @@ code {
   gap: 6px;
   flex-shrink: 0;
 }
-
-.code-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-}
-
-.code-dot:nth-child(1) { background-color: var(--search-dot-red); }
-.code-dot:nth-child(2) { background-color: var(--search-dot-yellow); }
-.code-dot:nth-child(3) { background-color: var(--search-dot-green); }
 
 .code-language {
   font-weight: 600;
@@ -1715,7 +1751,7 @@ html.vt-nav .fade-in-element {
 
 /* ========================================
    About: neofetch panel
-   (reuses the Tokyo Night --search-* vars from search.css;
+   (reuses the Tokyo Night --term-* vars from search.css;
    the panel stays dark in both light and dark themes, like code blocks)
    ======================================== */
 
@@ -1725,8 +1761,8 @@ html.vt-nav .fade-in-element {
 
 .neofetch {
   font-family: var(--font-mono);
-  background: var(--search-bg);
-  border: 1px solid var(--search-border);
+  background: var(--term-bg);
+  border: 1px solid var(--term-border);
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
@@ -1738,10 +1774,10 @@ html.vt-nav .fade-in-element {
   align-items: center;
   gap: 7px;
   padding: 8px 14px;
-  background: var(--search-input-bg);
-  border-bottom: 1px solid var(--search-border);
+  background: var(--term-input-bg);
+  border-bottom: 1px solid var(--term-border);
   font-size: 12px;
-  color: var(--search-text-dim);
+  color: var(--term-text-dim);
 }
 
 .neofetch-title {
@@ -1768,7 +1804,7 @@ html.vt-nav .fade-in-element {
   border: none;
   background: transparent;
   flex-shrink: 0;
-  color: var(--search-accent);
+  color: var(--term-accent);
   font-family: var(--font-mono);
   font-size: 1.1rem;
   line-height: 1.25;
@@ -1803,16 +1839,16 @@ html.vt-nav .fade-in-element {
   flex-direction: column;
   gap: 3px;
   font-size: 0.85rem;
-  color: var(--search-text);
+  color: var(--term-text);
 }
 
 .nf-host {
-  color: var(--search-green);
+  color: var(--term-green);
   font-weight: 700;
 }
 
 .nf-rule {
-  color: var(--search-text-dim);
+  color: var(--term-text-dim);
   -webkit-user-select: none; /* Safari still needs the prefix */
   user-select: none;
   overflow: hidden;
@@ -1825,7 +1861,7 @@ html.vt-nav .fade-in-element {
 }
 
 .nf-key {
-  color: var(--search-accent);
+  color: var(--term-accent);
   flex-shrink: 0;
   min-width: 4.5em;
 }
@@ -1836,7 +1872,7 @@ html.vt-nav .fade-in-element {
 }
 
 .nf-val a {
-  color: var(--search-cyan);
+  color: var(--term-cyan);
   text-decoration: none;
 }
 
@@ -1846,7 +1882,7 @@ html.vt-nav .fade-in-element {
 
 .nf-motd {
   margin-top: 6px;
-  color: var(--search-text-dim);
+  color: var(--term-text-dim);
   font-style: italic;
 }
 
@@ -1873,8 +1909,8 @@ html.about-booting .boot-line.is-on {
 
 /* Glyphs glow faintly while still scrambling, then settle to normal. */
 html.about-booting .boot-line.is-decoding {
-  color: var(--search-accent);
-  text-shadow: 0 0 8px var(--search-accent);
+  color: var(--term-accent);
+  text-shadow: 0 0 8px var(--term-accent);
 }
 
 html.about-booting .neofetch-logo {
@@ -1899,7 +1935,7 @@ html.about-booting .neofetch-logo {
 
 /* ========================================
    404 — terminal "command not found"
-   (reuses the .neofetch terminal frame + --search-* vars)
+   (reuses the .neofetch terminal frame + --term-* vars)
    ======================================== */
 
 .notfound-page {
@@ -1912,7 +1948,7 @@ html.about-booting .neofetch-logo {
   border: none;
   background: transparent;
   color-scheme: dark; /* always-dark surface, keep native scrollbars dark */
-  color: var(--search-text);
+  color: var(--term-text);
   font-family: var(--font-mono);
   font-size: 0.9rem;
   line-height: 1.7;
@@ -1922,32 +1958,32 @@ html.about-booting .neofetch-logo {
 }
 
 .term-prompt {
-  color: var(--search-green);
+  color: var(--term-green);
   font-weight: 700;
   -webkit-user-select: none; /* Safari still needs the prefix */
   user-select: none;
 }
 
 .term-path {
-  color: var(--search-cyan);
+  color: var(--term-cyan);
 }
 
 .term-err {
-  color: var(--search-dot-red, #f7768e);
+  color: var(--term-dot-red);
 }
 
 .term-link {
-  color: var(--search-accent);
+  color: var(--term-accent);
   text-decoration: none;
 }
 
 .term-link:hover {
-  color: var(--search-cyan);
+  color: var(--term-cyan);
   text-decoration: underline;
 }
 
 .term-cursor {
-  color: var(--search-text);
+  color: var(--term-text);
 }
 
 @media (prefers-reduced-motion: no-preference) {

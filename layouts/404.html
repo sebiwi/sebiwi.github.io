@@ -4,9 +4,7 @@
         <h1 class="visually-hidden">Page not found</h1>
         <section class="neofetch terminal-404 fade-in-element" aria-label="404 — page not found">
             <div class="neofetch-chrome">
-                <span class="search-dot" aria-hidden="true"></span>
-                <span class="search-dot" aria-hidden="true"></span>
-                <span class="search-dot" aria-hidden="true"></span>
+                {{ partial "terminal-dots.html" . }}
                 <span class="neofetch-title">sebiwi@scoreplay: ~</span>
             </div>
             <div class="neofetch-body">
@@ -21,10 +19,11 @@
             </div>
         </section>
 
-        <p class="about-intro">404, that page doesn't exist (or moved). Try the search (<span data-shortcut-hint>⌘K</span>) or <a href="/">head home</a>.</p>
+        {{/* data-404-hint is the shell's hook (hint.txt's rm target): behavior
+             binds to the data attribute, styling to the class. */}}
+        <p class="about-intro" data-404-hint>404, that page doesn't exist (or moved). Try the search (<span data-shortcut-hint>⌘K</span>) or <a href="/">head home</a>.</p>
     </div>
 </div>
 
-{{ $notFound := resources.Get "js/notfound.js" | resources.Minify | resources.Fingerprint }}
-<script src="{{ $notFound.RelPermalink }}" integrity="{{ $notFound.Data.Integrity }}" defer></script>
+{{ partial "script-tag.html" (dict "src" "js/notfound.js" "defer" true) }}
 {{ end }}

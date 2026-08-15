@@ -1,0 +1,19 @@
+{{- /*
+  Front-matter contract (terms in CONTEXT.md). One warning per violation:
+  the dev server shows them; test.sh builds with --panicOnWarning, and
+  deploy.yml runs test.sh before deploying, so a violating page can never
+  reach production. Drafts aren't built, so they're never flagged.
+
+  Comics require: title, date, image, alt (the Transcript).
+  Posts require:  title, description, date, tags, author.
+*/ -}}
+{{- if not .Title }}{{ warnf "front matter: %s is missing title" .File.Path }}{{ end -}}
+{{- if .Date.IsZero }}{{ warnf "front matter: %s is missing date" .File.Path }}{{ end -}}
+{{- if eq .Section "comics" -}}
+    {{- if not .Params.image }}{{ warnf "front matter: %s is missing image" .File.Path }}{{ end -}}
+    {{- if not .Params.alt }}{{ warnf "front matter: %s is missing alt (the Transcript)" .File.Path }}{{ end -}}
+{{- else if eq .Section "blog" -}}
+    {{- if not .Params.description }}{{ warnf "front matter: %s is missing description" .File.Path }}{{ end -}}
+    {{- if not .Params.tags }}{{ warnf "front matter: %s is missing tags" .File.Path }}{{ end -}}
+    {{- if not .Params.author }}{{ warnf "front matter: %s is missing author" .File.Path }}{{ end -}}
+{{- end -}}

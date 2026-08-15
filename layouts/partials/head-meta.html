@@ -1,0 +1,76 @@
+{{- /*
+  Description and social metadata for <head>: the description meta, Open
+  Graph, and Twitter Card. Computes the shared description chain once for
+  all three consumers.
+
+  Params (dict):
+    page        - the page
+    canonical   - the canonical URL (paginated list pages self-canonicalize)
+    titleSuffix - the "(tag)"/"(page N)" disambiguator baseof computes
+*/ -}}
+{{- $p := .page -}}
+{{- $canonical := .canonical -}}
+{{- $titleSuffix := .titleSuffix -}}
+{{/* Comics have no description; their alt transcript (the Transcript, see
+     CONTEXT.md) beats the generic site line for search snippets (same
+     fallback the RSS feed uses). */}}
+{{- $desc := $p.Description | default $p.Params.alt | default $p.Site.Params.description }}
+<meta name="description" content="{{ $desc }}">
+
+{{/* Resolve the social-card image (+ its dimensions): blog posts get an
+     auto-generated 1200x630 card, comics use their own image, everything
+     else falls back to the profile. */}}
+{{ $ogImage := "" }}
+{{ $ogW := 0 }}
+{{ $ogH := 0 }}
+{{ $largeCard := false }}
+{{ if and $p.IsPage (eq $p.Section "blog") }}
+    {{ $ogImage = partial "og-image.html" $p }}
+    {{ $ogW = 1200 }}
+    {{ $ogH = 630 }}
+    {{ $largeCard = true }}
+{{ else }}
+    {{ with $p.Params.image }}
+        {{ $ogImage = . | absURL }}
+        {{ $largeCard = true }}
+        {{ with resources.Get (strings.TrimPrefix "/" .) }}{{ $ogW = .Width }}{{ $ogH = .Height }}{{ end }}
+    {{ else }}
+        {{ $ogImage = $p.Site.Params.picture | absURL }}
+        {{ with resources.Get (strings.TrimPrefix "/" $p.Site.Params.picture) }}{{ $ogW = .Width }}{{ $ogH = .Height }}{{ end }}
+    {{ end }}
+{{ end }}
+{{ $ogTitle := cond $p.IsHome $p.Site.Title (printf "%s%s" $p.Title $titleSuffix) }}
+{{/* Comics carry a real transcript in .Params.alt that describes the card
+     image; prefer it as the image's alt so shared cards aren't announced
+     as just the title. */}}
+{{ $ogImageAlt := cond (and $p.IsPage (eq $p.Section "comics")) ($p.Params.alt | default $ogTitle) $ogTitle }}
+
+<!-- Open Graph -->
+<meta property="og:title" content="{{ $ogTitle }}">
+<meta property="og:description" content="{{ $desc }}">
+<meta property="og:type" content="{{ if and $p.IsPage (or (eq $p.Section "blog") (eq $p.Section "comics")) }}article{{ else }}website{{ end }}">
+<meta property="og:url" content="{{ $canonical }}">
+<meta property="og:site_name" content="{{ $p.Site.Title }}">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="{{ $ogImage }}">
+<meta property="og:image:alt" content="{{ $ogImageAlt }}">
+{{ if and (gt $ogW 0) (gt $ogH 0) }}
+<meta property="og:image:width" content="{{ $ogW }}">
+<meta property="og:image:height" content="{{ $ogH }}">
+{{ end }}
+{{ if and $p.IsPage (eq $p.Section "blog") }}
+<meta property="article:published_time" content="{{ $p.Date.Format "2006-01-02T15:04:05Z07:00" }}">
+{{ with $p.Lastmod }}<meta property="article:modified_time" content="{{ .Format "2006-01-02T15:04:05Z07:00" }}">{{ end }}
+<meta property="article:author" content="{{ $p.Site.Params.name }}">
+{{ range $p.Params.tags }}<meta property="article:tag" content="{{ . }}">
+{{ end }}
+{{ end }}
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="{{ if $largeCard }}summary_large_image{{ else }}summary{{ end }}">
+<meta name="twitter:site" content="@{{ $p.Site.Params.social.twitter }}">
+<meta name="twitter:creator" content="@{{ $p.Site.Params.social.twitter }}">
+<meta name="twitter:title" content="{{ $ogTitle }}">
+<meta name="twitter:description" content="{{ $desc }}">
+<meta name="twitter:image" content="{{ $ogImage }}">
+<meta name="twitter:image:alt" content="{{ $ogImageAlt }}">

@@ -1,0 +1,17 @@
+{{- /*
+  Script tag with the full asset-pipeline treatment: minify, fingerprint,
+  SRI integrity. The single owner of that incantation.
+
+  Params (dict):
+    src      - asset path (e.g. "js/comic-nav.js"); or
+    resource - a pre-built resource (e.g. the concatenated site bundle)
+    defer    - optional (default false). Head scripts that must run before
+               first paint stay synchronous.
+
+  A missing asset fails the build loudly (Minify on nil errors) rather than
+  silently dropping the tag.
+*/ -}}
+{{- $r := .resource -}}
+{{- if not $r }}{{ $r = resources.Get .src }}{{ end -}}
+{{- $r = $r | resources.Minify | resources.Fingerprint -}}
+<script src="{{ $r.RelPermalink }}" integrity="{{ $r.Data.Integrity }}"{{ if .defer }} defer{{ end }}></script>

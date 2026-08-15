@@ -39,7 +39,8 @@ document.addEventListener('DOMContentLoaded', function () {
     var dots = document.createElement('span');
     dots.className = 'code-dots';
     dots.setAttribute('aria-hidden', 'true');
-    dots.innerHTML = '<span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span>';
+    // Same markup as partials/terminal-dots.html; keep the two in sync.
+    dots.innerHTML = '<span class="term-dot term-dot-red"></span><span class="term-dot term-dot-yellow"></span><span class="term-dot term-dot-green"></span>';
 
     var langLabel = document.createElement('span');
     langLabel.className = 'code-language';

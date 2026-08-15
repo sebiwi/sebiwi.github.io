@@ -56,6 +56,17 @@ if ! ls public/js/site.bundle.min.*.js >/dev/null 2>&1; then
 fi
 echo "✓ Site JS bundle minified and fingerprinted"
 
+# Per-page and head scripts: each must be emitted minified + fingerprinted
+# (they go through the script-tag partial). A wiring regression that drops
+# one would otherwise only surface as a broken feature in production.
+for script in theme-init view-transition-init comic-nav reading-progress notfound about-boot; do
+    if ! ls public/js/${script}.min.*.js >/dev/null 2>&1; then
+        echo "❌ ${script}.js not built/minified/fingerprinted"
+        exit 1
+    fi
+done
+echo "✓ All per-page scripts minified and fingerprinted"
+
 # Check generated feeds and sitemap exist (the RSS template is custom, so a
 # template error there wouldn't necessarily fail the build hard).
 echo "✅ Checking feeds and sitemap..."
@@ -76,6 +87,63 @@ if [ "$(find public -name '*.webp' | head -1)" = "" ]; then
     exit 1
 fi
 echo "✓ WebP variants generated"
+
+# Palette single-ownership: JS applies the theme tint by reading
+# --color-background off computed style, so the theme hexes must never
+# reappear as literals in built JS. (#fff in the 404 shell's CRT effect is a
+# scenic white, not the palette, and stays out of this pattern.)
+echo "✅ Checking palette ownership..."
+if grep -rlE '#(16161e|ffffff)' public/js/ >/dev/null 2>&1; then
+    echo "❌ Theme palette hex found in built JS — style.css must be the only owner:"
+    grep -rlE '#(16161e|ffffff)' public/js/
+    exit 1
+fi
+echo "✓ No theme palette hexes in built JS"
+
+# Comic Card checks (the comic-card partial owns these behaviours).
+echo "✅ Checking comic cards..."
+
+# Eager-loading: the comics index should have exactly 5 eager images: the
+# profile avatar (profile.html always loads it eagerly) plus the first grid
+# row of 4 cards. More means the lazy default broke; fewer means the eager
+# flag stopped threading through the card's interface.
+eager_count=$(grep -Eo 'loading="?eager"?' public/comics/index.html | wc -l | tr -d ' ')
+if [ "$eager_count" != "5" ]; then
+    echo "❌ Expected 5 eager images on comics index (profile + first row), got $eager_count"
+    exit 1
+fi
+echo "✓ Comics index eager-loads exactly the first card row"
+
+# Accessible names: every comic card announces "Title, Month D, YYYY". The
+# card partial owns the format, so a card without a dated aria-label means
+# the accessible-name policy regressed.
+for page in public/index.html public/comics/index.html; do
+    # The terminator (quote or space) keeps comic-card-meta/-title from matching.
+    cards=$(grep -Eo 'class="?comic-card[" ]' "$page" | wc -l | tr -d ' ')
+    dated=$(grep -Eo 'aria-label="[^"]+, [A-Za-z]+ [0-9]{1,2}, [0-9]{4}"' "$page" | wc -l | tr -d ' ')
+    if [ "$cards" = "0" ] || [ "$cards" != "$dated" ]; then
+        echo "❌ $page: $cards comic cards but $dated dated aria-labels"
+        exit 1
+    fi
+    echo "✓ $page: all $cards comic cards have dated accessible names"
+done
+
+# The front-matter validation seam itself: a deliberately-invalid comic must
+# fail a --panicOnWarning build. This proves the validate-page partial is
+# still wired into the single template — without it, dropping that call in a
+# refactor would pass every other test. Builds to a temp destination so the
+# real public/ stays untouched. (Past date: future-dated pages aren't built,
+# so they'd never reach the validator.)
+echo "✅ Checking front-matter validation seam..."
+probe="content/comics/2000-01-01-validation-probe.md"
+printf -- '---\ntitle: Validation probe\ndate: 2000-01-01\n---\n' > "$probe"
+if hugo --panicOnWarning --destination "$(mktemp -d)" >/dev/null 2>&1; then
+    /bin/rm -f "$probe"
+    echo "❌ Build succeeded despite invalid comic front matter — validation seam broken"
+    exit 1
+fi
+/bin/rm -f "$probe"
+echo "✓ Invalid front matter fails the build"
 
 # Count pages
 page_count=$(find public -name "*.html" | wc -l | tr -d ' ')

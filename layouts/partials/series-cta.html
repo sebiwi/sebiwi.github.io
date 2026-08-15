@@ -2,7 +2,7 @@
      (back-navigation is covered by the series box + chronological footer). */}}
 {{ with .Params.series }}
 {{ $series := . }}
-{{ $parts := sort (where (where site.RegularPages "Section" "blog") "Params.series" $series) "Date" "asc" }}
+{{ $parts := partialCached "series-parts.html" $series $series }}
 {{ if gt (len $parts) 1 }}
 {{ $next := false }}
 {{ $pos := 0 }}

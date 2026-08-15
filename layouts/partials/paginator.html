@@ -1,0 +1,18 @@
+{{- /*
+  The pager for a section page: the single owner of pagination policy.
+  Hugo errors when .Paginate is repeated with different args, and both
+  baseof.html (canonical URL, title suffix) and the list templates need the
+  pager, so routing every call through here makes the calls match by
+  construction.
+
+  Comics paginate at 24 (a fuller grid); everything else uses the
+  hugo.toml default.
+*/ -}}
+{{- /* Hugo's return must sit at the partial's top level, hence the var. */ -}}
+{{- $pager := "" -}}
+{{- if eq .Section "comics" -}}
+{{- $pager = .Paginate .Pages 24 -}}
+{{- else -}}
+{{- $pager = .Paginate .Pages -}}
+{{- end -}}
+{{- return $pager -}}

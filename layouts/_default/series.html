@@ -15,7 +15,7 @@
         <div class="browse-series">
             {{ range $seriesNames }}
             {{ $name := . }}
-            {{ $parts := sort (where (where site.RegularPages "Section" "blog") "Params.series" $name) "Date" "asc" }}
+            {{ $parts := partialCached "series-parts.html" $name $name }}
             <details class="browse-series-item" open>
                 <summary class="browse-series-summary">
                     <span class="browse-series-name">{{ $name }}</span>

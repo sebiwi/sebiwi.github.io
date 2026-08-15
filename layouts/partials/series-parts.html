@@ -1,0 +1,9 @@
+{{- /*
+  Series parts: the ordered parts of one series (see CONTEXT.md).
+
+  Takes a series name; returns its blog posts ordered oldest-first. Part
+  numbers on every surface derive from position in this slice, so this
+  partial is the single owner of the ordering rule. Called via partialCached
+  keyed on the name: all surfaces in a build see the identical slice.
+*/ -}}
+{{- return sort (where (where site.RegularPages "Section" "blog") "Params.series" .) "Date" "asc" -}}

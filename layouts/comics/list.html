@@ -7,29 +7,15 @@
         <div class="breaker fade-in-element"></div>
     </div>
 
-    {{/* Args must match the canonical-URL .Paginate call in baseof.html. */}}
-    {{ $paginator := .Paginate .Pages 24 }}
+    {{ $paginator := partial "paginator.html" . }}
     <div class="comics-wrap">
         <div class="comics-grid fade-in-element">
             {{ range $i, $comic := $paginator.Pages }}
-            {{ $alt := .Params.alt | default .Title }}
             {{/* The top row is above the fold (and likely the LCP): load it
-                 eagerly; everything below stays lazy. */}}
-            {{ $loading := cond (lt $i 4) "eager" "lazy" }}
-            {{/* Include the date in the accessible name: aria-label overrides
-                 the link's computed name, so the visible <time> below would
-                 otherwise never be announced. */}}
-            <a href="{{ .RelPermalink }}" class="comic-card" aria-label="{{ .Title }}, {{ .Date.Format "January 2, 2006" }}">
-                {{ with .Params.image }}
-                <span class="comic-thumb">
-                    {{ partial "responsive-img.html" (dict "src" . "alt" $alt "sizes" "(max-width: 600px) 45vw, 240px" "widths" (slice 240 480) "loading" $loading) }}
-                </span>
-                {{ end }}
-                <span class="comic-card-meta">
-                    <span class="comic-card-title">{{ .Title }}</span>
-                    <time datetime="{{ .Date.Format "2006-01-02" }}" class="comic-card-date">{{ .Date.Format "Jan 02 2006" }}</time>
-                </span>
-            </a>
+                 eagerly; everything below stays lazy. The 4 is the desktop
+                 grid's first-row column count (.comics-grid: minmax(220px,
+                 1fr) columns inside the 1100px .comics-wrap). */}}
+            {{ partial "comic-card.html" (dict "page" . "eager" (lt $i 4)) }}
             {{ end }}
         </div>
 

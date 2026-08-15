@@ -21,9 +21,7 @@
 
         <section class="neofetch fade-in-element" aria-label="about sebiwi">
             <div class="neofetch-chrome">
-                <span class="search-dot" aria-hidden="true"></span>
-                <span class="search-dot" aria-hidden="true"></span>
-                <span class="search-dot" aria-hidden="true"></span>
+                {{ partial "terminal-dots.html" . }}
                 <span class="neofetch-title">sebiwi@scoreplay: ~</span>
             </div>
             <div class="neofetch-body">
@@ -56,7 +54,6 @@
     </div>
 </div>
 {{ if .Site.Params.animations }}
-{{ $aboutBoot := resources.Get "js/about-boot.js" | resources.Minify | resources.Fingerprint }}
-<script src="{{ $aboutBoot.RelPermalink }}" integrity="{{ $aboutBoot.Data.Integrity }}" defer></script>
+{{ partial "script-tag.html" (dict "src" "js/about-boot.js" "defer" true) }}
 {{ end }}
 {{ end }}
