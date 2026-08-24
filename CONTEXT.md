@@ -21,7 +21,7 @@ An ordered sequence of blog posts sharing a `series` front matter key. Parts are
 The "Recent comics" row on the home page; shows compact Comic Cards.
 
 **Transcript**:
-A comic's textual description, stored in the `alt` front matter key. One text, three jobs: image alt text, meta/OG description, and search text.
+A comic's textual description, stored in the `alt` front matter key. One text, three jobs: image alt text (on-page and `og:image:alt`), search text, and the RSS item description. It is deliberately kept out of the page/OG/Twitter description: link unfurls print that text as the card body and spoil the joke.
 
 **Wide comic**:
 A comic whose panels are too small to read at column width, marked `wide: true`; it bleeds past the column on its own page. An editorial legibility judgment, not an aspect-ratio fact: grids ignore it.

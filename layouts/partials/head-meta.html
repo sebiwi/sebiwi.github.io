@@ -11,10 +11,19 @@
 {{- $p := .page -}}
 {{- $canonical := .canonical -}}
 {{- $titleSuffix := .titleSuffix -}}
-{{/* Comics have no description; their alt transcript (the Transcript, see
-     CONTEXT.md) beats the generic site line for search snippets (same
-     fallback the RSS feed uses). */}}
-{{- $desc := $p.Description | default $p.Params.alt | default $p.Site.Params.description }}
+{{/* Comics deliberately do NOT fall back to their alt transcript (the
+     Transcript, see CONTEXT.md) here: link unfurls (Slack, Discord, iMessage)
+     render this text as the card body, which gives the joke away before the
+     reader opens the comic. They fall back to the comics section line
+     instead, so the card stays a title + image invitation to click. The
+     transcript still ships as the on-page image alt and as og:image:alt
+     below, so screen-reader users lose nothing. */}}
+{{- $descFallback := $p.Params.alt -}}
+{{- if and $p.IsPage (eq $p.Section "comics") -}}
+  {{- $descFallback = "" -}}
+  {{- with $p.Parent }}{{ $descFallback = .Description }}{{ end -}}
+{{- end -}}
+{{- $desc := $p.Description | default $descFallback | default $p.Site.Params.description }}
 <meta name="description" content="{{ $desc }}">
 
 {{/* Resolve the social-card image (+ its dimensions): blog posts get an
