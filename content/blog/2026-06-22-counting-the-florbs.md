@@ -1,9 +1,11 @@
 ---
 title: "Counting the florbs: BRIN indexes, rollup tables, and a 90-second query"
 description:
-  "A story about counting fifteen million of something, fast. What a BRIN index
-  is and why it’s great, why it failed at volume, and how a daily rollup table
-  fixed it, proven with query plans."
+  "A story about counting fifteen million florbs, fast. What a BRIN index is and
+  why it’s great, why it failed at volume, and how a daily rollup table fixed
+  it, proven with query plans. There is now a sequel about what happened next:
+  Re-counting the florbs."
+series: "Counting the florbs"
 date: 2026-06-22 09:00:00 +0200
 tags:
   - databases
@@ -24,6 +26,11 @@ seconds to a handful of milliseconds.
 **If you keep reading, I’m going to tell you what a BRIN index is, why it’s
 great, why it wasn’t enough, how a rollup table works, and how to use it for big
 counts.**
+
+**Update, August 2026:** I added a sequel to this. A month after publishing, the
+update query broke the cluster, I thought it was the BRIN index, but turns out
+it wasn't. I'll tell you about it on [Re-counting the florbs: churn
+ultimatum][4].
 
 ## The florbs
 
@@ -166,7 +173,8 @@ CREATE TABLE florbs (
 );
 ```
 
-Step one, the BRIN index, for the narrow windows:
+Step one, the BRIN index, for the narrow windows (heads up: I blamed this index
+for performance issues in [the sequel][4], but I was wrong):
 
 ```sql
 CREATE INDEX CONCURRENTLY idx_florbs_created_at_brin
@@ -300,9 +308,11 @@ relational rollup won on simplicity.
 - BRIN was the right tool for small windows and a trap for large ones, and
   knowing the difference is most of the job.
 
-You still wanna know what a florb is? Why? Some mysteries are load-bearing.
+You still wanna know what a florb is? Why? Just focus on the important topics
+please.
 
 [1]: https://www.postgresql.org/docs/current/brin.html
 [2]: https://clickhouse.com/docs/optimize/skipping-indexes#minmax
 [3]:
   https://www.postgresql.org/docs/current/explicit-locking.html#ADVISORY-LOCKS
+[4]: /blog/re-counting-the-florbs-churn-ultimatum/
