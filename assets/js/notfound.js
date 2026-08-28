@@ -11,7 +11,8 @@
 // like an old CRT.
 // The line editor: a cursor that sits where the caret really is, the readline
 // chords (ctrl+a/e/b/f/w/u/k/y/d/l and alt+b/f/d), up/down through a history
-// kept in sessionStorage, ctrl+r reverse search, tab completion, ctrl+c.
+// kept in sessionStorage, ctrl+r reverse search, tab completion, ctrl+c. The
+// history lives in .sebiwi_history, so rm on that file ends all of it.
 // Jobs: ping, sleep and yes print on a timer and ctrl+c interrupts them, which
 // is the only reason ctrl+c means anything.
 // Toys: uname, env, neofetch, top, ps, df, tree, date, cowsay, fortune, sudo,
@@ -44,6 +45,7 @@
   var WIPE_STEP_MS = 300;
   var MAX_SCROLLBACK = 100;
   var HISTORY_KEY = 'sebiwi:404:history';
+  var HISTORY_FILE = '.sebiwi_history';
   var MAX_HISTORY = 100;
   var YES_LIMIT = 300; // yes runs forever, within reason
 
@@ -89,8 +91,9 @@
     { name: 'terminal', kind: 'element', selector: '.terminal-404', size: 8192 },
     { name: '.bashrc', kind: 'file', hidden: true, content: BASHRC },
     { name: '.gitignore', kind: 'file', hidden: true, content: 'public/\nresources/\n.hugo_build.lock' },
-    // The history file is the history, so it can't go stale either.
-    { name: '.sebiwi_history', kind: 'file', hidden: true, read: function () { return cmdHistory.slice(); } }
+    // The history file is the history, so it can't go stale either. Delete it
+    // and the shell has nowhere left to keep one: see historyKept.
+    { name: HISTORY_FILE, kind: 'file', hidden: true, read: function () { return cmdHistory.slice(); } }
   );
 
   function elementOf(file) {
@@ -118,6 +121,17 @@
     var clean = name.replace(/^~\//, '').replace(/^\//, '').replace(/\/$/, '');
     for (var i = 0; i < files.length; i++) {
       if (files[i].name.replace(/\/$/, '') === clean && exists(files[i])) return files[i];
+    }
+    return null;
+  }
+
+  // A deleted file the shell still knows about. touch remakes that entry rather
+  // than pushing a blank namesake, so .sebiwi_history comes back as the real
+  // history file and not as an empty file wearing its name.
+  function deletedFile(name) {
+    var clean = name.replace(/^~\//, '').replace(/^\//, '');
+    for (var i = 0; i < files.length; i++) {
+      if (files[i].kind === 'file' && files[i].removed && files[i].name === clean) return files[i];
     }
     return null;
   }
@@ -350,6 +364,7 @@
     // A listing entry (a directory with -r, or a file): gone from the listing,
     // and from the navbar, so the deletion shows.
     file.removed = true;
+    if (file.name === HISTORY_FILE) forgetHistory();
     var navLink = file.navSelector ? document.querySelector(file.navSelector) : null;
     if (navLink) vaporize(navLink);
     return 0;
@@ -715,7 +730,7 @@
     pwd: { args: '', blurb: 'where you are', man: 'Always /. There is one directory and you are standing in it.' },
     cat: { args: '<file>', blurb: 'read a file', man: 'Prints a file, or its own standard input in a pipeline. hint.txt and the dotfiles are read straight off the page.' },
     echo: { args: '<text>', blurb: 'say it back', man: 'Prints its arguments. $VARS expand unless single-quoted. -n and -e are swallowed, because every line here is a line.' },
-    touch: { args: '<file>', blurb: 'invent a file', man: 'Creates an empty file. It shows up in ls, completes with tab, and rm can delete it, but it will not survive a reload.' },
+    touch: { args: '<file>', blurb: 'invent a file', man: 'Creates an empty file. It shows up in ls, completes with tab, and rm can delete it, but it will not survive a reload. Touching a name the shell has deleted brings that file back as itself.' },
     mkdir: { args: '<dir>', blurb: 'invent a directory', man: 'Creates a directory. It is not a page, so cd has nowhere to take you.' },
     rm: { args: '[-rf] <file>', blurb: 'remove a file. Or everything.', man: 'Deletes for real. Page elements leave the page, directories take their navbar link with them, and rm -rf / ends the show.' },
     grep: { args: '<pattern>', blurb: 'find lines', man: 'Filters lines by pattern, from files or from a pipe. -i ignores case, -v inverts, -c counts.' },
@@ -723,7 +738,7 @@
     help: { args: '', blurb: 'you are here', man: 'Lists the commands worth knowing. The rest are for people who type things to see what happens.' },
     // Hidden from help, documented for anyone who thinks to ask.
     man: { args: '<command>', blurb: '', hidden: true, man: 'Prints one of these. You are reading it.' },
-    history: { args: '', blurb: '', hidden: true, man: 'Lists the commands you have run, kept in sessionStorage so a reload does not forget them. !! runs the last one, !7 runs the seventh, !ls the most recent ls.' },
+    history: { args: '', blurb: '', hidden: true, man: 'Lists the commands you have run, kept in sessionStorage so a reload does not forget them. !! runs the last one, !7 runs the seventh, !ls the most recent ls. The history is .sebiwi_history: delete that file and the shell forgets everything and stops taking notes, until touch makes it again.' },
     env: { args: '', blurb: '', hidden: true, man: 'Prints the environment. export changes it, unset removes from it, echo expands it.' },
     ping: { args: '<host>', blurb: '', hidden: true, man: 'Pings, forever, one packet a second, until ctrl+c. Everything resolves to 127.0.0.1. It is cozy that way.' },
     uname: { args: '[-a]', blurb: '', hidden: true, man: 'Prints system information. The system is sebiwiOS and the machine is a pencil.' },
@@ -1017,6 +1032,11 @@
       for (var i = 0; i < targets.length; i++) {
         var existing = resolve(targets[i]);
         if (existing) continue; // real touch just moves the clock forward
+        var known = deletedFile(targets[i]);
+        if (known) {
+          known.removed = false;
+          continue;
+        }
         files.push({
           name: targets[i],
           kind: 'file',
@@ -1212,6 +1232,10 @@
     },
 
     history: function (args, io) {
+      if (!historyKept()) {
+        io.out.text('sebiwish: history: ' + HISTORY_FILE + ': No such file or directory');
+        return 1;
+      }
       if (args[0] === '-c') {
         cmdHistory = [];
         histIndex = 0;
@@ -1633,6 +1657,25 @@
   var search = null;                 // { query, at, saved } while ctrl+r is open
   var killRing = '';
 
+  // The history is the file. With .sebiwi_history deleted there is nothing to
+  // list, expand, recall or search, and nothing new gets written down either.
+  // touch .sebiwi_history makes the file again and the shell starts over.
+  function historyKept() {
+    return !!resolve(HISTORY_FILE);
+  }
+
+  // rm .sebiwi_history: the commands go with it, sessionStorage and all.
+  function forgetHistory() {
+    cmdHistory = [];
+    histIndex = 0;
+    draft = '';
+    try {
+      window.sessionStorage.removeItem(HISTORY_KEY);
+    } catch (err) {
+      /* nothing to be done about it */
+    }
+  }
+
   function loadHistory() {
     try {
       var raw = window.sessionStorage.getItem(HISTORY_KEY);
@@ -1691,8 +1734,9 @@
     var line = expanded.line;
     if (expanded.echo) printLine([styled('term-prompt', '$'), textNode(' ' + line)]);
     var trimmed = line.trim();
-    // Like a shell: blank lines and immediate repeats don't pile up.
-    if (trimmed && cmdHistory[cmdHistory.length - 1] !== trimmed) {
+    // Like a shell: blank lines and immediate repeats don't pile up. With no
+    // history file, nothing is written down at all.
+    if (trimmed && historyKept() && cmdHistory[cmdHistory.length - 1] !== trimmed) {
       cmdHistory.push(trimmed);
       if (cmdHistory.length > MAX_HISTORY) cmdHistory.shift();
       saveHistory();
