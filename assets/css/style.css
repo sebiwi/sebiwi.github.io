@@ -1954,7 +1954,11 @@ html.about-booting .neofetch-logo {
   line-height: 1.7;
   white-space: pre-wrap;
   word-break: break-all;
-  overflow-x: auto;
+  /* A terminal is a window onto its scrollback, not a page that grows: output
+     scrolls inside the frame (notfound.js keeps it pinned to the bottom) so a
+     long `ls -l` can't shove the rest of the page down. */
+  max-height: min(60vh, 26rem);
+  overflow: auto;
 }
 
 .term-prompt {
@@ -1982,8 +1986,23 @@ html.about-booting .neofetch-logo {
   text-decoration: underline;
 }
 
+/* Without JS the cursor is a block glyph parked at the end of the line. Once
+   notfound.js takes over (.is-live) it becomes an inverted cell holding the
+   character the caret is actually on, which is how a terminal shows a cursor
+   you can move. */
 .term-cursor {
   color: var(--term-text);
+}
+
+.term-live.is-live .term-cursor {
+  background-color: var(--term-text);
+  color: var(--term-bg);
+}
+
+/* While a command runs there is no prompt, only its output. The input stays in
+   the DOM and focusable so ctrl+c still lands. */
+.term-live.is-running > span {
+  display: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -1991,8 +2010,19 @@ html.about-booting .neofetch-logo {
     animation: term-blink 1.1s steps(1) infinite;
   }
 
+  .term-live.is-live .term-cursor {
+    animation-name: term-blink-cell;
+  }
+
   @keyframes term-blink {
     50% { opacity: 0; }
+  }
+
+  @keyframes term-blink-cell {
+    50% {
+      background-color: transparent;
+      color: inherit;
+    }
   }
 }
 

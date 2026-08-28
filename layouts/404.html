@@ -10,12 +10,14 @@
             <div class="neofetch-body">
                 {{/* Whitespace inside the <pre> renders as-is, hence the flush-left lines.
                      The last line is a live prompt: an invisible real <input> captures
-                     typing while the echo span + block cursor display it (notfound.js). */}}
+                     typing while the spans display it (notfound.js) as text before the
+                     caret, the character under it, and the rest. With no JS the block
+                     cursor stays a block; .is-live switches it to an inverted cell. */}}
                 <pre class="term-404" aria-live="polite"><span class="term-prompt">$</span> cd <span class="term-path" data-404-path>/the/page/you/wanted</span>
 <span class="term-err">cd: no such file or directory</span>
 <span class="term-prompt">$</span> ls ~/
 <a href="/" class="term-link">home/</a>  <a href="/blog/" class="term-link">blog/</a>  <a href="/comics/" class="term-link">comics/</a>  <a href="/about/" class="term-link">about/</a>
-<span class="term-live" data-term-live><span class="term-prompt">$</span> <span class="term-typed" data-term-typed aria-hidden="true"></span><span class="term-cursor" aria-hidden="true">&#9608;</span><input type="text" class="term-input" data-term-input aria-label="Terminal input" tabindex="-1" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="go"></span></pre>
+<span class="term-live" data-term-live><span class="term-prompt">$</span> <span class="term-typed" data-term-typed aria-hidden="true"></span><span class="term-cursor" aria-hidden="true">&#9608;</span><span class="term-typed" data-term-rest aria-hidden="true"></span><input type="text" class="term-input" data-term-input aria-label="Terminal input" tabindex="-1" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="go"></span></pre>
             </div>
         </section>
 
