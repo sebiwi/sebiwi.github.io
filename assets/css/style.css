@@ -2046,6 +2046,93 @@ html.about-booting .neofetch-logo {
   font-size: 1rem;
 }
 
+/* tmux's status line (notfound.js), once tmux is inked and running. It sits
+   flush with the bottom edge of the terminal, the way tmux's does. */
+.term-tmux {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
+  margin: 0 calc(-1 * var(--spacing-md)) calc(-1 * var(--spacing-md));
+  padding: 0 var(--spacing-md);
+  background: var(--term-green);
+  color: var(--term-bg);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  white-space: pre;
+  overflow: hidden;
+}
+
+/* A split tmux window: halves inside halves, sharing the terminal's height.
+   Each border is a one-character rule that turns green where the current
+   pane runs along it, as tmux's borders do. */
+.term-panes {
+  display: flex;
+  height: min(60vh, 26rem);
+  /* Every pane pads its left side, so borders meet; the first pane's padding
+     hangs into the terminal's own margin. */
+  margin-left: calc(-1 * var(--spacing-sm));
+}
+
+.term-panes > *,
+.term-split > * {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 0;
+}
+
+.term-split {
+  display: flex;
+}
+
+.term-split.is-v {
+  flex-direction: column;
+}
+
+.term-split > .term-404 {
+  max-height: none;
+  padding-left: var(--spacing-sm);
+}
+
+.term-split.is-h > * + * {
+  border-left: 1px solid var(--term-border);
+}
+
+.term-split.is-v > * + * {
+  border-top: 1px solid var(--term-border);
+}
+
+.term-split > .is-hot {
+  border-color: var(--term-green);
+}
+
+.term-pane {
+  cursor: pointer;
+}
+
+.term-panes.is-col,
+.term-panes.is-col * {
+  cursor: col-resize;
+}
+
+.term-panes.is-row,
+.term-panes.is-row * {
+  cursor: row-resize;
+}
+
+.term-tmux[hidden] {
+  display: none;
+}
+
+.term-tmux.is-message {
+  background: var(--term-dot-yellow);
+}
+
+.term-tmux > :last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 /* Parting line after `rm -rf /` has wiped the page. */
 .term-shutdown {
   max-width: var(--container-width);
