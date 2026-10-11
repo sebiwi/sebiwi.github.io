@@ -1,0 +1,48 @@
+$ cd /probe-jobscreen.html
+cd: no such file or directory
+$ ls ~/
+home/  blog/  comics/  about/
+$ sudo ink draw less htop curl
+
+We trust you have received the usual lecture from the local System
+Administrator. It usually boils down to these three things:
+
+    #1) Respect the privacy of others.
+    #2) Think before you type.
+    #3) With great power comes great responsibility.
+
+[sudo] password for sebiwi: 
+==> Resolving less htop curl
+==> Drawing 5 packages: ncurses libcurl less htop curl
+ncurses 6.5      [################] 100%
+libcurl 8.11.0   [################] 100%
+less 668         [################] 100%
+htop 3.3.0       [################] 100%
+curl 8.11.0      [################] 100%
+==> less 668 drawn. Try: less
+==> htop 3.3.0 drawn. Try: htop
+==> curl 8.11.0 drawn. Try: curl
+$ less /etc/passwd &
+[1] 1002
+[1]+  Stopped (tty output)    less /etc/passwd
+$ jobs
+[1]+  Stopped (tty output)    less /etc/passwd
+$ top &
+[2] 1003
+[2]+  Stopped (tty output)    top
+$ kill %1 %2
+[1]-  Terminated              less /etc/passwd
+[2]+  Terminated              top
+$ ping -c 0 example.com
+ping: invalid count of packets to transmit: `0'
+$ echo $?
+64
+$ curl https://slow.example/
+^Z
+[1]+  Stopped                 curl https://slow.example/
+$ echo mid
+mid
+$ fg
+curl https://slow.example/
+slow
+$  

@@ -80,6 +80,11 @@ function toFront(job) {
   dom.livePrompt.classList.add('is-running');
 }
 
+// sudo's prompt job, back in front once the command it ran is done.
+export function toForeground(job) {
+  if (job.state !== 'Done') toFront(job);
+}
+
 function release(job) {
   if (jobs.fg !== job) return false;
   jobs.fg = null;
@@ -126,14 +131,17 @@ export function finishReserved(job, status) {
   endJob(job, 'done', status);
 }
 
-export function stopJob(job) {
+// label: 'Stopped' for ctrl+z and SIGSTOP; 'Stopped (tty output)' for a
+// full-screen program started in the background, as bash says it.
+export function stopJob(job, label) {
   if (job.state !== 'Running') return;
+  job.stopLabel = label || 'Stopped';
   tickOff(job);
   job.state = 'Stopped';
   job.proc.state = 'T';
   var wasFront = release(job);
   job.background = true;
-  printText(describe(job, 'Stopped'));
+  printText(describe(job, job.stopLabel));
   if (job.opts && job.opts.onStop) job.opts.onStop();
   var then = job.then;
   job.then = null;
@@ -145,6 +153,7 @@ export function resumeJob(job, front) {
   if (job.state === 'Done') return;
   var wasStopped = job.state === 'Stopped';
   job.state = 'Running';
+  job.stopLabel = null;
   job.proc.state = 'R';
   if (front) toFront(job);
   if (wasStopped) tickOn(job);

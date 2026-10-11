@@ -7,3 +7,5 @@
 #!key Enter
 #!type mk
 #!key Tab
+#!type sudo whoa
+#!key Tab

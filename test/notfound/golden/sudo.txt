@@ -75,4 +75,17 @@ $ shutdown
 Call to PowerOff failed: Interactive authentication required.
 $ sudo -i
 # exit
+$ sudo -k
+$ sudo whoami
+[sudo] password for sebiwi: 
+^C
+$ echo $?
+1
+$ sudo whoami
+[sudo] password for sebiwi: 
+Sorry, try again.
+[sudo] password for sebiwi: 
+Sorry, try again.
+[sudo] password for sebiwi: 
+sudo: 3 incorrect password attempts
 $  

@@ -24,3 +24,11 @@ curl https://slow.example/; echo after
 wget -q https://example.com/data.json
 cat data.json
 sebiwish -c 'curl https://example.com/'
+curl https://throw.example/; echo after
+sudo -k
+sudo curl -s https://example.com/data.json | wc -l
+#!type pw
+#!key Enter
+echo $?
+sudo wget -q -O /root/x https://example.com/data.json
+sudo head -n 1 /root/x

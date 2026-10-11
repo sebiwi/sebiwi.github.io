@@ -1,12 +1,12 @@
 // htop: top with a cursor. The arrows pick a process, F9 or k sends it TERM
 // (it goes, and so does what it drew), q or F10 quits. Refreshes each second.
 
-import { commands } from '../../registry.js';
-import { sh } from '../../state.js';
-import { jobs, startJob, endJob } from '../../jobs.js';
-import { textNode, styled, termRows, enterAltScreen } from '../../screen.js';
-import { table } from '../../procs.js';
+import { endJob, jobs, startJob, stopJob } from '../../jobs.js';
 import { list, signal } from '../../proc.js';
+import { table } from '../../procs.js';
+import { commands } from '../../registry.js';
+import { enterAltScreen, styled, termRows, textNode } from '../../screen.js';
+import { sh } from '../../state.js';
 import { pad, padRight } from '../../util.js';
 
 function meter(label, used, total, text) {
@@ -20,10 +20,14 @@ commands.htop = function (args, io) {
     io.out.text('htop: not a terminal');
     return 1;
   }
-  var screen = enterAltScreen();
+  var user = sh.uid; // sudo htop keeps root's rights for as long as it runs
+  // Started with &, a full-screen program draws nothing: it stops at once,
+  // as a real one does on touching the terminal, and draws when fg resumes it.
+  var screen = io.background ? null : enterAltScreen();
   var selected = 0;
   var note = '';
   function draw() {
+    if (!screen) return;
     var procs = list(table);
     selected = Math.min(selected, procs.length - 1);
     var el = screen.view;
@@ -46,7 +50,7 @@ commands.htop = function (args, io) {
       if (r < rows.length - 1) el.appendChild(textNode('\n'));
     }
   }
-  startJob({
+  var job = startJob({
     every: 1000,
     tick: function () {
       draw();
@@ -58,7 +62,7 @@ commands.htop = function (args, io) {
       if (e.key === 'ArrowDown') selected = Math.min(selected + 1, procs.length - 1);
       else if (e.key === 'ArrowUp') selected = Math.max(selected - 1, 0);
       else if (e.key === 'F9' || e.key === 'k') {
-        var res = signal(table, procs[selected].pid, 'TERM', sh.uid);
+        var res = signal(table, procs[selected].pid, 'TERM', user);
         if (res.error === 'EPERM') note = 'Operation not permitted: try sudo htop';
       } else if (e.key === 'q' || e.key === 'F10') {
         endJob(jobs.fg, 'done');
@@ -68,16 +72,19 @@ commands.htop = function (args, io) {
       return true;
     },
     onEnd: function () {
-      screen.restore();
+      if (screen) screen.restore();
+      screen = null;
     },
     onStop: function () {
-      screen.restore();
+      if (screen) screen.restore();
+      screen = null;
     },
     onResume: function () {
       screen = enterAltScreen();
       draw();
     }
   });
-  draw();
+  if (io.background) stopJob(job, 'Stopped (tty output)');
+  else draw();
   return 0;
 };

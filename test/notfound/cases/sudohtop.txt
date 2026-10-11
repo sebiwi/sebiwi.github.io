@@ -1,0 +1,7 @@
+sudo ink draw htop
+#!type pw
+#!key Enter
+#!wait 2500
+sudo htop
+#!key k
+#!wait 6000

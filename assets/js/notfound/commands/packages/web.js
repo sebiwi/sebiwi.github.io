@@ -17,9 +17,9 @@ function hostPort(href) {
   return { host: url.hostname, port: url.port || (url.protocol === 'https:' ? '443' : '80') };
 }
 
-// A file written where the user is, as > would, with their permissions.
-function save(name, lines) {
-  var c = ctx();
+// A file written where the command was started, as the user who started
+// it: a process keeps its identity while it waits (sudo curl -o /root/x).
+function save(name, lines, c) {
   var made = createFile(fs, name, c);
   var problem = made.error || (isDirLike(made.node) ? 'EISDIR' : made.node.type === 'part' || (made.existed && !can(made.node, c.user, 2)) ? 'EACCES' : null);
   if (problem) return ERR[problem] || problem;
@@ -44,6 +44,7 @@ function cancellable(promise, controller) {
 }
 
 commands.curl = function (args, io) {
+  var started = ctx();
   var o = parseCurl(args);
   if (o.error) {
     for (var e = 0; e < o.error.length; e++) io.out.text(o.error[e]);
@@ -96,7 +97,7 @@ commands.curl = function (args, io) {
       }
       if (!o.head) lines = lines.concat(bodyLines(res.body));
       if (o.output) {
-        var problem = save(o.output === true ? remoteName(href) : o.output, lines);
+        var problem = save(o.output === true ? remoteName(href) : o.output, lines, started);
         if (problem) {
           io.out.text('curl: (23) Failure writing output to destination: ' + problem);
           return 23;
@@ -117,6 +118,7 @@ function stamp() {
 }
 
 commands.wget = function (args, io) {
+  var started = ctx();
   var o = parseWget(args);
   if (o.error) {
     for (var e = 0; e < o.error.length; e++) io.out.text(o.error[e]);
@@ -170,7 +172,7 @@ commands.wget = function (args, io) {
       say('Length: ' + size + ' [' + type + ']');
       say("Saving to: '" + name + "'");
       say('');
-      var problem = save(name, bodyLines(res.body));
+      var problem = save(name, bodyLines(res.body), started);
       if (problem) {
         io.out.text(name + ': ' + problem);
         return 3;

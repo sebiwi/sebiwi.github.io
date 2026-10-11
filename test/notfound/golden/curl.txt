@@ -66,4 +66,16 @@ $ cat data.json
 }
 $ sebiwish -c 'curl https://example.com/'
 curl: the reply would arrive after this line has finished: run curl at the prompt
+$ curl https://throw.example/; echo after
+sebiwish: curl: stub failure
+after
+$ sudo -k
+$ sudo curl -s https://example.com/data.json | wc -l
+[sudo] password for sebiwi: 
+4
+$ echo $?
+0
+$ sudo wget -q -O /root/x https://example.com/data.json
+$ sudo head -n 1 /root/x
+{
 $  

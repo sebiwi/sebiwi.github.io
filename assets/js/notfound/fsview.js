@@ -6,7 +6,7 @@
 
 import { dom } from './dom.js';
 import { envSet, envValue } from './env.js';
-import { forgetHistory, hist } from './history.js';
+import { MAX_HISTORY, forgetHistory, hist, saveHistory } from './history.js';
 import { providerOf } from './inkdb.js';
 import { farewell, vaporize, wipeEverything } from './pageparts.js';
 import { list, reap } from './proc.js';
@@ -137,7 +137,13 @@ export function initFs() {
   attach(me, '.gitignore', node(fs, 'file', { uid: 'sebiwi', mtime: EPOCH, content: 'public/\nresources/\n.hugo_build.lock' }));
   historyNode = attach(me, '.sebiwi_history', node(fs, 'file', {
     uid: 'sebiwi', mode: 0o600, mtime: EPOCH, revivable: true,
-    read: function () { return hist.lines.slice(); }
+    read: function () { return hist.lines.slice(); },
+    // The file is the history: >> adds commands to it, > replaces them.
+    write: function (lines, append) {
+      hist.lines = (append ? hist.lines.concat(lines) : lines.slice()).slice(-MAX_HISTORY);
+      hist.index = hist.lines.length;
+      saveHistory();
+    }
   }));
 }
 

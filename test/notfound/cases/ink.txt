@@ -26,3 +26,7 @@ ls
 /bin/ls
 #!type ls
 #!key Tab
+sudo rm /usr/bin/tmux
+sudo ink draw tmux
+#!wait 1500
+which tmux

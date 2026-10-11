@@ -13,4 +13,4 @@ alias please='sudo'
 alias ..='cd ..'
 export EDITOR=pencil
 # there is no network, only sebiwi
-$ mkdir  
+$ sudo whoami  

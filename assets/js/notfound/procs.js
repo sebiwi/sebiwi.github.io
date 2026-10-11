@@ -58,7 +58,7 @@ function shellSignal(pid) {
   };
 }
 
-function trimState(st, pid, live) {
+function trimState(st, pid) {
   var pids = st.shells.map(function (s) { return s.pid; }).concat([st.pid]);
   var level = pids.indexOf(pid);
   if (level === -1) return false;
@@ -70,7 +70,6 @@ function trimState(st, pid, live) {
   st.cwd = parent.cwd;
   st.uid = parent.uid;
   st.pid = parent.pid;
-  if (live) sh.shells = st.shells;
   return true;
 }
 
@@ -80,7 +79,7 @@ function killShell(pid) {
     return;
   }
   var tmux = getTmux();
-  var outcome = trimState(sh, pid, true);
+  var outcome = trimState(sh, pid);
   if (outcome === 'outermost') {
     if (tmux && tmux.attached) closePaneOf(currentPane());
     return;
@@ -88,7 +87,7 @@ function killShell(pid) {
   if (outcome) return;
   var parked = shellStates();
   for (var i = 0; i < parked.length; i++) {
-    outcome = trimState(parked[i].state, pid, false);
+    outcome = trimState(parked[i].state, pid);
     if (outcome === 'outermost' && parked[i].pane) closePaneOf(parked[i].pane);
     if (outcome) return;
   }

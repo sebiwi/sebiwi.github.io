@@ -8,7 +8,7 @@ import { execute, findCommand, runScript } from '../exec.js';
 import { inputLines } from '../fileio.js';
 import { ctx, fs, historyKept } from '../fsview.js';
 import { HISTORY_FILE, hist, saveHistory } from '../history.js';
-import { describe, endJob, findJob, jobs, markerOf, resumeJob, startJob, stoppedJobs } from '../jobs.js';
+import { describe, endJob, findJob, jobs, markerOf, resumeJob, startJob, stopJob, stoppedJobs } from '../jobs.js';
 import { probeHost, resolveHost } from '../net/net.js';
 import { replyLine, summary, timeoutLine } from '../net/pinglogic.js';
 import { powerOff } from '../pageparts.js';
@@ -198,6 +198,10 @@ Object.assign(commands, {
       return 2;
     }
     var count = numberFlag(args, 'c', null);
+    if (count !== null && !(count > 0)) {
+      io.out.text("ping: invalid count of packets to transmit: `" + args[args.indexOf('-c') + 1] + "'");
+      return 64; // EX_USAGE, as macOS ping
+    }
     var ip = null;
     var sent = 0;
     var waiting = 0;
@@ -391,16 +395,22 @@ Object.assign(commands, {
       reap(table, me.pid);
       return 0;
     }
-    var block = document.createElement('span');
-    block.className = 'term-line';
-    var text = textNode('');
-    block.appendChild(text);
-    dom.pre.insertBefore(block, dom.livePrompt);
+    // Started with &, top draws nothing: it stops at once, as a real one
+    // does on touching the terminal, and draws when fg resumes it.
+    var block = null;
+    var text = null;
     function draw() {
+      if (!block) {
+        block = document.createElement('span');
+        block.className = 'term-line';
+        text = textNode('');
+        block.appendChild(text);
+        dom.pre.insertBefore(block, dom.livePrompt);
+      }
       text.nodeValue = topFrame().join('\n');
       dom.pre.scrollTop = dom.pre.scrollHeight;
     }
-    startJob({
+    var job = startJob({
       every: 1000,
       tick: function () {
         draw();
@@ -411,11 +421,15 @@ Object.assign(commands, {
         endJob(jobs.fg, 'done');
         return true;
       },
+      onResume: function () {
+        draw();
+      },
       onEnd: function () {
-        if (block.parentNode) block.parentNode.removeChild(block); // top leaves the screen as it found it
+        if (block && block.parentNode) block.parentNode.removeChild(block); // top leaves the screen as it found it
       }
     });
-    draw();
+    if (io.background) stopJob(job, 'Stopped (tty output)');
+    else draw();
     return 0;
   },
 
@@ -510,7 +524,7 @@ Object.assign(commands, {
     for (var i = 0; i < jobs.list.length; i++) {
       var job = jobs.list[i];
       var running = job.state === 'Running';
-      io.out.text(describe(job, running ? 'Running' : 'Stopped', long) + (running ? ' &' : ''));
+      io.out.text(describe(job, running ? 'Running' : job.stopLabel || 'Stopped', long) + (running ? ' &' : ''));
     }
   },
 

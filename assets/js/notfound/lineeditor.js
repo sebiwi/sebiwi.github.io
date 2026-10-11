@@ -276,7 +276,10 @@ export function commandNames() {
 
 export function candidates(word, argv, firstWord) {
   var pool;
-  if (firstWord) {
+  // After sudo (and xargs, exec, nohup, time) and their flags comes a
+  // command, so the word completes as one.
+  var runner = /^(sudo|xargs|exec|nohup|time)$/.test(argv[0] || '') && argv.slice(1).every(function (w) { return w.charAt(0) === '-'; });
+  if (firstWord || runner) {
     pool = word.indexOf('/') !== -1 ? pathCandidates(word, false, true) : commandNames();
   } else if (argv[0] === 'cd' || argv[0] === 'rmdir') {
     pool = pathCandidates(word, true, false);
@@ -341,14 +344,27 @@ export function complete() {
 
 // Show whatever the input now holds. Typing, deleting and pasting all end up
 // here, and the caret is read back from the input, so mid-line edits render.
-export function renderInput() {
+// What the hidden input holds while a job reads typing (sudo's prompt): one
+// character, so a mobile Backspace has something to delete and says so in
+// an input event. Nothing typed ever stays in the input.
+export var INPUT_PLACEHOLDER = ' ';
+
+export function renderInput(e) {
   // Mobile keyboards type through input events, not keydown. While a job is
-  // in front, what they type goes to the job (or nowhere) and the input is
-  // emptied, so a password never sits in it.
+  // in front, what they type goes to the job (or nowhere), by the event's
+  // type and text, and the input goes back to empty, or to the placeholder
+  // for a job that reads typing.
   if (jobs.fg) {
-    var typed = dom.input.value;
-    dom.input.value = '';
-    if (typed && jobs.fg.opts && jobs.fg.opts.onInput) jobs.fg.opts.onInput(typed);
+    var reader = jobs.fg.opts && jobs.fg.opts.onInput;
+    var value = dom.input.value;
+    var kind = e && e.inputType;
+    var data = e && typeof e.data === 'string' ? e.data : null;
+    dom.input.value = reader ? INPUT_PLACEHOLDER : '';
+    if (!reader) return;
+    if (kind && kind.indexOf('delete') === 0) reader('', true);
+    else if (data !== null) reader(data, false);
+    else if (value.indexOf(INPUT_PLACEHOLDER) === 0 && value !== INPUT_PLACEHOLDER) reader(value.slice(INPUT_PLACEHOLDER.length), false);
+    else if (value && value !== INPUT_PLACEHOLDER) reader(value, false);
     return;
   }
   if (search) {

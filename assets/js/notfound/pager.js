@@ -3,13 +3,13 @@
 // searches, and leaves the screen as it found it. Off a terminal (in a pipe)
 // both are cat.
 
-import { commands } from './registry.js';
-import { dom } from './dom.js';
-import { jobs, startJob, endJob } from './jobs.js';
-import { textNode, styled, termRows, enterAltScreen } from './screen.js';
-import { inputLines } from './fileio.js';
 import { operandsOf } from './args.js';
-import { createView, pagerKey, search, frame } from './text/pagerview.js';
+import { dom } from './dom.js';
+import { inputLines } from './fileio.js';
+import { endJob, jobs, startJob, stopJob } from './jobs.js';
+import { commands } from './registry.js';
+import { enterAltScreen, styled, termRows, textNode } from './screen.js';
+import { createView, frame, pagerKey, search } from './text/pagerview.js';
 
 function source(args, io, name) {
   var files = operandsOf(args);
@@ -43,11 +43,14 @@ commands.less = function (args, io) {
   // real ones do, instead of paging through nothing.
   if (!got || !got.lines || (got.status && !got.lines.length)) return got ? got.status : 1;
   if (!io.async || !io.tty) return asCat(got.lines, io);
-  var screen = enterAltScreen();
+  // Started with &, a full-screen program draws nothing: it stops at once,
+  // as a real one does on touching the terminal, and draws when fg resumes it.
+  var screen = io.background ? null : enterAltScreen();
   var view = createView(got.lines, termRows());
   var typing = null;
   var note = '';
   function draw() {
+    if (!screen) return;
     var f = frame(view);
     var el = screen.view;
     while (el.firstChild) el.removeChild(el.firstChild);
@@ -59,7 +62,7 @@ commands.less = function (args, io) {
     el.appendChild(textNode(typing !== null ? '/' + typing : note || f.status));
     note = '';
   }
-  startJob({
+  var job = startJob({
     onKey: function (e, key, chord) {
       if (chord && key === 'z') return false; // ctrl+z stops less like anything else
       if (typing !== null) {
@@ -87,17 +90,20 @@ commands.less = function (args, io) {
       return true;
     },
     onEnd: function () {
-      screen.restore();
+      if (screen) screen.restore();
+      screen = null;
     },
     onStop: function () {
-      screen.restore();
+      if (screen) screen.restore();
+      screen = null;
     },
     onResume: function () {
       screen = enterAltScreen();
       draw();
     }
   });
-  draw();
+  if (io.background) stopJob(job, 'Stopped (tty output)');
+  else draw();
   return got.status;
 };
 
@@ -120,8 +126,16 @@ commands.more = function (args, io) {
     dom.pre.insertBefore(status, dom.livePrompt);
     return true;
   }
-  show(rows);
-  startJob({
+  // Started with &, more stops before its first page (it would wait for a
+  // key it cannot read) and shows it when fg resumes it.
+  var started = !io.background;
+  if (started) show(rows);
+  var job = startJob({
+    onResume: function () {
+      if (started) return;
+      started = true;
+      if (!show(rows)) endJob(job, 'done');
+    },
     onKey: function (e, key, chord) {
       if (chord) return false;
       var going = true;
@@ -135,5 +149,6 @@ commands.more = function (args, io) {
       if (status && status.parentNode) status.parentNode.removeChild(status);
     }
   });
+  if (!started) stopJob(job, 'Stopped (tty output)');
   return got.status;
 };

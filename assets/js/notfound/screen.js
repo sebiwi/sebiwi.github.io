@@ -113,3 +113,26 @@ export function enterAltScreen() {
     }
   };
 }
+
+// A screen that can be held: a job stopped with ctrl+z keeps what it would
+// print until fg or bg lets it go, as a stopped process would.
+export function heldSink(gate) {
+  function hold(show) {
+    if (gate.held) gate.queue.push(show);
+    else show();
+  }
+  return {
+    text: function (text) {
+      hold(function () { printText(text); });
+    },
+    line: function (nodes) {
+      hold(function () { printLine(nodes); });
+    },
+    lines: null
+  };
+}
+
+export function releaseSink(gate) {
+  gate.held = false;
+  while (gate.queue.length) gate.queue.shift()();
+}

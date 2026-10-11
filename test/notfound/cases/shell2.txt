@@ -15,3 +15,7 @@ chmod +x s.sh
 ./s.sh
 cal 10 2026
 cal 2 2024 | tail -n 1
+echo hello >> ~/.sebiwi_history
+history | tail -n 2
+> ~/.sebiwi_history
+history

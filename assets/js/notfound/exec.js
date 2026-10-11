@@ -7,7 +7,7 @@ import { providerOf } from './inkdb.js';
 import { endJob, finishReserved, jobs, reserve, startJob } from './jobs.js';
 import { globToRegExp, parse, tokenize } from './parse.js';
 import { BUILTINS, commands, packageManagers } from './registry.js';
-import { captureSink, printText, screenSink, styled } from './screen.js';
+import { captureSink, heldSink, printText, releaseSink, screenSink, styled } from './screen.js';
 import { HOME } from './skeleton.js';
 import { ALIASES, sh } from './state.js';
 import { ERR, can, entries, isDirLike, lookup, readLines } from './vfs.js';
@@ -185,7 +185,8 @@ function runStages(stages, from, stdin, status, canAsync, docs, background) {
       name: expandWord(stages[i].redirect.word)[0],
       append: stages[i].redirect.append
     };
-    var sink = last && !redirect ? screenSink : captureSink();
+    var gate = { held: false, queue: [] };
+    var sink = last && !redirect ? heldSink(gate) : captureSink();
     if (stages[i].input) {
       var fed = stageInput(stages[i].input, docs);
       if (fed === null) {
@@ -195,7 +196,7 @@ function runStages(stages, from, stdin, status, canAsync, docs, background) {
       }
       stdin = fed;
     }
-    var io = { out: sink, stdin: stdin, tty: sink === screenSink, async: canAsync && last && !redirect, canWait: !!canAsync, background: !!background };
+    var io = { out: sink, stdin: stdin, tty: last && !redirect, async: canAsync && last && !redirect, canWait: !!canAsync, background: !!background };
     if (!argv.length && assigns.length) {
       // A pipeline runs each stage in a subshell, so there it sets nothing.
       if (stages.length === 1) {
@@ -205,7 +206,7 @@ function runStages(stages, from, stdin, status, canAsync, docs, background) {
     } else {
       var result = assigns.length ? invokeWith(assigns, argv, io) : invoke(argv, io);
       if (isPending(result)) {
-        waitFor(result, stages, i, sink, redirect, last, canAsync, docs, background);
+        waitFor(result, stages, i, sink, redirect, last, canAsync, docs, background, gate);
         return 0;
       }
       status = result;
@@ -220,14 +221,42 @@ function runStages(stages, from, stdin, status, canAsync, docs, background) {
 // the prompt waits, ctrl+c abandons it (and aborts what was asked), and &
 // puts it in the background. When the answer comes, what the stage printed
 // goes on to the next stages, and the job ends with the pipeline's status.
-function waitFor(pending, stages, i, sink, redirect, last, canAsync, docs, background) {
-  var job = startJob({
-    onEnd: function (abnormal) {
-      if (abnormal && pending.abort) pending.abort();
+function waitFor(pending, stages, i, sink, redirect, last, canAsync, docs, background, gate) {
+  // sudo's password prompt is already a job in front: wait on that one.
+  var job = pending.job || startJob({});
+  job.opts.onEnd = function (abnormal) {
+    if (abnormal && pending.abort) pending.abort();
+  };
+  // Stopped (ctrl+z), the stage's output is held and an answer that comes
+  // meanwhile waits too; fg or bg lets both go.
+  var parked = null;
+  job.opts.onStop = function () {
+    gate.held = true;
+  };
+  job.opts.onResume = function () {
+    releaseSink(gate);
+    if (parked) {
+      var go = parked;
+      parked = null;
+      go();
     }
-  });
+  };
   pending.then(function (code) {
     if (job.state === 'Done') return; // interrupted or killed while it waited
+    if (job.state === 'Stopped') {
+      parked = function () { carryOn(code); };
+      return;
+    }
+    carryOn(code);
+  }, function (err) {
+    // A stage that broke instead of answering: say so and give the prompt
+    // back, rather than leave the line waiting forever.
+    if (job.state === 'Done') return;
+    printText('sebiwish: ' + (job.cmd.split(' ')[0] || 'job') + ': ' + (err && err.message ? err.message : String(err)));
+    endJob(job, 'done', 1);
+  });
+
+  function carryOn(code) {
     var status = typeof code === 'number' ? code : 0;
     var stdin = null;
     if (redirect) status = writeFile(redirect, sink.lines) || status;
@@ -245,7 +274,7 @@ function waitFor(pending, stages, i, sink, redirect, last, canAsync, docs, backg
       return;
     }
     endJob(job, 'done', status);
-  });
+  }
 }
 
 // A line runs segment by segment. A segment that leaves a job in front makes

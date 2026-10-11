@@ -3,17 +3,18 @@
 // one local variable, is checked, and is dropped: never echoed, never in the
 // history, never in the input element.
 
-import { commands } from '../registry.js';
-import { sh } from '../state.js';
-import { envSet } from '../env.js';
-import { enterShell } from '../env.js';
+import { LECTURE, USERS, accepts, cached, createAuth, grant, revoke } from '../auth.js';
+import { dom } from '../dom.js';
+import { enterShell, envSet } from '../env.js';
 import { invoke, invokeWith } from '../exec.js';
-import { jobs, startJob, endJob } from '../jobs.js';
-import { printText } from '../screen.js';
 import { setCwd } from '../fsview.js';
-import { table } from '../procs.js';
+import { endJob, jobs, startJob, toForeground } from '../jobs.js';
+import { INPUT_PLACEHOLDER } from '../lineeditor.js';
 import { find } from '../proc.js';
-import { createAuth, cached, accepts, grant, revoke, USERS, LECTURE } from '../auth.js';
+import { table } from '../procs.js';
+import { commands } from '../registry.js';
+import { printText } from '../screen.js';
+import { sh } from '../state.js';
 
 var auth = createAuth();
 
@@ -21,14 +22,23 @@ function now() {
   return Date.now();
 }
 
-export function askPassword(label, tries, failure, onOk) {
+// The prompt answers with a promise: true for a password, false once the
+// tries are used up (after saying so). The promise carries the prompt's job,
+// so the line waits on it (exec.js waitFor) and ctrl+c interrupts it. Once
+// answered, the job stops taking keys: ctrl+c then reaches what runs next.
+export function askPassword(label, tries, failure) {
   var typed = '';
   var failures = 0;
+  var settle;
+  var answer = new Promise(function (resolve) {
+    settle = resolve;
+  });
   printText(label);
   var job = startJob({
     onKey: function (e, key, chord) {
       if (chord && key === 'c') {
         typed = '';
+        printText('^C');
         endJob(job, 'interrupted', 1);
         return true;
       }
@@ -36,13 +46,13 @@ export function askPassword(label, tries, failure, onOk) {
         var ok = accepts(typed);
         typed = '';
         if (ok) {
-          onOk(job);
+          answered(true);
           return true;
         }
         failures++;
         if (failures >= tries) {
           printText(failure);
-          endJob(job, 'done', 1);
+          answered(false);
           return true;
         }
         printText('Sorry, try again.');
@@ -59,11 +69,21 @@ export function askPassword(label, tries, failure, onOk) {
     onPaste: function (text) {
       typed += text.split(/\r?\n/)[0];
     },
-    onInput: function (value) {
-      typed += value;
+    onInput: function (text, deleting) {
+      typed = deleting ? typed.slice(0, -1) : typed + text;
+    },
+    onEnd: function () {
+      dom.input.value = '';
     }
   });
-  return job;
+  dom.input.value = INPUT_PLACEHOLDER; // see lineeditor.js: a mobile Backspace needs something to delete
+  function answered(ok) {
+    job.opts.onKey = job.opts.onPaste = job.opts.onInput = null;
+    dom.input.value = '';
+    settle(ok);
+  }
+  answer.job = job;
+  return answer;
 }
 
 // A shell as someone else: the subshell machinery, with that user's
@@ -175,7 +195,7 @@ Object.assign(commands, {
       grant(auth, now());
       return run();
     }
-    if (!io.async || io.background) {
+    if (!io.canWait || io.background) {
       io.out.text('sudo: a terminal is required to read the password; either use the -S option to read from standard input or configure an askpass helper');
       return 1;
     }
@@ -183,22 +203,39 @@ Object.assign(commands, {
       for (var l = 0; l < LECTURE.length; l++) io.out.text(LECTURE[l]);
       auth.lectured = true;
     }
-    askPassword('[sudo] password for ' + sh.uid + ': ', 3, 'sudo: 3 incorrect password attempts', function (prompt) {
+    var asked = askPassword('[sudo] password for ' + sh.uid + ': ', 3, 'sudo: 3 incorrect password attempts');
+    var running = null;
+    var done = asked.then(function (ok) {
+      if (!ok) return 1;
       grant(auth, now());
-      jobs.launch = { cmd: argv.join(' '), background: false };
+      var outer = jobs.launch;
+      jobs.launch = { cmd: argv.join(' ') || line, background: false };
       var status = run();
-      jobs.launch = null;
-      // The command may start a job of its own (ink's progress bars). It
-      // takes the front, and the line waits for it instead of the prompt.
-      if (jobs.fg && jobs.fg !== prompt) {
-        jobs.fg.then = prompt.then;
-        prompt.then = null;
-        endJob(prompt, 'done', status, true);
-      } else {
-        endJob(prompt, 'done', status);
+      jobs.launch = outer;
+      if (status && typeof status.then === 'function') {
+        running = status; // curl, wget: the line waits for their answer
+        return status;
       }
+      // A command that starts a job of its own (ink's progress bars) takes
+      // the front; when it ends, sudo's own job is back in front to end the
+      // line's wait, or to carry its ctrl+c.
+      if (jobs.fg && jobs.fg !== asked.job) {
+        var inner = jobs.fg;
+        return new Promise(function (resolve) {
+          inner.then = function (code, how) {
+            toForeground(asked.job);
+            if (how === 'interrupted') endJob(asked.job, 'interrupted', code);
+            else resolve(code);
+          };
+        });
+      }
+      return status;
     });
-    return 0;
+    done.job = asked.job;
+    done.abort = function () {
+      if (running && running.abort) running.abort();
+    };
+    return done;
   },
 
   su: function (args, io) {
@@ -216,14 +253,17 @@ Object.assign(commands, {
       userShell(user, login);
       return 0;
     }
-    if (!io.async || io.background) {
+    if (!io.canWait || io.background) {
       io.out.text('su: must be run from a terminal');
       return 1;
     }
-    askPassword('Password: ', 1, 'su: Authentication failure', function (prompt) {
+    var asked = askPassword('Password: ', 1, 'su: Authentication failure');
+    var done = asked.then(function (ok) {
+      if (!ok) return 1;
       userShell(user, login);
-      endJob(prompt, 'done', 0);
+      return 0;
     });
-    return 0;
+    done.job = asked.job;
+    return done;
   }
 });

@@ -3,14 +3,14 @@
 // /usr/lib; ink erase rubs them out. Both need root, as a package manager
 // should. The download is for show. Nothing outlives the tab.
 
-import { commands } from './registry.js';
-import { sh } from './state.js';
-import { system, installBin, uninstallBin, rootCtx, fs } from './fsview.js';
-import { node, attach, EPOCH } from './vfs.js';
+import { fs, installBin, rootCtx, system, uninstallBin } from './fsview.js';
+import { LIBS, PACKAGES, libFile, planDraw, searchPackages, versionOf } from './inkdb.js';
 import { startJob } from './jobs.js';
+import { commands } from './registry.js';
 import { textNode } from './screen.js';
+import { sh } from './state.js';
 import { pad, padRight } from './util.js';
-import { PACKAGES, LIBS, planDraw, libFile, searchPackages, versionOf } from './inkdb.js';
+import { EPOCH, attach, lookup, node } from './vfs.js';
 
 var INK_STEPS = 10;  // ticks per progress bar
 var INK_TICK_MS = 70;
@@ -54,6 +54,16 @@ function draw(names, io) {
   if (!names.length) {
     io.out.text('ink: draw what? ink search lists what there is.');
     return 1;
+  }
+  // A package whose command file was removed (sudo rm /usr/bin/tmux) is
+  // drawn in name only: say so, and draw it again.
+  for (var n = 0; n < names.length; n++) {
+    var pkg = PACKAGES[names[n]];
+    if (!pkg || !drawn[names[n]]) continue;
+    var gone = pkg.bins.filter(function (bin) { return lookup(fs, '/usr/bin/' + bin, rootCtx()).error; });
+    if (!gone.length) continue;
+    delete drawn[names[n]];
+    io.out.text('==> ' + names[n] + ' ' + pkg.version + ' is drawn, but /usr/bin/' + gone[0] + ' is gone: drawing it again');
   }
   var plan = planDraw(names, drawn);
   var status = 0;

@@ -38,4 +38,11 @@ Su Mo Tu We Th Fr Sa
 25 26 27 28 29 30 31
 $ cal 2 2024 | tail -n 1
 25 26 27 28 29
+$ echo hello >> ~/.sebiwi_history
+$ history | tail -n 2
+   19  hello
+   20  history | tail -n 2
+$ > ~/.sebiwi_history
+$ history
+    1  history
 $  

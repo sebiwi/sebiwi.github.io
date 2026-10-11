@@ -37,3 +37,15 @@ history | grep -c 'open''sesame'
 shutdown
 sudo -i
 #!key ctrl+d
+sudo -k
+sudo whoami
+#!key ctrl+c
+echo $?
+sudo whoami
+#!input insertText a
+#!input insertText b
+#!input deleteContentBackward
+#!input deleteContentBackward
+#!key Enter
+#!key Enter
+#!key Enter

@@ -29,6 +29,9 @@
       if (href === 'https://example.com/post') {
         return { status: 200, headers: [], body: opts.method + ' ' + (opts.body || '') + '\n' };
       }
+      if (href === 'https://throw.example/') {
+        throw new Error('stub failure'); // a bug inside a stage, for exec's waitFor
+      }
       if (href === 'https://slow.example/') {
         return new Promise(function (done) {
           window.setTimeout(function () { done({ status: 200, headers: [], body: 'slow\n' }); }, 5000);
@@ -67,6 +70,19 @@
     input.dispatchEvent(new Event('input', { bubbles: true }));
   }
 
+  // What a mobile keyboard sends: no keydown worth reading, only an input
+  // event carrying its type (insertText, deleteContentBackward) and text.
+  function mobile(spec) {
+    var input = prompt();
+    if (!input || !input.isConnected) return;
+    var parts = spec.split(' ');
+    var kind = parts[0];
+    var data = parts.length > 1 ? parts.slice(1).join(' ') : null;
+    if (kind.indexOf('delete') === 0) input.value = input.value.slice(0, -1);
+    else input.value += data || '';
+    input.dispatchEvent(new InputEvent('input', { inputType: kind, data: data, bubbles: true }));
+  }
+
   function dump() {
     var term = document.querySelector('.term-404');
     var text = term && term.isConnected ? term.textContent : '[terminal removed]\n';
@@ -92,6 +108,8 @@
         delay = parseInt(step.slice(7), 10);
       } else if (step.indexOf('#!key ') === 0) {
         press(step.slice(6));
+      } else if (step.indexOf('#!input ') === 0) {
+        mobile(step.slice(8));
       } else if (step.indexOf('#!type ') === 0) {
         type(step.slice(7));
       } else {

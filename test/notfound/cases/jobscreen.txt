@@ -1,0 +1,17 @@
+sudo ink draw less htop curl
+#!type pw
+#!key Enter
+#!wait 6000
+less /etc/passwd &
+jobs
+top &
+kill %1 %2
+ping -c 0 example.com
+echo $?
+curl https://slow.example/
+#!wait 1000
+#!key ctrl+z
+#!wait 6000
+echo mid
+fg
+#!wait 300

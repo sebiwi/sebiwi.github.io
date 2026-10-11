@@ -85,4 +85,13 @@ $ ls
 ls: command not found
 $ /bin/ls
 sebiwish: /bin/ls: No such file or directory
-$ ls 
+$ sudo rm /usr/bin/tmux
+$ sudo ink draw tmux
+==> tmux 3.5a is drawn, but /usr/bin/tmux is gone: drawing it again
+==> Resolving tmux
+==> Drawing 1 package: tmux
+tmux 3.5a        [################] 100%
+==> tmux 3.5a drawn. Try: tmux
+$ which tmux
+/usr/bin/tmux
+$  
