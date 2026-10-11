@@ -1,0 +1,16 @@
+$ cd /probe-complete.html
+cd: no such file or directory
+$ ls ~/
+home/  blog/  comics/  about/
+$ echo hi
+hi
+$ cat .bashrc 
+# sebiwish, such as it is
+PS1='\u@\h:\w\$ '
+alias ll='ls -l'
+alias la='ls -a'
+alias please='sudo'
+alias ..='cd ..'
+export EDITOR=pencil
+# there is no network, only sebiwi
+$ mkdir  

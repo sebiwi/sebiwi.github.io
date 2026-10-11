@@ -1,0 +1,17 @@
+X=1; echo $X
+env | grep -c X=
+export X; env | grep X=
+false; echo $?
+false || echo recovered
+true && echo chained
+alias
+ll
+sebiwish
+echo $SHLVL
+exit
+echo $SHLVL
+sebiwish -c 'echo inside; exit 3'
+echo $?
+echo again
+!!
+history | tail -n 3

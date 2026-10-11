@@ -1,0 +1,53 @@
+$ cd /probe-procs.html
+cd: no such file or directory
+$ ls ~/
+home/  blog/  comics/  about/
+$ ps
+  PID TTY          TIME CMD
+   42 ttys004  00:00:00 sebiwish
+ 1000 ttys004  00:00:00 ps
+$ ps aux
+USER      PID %CPU %MEM TTY      STAT TIME COMMAND
+root        1  0.4  0.4 ?        S    0:04 hugo server
+sebiwi     42  0.0  0.1 ttys004  S    0:00 sebiwish
+sebiwi    211  0.1  0.2 ?        S    0:00 navd
+sebiwi    212  0.0  0.1 ?        S    0:00 controlsd
+sebiwi    404  4.0  0.4 ?        S    0:00 pencil
+sebiwi   1001  0.0  0.0 ttys004  R    0:00 ps aux
+sebiwi   1998  0.1  0.0 ?        S    0:00 coffee --refill
+$ kill 211
+$ ls
+about  blog  comics  controls  hint.txt  home  terminal
+$ kill 1
+sebiwish: kill: (1) - Operation not permitted
+$ kill 999
+sebiwish: kill: (999) - No such process
+$ kill nav
+sebiwish: kill: nav: arguments must be process or job IDs
+$ killall pencil
+$ cat hint.txt
+cat: hint.txt: No such file or directory
+$ kill -STOP 212
+$ ps aux | grep controlsd
+sebiwi    212  0.0  0.1 ?        T    0:00 controlsd
+$ kill -CONT 212
+$ ps aux | grep controlsd
+sebiwi    212  0.0  0.1 ?        S    0:00 controlsd
+$ sebiwish
+$ echo $$
+405
+$ kill -9 405
+$ echo $SHLVL
+1
+$ ls /proc
+1  1998  212  42
+$ cat /proc/42/cmdline
+sebiwish
+$ kill -l
+ 1) SIGHUP   2) SIGINT   9) SIGKILL 15) SIGTERM 18) SIGCONT 19) SIGSTOP 20) SIGTSTP
+$ pkill -f 'coffee --refill'
+$ killall coffee
+coffee: no process found
+$ kill -9 42
+$  
+[page] Connection to sebiwi closed.

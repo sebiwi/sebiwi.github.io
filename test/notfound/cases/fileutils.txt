@@ -1,0 +1,38 @@
+cp nav navcopy
+rm navcopy
+ls
+ln nav twin
+rm nav
+ls
+rm twin
+ls
+mv controls ctl
+ls -l ctl
+rm ctl
+ls
+mkdir d
+cp -r d e
+cp d f
+mv e d
+ls d
+mv d d/e
+ln -s /etc/hostname host
+cat host
+echo hi > t.txt
+cp t.txt t2.txt
+cat t2.txt
+file host
+file /bin/cp
+file ~
+file blog
+file hint.txt
+file t.txt
+file /dev/null
+stat /etc/hostname | grep -v Inode
+find /etc -name 'host*'
+find . -maxdepth 1 -type d
+find /root
+find . -name '*.txt'
+cp /etc/hostname /etc/copy
+cp nope x
+ln -s x host

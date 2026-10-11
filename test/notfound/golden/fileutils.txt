@@ -1,0 +1,80 @@
+$ cd /probe-fileutils.html
+cd: no such file or directory
+$ ls ~/
+home/  blog/  comics/  about/
+$ cp nav navcopy
+$ rm navcopy
+$ ls
+about  blog  comics  controls  hint.txt  home  nav  terminal
+$ ln nav twin
+$ rm nav
+$ ls
+about  blog  comics  controls  hint.txt  home  terminal  twin
+$ rm twin
+$ ls
+about  blog  comics  controls  hint.txt  home  terminal
+$ mv controls ctl
+$ ls -l ctl
+-r--r--r-- 1 sebiwi sebiwi 256 Jul 13 07:19 ctl
+$ rm ctl
+$ ls
+about  blog  comics  hint.txt  home  terminal
+$ mkdir d
+$ cp -r d e
+$ cp d f
+cp: -r not specified; omitting directory 'd'
+$ mv e d
+$ ls d
+e
+$ mv d d/e
+mv: cannot move 'd' to a subdirectory of itself, 'd/e'
+$ ln -s /etc/hostname host
+$ cat host
+scoreplay
+$ echo hi > t.txt
+$ cp t.txt t2.txt
+$ cat t2.txt
+hi
+$ file host
+host: symbolic link to /etc/hostname
+$ file /bin/cp
+/bin/cp: ELF 64-bit LSB executable, pencil64, dynamically linked, stripped
+$ file ~
+/home/sebiwi: directory
+$ file blog
+blog: HTML page, mounted from /blog/
+$ file hint.txt
+hint.txt: live DOM element
+$ file t.txt
+t.txt: ASCII text
+$ file /dev/null
+/dev/null: character special
+$ stat /etc/hostname | grep -v Inode
+  File: /etc/hostname
+  Size: 9         Blocks: 1         IO Block: 4096   regular file
+Access: (0644/-rw-r--r--)  Uid: (    0/    root)   Gid: (    0/    root)
+Modify: 2026-07-13 07:19:00.000000000 +0000
+ Birth: -
+$ find /etc -name 'host*'
+/etc/hostname
+$ find . -maxdepth 1 -type d
+.
+./about
+./blog
+./comics
+./d
+./home
+$ find /root
+/root
+find: '/root': Permission denied
+$ find . -name '*.txt'
+./hint.txt
+./t.txt
+./t2.txt
+$ cp /etc/hostname /etc/copy
+cp: cannot create regular file '/etc/copy': Permission denied
+$ cp nope x
+cp: cannot stat 'nope': No such file or directory
+$ ln -s x host
+ln: failed to create symbolic link 'host': File exists
+$  

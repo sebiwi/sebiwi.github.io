@@ -1,0 +1,17 @@
+type ls
+type cd
+type ll
+type nope
+alias hi='echo hello'
+hi
+type hi
+unalias hi
+hi
+echo 'echo sourced; X=7' > s.sh
+source s.sh
+echo $X
+. s.sh
+chmod +x s.sh
+./s.sh
+cal 10 2026
+cal 2 2024 | tail -n 1

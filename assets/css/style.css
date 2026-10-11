@@ -1972,6 +1972,23 @@ html.about-booting .neofetch-logo {
   color: var(--term-cyan);
 }
 
+/* A page part whose daemon got SIGSTOP: still there, visibly not moving. */
+.is-stopped {
+  opacity: 0.35;
+  filter: grayscale(1);
+}
+
+/* less highlights what it found; htop marks the selected process. */
+.term-match {
+  background-color: var(--term-highlight);
+  color: var(--term-text);
+}
+
+.term-sel {
+  background-color: var(--term-accent);
+  color: var(--term-bg);
+}
+
 .term-err {
   color: var(--term-dot-red);
 }
@@ -1997,6 +2014,16 @@ html.about-booting .neofetch-logo {
 .term-live.is-live .term-cursor {
   background-color: var(--term-text);
   color: var(--term-bg);
+}
+
+/* Focus shows the way a terminal window shows it: a solid, blinking block
+   while the prompt has focus, a hollow, still one when it does not. The
+   input itself is invisible, so this is the focus indicator (WCAG 2.4.7). */
+.term-live.is-live:not(:focus-within) .term-cursor {
+  background-color: transparent;
+  color: var(--term-text);
+  box-shadow: inset 0 0 0 1px var(--term-text);
+  animation: none;
 }
 
 /* While a command runs there is no prompt, only its output. The input stays in

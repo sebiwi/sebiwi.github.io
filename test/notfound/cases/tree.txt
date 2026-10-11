@@ -1,0 +1,36 @@
+pwd
+cd /
+pwd
+ls
+cd etc
+cat hostname
+cd ..
+cd ~
+pwd
+mkdir -p a/b
+cd a/b
+pwd
+cd ../..
+ls -d a
+cd /root
+ls /root
+cat /etc/sudoers
+echo hi > /etc/motd
+touch /bin/x
+ls -l /etc/hostname
+cd /tmp
+cd -
+mkdir d
+cd d
+rm -r ../d
+pwd
+ls
+cd ..
+pwd
+echo ~
+ls /bin/bash
+/bin/echo direct
+nosuch/path
+ls
+ls -F /bin/bash ~
+ls -p /etc | head -n 2

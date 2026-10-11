@@ -1,0 +1,24 @@
+sudo ink draw less htop jq
+#!type pw
+#!key Enter
+#!wait 5000
+less /etc/passwd
+#!key q
+echo after less
+less nope.json
+echo $?
+more nope.json
+echo $?
+cat /etc/passwd | less | wc -l
+more /etc/passwd
+jq . /usr/share/sebiwi/site.json
+jq -r '.pages[]' /usr/share/sebiwi/site.json
+jq '.pages | length' /usr/share/sebiwi/site.json
+jq -c '.network' /usr/share/sebiwi/site.json
+jq '.name.first' /usr/share/sebiwi/site.json
+jq . nope.json
+echo $?
+htop
+#!key ArrowDown
+#!key q
+echo after htop

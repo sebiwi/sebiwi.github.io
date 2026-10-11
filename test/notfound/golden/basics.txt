@@ -1,0 +1,95 @@
+$ cd /probe-basics.html
+cd: no such file or directory
+$ ls ~/
+home/  blog/  comics/  about/
+$ help
+available commands:
+  ls [-laAd1] [path...]  list files
+  cd <dir>               go somewhere
+  pwd                    where you are
+  cat <file>             read a file
+  echo <text>            say it back
+  touch <file>           invent a file
+  mkdir [-p] <dir>       invent a directory
+  cp [-r] <src> <dest>   copy
+  mv <src> <dest>        move or rename
+  find <path> [tests]    find files
+  rm [-rfv] <file>       remove a file. Or everything.
+  kill [-SIG] <pid|%job> stop a process
+  sudo [-iksl] <command> do it as root
+  grep <pattern>         find lines
+  sed <script> [file]    edit a stream
+  awk <program> [file]   fields and patterns
+  ink <draw|erase> <pkg> draw what is missing
+  clear                  clear the screen
+  help                   you are here
+keys:
+  up/down         walk the history
+  ctrl+r          search the history
+  ctrl+a/e/w/u/k  readline, the useful bits
+  ctrl+c          give up on the line
+  ctrl+z          stop what is running
+  ctrl+l          clear the screen
+  ctrl+d          leave
+  tab             complete a word
+  esc             leave the prompt
+also: pipes, < > redirection, << heredocs, ; && ||, globs, $VARS, and man <command>.
+$ echo hello world
+hello world
+$ pwd
+/home/sebiwi
+$ ls
+about  blog  comics  controls  hint.txt  home  nav  terminal
+$ ls -la
+total 56
+drwxr-xr-x 2 sebiwi sebiwi 4096 Jul 13 07:19 .
+drwxr-xr-x 3 root   root   4096 Jul 13 07:19 ..
+drwxr-xr-x 2 sebiwi sebiwi 4096 Jul 13 07:19 about
+-rw-r--r-- 1 sebiwi sebiwi  170 Jul 13 07:19 .bashrc
+drwxr-xr-x 2 sebiwi sebiwi 4096 Jul 13 07:19 blog
+drwxr-xr-x 2 sebiwi sebiwi 4096 Jul 13 07:19 comics
+-r--r--r-- 1 sebiwi sebiwi  256 Jul 13 07:19 controls
+-rw-r--r-- 1 sebiwi sebiwi   35 Jul 13 07:19 .gitignore
+-r--r--r-- 1 sebiwi sebiwi   42 Jul 13 07:19 hint.txt
+drwxr-xr-x 2 sebiwi sebiwi 4096 Jul 13 07:19 home
+-r--r--r-- 1 sebiwi sebiwi  512 Jul 13 07:19 nav
+-rw------- 1 sebiwi sebiwi   35 Jul 13 07:19 .sebiwi_history
+-r-xr-xr-x 1 sebiwi sebiwi 8192 Jul 13 07:19 terminal
+$ cat .bashrc
+# sebiwish, such as it is
+PS1='\u@\h:\w\$ '
+alias ll='ls -l'
+alias la='ls -a'
+alias please='sudo'
+alias ..='cd ..'
+export EDITOR=pencil
+# there is no network, only sebiwi
+$ cat hint.txt
+404, that page doesn't exist (or moved). Try the search (⌘K) or head home.
+$ whoami
+sebiwi
+$ uname -a
+sebiwiOS scoreplay 4.0.4-comic #1 SMP PREEMPT_HANDDRAWN Sun Jul 13 07:19:00 UTC 2026 pencil64 sebiwiOS
+$ cowsay moo
+Command 'cowsay' not found, but can be installed with:
+sudo ink draw cowsay
+$ neofetch
+Command 'neofetch' not found, but can be installed with:
+sudo ink draw neofetch
+$ nosuchcmd
+nosuchcmd: command not found
+$ apt install vim
+apt: command not found
+This isn't Ubuntu, genius.
+Here we ink: sudo ink draw <tool>
+$ man rm
+RM(1)
+NAME
+     rm - remove a file. Or everything.
+SYNOPSIS
+     rm [-rfv] <file>
+DESCRIPTION
+     Deletes for real. Page parts leave the page, page directories take their navbar link with them, and rm -rf / ends the show. Directories need -r. -f ignores what is not there.
+$ which ls
+/bin/ls
+$  

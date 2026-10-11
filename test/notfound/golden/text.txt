@@ -1,0 +1,59 @@
+$ cd /probe-text.html
+cd: no such file or directory
+$ ls ~/
+home/  blog/  comics/  about/
+$ echo hello world | tr a-z A-Z
+HELLO WORLD
+$ echo hello | tr -d l
+heo
+$ echo 'a  b   c' | tr -s ' '
+a b c
+$ cat /etc/passwd | cut -d : -f 1,6
+root:/root
+sebiwi:/home/sebiwi
+$ echo hello | cut -c 2-4
+ell
+$ echo hello world | sed 's/o/0/g'
+hell0 w0rld
+$ cat /etc/passwd | sed -n '2p'
+sebiwi:x:1000:1000:sebiwi,,,:/home/sebiwi:/bin/sebiwish
+$ cat /etc/passwd | awk -F : '{print $1, $3}'
+root 0
+sebiwi 1000
+$ cat /etc/passwd | awk -F : '$3 > 0 {print $1}'
+sebiwi
+$ echo 3 4 | awk '{print $1 * $2}'
+12
+$ echo hi | tee t.txt
+hi
+$ echo more | tee -a t.txt
+more
+$ cat t.txt
+hi
+more
+$ echo a b c | xargs -n 1 echo item
+item a
+item b
+item c
+$ ls /etc | xargs echo
+group hostname motd os-release passwd shells sudoers
+$ echo one > a; echo two > b
+$ diff a b
+1c1
+< one
+---
+> two
+$ diff -u a b
+--- a
++++ b
+@@ -1 +1 @@
+-one
++two
+$ diff a a
+$ echo $?
+0
+$ sed 'x' t.txt
+sed: -e expression #1, char 1: unknown command: `x'
+$ awk '{print' t.txt
+awk: syntax error at source line 1
+$  

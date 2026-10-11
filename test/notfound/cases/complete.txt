@@ -1,0 +1,9 @@
+#!type ec
+#!key Tab
+#!type echo hi
+#!key Enter
+#!type cat .ba
+#!key Tab
+#!key Enter
+#!type mk
+#!key Tab

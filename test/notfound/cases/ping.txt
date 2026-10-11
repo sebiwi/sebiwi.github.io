@@ -1,0 +1,9 @@
+ping -c 2 example.com
+#!wait 2500
+ping nope.invalid
+echo $?
+ping example.com
+#!wait 1500
+#!key ctrl+c
+ping example.com | head -n 1
+ping

@@ -1,0 +1,78 @@
+$ cd /probe-sudo.html
+cd: no such file or directory
+$ ls ~/
+home/  blog/  comics/  about/
+$ whoami
+sebiwi
+$ id
+uid=1000(sebiwi) gid=1000(sebiwi) groups=1000(sebiwi),27(sudo)
+$ sudo whoami
+
+We trust you have received the usual lecture from the local System
+Administrator. It usually boils down to these three things:
+
+    #1) Respect the privacy of others.
+    #2) Think before you type.
+    #3) With great power comes great responsibility.
+
+[sudo] password for sebiwi: 
+root
+$ sudo whoami
+root
+$ cat /etc/sudoers
+cat: /etc/sudoers: Permission denied
+$ sudo head -n 1 /etc/sudoers
+Defaults        env_reset
+$ sudo -l
+Matching Defaults entries for sebiwi on scoreplay:
+    env_reset, timestamp_timeout=5
+
+User sebiwi may run the following commands on scoreplay:
+    (ALL : ALL) ALL
+$ sudo -k
+$ sudo id
+[sudo] password for sebiwi: 
+Sorry, try again.
+[sudo] password for sebiwi: 
+Sorry, try again.
+[sudo] password for sebiwi: 
+sudo: 3 incorrect password attempts
+$ echo $?
+1
+$ sudo -i
+[sudo] password for sebiwi: 
+# whoami
+root
+# pwd
+/root
+# echo $USER $HOME $EUID
+root /root 0
+# echo $SUDO_USER
+sebiwi
+# cat /root/notes.txt
+the root password is anything.
+it was always anything.
+# exit
+$ whoami
+sebiwi
+$ pwd
+/home/sebiwi
+$ su
+Password: 
+su: Authentication failure
+$ echo $?
+1
+$ su -
+Password: 
+# whoami
+root
+# exit
+$ history | grep -c 'hunt''er2'
+0
+$ history | grep -c 'open''sesame'
+0
+$ shutdown
+Call to PowerOff failed: Interactive authentication required.
+$ sudo -i
+# exit
+$  

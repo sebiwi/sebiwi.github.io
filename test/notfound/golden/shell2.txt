@@ -1,0 +1,41 @@
+$ cd /probe-shell2.html
+cd: no such file or directory
+$ ls ~/
+home/  blog/  comics/  about/
+$ type ls
+ls is /bin/ls
+$ type cd
+cd is a shell builtin
+$ type ll
+ll is aliased to `ls -l'
+$ type nope
+sebiwish: type: nope: not found
+$ alias hi='echo hello'
+$ hi
+hello
+$ type hi
+hi is aliased to `echo hello'
+$ unalias hi
+$ hi
+hi: command not found
+$ echo 'echo sourced; X=7' > s.sh
+$ source s.sh
+sourced
+$ echo $X
+7
+$ . s.sh
+sourced
+$ chmod +x s.sh
+$ ./s.sh
+sourced
+$ cal 10 2026
+    October 2026
+Su Mo Tu We Th Fr Sa
+             1  2  3
+ 4  5  6  7  8  9 10
+11 12 13 14 15 16 17
+18 19 20 21 22 23 24
+25 26 27 28 29 30 31
+$ cal 2 2024 | tail -n 1
+25 26 27 28 29
+$  

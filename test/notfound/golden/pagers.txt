@@ -1,0 +1,71 @@
+$ cd /probe-pagers.html
+cd: no such file or directory
+$ ls ~/
+home/  blog/  comics/  about/
+$ sudo ink draw less htop jq
+
+We trust you have received the usual lecture from the local System
+Administrator. It usually boils down to these three things:
+
+    #1) Respect the privacy of others.
+    #2) Think before you type.
+    #3) With great power comes great responsibility.
+
+[sudo] password for sebiwi: 
+==> Resolving less htop jq
+==> Drawing 5 packages: ncurses oniguruma less htop jq
+ncurses 6.5      [################] 100%
+oniguruma 6.9.9  [################] 100%
+less 668         [################] 100%
+htop 3.3.0       [################] 100%
+jq 1.7.1         [################] 100%
+==> less 668 drawn. Try: less
+==> htop 3.3.0 drawn. Try: htop
+==> jq 1.7.1 drawn. Try: jq
+$ less /etc/passwd
+$ echo after less
+after less
+$ less nope.json
+less: nope.json: No such file or directory
+$ echo $?
+1
+$ more nope.json
+more: nope.json: No such file or directory
+$ echo $?
+1
+$ cat /etc/passwd | less | wc -l
+2
+$ more /etc/passwd
+root:x:0:0:root:/root:/bin/sebiwish
+sebiwi:x:1000:1000:sebiwi,,,:/home/sebiwi:/bin/sebiwish
+$ jq . /usr/share/sebiwi/site.json
+{
+  "name": "sebiwi",
+  "pages": [
+    "home",
+    "blog",
+    "comics",
+    "about"
+  ],
+  "shell": "sebiwish",
+  "network": null
+}
+$ jq -r '.pages[]' /usr/share/sebiwi/site.json
+home
+blog
+comics
+about
+$ jq '.pages | length' /usr/share/sebiwi/site.json
+4
+$ jq -c '.network' /usr/share/sebiwi/site.json
+null
+$ jq '.name.first' /usr/share/sebiwi/site.json
+jq: error: Cannot index string with "first"
+$ jq . nope.json
+jq: nope.json: No such file or directory
+$ echo $?
+2
+$ htop
+$ echo after htop
+after htop
+$  

@@ -1,0 +1,13 @@
+sudo ink draw tmux
+#!type pw
+#!key Enter
+#!wait 3000
+tmux
+echo pane0
+#!key ctrl+b
+#!key c
+echo window1
+tmux list-panes
+exit
+exit
+echo back

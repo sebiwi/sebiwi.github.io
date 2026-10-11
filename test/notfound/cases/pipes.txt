@@ -1,0 +1,14 @@
+cat .bashrc | grep alias | sort -r | head -n 2
+cat .bashrc | wc
+grep -c alias .bashrc
+tail -n 1 .bashrc
+cat <<< 'here string'
+cat <<EOF
+line one
+$USER
+EOF
+echo b > x
+echo a >> x
+echo a >> x
+sort x | uniq
+grep -v a x

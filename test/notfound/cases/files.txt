@@ -1,0 +1,15 @@
+touch a.txt
+ls
+echo one > a.txt
+echo two >> a.txt
+cat a.txt
+wc -l a.txt
+mkdir d
+ls -l .bashrc
+rmdir d
+rm a.txt
+ls
+rm nope
+cd nowhere
+cd hint.txt
+cat nav

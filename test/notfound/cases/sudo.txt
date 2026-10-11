@@ -1,0 +1,39 @@
+whoami
+id
+sudo whoami
+#!type hunter2
+#!key Enter
+sudo whoami
+cat /etc/sudoers
+sudo head -n 1 /etc/sudoers
+sudo -l
+sudo -k
+sudo id
+#!key Enter
+#!key Enter
+#!key Enter
+echo $?
+sudo -i
+#!type opensesame
+#!key Enter
+whoami
+pwd
+echo $USER $HOME $EUID
+echo $SUDO_USER
+cat /root/notes.txt
+exit
+whoami
+pwd
+su
+#!key Enter
+echo $?
+su -
+#!type pw
+#!key Enter
+whoami
+exit
+history | grep -c 'hunt''er2'
+history | grep -c 'open''sesame'
+shutdown
+sudo -i
+#!key ctrl+d

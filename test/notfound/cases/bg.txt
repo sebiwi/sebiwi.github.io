@@ -1,0 +1,26 @@
+sleep 1 && echo slept
+#!wait 1500
+ping x; echo after
+#!wait 1500
+#!key ctrl+c
+ping -c 2 x; echo after
+#!wait 3000
+sleep 30 &
+jobs
+sleep 2 &
+#!wait 2500
+echo tick
+ping x
+#!wait 1200
+#!key ctrl+z
+jobs
+bg
+#!wait 1200
+kill %2
+echo next
+fg %1
+#!wait 300
+#!key ctrl+c
+jobs
+echo hi &
+echo done

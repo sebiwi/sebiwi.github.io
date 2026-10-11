@@ -5,6 +5,12 @@ set -euo pipefail # halt on error, unset var, or failed pipe stage
 # (it lives in test/ but operates on paths relative to the repo root).
 cd "$(dirname "$0")/.."
 
+# The 404 shell's pure modules (filesystem, parser, text tools...) have unit
+# tests that need nothing but Node. A glob, not the directory: node --test
+# treats a directory argument as a module to run.
+echo "🐚 Testing the 404 shell modules..."
+node --test test/notfound/*.test.mjs
+
 echo "🧪 Testing Hugo build..."
 
 # Build site with minification, cleaning stale files from previous builds.

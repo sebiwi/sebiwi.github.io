@@ -1,0 +1,15 @@
+help
+echo hello world
+pwd
+ls
+ls -la
+cat .bashrc
+cat hint.txt
+whoami
+uname -a
+cowsay moo
+neofetch
+nosuchcmd
+apt install vim
+man rm
+which ls

@@ -1,0 +1,28 @@
+cowsay hi
+ink
+ink install cowsay
+ink draw cowsay
+ink list
+ink search cow
+sudo ink draw cowsay tmux
+#!type pw
+#!key Enter
+#!wait 4000
+cowsay hi
+which cowsay
+ls /usr/bin
+ls /usr/lib
+ink list
+ink search cow
+man cowsay
+sudo ink draw cowsay
+sudo ink erase cowsay
+cowsay hi
+man cowsay
+ink remove tmux
+sudo ink draw nope
+sudo rm /bin/ls
+ls
+/bin/ls
+#!type ls
+#!key Tab

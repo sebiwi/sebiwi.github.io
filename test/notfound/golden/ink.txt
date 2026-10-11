@@ -1,0 +1,88 @@
+$ cd /probe-ink.html
+cd: no such file or directory
+$ ls ~/
+home/  blog/  comics/  about/
+$ cowsay hi
+Command 'cowsay' not found, but can be installed with:
+sudo ink draw cowsay
+$ ink
+usage: ink <command> [package...]
+  draw <pkg>      ink a package into the shell
+  erase <pkg>     rub it back out
+  list            what is drawn
+  search [term]   what could be
+$ ink install cowsay
+ink: unknown command 'install'. Did you mean 'draw'?
+$ ink draw cowsay
+ink: cannot draw without root. Are you root?
+$ ink list
+nothing drawn yet. ink search shows what could be.
+$ ink search cow
+cowsay 3.04     a cow, saying things
+$ sudo ink draw cowsay tmux
+
+We trust you have received the usual lecture from the local System
+Administrator. It usually boils down to these three things:
+
+    #1) Respect the privacy of others.
+    #2) Think before you type.
+    #3) With great power comes great responsibility.
+
+[sudo] password for sebiwi: 
+==> Resolving cowsay tmux
+==> Drawing 4 packages: libevent ncurses cowsay tmux
+libevent 2.1.12  [################] 100%
+ncurses 6.5      [################] 100%
+cowsay 3.04      [################] 100%
+tmux 3.5a        [################] 100%
+==> cowsay 3.04 drawn. Try: cowsay
+==> tmux 3.5a drawn. Try: tmux
+$ cowsay hi
+ ____
+< hi >
+ ----
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+$ which cowsay
+/usr/bin/cowsay
+$ ls /usr/bin
+cowsay  tmux
+$ ls /usr/lib
+libevent.so.2  libncurses.so.6
+$ ink list
+cowsay   3.04
+tmux     3.5a
+libevent 2.1.12 (dependency)
+ncurses  6.5 (dependency)
+$ ink search cow
+cowsay 3.04     [drawn] a cow, saying things
+$ man cowsay
+COWSAY(1)
+NAME
+     cowsay - a cow says what you give it
+SYNOPSIS
+     cowsay [text]
+DESCRIPTION
+     A cow says what you give it. moo when you give it nothing.
+$ sudo ink draw cowsay
+ink: cowsay 3.04 is already drawn
+$ sudo ink erase cowsay
+==> Erasing cowsay 3.04... done
+$ cowsay hi
+Command 'cowsay' not found, but can be installed with:
+sudo ink draw cowsay
+$ man cowsay
+No manual entry for cowsay
+$ ink remove tmux
+ink: unknown command 'remove'. Did you mean 'erase'?
+$ sudo ink draw nope
+ink: no package named 'nope'. ink search lists what there is.
+$ sudo rm /bin/ls
+$ ls
+ls: command not found
+$ /bin/ls
+sebiwish: /bin/ls: No such file or directory
+$ ls 

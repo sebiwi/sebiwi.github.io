@@ -1,0 +1,30 @@
+$ cd /probe-files.html
+cd: no such file or directory
+$ ls ~/
+home/  blog/  comics/  about/
+$ touch a.txt
+$ ls
+a.txt  about  blog  comics  controls  hint.txt  home  nav  terminal
+$ echo one > a.txt
+$ echo two >> a.txt
+$ cat a.txt
+one
+two
+$ wc -l a.txt
+2
+$ mkdir d
+$ ls -l .bashrc
+-rw-r--r-- 1 sebiwi sebiwi 170 Jul 13 07:19 .bashrc
+$ rmdir d
+$ rm a.txt
+$ ls
+about  blog  comics  controls  hint.txt  home  nav  terminal
+$ rm nope
+rm: cannot remove 'nope': No such file or directory
+$ cd nowhere
+cd: no such file or directory: nowhere
+$ cd hint.txt
+cd: not a directory: hint.txt
+$ cat nav
+cat: nav: Is a widget
+$  

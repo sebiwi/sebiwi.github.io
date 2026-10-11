@@ -1,0 +1,26 @@
+sudo ink draw curl wget
+#!type pw
+#!key Enter
+#!wait 2500
+curl example.com
+curl -i https://example.com/
+curl https://example.com/data.json | grep name
+curl -s https://example.com/data.json | wc -l
+curl -X POST -d a=1 https://example.com/post
+curl -f https://example.com/missing
+echo $?
+curl https://example.com/missing
+curl nope.invalid
+curl https://nocors.example/
+curl https://down.example/
+curl
+curl -o page.html https://example.com/
+cat page.html
+curl https://slow.example/
+#!wait 1000
+#!key ctrl+c
+curl https://slow.example/; echo after
+#!wait 6000
+wget -q https://example.com/data.json
+cat data.json
+sebiwish -c 'curl https://example.com/'

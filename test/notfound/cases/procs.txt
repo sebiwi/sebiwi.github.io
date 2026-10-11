@@ -1,0 +1,24 @@
+ps
+ps aux
+kill 211
+ls
+kill 1
+kill 999
+kill nav
+killall pencil
+cat hint.txt
+kill -STOP 212
+ps aux | grep controlsd
+kill -CONT 212
+ps aux | grep controlsd
+sebiwish
+echo $$
+kill -9 405
+echo $SHLVL
+ls /proc
+cat /proc/42/cmdline
+kill -l
+pkill -f 'coffee --refill'
+killall coffee
+kill -9 42
+#!wait 3000

@@ -1,0 +1,22 @@
+echo hello world | tr a-z A-Z
+echo hello | tr -d l
+echo 'a  b   c' | tr -s ' '
+cat /etc/passwd | cut -d : -f 1,6
+echo hello | cut -c 2-4
+echo hello world | sed 's/o/0/g'
+cat /etc/passwd | sed -n '2p'
+cat /etc/passwd | awk -F : '{print $1, $3}'
+cat /etc/passwd | awk -F : '$3 > 0 {print $1}'
+echo 3 4 | awk '{print $1 * $2}'
+echo hi | tee t.txt
+echo more | tee -a t.txt
+cat t.txt
+echo a b c | xargs -n 1 echo item
+ls /etc | xargs echo
+echo one > a; echo two > b
+diff a b
+diff -u a b
+diff a a
+echo $?
+sed 'x' t.txt
+awk '{print' t.txt

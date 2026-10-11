@@ -1,0 +1,69 @@
+$ cd /probe-curl.html
+cd: no such file or directory
+$ ls ~/
+home/  blog/  comics/  about/
+$ sudo ink draw curl wget
+
+We trust you have received the usual lecture from the local System
+Administrator. It usually boils down to these three things:
+
+    #1) Respect the privacy of others.
+    #2) Think before you type.
+    #3) With great power comes great responsibility.
+
+[sudo] password for sebiwi: 
+==> Resolving curl wget
+==> Drawing 3 packages: libcurl curl wget
+libcurl 8.11.0   [################] 100%
+curl 8.11.0      [################] 100%
+wget 1.25.0      [################] 100%
+==> curl 8.11.0 drawn. Try: curl
+==> wget 1.25.0 drawn. Try: wget
+$ curl example.com
+<h1>Example</h1>
+<p>hi</p>
+$ curl -i https://example.com/
+HTTP/2 200
+content-type: text/html
+
+<h1>Example</h1>
+<p>hi</p>
+$ curl https://example.com/data.json | grep name
+  "name": "sebiwi",
+$ curl -s https://example.com/data.json | wc -l
+4
+$ curl -X POST -d a=1 https://example.com/post
+POST a=1
+$ curl -f https://example.com/missing
+curl: (22) The requested URL returned error: 404
+$ echo $?
+22
+$ curl https://example.com/missing
+not found
+$ curl nope.invalid
+curl: (6) Could not resolve host: nope.invalid
+$ curl https://nocors.example/
+curl: (56) nocors.example answered, but a web page may not read its reply (no CORS header)
+$ curl https://down.example/
+curl: (7) Failed to connect to down.example port 443: Could not connect to server
+$ curl
+curl: no URL specified!
+curl: try 'curl --help' for more information
+$ curl -o page.html https://example.com/
+$ cat page.html
+<h1>Example</h1>
+<p>hi</p>
+$ curl https://slow.example/
+^C
+$ curl https://slow.example/; echo after
+slow
+after
+$ wget -q https://example.com/data.json
+$ cat data.json
+{
+  "name": "sebiwi",
+  "pages": 4
+}
+$ sebiwish -c 'curl https://example.com/'
+curl: the reply would arrive after this line has finished: run curl at the prompt
+$  

@@ -1,0 +1,51 @@
+$ cd /probe-shell.html
+cd: no such file or directory
+$ ls ~/
+home/  blog/  comics/  about/
+$ X=1; echo $X
+1
+$ env | grep -c X=
+0
+$ export X; env | grep X=
+X=1
+$ false; echo $?
+1
+$ false || echo recovered
+recovered
+$ true && echo chained
+chained
+$ alias
+alias ..='cd ..'
+alias la='ls -a'
+alias ll='ls -l'
+alias please='sudo'
+$ ll
+total 36
+drwxr-xr-x 2 sebiwi sebiwi 4096 Jul 13 07:19 about
+drwxr-xr-x 2 sebiwi sebiwi 4096 Jul 13 07:19 blog
+drwxr-xr-x 2 sebiwi sebiwi 4096 Jul 13 07:19 comics
+-r--r--r-- 1 sebiwi sebiwi  256 Jul 13 07:19 controls
+-r--r--r-- 1 sebiwi sebiwi   42 Jul 13 07:19 hint.txt
+drwxr-xr-x 2 sebiwi sebiwi 4096 Jul 13 07:19 home
+-r--r--r-- 1 sebiwi sebiwi  512 Jul 13 07:19 nav
+-r-xr-xr-x 1 sebiwi sebiwi 8192 Jul 13 07:19 terminal
+$ sebiwish
+$ echo $SHLVL
+2
+$ exit
+$ echo $SHLVL
+1
+$ sebiwish -c 'echo inside; exit 3'
+inside
+$ echo $?
+3
+$ echo again
+again
+$ !!
+$ echo again
+again
+$ history | tail -n 3
+   14  echo $?
+   15  echo again
+   16  history | tail -n 3
+$  

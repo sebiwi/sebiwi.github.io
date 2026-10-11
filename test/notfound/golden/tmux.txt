@@ -1,0 +1,25 @@
+$ cd /probe-tmux.html
+cd: no such file or directory
+$ ls ~/
+home/  blog/  comics/  about/
+$ sudo ink draw tmux
+
+We trust you have received the usual lecture from the local System
+Administrator. It usually boils down to these three things:
+
+    #1) Respect the privacy of others.
+    #2) Think before you type.
+    #3) With great power comes great responsibility.
+
+[sudo] password for sebiwi: 
+==> Resolving tmux
+==> Drawing 3 packages: libevent ncurses tmux
+libevent 2.1.12  [################] 100%
+ncurses 6.5      [################] 100%
+tmux 3.5a        [################] 100%
+==> tmux 3.5a drawn. Try: tmux
+$ tmux
+[exited]
+$ echo back
+back
+$  

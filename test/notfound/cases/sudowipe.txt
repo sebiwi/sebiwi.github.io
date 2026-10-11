@@ -1,0 +1,5 @@
+kill 1
+sudo kill 1
+#!type pw
+#!key Enter
+#!wait 6000

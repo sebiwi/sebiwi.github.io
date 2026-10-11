@@ -1,0 +1,69 @@
+$ cd /probe-tree.html
+cd: no such file or directory
+$ ls ~/
+home/  blog/  comics/  about/
+$ pwd
+/home/sebiwi
+$ cd /
+$ pwd
+/
+$ ls
+bin  dev  etc  home  proc  root  tmp  usr
+$ cd etc
+$ cat hostname
+scoreplay
+$ cd ..
+$ cd ~
+$ pwd
+/home/sebiwi
+$ mkdir -p a/b
+$ cd a/b
+$ pwd
+/home/sebiwi/a/b
+$ cd ../..
+$ ls -d a
+a
+$ cd /root
+cd: permission denied: /root
+$ ls /root
+ls: cannot open directory '/root': Permission denied
+$ cat /etc/sudoers
+cat: /etc/sudoers: Permission denied
+$ echo hi > /etc/motd
+sebiwish: /etc/motd: Permission denied
+$ touch /bin/x
+touch: cannot touch '/bin/x': Permission denied
+$ ls -l /etc/hostname
+-rw-r--r-- 1 root root 9 Jul 13 07:19 /etc/hostname
+$ cd /tmp
+$ cd -
+/home/sebiwi
+$ mkdir d
+$ cd d
+$ rm -r ../d
+$ pwd
+/home/sebiwi/d
+$ ls
+ls: cannot access '.': No such file or directory
+$ cd ..
+$ pwd
+/home/sebiwi
+$ echo ~
+/home/sebiwi
+$ ls /bin/bash
+/bin/bash
+$ /bin/echo direct
+direct
+$ nosuch/path
+sebiwish: nosuch/path: No such file or directory
+$ ls
+a  about  blog  comics  controls  hint.txt  home  nav  terminal
+$ ls -F /bin/bash ~
+/bin/bash@
+
+/home/sebiwi:
+a/  about/  blog/  comics/  controls  hint.txt  home/  nav  terminal*
+$ ls -p /etc | head -n 2
+group
+hostname
+$  

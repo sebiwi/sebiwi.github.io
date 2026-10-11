@@ -1,0 +1,10 @@
+rm nav
+ls
+rm blog
+rm -r blog
+ls
+rm hint.txt
+kill 212
+ls
+rm -rf /
+#!wait 6000

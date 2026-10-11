@@ -1,0 +1,30 @@
+$ cd /probe-pipes.html
+cd: no such file or directory
+$ ls ~/
+home/  blog/  comics/  about/
+$ cat .bashrc | grep alias | sort -r | head -n 2
+alias please='sudo'
+alias ll='ls -l'
+$ cat .bashrc | wc
+      8     28    171
+$ grep -c alias .bashrc
+4
+$ tail -n 1 .bashrc
+# there is no network, only sebiwi
+$ cat <<< 'here string'
+here string
+$ cat <<EOF
+> line one
+> $USER
+> EOF
+line one
+sebiwi
+$ echo b > x
+$ echo a >> x
+$ echo a >> x
+$ sort x | uniq
+a
+b
+$ grep -v a x
+b
+$  

@@ -1,0 +1,9 @@
+ping -c 2 x
+#!wait 3000
+ping x
+#!wait 2500
+#!key ctrl+c
+yes | head -n 3
+sleep 1
+#!wait 1500
+echo after
